@@ -43,15 +43,15 @@ See the regex validating the branch naming [here](.husky/branch-naming).
 **Structure :**
 
 ```
-<type>/<short-description>
+<user>/<type>/<short-description>
 ```
 
 **Examples :**
 
 ```
-feat/signup-page
-ci/github-actions-setup
-fix/calendar-input-focus-not-working
+rv/feat/signup-page
+jk/ci/github-actions-setup
+nc/fix/calendar-input-focus-not-working
 ```
 
 ### Commit messages
