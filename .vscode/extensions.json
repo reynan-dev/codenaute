@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "GitHub.copilot",
+    "GitHub.vscode-pull-request-github",
+    "mquandalle.graphql",
+    "GraphQL.vscode-graphql-execution",
+    "GraphQL.vscode-graphql",
+    "GraphQL.vscode-graphql-syntax"
+  ],
+  "unwantedRecommendations": []
+}
