@@ -2,14 +2,9 @@
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
 
-## :arrow_forward: How to run `front`
-
-1. Setup env by running `pnpm install` or `pnpm --filter front install`
-2. Run `pnpm --filter front dev`
-
 ## Common workspace
 
-Common worspace is used to share code between `front` <> `back`.
+Common worspace is used to share code between `client` <> `server`.
 
 ## Git hooks
 
