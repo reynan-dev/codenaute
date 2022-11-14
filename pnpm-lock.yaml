@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.2.0
   '@commitlint/config-conventional': ^17.2.0
+  husky: ^8.0.2
   pnpm: ^7.16.0
 
 dependencies:
@@ -11,6 +12,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.2.0
   '@commitlint/config-conventional': 17.2.0
+  husky: 8.0.2
 
 packages:
 
@@ -621,6 +623,12 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /husky/8.0.2:
+    resolution: {integrity: sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /import-fresh/3.3.0:
