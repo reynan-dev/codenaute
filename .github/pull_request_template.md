@@ -1,7 +1,7 @@
 ## Ticket
 
-Title:
-Notion Link:
+**Title:**
+**Notion Link:**
 
 ## Description
 
