@@ -2,8 +2,8 @@ install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
 	pnpm install
 
-	# TODO: @echo "Initializating database"
-	# TODO: cd database && make start
+	@echo "Initializating database"
+	cd database && make start
 
 	@echo "Installing dependencies server"
 	cd server && make install
@@ -14,10 +14,9 @@ install: ## Install monorepo dependencies
 hard-install: ## Install hard monorepo dependencies
 	rm -rf node_modules
 	pnpm install
-	# TODO: Implement Hard Install
 
-	# TODO: @echo "Initializating database"
-	# TODO: cd database && make start
+	@echo "Initializating database"
+	cd database && make start
 
 	@echo "Installing dependencies server"
 	cd server && make hard-install
@@ -40,9 +39,5 @@ start:
 	make server
 	make database
 
-.PHONY: install
-.PHONY: hard-install
-.PHONY: client
-.PHONY: server
-.PHONY: database
-.PHONY: start
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
