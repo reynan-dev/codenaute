@@ -1,6 +1,6 @@
 install: ## Install client dependencies
 	@echo "Installing server"
-    # TODO: Implement Install
+	# TODO: Implement Install
 
 hard-install: ## Install hard client dependencies
 	rm -rf node_modules
@@ -18,7 +18,7 @@ test: ## Run client tests
 
 prettier: ## Run prettier
 	@echo "Running prettier"
-    # TODO: config prettier
+	# TODO: config prettier
 
 .PHONY: install
 .PHONY: hard-install
