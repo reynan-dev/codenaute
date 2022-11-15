@@ -4,7 +4,7 @@ install: ## Install client dependencies
 
 hard-install: ## Install hard client dependencies
 	rm -rf node_modules
-	pnpm install --force
+	pnpm install
 
 start: ## Run client
 	@echo "Starting client"

@@ -4,7 +4,7 @@ install: ## Install server dependencies
 
 hard-install: ## Install hard server dependencies
 	rm -rf node_modules
-	pnpm install --force
+	pnpm install
 
 start: ## Run server
 	@echo "Starting server"

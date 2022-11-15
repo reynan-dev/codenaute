@@ -4,6 +4,7 @@ install: ## Install monorepo dependencies
 
 	# TODO: @echo "Initializating database"
 	# TODO: cd database && make start
+
 	@echo "Installing dependencies server"
 	cd server && make install
 
@@ -12,8 +13,17 @@ install: ## Install monorepo dependencies
 
 hard-install: ## Install hard monorepo dependencies
 	rm -rf node_modules
-	pnpm start
+	pnpm install
 	# TODO: Implement Hard Install
+
+	# TODO: @echo "Initializating database"
+	# TODO: cd database && make start
+
+	@echo "Installing dependencies server"
+	cd server && make hard-install
+
+	@echo "Installing dependencies client"
+	cd client && make hard-install
 
 
 client: ## Run client
