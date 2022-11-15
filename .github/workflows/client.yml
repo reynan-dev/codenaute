@@ -1,0 +1,52 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Client CI
+
+on:
+  pull_request:
+    path:
+      - ".github/workflows/client.yml"
+      - "./*"
+      - "server/**"
+
+env:
+  SERVICE_NAME: "client"
+  NODEJS_VERSION: "16.17.1"
+  PNPM_VERSION: "7.16.0"
+  DOCKER_IMAGE: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ${{ env.NODEJS_VERSION }}
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: make install
+
+      - name: Start Application
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make start
+
+      - name: Run Test
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make test
+
+      # - name: Run Docker
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
+      #     docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
+      #     if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
