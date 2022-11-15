@@ -1,4 +1,5 @@
 install: ## Install client dependencies
+	@echo "Installing server"
     # TODO: Implement Install
 
 hard-install: ## Install hard client dependencies
@@ -9,14 +10,14 @@ start: ## Run client
 	pnpm start
 
 watch: ## Run client in watch mode
-    node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
-    # TODO: config watch
+	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
+	# TODO: config watch
 
 test: ## Run client tests
-    # TODO: config tests
+	# TODO: config tests
 
 pretier: ## Run prettier
-    # TODO: config prettier
+	# TODO: config prettier
 
 .PHONY: install
 .PHONY: hard-install

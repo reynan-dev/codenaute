@@ -6,6 +6,7 @@ install: ## Install monorepo dependencies
 	# TODO: cd database && make start
 	@echo "Installing dependencies server"
 	cd server && make install
+
 	@echo "Installing dependencies client"
 	cd client && make install
 

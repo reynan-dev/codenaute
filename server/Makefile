@@ -1,4 +1,5 @@
 install: ## Install server dependencies
+	@echo "Installing server"
 	# TODO: Implement Install
 
 hard-install: ## Install hard server dependencies
@@ -9,9 +10,8 @@ start: ## Run server
 	pnpm start
 
 watch: ## Run server in watch mode
-    node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
+	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
 	# TODO: config watch
-
 
 test: ## Run server tests
 	# TODO: config tests
