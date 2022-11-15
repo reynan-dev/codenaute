@@ -19,9 +19,13 @@ test: ## Run client tests
     pnpm test
     # TODO: config tests
 
+pretier: ## Run prettier
+    pnpm prettier
+
 
 .PHONY: install
 .PHONY: hard-install
 .PHONY: start
 .PHONY: watch
 .PHONY: test
+.PHONY: pretier
