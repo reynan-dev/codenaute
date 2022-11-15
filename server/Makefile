@@ -17,6 +17,7 @@ test: ## Run server tests
 	# TODO: config tests
 
 pretier: ## Run prettier
+	@echo "Running prettier"
     # TODO: config prettier
 
 .PHONY: install
