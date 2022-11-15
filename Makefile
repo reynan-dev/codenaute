@@ -1,6 +1,6 @@
 install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
-	@pnpm start
+	pnpm install
 
 	@echo "Initializating database"
 	cd database && make start
