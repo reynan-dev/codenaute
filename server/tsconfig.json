@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2016",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "es2022",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+
+    /* Emit */
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    "strictPropertyInitialization": false,
+    /* Completeness */
+    "skipLibCheck": true
+  }
+}
