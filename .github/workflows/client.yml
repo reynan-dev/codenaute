@@ -56,8 +56,8 @@ jobs:
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
       - name: Run Prettier
-        working-directory: ./client
-        run: yarn prettier
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make prettier
 
   build:
     needs: [prettier]
