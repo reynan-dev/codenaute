@@ -1,5 +1,5 @@
 install: ## Install client dependencies
-	@echo "Installing server"
+	@echo "Installing client"
 	# TODO: Implement Install
 
 hard-install: ## Install hard client dependencies
@@ -7,14 +7,16 @@ hard-install: ## Install hard client dependencies
 	pnpm install --force
 
 start: ## Run client
-	pnpm start
+	@echo "Starting client"
+	# TODO: Implement Start
 
 watch: ## Run client in watch mode
 	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
 	# TODO: config watch
 
 test: ## Run client tests
-	# TODO: config tests
+	@echo "Testing client"
+	# TODO: Implement Test
 
 prettier: ## Run prettier
 	@echo "Running prettier"
