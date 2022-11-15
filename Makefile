@@ -18,6 +18,7 @@ hard-install: ## Install hard monorepo dependencies
 	pnpm start
 	# TODO: Implement Hard Install
 
+
 client: ## Run client
 	cd client && make start
 
@@ -27,8 +28,14 @@ server: ## Run server
 database: ## Run database
 	cd database && make start
 
+start:
+	make client
+	make server
+	make database
+
 .PHONY: install
 .PHONY: hard-install
 .PHONY: client
 .PHONY: server
 .PHONY: database
+.PHONY: start
