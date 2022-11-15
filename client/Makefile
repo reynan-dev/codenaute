@@ -1,18 +1,18 @@
-install:
+install: ## Install client dependencies
     pnpm install
 
-hard-install:
+hard-install: ## Install hard client dependencies
 	rm -rf node_modules
 	pnpm install --force
 
-start:
+start: ## Run client
 	pnpm start
 
-watch:
+watch: ## Run client in watch mode
     node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
     # TODO: config watch
 
-test:
+test: ## Run client tests
     NODE_ENV=test \
     LOG_ENABLED=false \
     LOG_LEVEL=silent \
