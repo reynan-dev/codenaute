@@ -1,7 +1,3 @@
-MAKEFLAGS += --silent
-include .env
-export $(shell sed 's/=.*//' .env)
-
 install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
 	@pnpm start
