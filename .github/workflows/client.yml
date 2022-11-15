@@ -1,0 +1,72 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Client CI
+
+on:
+  pull_request:
+    path:
+      - ".github/workflows/client.yml"
+      - "./*"
+      - "client/**"
+
+env:
+  SERVICE_NAME: "client"
+  NODEJS_VERSION: "16.17.1"
+  PNPM_VERSION: "7.16.0"
+  DOCKER_IMAGE: ""
+
+jobs:
+  pnpm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start Node.js ${{ env.NODEJS_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODEJS_VERSION }}
+
+      - name: Start pnpm ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+
+      - name: Install Dependencies
+        run: make install
+
+  prettier:
+    needs: pnpm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
+      - name: Run Prettier
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make prettier
+
+  build:
+    needs: [prettier]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
+      - name: Start Application
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make start
+
+      - name: Run Test
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make test
