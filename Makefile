@@ -10,7 +10,7 @@ install: ## Install monorepo dependencies
 	cd client && make install
 
 hard-install: ## Install hard monorepo dependencies
-    rm -rf node_modules
+	rm -rf node_modules
 	pnpm start
 	# TODO: Implement Hard Install
 
