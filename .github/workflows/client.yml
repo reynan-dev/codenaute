@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Client CI
+name: ClientCI
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ env:
   DOCKER_IMAGE: ""
 
 jobs:
-  build:
+  pnpm:
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,6 +28,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -37,6 +43,34 @@ jobs:
       - name: Install Dependencies
         run: make install
 
+  prettier:
+    needs: pnpm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
+      - name: Run Prettier
+        working-directory: ./client
+        run: yarn prettier
+
+  build:
+    needs: [prettier]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
       - name: Start Application
         working-directory: ./${{env.SERVICE_NAME}}
         run: make start
@@ -44,9 +78,3 @@ jobs:
       - name: Run Test
         working-directory: ./${{env.SERVICE_NAME}}
         run: make test
-
-      # - name: Run Docker
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run: docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
-      #     docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
-      #     if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
