@@ -1,29 +1,31 @@
 install: ## Install server dependencies
 	@echo "Installing server"
-	# TODO: Implement Install
+	pnpm install
 
 hard-install: ## Install hard server dependencies
 	rm -rf node_modules
 	pnpm install
 
+build:
+	@echo "Building server"
+	pnpm build
+
 start: ## Run server
 	@echo "Starting server"
-	# TODO: Implement Start
+	pnpm start
 
 watch: ## Run server in watch mode
-	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
-	# TODO: config watch
+	@echo "Starting server in watch mode"
+	pnpm start:watch
 
 test: ## Run server tests
 	@echo "Testing server"
-	# TODO: Implement Test
+	pnpm jest
 
 prettier: ## Run prettier
 	@echo "Running prettier"
 	# TODO: config prettier
 
-.PHONY: install
-.PHONY: hard-install
-.PHONY: start
-.PHONY: watch
-.PHONY: test
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
+
