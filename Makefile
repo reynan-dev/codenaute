@@ -13,18 +13,18 @@ install: ## Install monorepo dependencies
 	@echo "Installing dependencies client"
 	cd client && make install
 
-hard-install:
+hard-install: ## Install hard monorepo dependencies
     rm -rf node_modules
 	npm start
 	# TODO: Implement Hard Install
 
-client:
+client: ## Run client
 	cd client && make start
 
-server:
+server: ## Run server
 	cd server && make start
 
-database:
+database: ## Run database
 	cd database && make start
 
 .PHONY: install
