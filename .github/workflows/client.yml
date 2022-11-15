@@ -8,7 +8,7 @@ on:
     path:
       - ".github/workflows/client.yml"
       - "./*"
-      - "server/**"
+      - "client/**"
 
 env:
   SERVICE_NAME: "client"
@@ -31,20 +31,6 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.0.2
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: make install
