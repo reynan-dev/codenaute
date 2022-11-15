@@ -8,7 +8,7 @@ install: ## Install monorepo dependencies
 	cd server && make install
 
 	@echo "Installing dependencies client"
-	cd client && make install
+	cd client && make instal
 
 hard-install: ## Install hard monorepo dependencies
 	rm -rf node_modules
