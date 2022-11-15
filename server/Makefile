@@ -1,19 +1,19 @@
-install:
+install: ## Install server dependencies
     pnpm install
 
-hard-install:
+hard-install: ## Install hard server dependencies
 	rm -rf node_modules
 	pnpm install --force
 
-start:
+start: ## Run server
 	pnpm start
 
-watch:
+watch: ## Run server in watch mode
     node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
 	# TODO: config watch
 
 
-test:
+test: ## Run server tests
     NODE_ENV=test \
     LOG_ENABLED=false \
     LOG_LEVEL=silent \
