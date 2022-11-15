@@ -6,12 +6,18 @@ services:
     build:
       dockerfile: Dockerfile
     image: postgres:14.6-alpine
-    expose:
-      - 3306
+    ports:
+      - 5432:3306
     env_file:
       - .env.development
     volumes:
       - ./database/postgres:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 networks:
   default:
