@@ -14,14 +14,9 @@ watch: ## Run server in watch mode
 
 
 test: ## Run server tests
-    NODE_ENV=test \
-    LOG_ENABLED=false \
-    LOG_LEVEL=silent \
-    pnpm test
 	# TODO: config tests
 
 pretier: ## Run prettier
-    pnpm prettier
     # TODO: config prettier
 
 .PHONY: install
