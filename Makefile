@@ -4,7 +4,7 @@ export $(shell sed 's/=.*//' .env)
 
 install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
-	@npm start
+	@pnpm start
 
 	@echo "Initializating database"
 	cd database && make start
@@ -15,7 +15,7 @@ install: ## Install monorepo dependencies
 
 hard-install: ## Install hard monorepo dependencies
     rm -rf node_modules
-	npm start
+	pnpm start
 	# TODO: Implement Hard Install
 
 client: ## Run client
