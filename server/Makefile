@@ -1,5 +1,5 @@
 install: ## Install server dependencies
-    pnpm install
+	# TODO: Implement Install
 
 hard-install: ## Install hard server dependencies
 	rm -rf node_modules
