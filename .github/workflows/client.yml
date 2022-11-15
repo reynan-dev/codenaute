@@ -19,12 +19,6 @@ env:
 jobs:
   pnpm:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: ${{ env.NODEJS_VERSION }}
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
 
@@ -34,10 +28,10 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Start Node.js ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODEJS_VERSION }}
           cache: "pnpm"
 
       - name: Install Dependencies
