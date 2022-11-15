@@ -22,17 +22,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache Dependencies
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
-
       - name: Start Node.js ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODEJS_VERSION }}
-          cache: "pnpm"
+
+      - name: Start pnpm ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: make install
