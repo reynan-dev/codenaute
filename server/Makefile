@@ -16,7 +16,7 @@ watch: ## Run server in watch mode
 test: ## Run server tests
 	# TODO: config tests
 
-pretier: ## Run prettier
+prettier: ## Run prettier
 	@echo "Running prettier"
     # TODO: config prettier
 
