@@ -20,6 +20,10 @@ test: ## Run server tests
     pnpm test
 	# TODO: config tests
 
+pretier: ## Run prettier
+    pnpm prettier
+    # TODO: config prettier
+
 .PHONY: install
 .PHONY: hard-install
 .PHONY: start
