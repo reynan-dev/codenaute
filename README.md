@@ -2,6 +2,34 @@
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
 
+## Install dependencies
+
+To install all dependencies, run:
+
+`make install`
+
+If you want to hard install all dependencies, run:
+
+`make hard-install`
+
+## Start applications
+
+To start all applications, run:
+
+`make start`
+
+To start server application, run:
+
+`make server`
+
+To start client application, run:
+
+`make client`
+
+To start database, run:
+
+`make database`
+
 ## Common workspace
 
 Common worspace is used to share code between `client` <> `server`.
