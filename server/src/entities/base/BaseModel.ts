@@ -12,7 +12,7 @@ import {
 export default class BaseModels {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  id!: string;
+  id: string;
 
   @CreateDateColumn()
   @Field()
