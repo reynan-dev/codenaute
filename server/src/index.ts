@@ -9,6 +9,8 @@ import CommonResolver from './resolvers/CommonResolver.js';
 import { connectDB } from './db.js';
 
 const startServer = async () => {
+  await connectDB();
+
   const server = new ApolloServer({
     schema: await buildSchema({
       resolvers: [CommonResolver],
@@ -21,7 +23,5 @@ const startServer = async () => {
   const { url } = await server.listen(process.env.GRAPHQL_PORT);
 
   console.log(`🚀 Server ready at ${url}`);
-
-  connectDB();
 };
 startServer();
