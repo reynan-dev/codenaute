@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysql:
-    container_name: mysql-coder-database
+    container_name: mysql-coder
     build:
       dockerfile: Dockerfile
     image: mysql:8.0.31
@@ -17,7 +17,7 @@ services:
     restart: always
 
   adminer:
-    container_name: adminer
+    container_name: adminer-coder
     image: adminer
     ports:
       - 8080:8080
@@ -26,7 +26,7 @@ services:
       - ADMINER_DEFAULT_SERVER=mysql
 
   redis:
-    container_name: redis
+    container_name: redis-coder
     image: redis:alpine
     ports:
       - 6379:6379
