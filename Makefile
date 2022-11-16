@@ -2,7 +2,6 @@ install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
 	pnpm install
 
-	cd database && make start
 	cd server && make install
 	cd client && make install
 
@@ -10,7 +9,6 @@ hard-install: ## Install hard monorepo dependencies
 	rm -rf node_modules
 	pnpm install
 
-	cd database && make start
 	cd server && make hard-install
 	cd client && make hard-install
 
