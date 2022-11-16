@@ -1,13 +1,12 @@
-import { ApolloServer } from "apollo-server";
-import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
-import { buildSchema } from "type-graphql";
+import 'dotenv/config';
 
-import * as dotenv from "dotenv";
-dotenv.config();
+import { ApolloServer } from 'apollo-server';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { buildSchema } from 'type-graphql';
 
-import CommonResolver from "./resolvers/CommonResolver.js";
+import CommonResolver from './resolvers/CommonResolver.js';
 
-import { connectDB } from "./db.js";
+import { connectDB } from './db.js';
 
 const startServer = async () => {
   const server = new ApolloServer({
@@ -15,13 +14,14 @@ const startServer = async () => {
       resolvers: [CommonResolver],
     }),
     csrfPrevention: true,
-    cache: "bounded",
+    cache: 'bounded',
     plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   });
 
   const { url } = await server.listen(process.env.GRAPHQL_PORT);
+
   console.log(`🚀 Server ready at ${url}`);
+
   connectDB();
 };
-
 startServer();
