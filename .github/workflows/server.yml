@@ -65,7 +65,7 @@ jobs:
 
       - name: Start Application
         working-directory: ./${{env.SERVICE_NAME}}
-        run: pnpm start:watch
+        run: npm run start:watch
 
       - name: Run Test
         working-directory: ./${{env.SERVICE_NAME}}
