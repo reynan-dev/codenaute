@@ -13,7 +13,7 @@ build:
 
 start: ## Run server
 	@echo "Starting server"
-	pnpm start
+	make build && pnpm start
 
 watch: ## Run server in watch mode
 	@echo "Starting server in watch mode"
