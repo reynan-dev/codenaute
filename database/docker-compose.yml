@@ -1,23 +1,19 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres-coder-database
+  mysql:
+    container_name: mysql-coder-database
     build:
       dockerfile: Dockerfile
-    image: postgres:14.6-alpine
+    image: mysql:8.0.31
+    privileged: true
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sort_buffer_size=512K --skip-grant-tables
     ports:
-      - 5432:3306
+      - 3306:3306
     env_file:
-      - .env.development
+      - .env
     volumes:
-      - ./database/postgres:/var/lib/postgresql/data
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      - ./volumes/mysql:/var/lib/mysql
 
 networks:
   default:
