@@ -1,2 +1,12 @@
-.tool-versions
+.DS_Store
 node_modules
+.env
+.env.*
+!.env.example
+example.txt
+**/_(old)
+[--]*
+dist
+volumes
+.pnpm-store
+.tool-versions
