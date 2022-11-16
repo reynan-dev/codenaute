@@ -34,6 +34,14 @@ prettier-fix: ## Run prettier
 	@echo "Fixing with prettier"
 	npx prettier --write $(TS_FILES)
 
+migration-run:
+	@echo "Executing migrations in mysql-coder database"
+	pnpm migration:run
+
+migration-generate:
+	@echo "Generate a new migration"
+	pnpm migration:generate
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
 

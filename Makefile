@@ -3,9 +3,7 @@ install: ## Install monorepo dependencies
 	pnpm install
 
 	cd database && make start
-
 	cd server && make install
-
 	cd client && make install
 
 hard-install: ## Install hard monorepo dependencies
@@ -13,11 +11,8 @@ hard-install: ## Install hard monorepo dependencies
 	pnpm install
 
 	cd database && make start
-
 	cd server && make hard-install
-
 	cd client && make hard-install
-
 
 client: ## Run client
 	cd client && make start
@@ -28,11 +23,12 @@ server: ## Run server
 database: ## Run database
 	cd database && make start
 
+database-init: ## Iniyializate database with migrations
+	cd server && make migration-run
+
 start: ## Run everyservices
 	make client
-
 	make server
-
 	make database
 
 help:
