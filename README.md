@@ -1,4 +1,4 @@
-# Coder Monorepo
+# Welcome to CODENAUTE 🧑🚀
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
 
