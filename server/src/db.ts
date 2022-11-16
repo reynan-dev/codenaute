@@ -3,8 +3,6 @@ import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import Common from "./entities/Common.js";
-
 const dataSource = new DataSource({
   type: "mysql",
   host: process.env.DB_HOST,
@@ -12,8 +10,8 @@ const dataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: ["src/entities/**/*.js"],
-  migrations: ["src/migrations/**/*.js"],
+  entities: ["src/entities/**/*.ts"],
+  migrations: ["src/migrations/**/*.ts"],
   logging: true,
 });
 
