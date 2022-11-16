@@ -12,10 +12,13 @@ const DB_PORT = process.env.DB_PORT as number | undefined;
 
 const dataSource = new DataSource({
   type: 'postgres',
-  url: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
+  host: process.env.DB_HOST,
+  port: DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   entities: [`${__dirname}/**/entities/*.{ts, js}`],
   migrations: [`${__dirname}/**/migrations/*.{ts, js}`],
-  logging: true,
 });
 
 const connectDB = async function () {
