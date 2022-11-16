@@ -1,6 +1,12 @@
 import 'dotenv/config';
 
+import path from 'path';
 import { DataSource } from 'typeorm';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const DB_PORT = process.env.DB_PORT as number | undefined;
 
@@ -11,8 +17,8 @@ const dataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: ['src/entities/**/*.ts'],
-  migrations: ['src/migrations/**/*.ts'],
+  entities: [`${__dirname}/**/entities/*.{ts, js}`],
+  migrations: [`${__dirname}/**/migrations/*.{ts, js}`],
   logging: true,
 });
 
