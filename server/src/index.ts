@@ -19,7 +19,7 @@ const startServer = async () => {
     plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   });
 
-  const { url } = await server.listen(process.env.PORT);
+  const { url } = await server.listen(process.env.GRAPHQL_PORT);
   console.log(`🚀 Server ready at ${url}`);
   connectDB();
 };
