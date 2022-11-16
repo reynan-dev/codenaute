@@ -13,7 +13,7 @@ const dataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities: ["src/entity/**/*.js"],
-  synchronize: true,
+  migrations: ["src/migration/**/*.js"],
   logging: true,
 });
 
