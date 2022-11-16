@@ -14,11 +14,11 @@ build: ## Compile typescript
 	@echo "Building server"
 	pnpm build
 
-start: ## Run server
+start: ## Start server
 	@echo "Starting server"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-stop: ## Run server
+stop: ## Stop server
 	@echo "Starting server"
 	docker-compose stop server
 
@@ -26,19 +26,19 @@ test: ## Run server tests
 	@echo "Testing server"
 	pnpm jest
 
-prettier: ## Run prettier
+prettier: ## Start checking with prettier
 	@echo "Checking with prettier"
 	npx prettier --check $(TS_FILES)
 
-prettier-fix: ## Run prettier
+prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
 	npx prettier --write $(TS_FILES)
 
-migration-run:
+migration-run: ## Run migrations
 	@echo "Executing migrations in mysql-coder database"
 	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:run
 
-migration-generate:
+migration-generate: ## Generate migrations
 	@echo "Generate a new migration"
 	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:generate
 

@@ -52,7 +52,6 @@ jobs:
   #       run: make prettier
 
   build:
-    needs: [prettier]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
