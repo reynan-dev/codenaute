@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: mysql:8.0.31
     privileged: true
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sort_buffer_size=512K --skip-grant-tables
+    command: --skip-grant-tables
     ports:
       - 3306:3306
     env_file:
