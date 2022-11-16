@@ -18,6 +18,10 @@ start: ## Start server
 	@echo "Starting server"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
+start-silence: ## Start server
+	@echo "Starting server"
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
+
 stop: ## Stop server
 	@echo "Starting server"
 	docker-compose stop server

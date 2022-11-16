@@ -25,9 +25,9 @@ database-init: ## Iniyializate database with migrations
 	cd server && make migration-run
 
 start: ## Start everyservices
-	make database
-	make server
-	make client
+	cd database && make start
+	cd server && make start-silence
+	cd client && make start-silence
 
 stop: ## Stop everyservices
 	cd client && make stop
