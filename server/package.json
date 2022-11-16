@@ -22,6 +22,7 @@
     "dotenv": "16.0.3",
     "graphql": "15.3.0",
     "mysql2": "2.3.3",
+    "pg": "^8.8.0",
     "ts-node": "^10.9.1",
     "type-graphql": "1.1.1",
     "typeorm": "0.3.10"

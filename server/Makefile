@@ -18,6 +18,10 @@ start: ## Run server
 	@echo "Starting server"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
+stop: ## Run server
+	@echo "Starting server"
+	docker-compose stop server
+
 test: ## Run server tests
 	@echo "Testing server"
 	pnpm jest

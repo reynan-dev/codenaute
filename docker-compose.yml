@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  mysql:
-    container_name: mysql-coder
-    image: mysql:8.0.31
+  postgres:
+    container_name: postgres-coder
+    image: postgres:14.6-alpine
     command: --skip-grant-tables
     env_file:
       - ./database/.env.database
@@ -11,9 +11,9 @@ services:
     networks:
       - compose-bridge
     expose:
-      - 3306
+      - 5432
     volumes:
-      - ./database/mysql:/docker-entrypoint-initdb.d
+      - ./database/postgres:/docker-entrypoint-initdb.d
 
   adminer:
     container_name: adminer-coder
@@ -22,7 +22,7 @@ services:
       - 8080:8080
     restart: always
     environment:
-      - ADMINER_DEFAULT_SERVER=mysql
+      - ADMINER_DEFAULT_SERVER=postgres
     networks:
       - compose-bridge
 
@@ -47,7 +47,7 @@ services:
     ports:
       - 5000:5000
     depends_on:
-      - mysql
+      - postgres
       - redis
     volumes:
       - ./server:/app
