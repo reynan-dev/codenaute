@@ -6,7 +6,7 @@ services:
     image: mysql:8.0.31
     command: --skip-grant-tables
     env_file:
-      - ./database/.env
+      - ./database/.env.database
     restart: always
     networks:
       - compose-bridge
@@ -40,7 +40,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     env_file:
-      - ./server/.env
+      - ./server/.env.server
     restart: always
     networks:
       - compose-bridge
