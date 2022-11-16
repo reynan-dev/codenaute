@@ -1,12 +1,13 @@
+import "dotenv/config";
+
 import { DataSource } from "typeorm";
 
-import * as dotenv from "dotenv";
-dotenv.config();
+const DB_PORT = process.env.DB_PORT as number | undefined;
 
 const dataSource = new DataSource({
   type: "mysql",
   host: process.env.DB_HOST,
-  port: 3306,
+  port: DB_PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
@@ -25,4 +26,4 @@ const connectDB = async function () {
   }
 };
 
-export { DataSource, connectDB };
+export { dataSource, connectDB };
