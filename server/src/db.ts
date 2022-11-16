@@ -19,9 +19,9 @@ const dataSource = new DataSource({
 const connectDB = async function () {
   try {
     await dataSource.initialize();
-    console.log('Successfully connected to database');
+    console.log('🎉 Successfully connected to database');
   } catch (error) {
-    console.log('Database connection error');
+    console.log('😞 Database connection error');
     console.log(error);
   }
 };
