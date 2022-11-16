@@ -36,11 +36,11 @@ prettier-fix: ## Run prettier
 
 migration-run:
 	@echo "Executing migrations in mysql-coder database"
-	pnpm migration:run
+	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:run
 
 migration-generate:
 	@echo "Generate a new migration"
-	pnpm migration:generate
+	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:generate
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
