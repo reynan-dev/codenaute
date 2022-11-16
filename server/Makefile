@@ -18,8 +18,8 @@ start: ## Start server
 	@echo "Starting server"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-start-silence: ## Start server
-	@echo "Starting server"
+start-silence: ## Start server in mode silence
+	@echo "Starting server in mode silence"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
 stop: ## Stop server
