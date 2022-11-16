@@ -33,7 +33,8 @@ Common workspace is used to share code between `client` <> `server`.
 We use [Husky](https://typicode.github.io/husky/) to ease git hooks.
 
 We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specs for our commit message and this is check on `commit-msg`.
-We use the same prefixes for branch names and this is also checked on `commit-msg`.
+
+We use the same prefixes for branch names and this is also checked on `branch-naming`.
 
 We also follow the prettier specs for code formatting and this is checked on `pre-commit`.
 
