@@ -45,7 +45,7 @@ module.exports = {
         // pour appliquer nos règles, ça se fait avec la propriété "filter".
         {
             // Là encore on peut utiliser une expression rationnelle
-            filter: /\.js$/,
+            filter: ["^db\\.ts$", "^db\\.js$", "index\\.ts$", "index\\.js$"],
             message: '🤔 Hum ! N’as-tu pas oublié de retirer du "console.log(…)" ?',
             nonBlocking: true,
             regex: /^\s*console\.log/,
