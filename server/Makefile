@@ -1,3 +1,5 @@
+TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
+
 install: ## Install server dependencies
 	@echo "Installing server dependencies"
 	pnpm install
@@ -25,8 +27,12 @@ test: ## Run server tests
 	pnpm jest
 
 prettier: ## Run prettier
-	@echo "Running prettier"
-	# TODO: config prettier
+	@echo "Checking with prettier"
+	npx prettier --check $(TS_FILES)
+
+prettier-fix: ## Run prettier
+	@echo "Fixing with prettier"
+	npx prettier --write $(TS_FILES)
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
