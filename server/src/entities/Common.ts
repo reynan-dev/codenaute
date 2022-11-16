@@ -1,10 +1,10 @@
 import { Field, ObjectType } from 'type-graphql';
 import { Column, Entity, ManyToMany } from 'typeorm';
-import BaseModel from './base/BaseModel.js';
+import BaseEntity from './base/BaseEntity.js';
 
 @Entity()
 @ObjectType()
-export default class Common extends BaseModel {
+export default class Common extends BaseEntity {
   @Column()
   @Field()
   name: string;
