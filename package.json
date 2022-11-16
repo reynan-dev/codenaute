@@ -1,13 +1,21 @@
 {
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "dependencies": {
-    "apollo-server-core": "^3.11.1",
-    "graphql": "^16.6.0",
+    "apollo-server-core": "3.11.1",
+    "graphql": "16.6.0",
     "pnpm": "7.16.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.2.0",
     "@commitlint/config-conventional": "17.2.0",
     "husky": "8.0.2",
-    "prettier": "^2.7.1"
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1",
+    "prettier-plugin-packagejson": "2.3.0"
   }
 }
