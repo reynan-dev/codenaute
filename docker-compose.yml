@@ -3,19 +3,17 @@ version: '3.8'
 services:
   mysql:
     container_name: mysql-coder
-    build:
-      context: ./database
-      dockerfile: Dockerfile
     image: mysql:8.0.31
-    privileged: true
     command: --skip-grant-tables
-    expose:
-      - 3306
     env_file:
       - ./database/.env
-    volumes:
-      - ./database/volumes/mysql:/var/lib/mysql
     restart: always
+    networks:
+      - compose-bridge
+    expose:
+      - 3306
+    volumes:
+      - ./database/mysql:/docker-entrypoint-initdb.d
 
   adminer:
     container_name: adminer-coder
@@ -25,13 +23,36 @@ services:
     restart: always
     environment:
       - ADMINER_DEFAULT_SERVER=mysql
+    networks:
+      - compose-bridge
 
   redis:
     container_name: redis-coder
     image: redis:alpine
     ports:
       - 6379:6379
+    networks:
+      - compose-bridge
+
+  server:
+    container_name: server-coder
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/.env
+    restart: always
+    networks:
+      - compose-bridge
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./server:/app
+      - /app/node_modules
 
 networks:
-  default:
+  compose-bridge:
     driver: bridge
