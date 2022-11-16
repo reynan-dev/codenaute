@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "apollo-server": "3.11.1",
+    "apollo-server-core": "3.11.1",
     "class-validator": "0.13.2",
     "dotenv": "16.0.3",
     "graphql": "15.3.0",

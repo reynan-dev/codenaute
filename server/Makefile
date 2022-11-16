@@ -16,11 +16,7 @@ build: ## Compile typescript
 
 start: ## Run server
 	@echo "Starting server"
-	make build && pnpm start
-
-watch: ## Run server in watch mode
-	@echo "Starting server in watch mode"
-	pnpm start:watch
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
 test: ## Run server tests
 	@echo "Testing server"
