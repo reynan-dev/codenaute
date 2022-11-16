@@ -16,7 +16,7 @@ build: ## Compile typescript
 
 start: ## Run server
 	@echo "Starting server"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
 test: ## Run server tests
 	@echo "Testing server"
