@@ -4,16 +4,17 @@ services:
   mysql:
     container_name: mysql-coder
     build:
+      context: ./database
       dockerfile: Dockerfile
     image: mysql:8.0.31
     privileged: true
     command: --skip-grant-tables
-    ports:
-      - 3306:3306
+    expose:
+      - 3306
     env_file:
-      - .env
+      - ./database/.env
     volumes:
-      - ./volumes/mysql:/var/lib/mysql
+      - ./database/volumes/mysql:/var/lib/mysql
     restart: always
 
   adminer:
