@@ -2,26 +2,20 @@ install: ## Install monorepo dependencies
 	@echo "Initializating monorepo"
 	pnpm install
 
-	@echo "Initializating database"
 	cd database && make start
 
-	@echo "Installing dependencies server"
 	cd server && make install
 
-	@echo "Installing dependencies client"
 	cd client && make install
 
 hard-install: ## Install hard monorepo dependencies
 	rm -rf node_modules
 	pnpm install
 
-	@echo "Initializating database"
 	cd database && make start
 
-	@echo "Installing dependencies server"
 	cd server && make hard-install
 
-	@echo "Installing dependencies client"
 	cd client && make hard-install
 
 
@@ -34,9 +28,11 @@ server: ## Run server
 database: ## Run database
 	cd database && make start
 
-start:
+start: ## Run everyservices
 	make client
+
 	make server
+
 	make database
 
 help:

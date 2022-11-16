@@ -1,13 +1,14 @@
 install: ## Install server dependencies
-	@echo "Installing server"
+	@echo "Installing server dependencies"
 	pnpm install
 
 hard-install: ## Install hard server dependencies
+	@echo "Hard installing dependencies server"
 	rm -rf node_modules
 	rm -rf pnpm-lock.yaml
 	pnpm install
 
-build:
+build: ## Compile typescript
 	@echo "Building server"
 	pnpm build
 

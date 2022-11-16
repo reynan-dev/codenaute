@@ -1,9 +1,11 @@
 install: ## Install client dependencies
-	@echo "Installing client"
+	@echo "Installing dependencies server"
 	# TODO: Implement Install
 
 hard-install: ## Install hard client dependencies
+	@echo "Hard installing dependencies client"
 	rm -rf node_modules
+	rm -rf pnpm-lock.yaml
 	pnpm install
 
 start: ## Run client

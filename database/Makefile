@@ -1,10 +1,13 @@
 start: ## Starts service (detached)
+	@echo "Initializating database"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build mysql
 
 debug: ## Start service (debug)
+	@echo "Initializating database in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build mysql
 
 stop: ## Stop service
+	@echo "Stoping database"
 	docker-compose stop mysql
 
 help:
