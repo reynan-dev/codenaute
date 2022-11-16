@@ -4,6 +4,7 @@ install: ## Install server dependencies
 
 hard-install: ## Install hard server dependencies
 	rm -rf node_modules
+	rm -rf pnpm-lock.yaml
 	pnpm install
 
 build:
