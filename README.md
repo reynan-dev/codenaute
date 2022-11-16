@@ -6,40 +6,36 @@ We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorep
 
 To install all dependencies, run:
 
-`make install`
+```
+make install
+```
 
-If you want to hard install all dependencies, run:
+If you want to **hard install** all dependencies, you can run:
 
-`make hard-install`
+```
+make hard-install
+```
 
 ## Start applications
 
-To start all applications, run:
+After install all dependencies, we need start the application, you can do it running:
 
-`make start`
-
-To start server application, run:
-
-`make server`
-
-To start client application, run:
-
-`make client`
-
-To start database, run:
-
-`make database`
+```
+make start
+```
 
 ## Common workspace
 
-Common worspace is used to share code between `client` <> `server`.
+Common workspace is used to share code between `client` <> `server`.
 
 ## Git hooks
 
 We use [Husky](https://typicode.github.io/husky/) to ease git hooks.
 
-We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specs for our commit message and this is check on `pre-commit`.
-We use the same prefixes for branch names and this is also checked on `pre-commit`.
+We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specs for our commit message and this is check on `commit-msg`.
+We use the same prefixes for branch names and this is also checked on `commit-msg`.
+
+We also follow the prettier specs for code formatting and this is checked on `pre-commit`.
 
 ### Commit types / Branch prefixes
 
