@@ -16,6 +16,10 @@ start-silence: ## Start cliennt in mode silence
 	@echo "Starting client in mode silence"
 	# TODO: Implement Start
 
+stop: ## Run client
+	@echo "Stoping client"
+	# TODO: Implement Stop
+
 watch: ## Run client in watch mode
 	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
 	# TODO: config watch
