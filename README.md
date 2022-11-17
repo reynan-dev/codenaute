@@ -2,6 +2,19 @@
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
 
+## IDE configuration
+
+It is highly recommended to be working with VSCode, an IDE that does not need to be presented. Internally, we use a set of code extensions enabling a minimum of code standardization, making the life of many developers more enjoyable. Those extensions are given in `.vscode/extensions.json`, and can be downloaded directly via the VSCode extension store. This goes hand and hand with properly configured VSCode workspace settings, available in `.vscode/settings.json`.
+
+## Requirements
+
+To use this repository, you need to have the following tools installed:
+
+- [Node.js](https://nodejs.org/en/) (v16.17.1)
+- [pnpm](https://pnpm.io/installation) (v7.16.0)
+- [Makefile](https://perso.univ-lyon1.fr/jean-claude.iehl/Public/educ/Makefile.html)
+- [Docker](https://docs.docker.com/get-docker/) (v20.10.8)
+
 ## Install dependencies
 
 To install all dependencies, run:
@@ -95,6 +108,10 @@ ci(front): setup storybook tests
 fix: send cors headers
 feat(groups): add comment section
 ```
+
+### Prettier
+
+To maintain some minimal standards within our codebase, we rely on [prettier](https://prettier.io/) that is configured through `.prettierrc`. We use `.prettierignore` to avoid conflicts with some configuration files that would otherwise be broken by using prettier. Make sure prettier is correctly used in VSCode by installing the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 ### Node version
 
