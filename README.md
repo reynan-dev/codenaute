@@ -14,6 +14,7 @@ To use this repository, you need to have the following tools installed:
 - [pnpm](https://pnpm.io/installation) (v7.16.0)
 - [Makefile](https://perso.univ-lyon1.fr/jean-claude.iehl/Public/educ/Makefile.html)
 - [Docker](https://docs.docker.com/get-docker/) (v20.10.8)
+- [Docker Compose](https://docs.docker.com/compose/install/) (v1.29.2)
 
 ## Install dependencies
 
@@ -34,13 +35,13 @@ make hard-install
 After install all dependencies, we need start the application, you can do it running:
 
 ```
-make start
+make start-all
 ```
 
 So, now we need initialize the database, you can do it running:
 
 ```
-make database-init
+make init-database
 ```
 
 ## Common workspace
