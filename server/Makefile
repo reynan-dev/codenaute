@@ -1,36 +1,36 @@
 TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
 
-install: ## Install server dependencies
+install: ## Installing server dependencies
 	@echo "Installing server dependencies"
 	pnpm install
 
-hard-install: ## Install hard server dependencies
+hard-install: ## Installing hard server dependencies
 	@echo "Hard installing dependencies server"
 	rm -rf node_modules
 	rm -rf pnpm-lock.yaml
 	pnpm install
 
-build: ## Compile typescript
-	@echo "Building server"
+build: ## Compiling typescript
+	@echo "Building typescript on server"
 	pnpm build
 
-start-debug: ## Start server
-	@echo "Starting server"
+start-debug: ## Starting server in debug mode
+	@echo "Starting server in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-start-silence: ## Start server in mode silence
-	@echo "Starting server in mode silence"
+start-silent: ## Starting server in mode silence
+	@echo "Starting server in silent mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
-stop: ## Stop server
-	@echo "Starting server"
+stop: ## Stoping server
+	@echo "Stoping server"
 	docker-compose stop server
 
-test: ## Run server tests
+test: ## Runing tests on server
 	@echo "Testing server"
 	pnpm jest
 
-prettier: ## Start checking with prettier
+prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
 	npx prettier --check $(TS_FILES)
 
@@ -38,11 +38,11 @@ prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
 	npx prettier --write $(TS_FILES)
 
-migration-run: ## Run migrations
+migration-run: ## Runing migrations
 	@echo "Executing migrations in mysql-coder database"
 	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:run
 
-migration-generate: ## Generate migrations
+migration-generate: ## Generating migrations
 	@echo "Generate a new migration"
 	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:generate
 
