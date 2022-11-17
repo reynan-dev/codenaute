@@ -4,13 +4,13 @@ services:
   postgres:
     container_name: postgres-coder
     image: postgres:14.6-alpine
+    restart: always
     env_file:
       - ./database/.env.database
-    restart: always
     expose:
       - 5432
     volumes:
-      - ./database/postgres:/var/lib/postgresql/data/pgdata
+      - database-content:/var/lib/postgresql/data
 
   adminer:
     container_name: adminer-coder
@@ -47,3 +47,6 @@ services:
 networks:
   default:
     driver: bridge
+
+volumes:
+  database-content:
