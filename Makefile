@@ -12,24 +12,24 @@ hard-install: ## Install hard monorepo dependencies
 	cd server && make hard-install
 	cd client && make hard-install
 
-client: ## Start client
+start-client: ## Start client
 	cd client && make start
 
-server: ## Start server
+start-server: ## Start server
 	cd server && make start
 
-database: ## Start database
+start-database: ## Start database
 	cd database && make start
 
-database-init: ## Iniyializate database with migrations
+init-database: ## Iniyializate database with migrations
 	cd server && make migration-run
 
-start: ## Start everyservices
+start-all: ## Start everyservices
 	cd database && make start
 	cd server && make start-silence
 	cd client && make start-silence
 
-stop: ## Stop everyservices
+stop-all: ## Stop everyservices
 	cd client && make stop
 	cd server && make stop
 	cd database && make stop
