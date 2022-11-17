@@ -1,8 +1,8 @@
-start: ## Starts service (detached)
+start-silence: ## Starts service (detached)
 	@echo "Initializating database"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build postgres adminer redis
 
-debug: ## Start service (debug)
+start-debug: ## Start service (debug)
 	@echo "Initializating database in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build postgres adminer redis
 

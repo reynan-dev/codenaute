@@ -8,7 +8,7 @@ hard-install: ## Install hard client dependencies
 	rm -rf pnpm-lock.yaml
 	pnpm install
 
-start: ## Run client
+start-debug: ## Run client
 	@echo "Starting client"
 	# TODO: Implement Start
 

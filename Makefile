@@ -13,19 +13,19 @@ hard-install: ## Install hard monorepo dependencies
 	cd client && make hard-install
 
 start-client: ## Start client
-	cd client && make start
+	cd client && make start-debug
 
 start-server: ## Start server
-	cd server && make start
+	cd server && make start-debug
 
 start-database: ## Start database
-	cd database && make start
+	cd database && make start-debug
 
 init-database: ## Inizializate database with migrations
 	cd server && make migration-run
 
-start-all: ## Start everyservices
-	cd database && make start
+start-all: ## Start everyservices in silence mode.
+	cd database && make start-silence
 	cd server && make start-silence
 	cd client && make start-silence
 

@@ -14,7 +14,7 @@ build: ## Compile typescript
 	@echo "Building server"
 	pnpm build
 
-start: ## Start server
+start-debug: ## Start server
 	@echo "Starting server"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
