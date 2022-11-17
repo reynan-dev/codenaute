@@ -16,7 +16,7 @@ module.exports = {
         shortStats: true,
         // Pour afficher le détail de chaque action executée,
         // les fichiers analysés, le résumé des opérations.
-        verbose: false,
+        verbose: true,
     },
     rules: [
         // Règles globales, appliquées sur tous les contenus ajoutés
@@ -49,18 +49,6 @@ module.exports = {
             message: '🤔 Hum ! N’as-tu pas oublié de retirer du "console.log(…)" ?',
             nonBlocking: true,
             regex: /^\s*console\.log/,
-        },
-        // Spécifique à Ruby/Rails
-        {
-            filter: /_spec\.rb$/,
-            message: 'Tu as laissé traîner un "focus" dans tes tests RSpec',
-            regex: /(?:focus: true|:focus => true)/,
-        },
-        {
-            filter: /\.rb$/,
-            message:
-                'Ça sent l’oubli après un debug manuel : regarde ce `binding.pry` qui traîne',
-            regex: /^[^#]*\bbinding\.pry/,
         },
     ],
 }
