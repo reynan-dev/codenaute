@@ -32,11 +32,13 @@ make hard-install
 
 ## Start applications
 
-After install all dependencies, we need start the application, you can do it running:
+After install all dependencies, we need to start the application, you can do it running:
 
 ```
 make start-all
 ```
+
+If you want to start the application in **debug mode**, you can run `make start-database`, `make start-client` and `make start-server` in three differents terminals.
 
 So, now we need to initialize the database, you can do it running:
 
