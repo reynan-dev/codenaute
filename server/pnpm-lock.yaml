@@ -2769,6 +2769,7 @@ packages:
         integrity: sha512-t/eCKrRFK1lYZlc5pHD99iG7Np7CEm3SmbDiONA7fckR3EaB/pdsEdIkIwQ5QBBpT5JLp/nwvrZRVwhaWmaRvw==,
       }
     engines: { node: '>=12.0' }
+    deprecated: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
     dependencies:
