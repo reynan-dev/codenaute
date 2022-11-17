@@ -24,6 +24,12 @@ After install all dependencies, we need start the application, you can do it run
 make start
 ```
 
+So, now we need initialize the database, you can do it running:
+
+```
+make database-init
+```
+
 ## Common workspace
 
 Common workspace is used to share code between `client` <> `server`.
