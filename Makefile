@@ -21,7 +21,7 @@ start-server: ## Start server
 start-database: ## Start database
 	cd database && make start
 
-init-database: ## Iniyializate database with migrations
+init-database: ## Inizializate database with migrations
 	cd server && make migration-run
 
 start-all: ## Start everyservices
