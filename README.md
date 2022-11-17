@@ -38,7 +38,7 @@ After install all dependencies, we need start the application, you can do it run
 make start-all
 ```
 
-So, now we need initialize the database, you can do it running:
+So, now we need to initialize the database, you can do it running:
 
 ```
 make init-database
