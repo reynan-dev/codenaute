@@ -1,29 +1,51 @@
-install: ## Install server dependencies
-	@echo "Installing server"
-	# TODO: Implement Install
+TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
 
-hard-install: ## Install hard server dependencies
+install: ## Installing server dependencies
+	@echo "Installing server dependencies"
+	pnpm install
+
+hard-install: ## Installing hard server dependencies
+	@echo "Hard installing dependencies server"
 	rm -rf node_modules
-	pnpm install --force
+	rm -rf pnpm-lock.yaml
+	pnpm install
 
-start: ## Run server
-	@echo "Starting server"
-	# TODO: Implement Start
+build: ## Compiling typescript
+	@echo "Building typescript on server"
+	pnpm build
 
-watch: ## Run server in watch mode
-	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
-	# TODO: config watch
+start-debug: ## Starting server in debug mode
+	@echo "Starting server in debug mode"
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-test: ## Run server tests
+start-silent: ## Starting server in mode silence
+	@echo "Starting server in silent mode"
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
+
+stop: ## Stoping server
+	@echo "Stoping server"
+	docker-compose stop server
+
+test: ## Runing tests on server
 	@echo "Testing server"
-	# TODO: Implement Test
+	pnpm jest
 
-prettier: ## Run prettier
-	@echo "Running prettier"
-	# TODO: config prettier
+prettier: ## Starting checking with prettier
+	@echo "Checking with prettier"
+	npx prettier --check $(TS_FILES)
 
-.PHONY: install
-.PHONY: hard-install
-.PHONY: start
-.PHONY: watch
-.PHONY: test
+prettier-fix: ## Fixing with prettier
+	@echo "Fixing with prettier"
+	npx prettier --write $(TS_FILES)
+
+migration-run: ## Runing migrations
+	@echo "Executing migrations in mysql-coder database"
+	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:run
+
+migration-generate: ## Generating migrations
+	@echo "Generate a new migration"
+	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:generate
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
+
