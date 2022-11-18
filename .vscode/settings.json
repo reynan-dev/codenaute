@@ -16,5 +16,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "dotenv.enableAutocloaking": false
 }
