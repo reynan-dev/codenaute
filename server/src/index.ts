@@ -5,13 +5,14 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema } from 'type-graphql';
 
 import { connectDB } from './db.js';
+import CommonResolver from './resolvers/args/CommonResolver.js';
 
 const startServer = async () => {
   await connectDB();
 
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [''],
+      resolvers: [CommonResolver],
     }),
     csrfPrevention: true,
     cache: 'bounded',
