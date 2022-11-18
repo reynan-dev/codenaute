@@ -29,7 +29,7 @@ export default class Session {
 
   @Field()
   @Column('timestamp with time zone')
-  expiresAt: Date;
+  expiresAt: number;
 
   @BeforeInsert()
   expirateIn() {
