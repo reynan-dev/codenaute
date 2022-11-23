@@ -5,7 +5,7 @@ import BaseEntity from './base/BaseEntity.js';
 @Entity()
 @ObjectType()
 export default class Common extends BaseEntity {
-  @Column()
-  @Field()
-  name: string;
+	@Column()
+	@Field()
+	name: string;
 }
