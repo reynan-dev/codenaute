@@ -1,0 +1,7 @@
+# Ignore artifacts:
+build
+coverage
+
+./database/volumes
+./server/dist
+./server/tests

@@ -6,7 +6,8 @@
     "GraphQL.vscode-graphql-execution",
     "GraphQL.vscode-graphql",
     "GraphQL.vscode-graphql-syntax",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "ms-azuretools.vscode-docker"
   ],
   "unwantedRecommendations": []
 }

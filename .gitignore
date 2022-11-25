@@ -10,3 +10,4 @@ dist
 volumes
 .pnpm-store
 .tool-versions
+postgres
