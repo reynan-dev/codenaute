@@ -41,6 +41,7 @@ make start-database
 ```
 
 Then we need to initialize the database, you can do it running:
+
 ```
 make init-database
 ```
