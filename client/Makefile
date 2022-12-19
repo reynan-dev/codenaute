@@ -1,14 +1,24 @@
 install: ## Install client dependencies
-	@echo "Installing client"
+	@echo "Installing dependencies server"
 	# TODO: Implement Install
 
 hard-install: ## Install hard client dependencies
+	@echo "Hard installing dependencies client"
 	rm -rf node_modules
-	pnpm install --force
+	rm -rf pnpm-lock.yaml
+	pnpm install
 
-start: ## Run client
+start-debug: ## Run client
 	@echo "Starting client"
 	# TODO: Implement Start
+
+start-silence: ## Start cliennt in mode silence
+	@echo "Starting client in mode silence"
+	# TODO: Implement Start
+
+stop: ## Run client
+	@echo "Stoping client"
+	# TODO: Implement Stop
 
 watch: ## Run client in watch mode
 	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
