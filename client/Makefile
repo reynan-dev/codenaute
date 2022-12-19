@@ -10,7 +10,7 @@ hard-install: ## Install hard client dependencies
 
 start-debug: ## Run client
 	@echo "Starting client"
-	# TODO: Implement Start
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build client
 
 start-silence: ## Start cliennt in mode silence
 	@echo "Starting client in mode silence"
