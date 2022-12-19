@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN pnpm build
-CMD pnpm start:watch & npx nodemon -w package.json --exec 'pnpm install'
+CMD pnpm start:watch
 
 # FROM base AS deploy
 

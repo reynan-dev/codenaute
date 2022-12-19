@@ -1,45 +1,78 @@
-# Coder Monorepo
+# Welcome to CODENAUTE 🧑🚀
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
+
+## IDE configuration
+
+It is highly recommended to be working with VSCode, an IDE that does not need to be presented. Internally, we use a set of code extensions enabling a minimum of code standardization, making the life of many developers more enjoyable. Those extensions are given in `.vscode/extensions.json`, and can be downloaded directly via the VSCode extension store. This goes hand and hand with properly configured VSCode workspace settings, available in `.vscode/settings.json`.
+
+## Requirements
+
+To use this repository, you need to have the following tools installed:
+
+- [Node.js](https://nodejs.org/en/) (v16.17.1)
+- [pnpm](https://pnpm.io/installation) (v7.16.0)
+- [Makefile](https://perso.univ-lyon1.fr/jean-claude.iehl/Public/educ/Makefile.html)
+- [Docker](https://docs.docker.com/get-docker/) (v20.10.8)
+- [Docker Compose](https://docs.docker.com/compose/install/) (v1.29.2)
 
 ## Install dependencies
 
 To install all dependencies, run:
 
-`make install`
+```
+make install
+```
 
-If you want to hard install all dependencies, run:
+If you want to **hard install** all dependencies, you can run:
 
-`make hard-install`
+```
+make hard-install
+```
 
-## Start applications
+## First start of applications
 
-To start all applications, run:
+After install all dependencies, we need to start the applications.
 
-`make start`
+First run :
 
-To start server application, run:
+```
+make start-database
+```
 
-`make server`
+Then we need to initialize the database, you can do it running:
 
-To start client application, run:
+```
+make init-database
+```
 
-`make client`
+Now you are ready !
 
-To start database, run:
+As a developer, to work on the project on everyday, you will certainly want to start the applications seperately in **debug mode** :
 
-`make database`
+Run `make start-client` and `make start-server` in two differents terminals.
+
+You can also see logs of database by running `make start-database`.
+
+If you want to just launch all in silent mode, run :
+
+```
+make start-all
+```
 
 ## Common workspace
 
-Common worspace is used to share code between `client` <> `server`.
+Common workspace is used to share code between `client` <> `server`.
 
 ## Git hooks
 
 We use [Husky](https://typicode.github.io/husky/) to ease git hooks.
 
-We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specs for our commit message and this is check on `pre-commit`.
-We use the same prefixes for branch names and this is also checked on `pre-commit`.
+We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specs for our commit message and this is check on `commit-msg`.
+
+We use the same prefixes for branch names and this is also checked on `branch-naming`.
+
+We also follow the prettier specs for code formatting and this is checked on `pre-commit`.
 
 ### Commit types / Branch prefixes
 
@@ -92,6 +125,10 @@ ci(front): setup storybook tests
 fix: send cors headers
 feat(groups): add comment section
 ```
+
+### Prettier
+
+To maintain some minimal standards within our codebase, we rely on [prettier](https://prettier.io/) that is configured through `.prettierrc`. We use `.prettierignore` to avoid conflicts with some configuration files that would otherwise be broken by using prettier. Make sure prettier is correctly used in VSCode by installing the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 ### Node version
 
