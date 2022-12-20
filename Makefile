@@ -1,4 +1,4 @@
-TS_FILES = `(find . -type f -iname "*.ts")`
+TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
 
 
 install: ## Installing monorepo dependencies
@@ -44,7 +44,7 @@ prettier: ## Starting checking with prettier
 
 prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
-	npx prettier --write $(TS_FILES)
+	$(TS_FILES) -exec npx prettier --write {} +
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
