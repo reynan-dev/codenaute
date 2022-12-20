@@ -5,3 +5,8 @@ coverage
 ./database/volumes
 ./server/dist
 ./server/tests
+
+# Ignore node_modules:
+
+node_modules
+**/node_modules
