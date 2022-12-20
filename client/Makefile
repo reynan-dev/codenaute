@@ -21,7 +21,7 @@ stop: ## Run client
 	docker-compose stop client
 
 test: ## Run client tests
-	@echo "Testing client"
+	@echo "Testing client with jest"
 	pnpm test
 
 prettier: ## Run prettier
