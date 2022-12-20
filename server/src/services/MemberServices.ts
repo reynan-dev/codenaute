@@ -14,15 +14,15 @@ class MemberServices extends BaseServices {
 			throw Error('Empty email or password');
 		}
 
-		let member = await this.repository.findOne({ email: email });
+		let user = await this.repository.findOne({ email: email });
 
-		if (!member || !compareSync(password, member.hashedPassword)) {
+		if (!user || !compareSync(password, user.hashedPassword)) {
 			throw Error('Member not found');
 		}
 
-		const session = await SessionServices.create(member);
+		const session = await SessionServices.create(user);
 
-		return { member, session };
+		return { user, session };
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
