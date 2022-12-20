@@ -30,20 +30,34 @@ If you want to **hard install** all dependencies, you can run:
 make hard-install
 ```
 
-## Start applications
+## First start of applications
 
-After install all dependencies, we need to start the application, you can do it running:
+After install all dependencies, we need to start the applications.
+
+First run :
 
 ```
-make start-all
+make start-database
 ```
 
-If you want to start the application in **debug mode**, you can run `make start-database`, `make start-client` and `make start-server` in three differents terminals.
-
-So, now we need to initialize the database, you can do it running:
+Then we need to initialize the database, you can do it running:
 
 ```
 make init-database
+```
+
+Now you are ready !
+
+As a developer, to work on the project on everyday, you will certainly want to start the applications seperately in **debug mode** :
+
+Run `make start-client` and `make start-server` in two differents terminals.
+
+You can also see logs of database by running `make start-database`.
+
+If you want to just launch all in silent mode, run :
+
+```
+make start-all
 ```
 
 ## Common workspace

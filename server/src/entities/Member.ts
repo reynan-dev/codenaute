@@ -6,17 +6,17 @@ import BaseEntity from './base/BaseEntity.js';
 @Entity()
 @ObjectType()
 export default class Member extends BaseEntity {
-  @Column()
-  @Field()
-  username: string;
+	@Column()
+	@Field()
+	username: string;
 
-  @Column()
-  @Field()
-  @IsEmail()
-  @Index({ unique: true })
-  email: string;
+	@Column()
+	@Field()
+	@IsEmail()
+	@Index({ unique: true })
+	email: string;
 
-  @Column()
-  @Field()
-  hashedPassword: string;
+	@Column()
+	@Field()
+	hashedPassword: string;
 }

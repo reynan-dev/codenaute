@@ -1,23 +1,24 @@
 {
-  "git.autofetch": true,
-  "files.insertFinalNewline": true,
-  "files.trimTrailingWhitespace": true,
-  "editor.formatOnSave": true,
-  "editor.inlineSuggest.enabled": true,
-  "workbench.startupEditor": "none",
-  "[markdown]": {
-    "editor.defaultFormatter": null
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+	"git.autofetch": true,
+	"files.insertFinalNewline": true,
+	"files.trimTrailingWhitespace": true,
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.enabled": true,
+	"workbench.startupEditor": "none",
+	"[markdown]": {
+		"editor.defaultFormatter": null
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"dotenv.enableAutocloaking": false
 }

@@ -3,22 +3,22 @@ import Session from '../entities/Session';
 import BaseServices from './base/BaseServices';
 
 class SessionServices extends BaseServices {
-  constructor() {
-    super(Session);
-  }
+	constructor() {
+		super(Session);
+	}
 
-  async create(member: Member) {
-    const session = new Session(member);
-    return this.repository.save(session);
-  }
+	async create(member: Member) {
+		const session = new Session(member);
+		return this.repository.save(session);
+	}
 
-  async findByToken(token: string): Promise<Session | null> {
-    if (!token) {
-      throw Error('Empty token');
-    }
+	async findByToken(token: string): Promise<Session | null> {
+		if (!token) {
+			throw Error('Empty token');
+		}
 
-    return await this.repository.findOneBy({ token: token });
-  }
+		return await this.repository.findOneBy({ token: token });
+	}
 }
 
 export default new SessionServices();
