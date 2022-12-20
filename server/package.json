@@ -1,11 +1,7 @@
 {
 	"name": "server",
 	"version": "1.0.0",
-	"description": "",
-	"keywords": [],
 	"license": "ISC",
-	"author": "",
-	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",

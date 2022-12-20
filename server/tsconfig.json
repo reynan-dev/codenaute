@@ -1,12 +1,12 @@
 {
 	"compilerOptions": {
 		/* Language and Environment */
-		"target": "ES2016",
+		"target": "ES2022",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 
 		/* Modules */
-		"module": "es2022",
+		"module": "CommonJS",
 		"rootDir": "./src",
 		"moduleResolution": "node",
 
@@ -17,8 +17,8 @@
 
 		/* Type Checking */
 		"strict": true,
-
 		"strictPropertyInitialization": false,
+
 		/* Completeness */
 		"skipLibCheck": true
 	},
