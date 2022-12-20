@@ -44,7 +44,7 @@ prettier: ## Starting checking with prettier
 
 prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
-	find . -type f -iname "*.ts" -not -path "./node_modules/* -exec npx prettier --write {} +
+	find . -type f -iname "*.ts" -not -path "./node_modules/*" -exec npx prettier --write {} +
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
