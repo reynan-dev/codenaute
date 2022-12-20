@@ -14,14 +14,21 @@ export default class MemberResolver {
 		@Args() { email, password }: SignInArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const { user, session } = await MemberServices.signIn(email, password);
+		const { user } = await MemberServices.signIn(email, password);
 
 		return user;
 	}
 
 	@Authorized()
 	@Query(() => Member)
-	async me(@Ctx() context: GlobalContext): Promise<Member> {
+	async profile(@Ctx() context: GlobalContext): Promise<Member> {
 		return context.user as Member;
+	}
+
+	@Mutation(() => Member)
+	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
+		const { user } = await MemberServices.signUp(username, email, password);
+
+		return user;
 	}
 }
