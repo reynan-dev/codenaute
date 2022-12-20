@@ -4,17 +4,29 @@ import { ApolloServer } from 'apollo-server';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema } from 'type-graphql';
 
-import CommonResolver from './resolvers/CommonResolver.js';
+import MemberResolver from './resolvers/MemberResolver.js';
+import MemberServices from './services/MemberServices.js';
 
 import { connectDB } from './db.js';
+import { GlobalContext } from './utils/GlobalContext.js';
+
+import { getSessionIdInCookie } from './utils/getSessionIdInCookie.js';
 
 const startServer = async () => {
 	await connectDB();
-
 	const server = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [CommonResolver]
+			resolvers: [MemberResolver],
+			authChecker: ({ context }) => {
+				return Boolean(context.user);
+			}
 		}),
+		context: async (context): Promise<GlobalContext> => {
+			const sessionId = getSessionIdInCookie(context);
+			const user = !sessionId ? null : await MemberServices.findBySessionToken(sessionId);
+
+			return { res: context.res, req: context.req, user };
+		},
 		csrfPrevention: true,
 		cache: 'bounded',
 		plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })]
