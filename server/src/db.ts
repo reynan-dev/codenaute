@@ -1,9 +1,6 @@
 import 'dotenv/config';
 
-import path from 'path';
 import { DataSource } from 'typeorm';
-
-const __dirname = path.resolve();
 
 const DB_PORT = process.env.DB_PORT as number | undefined;
 
