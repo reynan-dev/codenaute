@@ -1,4 +1,4 @@
-TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
+TS_FILES = `(find . -type f -iname "*.ts")`
 
 
 install: ## Installing monorepo dependencies
