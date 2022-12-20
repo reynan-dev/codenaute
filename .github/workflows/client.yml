@@ -65,8 +65,8 @@ jobs:
 
       - name: Start Application
         working-directory: ./${{env.SERVICE_NAME}}
-        run: make start
+        run: make start-debug
 
-      - name: Run Test
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make test
+      # - name: Run Test
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: make test
