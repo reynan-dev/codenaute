@@ -1,5 +1,3 @@
-TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
-
 install: ## Installing server dependencies
 	@echo "Installing server dependencies"
 	pnpm install
