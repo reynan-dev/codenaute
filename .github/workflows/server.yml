@@ -7,7 +7,6 @@ on:
   pull_request:
     path:
       - '.github/workflows/server.yml'
-      - './*'
       - 'server/**'
 
 env:
@@ -33,7 +32,7 @@ jobs:
       - name: Start pnpm ${{ env.PNPM_VERSION }}
         uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install Dependencies
         run: make install
