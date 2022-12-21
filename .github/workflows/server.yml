@@ -17,36 +17,7 @@ env:
 jobs:
   workflow:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Codebase
-        uses: actions/checkout@v3
 
-      - name: Start Node.js ${{ env.NODEJS_VERSION }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODEJS_VERSION }}
-
-      - name: Start pnpm ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Install Dependencies
-        run: make install
-
-      - name: Restore Github Cache
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
-
-      - name: Run Prettier
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make prettier
-
-  application-and-tests:
-    needs: workflow
-    runs-on: ubuntu-latest
     container:
       image: 'reynandev/codenaute:client'
       env:
@@ -73,6 +44,16 @@ jobs:
 
       - name: Make Install
         run: make install
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
+
+      - name: Run Prettier
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make prettier
 
       - name: Run Tests
         run: make test
