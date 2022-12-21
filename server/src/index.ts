@@ -6,10 +6,10 @@ import { buildSchema } from 'type-graphql';
 
 import CommonResolver from './resolvers/CommonResolver.js';
 
-import { connectDB } from './db.js';
+import { startDatabase } from './db.js';
 
 const startServer = async () => {
-	await connectDB();
+	await startDatabase();
 
 	const server = new ApolloServer({
 		schema: await buildSchema({
