@@ -59,9 +59,21 @@ services:
       - ./client:/app
       - /app/node_modules
 
+  postgres-test:
+    container_name: db-test-codenaute
+    image: postgres:14.6-alpine
+    restart: always
+    env_file:
+      - ./database/.env.test
+    expose:
+      - 2345
+    volumes:
+      - database-test:/var/lib/postgresql/data
+
 networks:
   default:
     driver: bridge
 
 volumes:
   database-content:
+  database-test:
