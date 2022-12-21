@@ -15,6 +15,30 @@ env:
   PNPM_VERSION: '7.16.0'
 
 jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and Push Client Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./client/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
+
   workflow:
     runs-on: ubuntu-latest
 
