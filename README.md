@@ -54,7 +54,7 @@ Run `make start-client` and `make start-server` in two differents terminals.
 
 You can also see logs of database by running `make start-database`.
 
-If you want to just launch all in silent mode, run :
+If you want to just launch all in quiet mode, run :
 
 ```
 make start-all

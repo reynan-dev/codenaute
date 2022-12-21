@@ -28,10 +28,10 @@ start-database: ## Starting database in debug mode
 init-database: ## Inizializate database with migrations
 	cd server && make migration-run
 
-start-all: ## Starting everyservices in silence mode.
-	cd database && make start-silence
-	cd server && make start-silent
-	cd client && make start-silent
+start-all: ## Starting everyservices in quiet mode.
+	cd database && make start-quiet
+	cd server && make start-quiet
+	cd client && make start-quiet
 
 stop-all: ## Stoping everyservices
 	cd client && make stop

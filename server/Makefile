@@ -18,8 +18,8 @@ start-debug: ## Starting server in debug mode
 	@echo "Starting server in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-start-silent: ## Starting server in mode silence
-	@echo "Starting server in silent mode"
+start-quiet: ## Starting server in mode quiet
+	@echo "Starting server in quiet mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
 stop: ## Stoping server

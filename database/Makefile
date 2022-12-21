@@ -1,4 +1,4 @@
-start-silence: ## Starting database (detached)
+start-quiet: ## Starting database (detached)
 	@echo "Initializating database"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build postgres adminer redis
 
