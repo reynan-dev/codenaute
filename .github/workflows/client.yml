@@ -48,11 +48,8 @@ jobs:
   application-and-tests:
     needs: workflow
     runs-on: ubuntu-latest
-    env:
-      DOCKER_IMAGE: 'reynandev/codenaute:client'
-      DOCKER_DATABASE: 'postgres:14.6-alpine'
     container:
-      image: ${{ env.DOCKER_IMAGE }}
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:

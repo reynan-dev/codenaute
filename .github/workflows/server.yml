@@ -48,12 +48,9 @@ jobs:
     needs: workflow
     environment: tests
     runs-on: ubuntu-latest
-    env:
-      DOCKER_IMAGE: 'reynandev/codenaute:client'
-      DOCKER_DATABASE: 'postgres:14.6-alpine'
     services:
       postgres:
-        image: ${{ env.DOCKER_DATABASE }}
+        image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -68,11 +65,8 @@ jobs:
   application-and-tests:
     needs: [workflow, docker-database]
     runs-on: ubuntu-latest
-    env:
-      DOCKER_IMAGE: 'reynandev/codenaute:client'
-      DOCKER_DATABASE: 'postgres:14.6-alpine'
     container:
-      image: ${{ env.DOCKER_IMAGE }}
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:
