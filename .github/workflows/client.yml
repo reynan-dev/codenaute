@@ -56,8 +56,12 @@ jobs:
       - name: Checkout Codebase
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Install dependencies globaly
         run: pnpm install
+
+      - name: Install dependencies on client
+        run: pnpm install
+        working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Restore Github Cache
         uses: actions/cache@v3
