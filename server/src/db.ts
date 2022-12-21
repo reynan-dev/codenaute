@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import { DataSource } from 'typeorm';
 
 const DB_PORT = process.env.DB_PORT as number | undefined;

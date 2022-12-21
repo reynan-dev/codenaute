@@ -13,29 +13,67 @@ env:
   SERVICE_NAME: 'server'
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
-  DOCKER_IMAGE: 'reynandev/codenaute:server'
-  DOCKER_DATABASE: 'postgres:14.6-alpine'
 
 jobs:
-  workflow:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v3
 
-      - name: Start Node.js ${{ env.NODEJS_VERSION }}
-        uses: actions/setup-node@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          node-version: ${{ env.NODEJS_VERSION }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Start pnpm ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v2
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push image
+        uses: docker/build-push-action@v3
         with:
-          version: ${{ env.PNPM_VERSION }}
+          context: .
+          file: ./server/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
 
-      - name: Install Dependencies
-        run: make install
+  workflow:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: tests
+
+    container:
+      image: 'reynandev/codenaute:server'
+      env:
+        NODE_ENV: test
+      ports:
+        - 5000:5000
+      volumes:
+        - ${{ github.workspace }}:/app
+
+    services:
+      postgres:
+        image: 'postgres:14.6-alpine'
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v3
+
+      - name: Install dependencies globaly
+        run: pnpm install
+
+      - name: Install dependencies on server
+        run: pnpm install
+        working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Restore Github Cache
         uses: actions/cache@v3
@@ -44,16 +82,9 @@ jobs:
           key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
 
       - name: Run Prettier
+        run: npx prettier --check .
         working-directory: ./${{env.SERVICE_NAME}}
-        run: make prettier
 
-      # - name: Run Docker
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run:
-      #     docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
-      #     docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
-      #     if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
-
-      # - name: Run Test
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run: make test
+      - name: Run Tests
+        run: pnpm test
+        working-directory: ./${{env.SERVICE_NAME}}
