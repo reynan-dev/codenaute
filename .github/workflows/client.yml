@@ -31,8 +31,8 @@ jobs:
       - name: Checkout Codebase
         uses: actions/checkout@v3
 
-      - name: Make Install
-        run: make install
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Restore Github Cache
         uses: actions/cache@v3
@@ -41,9 +41,9 @@ jobs:
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
       - name: Run Prettier
+        run: npx prettier --check .
         working-directory: ./${{ env.SERVICE_NAME }}
-        run: make prettier
 
       - name: Run Tests
-        run: make test
+        run: pnpm test
         working-directory: ./${{ env.SERVICE_NAME }}
