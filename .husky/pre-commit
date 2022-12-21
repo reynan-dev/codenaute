@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-make prettier-fix
 npx lint-staged
 sh $(dirname $0)/branch-naming
