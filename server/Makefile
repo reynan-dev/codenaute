@@ -32,11 +32,11 @@ test: ## Runing tests on server
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
-	npx prettier --check $(TS_FILES)
+	npx prettier --check .
 
 prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
-	npx prettier --write $(TS_FILES)
+	npx prettier --write .
 
 migration-run: ## Runing migrations
 	@echo "Executing migrations in mysql-coder database"
