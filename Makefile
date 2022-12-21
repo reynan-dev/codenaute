@@ -1,6 +1,3 @@
-TS_FILES = `(find . -type f -iname "*.ts" -not -path "./node_modules/*")`
-
-
 install: ## Installing monorepo dependencies
 	@echo "Initializating monorepo"
 	pnpm install
@@ -28,10 +25,10 @@ start-database: ## Starting database in debug mode
 init-database: ## Inizializate database with migrations
 	cd server && make migration-run
 
-start-all: ## Starting everyservices in silence mode.
-	cd database && make start-silence
-	cd server && make start-silent
-	cd client && make start-silent
+start-all: ## Starting everyservices in quiet mode.
+	cd database && make start-quiet
+	cd server && make start-quiet
+	cd client && make start-quiet
 
 stop-all: ## Stoping everyservices
 	cd client && make stop
@@ -40,11 +37,11 @@ stop-all: ## Stoping everyservices
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
-	npx prettier --check $(TS_FILES)
+	npx prettier --check .
 
 prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
-	npx prettier --write $(TS_FILES)
+	npx prettier --write .
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'

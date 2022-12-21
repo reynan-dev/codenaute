@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: postgres-coder
+    container_name: postgres-codenaute
     image: postgres:14.6-alpine
     restart: always
     env_file:
@@ -13,7 +13,7 @@ services:
       - database-content:/var/lib/postgresql/data
 
   adminer:
-    container_name: adminer-coder
+    container_name: adminer-codenaute
     image: adminer
     ports:
       - 8080:8080
@@ -22,13 +22,13 @@ services:
       - ADMINER_DEFAULT_SERVER=postgres
 
   redis:
-    container_name: redis-coder
+    container_name: redis-codenaute
     image: redis:alpine
     expose:
       - 6379
 
   server:
-    container_name: server-coder
+    container_name: server-codenaute
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -45,9 +45,35 @@ services:
       - ./server:/app
       - /app/node_modules
 
+  client:
+    container_name: client-codenaute
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/.env.client
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  postgres-test:
+    container_name: db-test-codenaute
+    image: postgres:14.6-alpine
+    restart: always
+    env_file:
+      - ./database/.env.test
+    expose:
+      - 2345
+    volumes:
+      - database-test:/var/lib/postgresql/data
+
 networks:
   default:
     driver: bridge
 
 volumes:
   database-content:
+  database-test:

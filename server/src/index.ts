@@ -7,13 +7,13 @@ import { buildSchema } from 'type-graphql';
 import MemberResolver from './resolvers/MemberResolver.js';
 import MemberServices from './services/MemberServices.js';
 
-import { connectDB } from './db.js';
 import { GlobalContext } from './utils/GlobalContext.js';
-
 import { getSessionIdInCookie } from './utils/getSessionIdInCookie.js';
+import { startDatabase } from './db.js';
 
 const startServer = async () => {
-	await connectDB();
+	await startDatabase();
+
 	const server = new ApolloServer({
 		schema: await buildSchema({
 			resolvers: [MemberResolver],

@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "react-scripts build",
 		"eject": "react-scripts eject",
-		"start": "react-scripts start",
+		"start": "WATCHPACK_POLLING=true react-scripts start --hot",
 		"test": "react-scripts test"
 	},
 	"browserslist": {

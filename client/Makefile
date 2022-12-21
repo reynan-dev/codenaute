@@ -8,29 +8,29 @@ hard-install: ## Install hard client dependencies
 	rm -rf pnpm-lock.yaml
 	pnpm install
 
-start-debug: ## Run client
+start-debug: ## Run client (by default in watch mode)
 	@echo "Starting client"
-	# TODO: Implement Start
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build client
 
-start-silence: ## Start cliennt in mode silence
-	@echo "Starting client in mode silence"
-	# TODO: Implement Start
+start-quiet: ## Start cliennt in mode quiet
+	@echo "Starting client in mode quiet"
+	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build client
 
 stop: ## Run client
 	@echo "Stoping client"
-	# TODO: Implement Stop
-
-watch: ## Run client in watch mode
-	node_modules/.bin/chokidar 'test/**/*.js' -c 'node_modules/.bin/tape {path}'
-	# TODO: config watch
+	docker-compose stop client
 
 test: ## Run client tests
-	@echo "Testing client"
-	# TODO: Implement Test
+	@echo "Testing client with jest"
+	pnpm test
 
 prettier: ## Run prettier
 	@echo "Running prettier"
-	# TODO: config prettier
+	npx prettier --check .
+
+prettier-fix: ## Run prettier
+	@echo "Running prettier"
+	npx prettier --write .
 
 .PHONY: install
 .PHONY: hard-install
