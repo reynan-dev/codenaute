@@ -46,10 +46,25 @@ jobs:
         working-directory: ./${{env.SERVICE_NAME}}
         run: make prettier
 
-      # - name: Start Application
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run: make start
+  application-and-tests:
+    needs: workflow
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.DOCKER_IMAGE }}
+      env:
+        NODE_ENV: test
+      ports:
+        - 3000:3000
+      volumes:
+        - ${{ github.workspace }}:/app
 
-      # - name: Run Test
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run: make test
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v3
+
+      - name: Make Install
+        run: make install
+
+      - name: Run Tests
+        run: make test
+        working-directory: ./${{env.SERVICE_NAME}}

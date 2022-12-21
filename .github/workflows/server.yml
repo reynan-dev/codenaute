@@ -47,13 +47,40 @@ jobs:
         working-directory: ./${{env.SERVICE_NAME}}
         run: make prettier
 
-      # - name: Run Docker
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run:
-      #     docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
-      #     docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
-      #     if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
+  database:
+    needs: workflow
+    environment: tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: ${{ env.DOCKER_DATABASE }}
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-      # - name: Run Test
-      #   working-directory: ./${{env.SERVICE_NAME}}
-      #   run: make test
+  application-and-tests:
+    needs: [workflow, docker-database]
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.DOCKER_IMAGE }}
+      env:
+        NODE_ENV: test
+      ports:
+        - 5000:5000
+      volumes:
+        - ${{ github.workspace }}:/app
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v3
+
+      - name: Make Install
+        run: make install
+
+      - name: Run Tests
+        run: make test
+        working-directory: ./${{env.SERVICE_NAME}}
