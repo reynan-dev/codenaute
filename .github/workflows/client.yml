@@ -17,9 +17,11 @@ env:
   DOCKER_IMAGE: ''
 
 jobs:
-  pnpm:
+  workflow:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout Codebase
       - uses: actions/checkout@v3
 
       - name: Start Node.js ${{ env.NODEJS_VERSION }}
@@ -35,33 +37,15 @@ jobs:
       - name: Install Dependencies
         run: make install
 
-  # prettier:
-  #   needs: pnpm
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Restore Github Cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: "**/node_modules"
-  #         key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
-
-  #     - name: Run Prettier
-  #       working-directory: ./${{env.SERVICE_NAME}}
-  #       run: make prettier
-
-  build:
-    needs: [pnpm]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
       - name: Restore Github Cache
         uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
+
+      - name: Run Prettier
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make prettier
 
       - name: Start Application
         working-directory: ./${{env.SERVICE_NAME}}

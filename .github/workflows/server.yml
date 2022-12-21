@@ -15,11 +15,14 @@ env:
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
   DOCKER_IMAGE: ''
+  DOCKER_DATABASE: 'postgres:14.6-alpine'
 
 jobs:
-  pnpm:
+  workflow:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout Codebase
       - uses: actions/checkout@v3
 
       - name: Start Node.js ${{ env.NODEJS_VERSION }}
@@ -35,48 +38,27 @@ jobs:
       - name: Install Dependencies
         run: make install
 
-  # prettier:
-  #   needs: pnpm
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
 
-  #     - name: Restore Github Cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: "**/node_modules"
-  #         key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', 'server/pnpm-lock.yaml') }}
+      - name: Run Prettier
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make prettier
 
-  #     - name: Run Prettier
-  #       working-directory: ./${{env.SERVICE_NAME}}
-  #       run: make prettier
+      - name: Start Application
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: pnpm start:watch
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   needs: [pnpm]
-  #   steps:
-  #     - uses: actions/checkout@v3
+      - name: Run Docker
+        working-directory: ./${{env.SERVICE_NAME}}
+        run:
+          docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
+          docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
+          if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
 
-  #     - name: Restore Github Cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: '**/node_modules'
-  #         key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
-
-  #     - name: Start Application
-  #       working-directory: ./${{env.SERVICE_NAME}}
-  #       run: npm run start:watch
-
-  #     - name: Run Test
-  #       working-directory: ./${{env.SERVICE_NAME}}
-  #       run: make test
-
-  # docker:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #   - name: Run Docker
-  #     working-directory: ./${{env.SERVICE_NAME}}
-  #     run: docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
-  #         docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
-  #         if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
+      - name: Run Test
+        working-directory: ./${{env.SERVICE_NAME}}
+        run: make test
