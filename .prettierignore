@@ -2,6 +2,12 @@
 build
 coverage
 
-./database/volumes
-./server/dist
-./server/tests
+./**/volumes
+./**/build
+./**/dist
+./**/tests
+
+# Ignore node_modules:
+
+./node_modules
+**/node_modules

@@ -7,21 +7,19 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: '/',
-  cache: new InMemoryCache(),
+	uri: '/',
+	cache: new InMemoryCache()
 });
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ApolloProvider>
-  </React.StrictMode>,
+	<React.StrictMode>
+		<ApolloProvider client={client}>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</ApolloProvider>
+	</React.StrictMode>
 );
 
 reportWebVitals();
