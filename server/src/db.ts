@@ -1,12 +1,4 @@
-import 'dotenv/config';
-
-import path from 'path';
 import { DataSource } from 'typeorm';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
 
 const DB_PORT = process.env.DB_PORT as number | undefined;
 const DB_TEST_PORT = process.env.DB_TEST_PORT as number | undefined;
