@@ -17,6 +17,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    if: ! github.event.pull_request.draft
 
     steps:
       - name: Checkout Codebase
@@ -43,6 +44,7 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     environment: tests
+    if: ! github.event.pull_request.draft
 
     container:
       image: 'reynandev/codenaute:server'
