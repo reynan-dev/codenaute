@@ -26,11 +26,11 @@ test: ## Run client tests
 
 prettier: ## Run prettier
 	@echo "Running prettier"
-	npx prettier --check $(TS_FILES)
+	npx prettier --check .
 
 prettier-fix: ## Run prettier
 	@echo "Running prettier"
-	npx prettier --write $(TS_FILES)
+	npx prettier --write .
 
 .PHONY: install
 .PHONY: hard-install
