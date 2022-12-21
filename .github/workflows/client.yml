@@ -13,7 +13,6 @@ env:
   SERVICE_NAME: 'client'
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
-  DOCKER_IMAGE: 'reynandev/codenaute:client'
 
 jobs:
   workflow:
@@ -49,6 +48,9 @@ jobs:
   application-and-tests:
     needs: workflow
     runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: 'reynandev/codenaute:client'
+      DOCKER_DATABASE: 'postgres:14.6-alpine'
     container:
       image: ${{ env.DOCKER_IMAGE }}
       env:
