@@ -13,7 +13,7 @@ env:
   SERVICE_NAME: 'server'
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
-  DOCKER_IMAGE: ''
+  DOCKER_IMAGE: 'reynandev/codenaute-server:latest'
   DOCKER_DATABASE: 'postgres:14.6-alpine'
 
 jobs:
@@ -46,10 +46,6 @@ jobs:
       - name: Run Prettier
         working-directory: ./${{env.SERVICE_NAME}}
         run: make prettier
-
-      - name: Start Application
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: pnpm start:watch
 
       - name: Run Docker
         working-directory: ./${{env.SERVICE_NAME}}
