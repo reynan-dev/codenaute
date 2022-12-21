@@ -43,7 +43,7 @@ jobs:
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
       - name: Run Prettier
-        working-directory: ./${{env.SERVICE_NAME}}
+        working-directory: ./${{ env.SERVICE_NAME }}
         run: make prettier
 
   application-and-tests:
@@ -67,4 +67,4 @@ jobs:
 
       - name: Run Tests
         run: make test
-        working-directory: ./${{env.SERVICE_NAME}}
+        working-directory: ./${{ env.SERVICE_NAME }}
