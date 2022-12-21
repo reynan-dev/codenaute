@@ -26,7 +26,7 @@ test: ## Run client tests
 
 prettier: ## Run prettier
 	@echo "Running prettier"
-	npx prettier --write $(TS_FILES)
+	npx prettier --check $(TS_FILES)
 
 prettier-fix: ## Run prettier
 	@echo "Running prettier"
