@@ -51,6 +51,6 @@ jobs:
         working-directory: ./${{env.SERVICE_NAME}}
         run: make start
 
-      - name: Run Test
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make test
+      # - name: Run Test
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: make test
