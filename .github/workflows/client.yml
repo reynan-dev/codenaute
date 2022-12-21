@@ -13,7 +13,7 @@ env:
   SERVICE_NAME: 'client'
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
-  DOCKER_IMAGE: 'reynandev/codenaute-client:latest'
+  DOCKER_IMAGE: 'reynandev/codenaute:client'
 
 jobs:
   workflow:
@@ -46,10 +46,10 @@ jobs:
         working-directory: ./${{env.SERVICE_NAME}}
         run: make prettier
 
-      - name: Start Application
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make start
+      # - name: Start Application
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: make start
 
-      - name: Run Test
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make test
+      # - name: Run Test
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: make test

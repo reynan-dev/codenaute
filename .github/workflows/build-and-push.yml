@@ -36,7 +36,7 @@ jobs:
           context: .
           file: ./client/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-client:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
 
       - name: Build and Push Server Image
         uses: docker/build-push-action@v2
@@ -44,20 +44,20 @@ jobs:
           context: .
           file: ./server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-server:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
 
-      - name: Build and Push Database Dev Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./database/dev/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-db-dev:latest
+      # - name: Build and Push Database Dev Image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./database/dev/Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-db-dev:latest
 
-      - name: Build and Push Database Test Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./database/test/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-db-test:latest
+      # - name: Build and Push Database Test Image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./database/test/Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute-db-test:latest

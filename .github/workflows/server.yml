@@ -13,7 +13,7 @@ env:
   SERVICE_NAME: 'server'
   NODEJS_VERSION: '16.17.1'
   PNPM_VERSION: '7.16.0'
-  DOCKER_IMAGE: 'reynandev/codenaute-server:latest'
+  DOCKER_IMAGE: 'reynandev/codenaute:server'
   DOCKER_DATABASE: 'postgres:14.6-alpine'
 
 jobs:
@@ -47,13 +47,13 @@ jobs:
         working-directory: ./${{env.SERVICE_NAME}}
         run: make prettier
 
-      - name: Run Docker
-        working-directory: ./${{env.SERVICE_NAME}}
-        run:
-          docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
-          docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
-          if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
+      # - name: Run Docker
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run:
+      #     docker buildx build -t ${{ env.DOCKER_IMAGE }} --build-arg GITHUB_TOKEN=${{ secrets.SSH_PRIVATE_KEY_CORE }} .
+      #     docker run -d --env-file=.devops/.env.development --name=${{ env.SERVICE_NAME }} ${{ env.DOCKER_IMAGE }} && sleep 5s
+      #     if docker ps -f status=exited | grep ${{ env.SERVICE_NAME }}; then echo 1; else echo 0; fi
 
-      - name: Run Test
-        working-directory: ./${{env.SERVICE_NAME}}
-        run: make test
+      # - name: Run Test
+      #   working-directory: ./${{env.SERVICE_NAME}}
+      #   run: make test
