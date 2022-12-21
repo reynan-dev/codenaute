@@ -42,9 +42,10 @@ jobs:
   workflow:
     needs: build-and-push
     runs-on: ubuntu-latest
+    environment: tests
 
     container:
-      image: 'reynandev/codenaute:client'
+      image: 'reynandev/codenaute:server'
       env:
         NODE_ENV: test
       ports:
@@ -70,7 +71,7 @@ jobs:
       - name: Install dependencies globaly
         run: pnpm install
 
-      - name: Install dependencies on client
+      - name: Install dependencies on server
         run: pnpm install
         working-directory: ./${{ env.SERVICE_NAME }}
 
