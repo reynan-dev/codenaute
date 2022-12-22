@@ -16,7 +16,7 @@ hard-install: ## Install hard client dependencies
 	@echo "Hard installing dependencies client"
 	rm -rf node_modules
 	rm -rf pnpm-lock.yaml
-	pnpm install
+	make install
 
 start-debug: ## Run client (by default in watch mode)
 	@echo "Starting client"
@@ -34,7 +34,7 @@ stop: ## Run client
 	@echo "Stoping client"
 	docker-compose stop client
 
-test: ## Run client tests
+test: ## Run client tests on client
 	@echo "Testing client with jest"
 	pnpm test
 

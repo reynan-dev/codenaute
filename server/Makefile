@@ -16,7 +16,7 @@ hard-install: ## Installing hard server dependencies
 	@echo "Hard installing dependencies server"
 	rm -rf node_modules
 	rm -rf pnpm-lock.yaml
-	pnpm install
+	make install
 
 build: ## Compiling typescript
 	@echo "Building typescript on server"
@@ -38,7 +38,7 @@ stop: ## Stoping server container
 	@echo "Stoping server"
 	docker-compose stop server
 
-test: ## Runing tests on server container
+test: ## Runing tests on server
 	@echo "Testing server"
 	pnpm test
 
