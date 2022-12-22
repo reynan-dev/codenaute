@@ -6,7 +6,7 @@
 		"emitDecoratorMetadata": true,
 
 		/* Modules */
-		"module": "es2022",
+		"module": "CommonJS",
 		"rootDir": "./src",
 		"moduleResolution": "node",
 
