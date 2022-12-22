@@ -35,13 +35,11 @@ class MemberServices extends BaseServices {
 
 		const hashedPassword = hashSync(password, 10);
 
-		user = await this.repository.create({
+		return await this.repository.create({
 			username: username,
 			email: email,
 			hashedPassword: hashedPassword
 		});
-
-		return await this.repository.save(user);
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
