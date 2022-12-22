@@ -1,12 +1,12 @@
 import { ObjectLiteral } from 'typeorm';
-import { dataSource } from '../../db.js';
+import { dataSource } from '../../db';
 
 import {
 	NOT_FOUND_ERROR_MESSAGE,
 	EMPTY_FIELD_ERROR_MESSAGE,
 	NOT_CREATED_ERROR_MESSAGE,
 	NOT_UPDATED_ERROR_MESSAGE
-} from '../../utils/errorMessage.js';
+} from '../../utils/errorMessage';
 export default abstract class BaseServices {
 	repository: any;
 

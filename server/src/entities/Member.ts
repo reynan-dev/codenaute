@@ -1,7 +1,7 @@
 import { IsEmail } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, Entity, Index } from 'typeorm';
-import BaseEntity from './base/BaseEntity.js';
+import BaseEntity from './base/BaseEntity';
 
 @Entity()
 @ObjectType()

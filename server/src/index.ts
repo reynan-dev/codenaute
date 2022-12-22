@@ -2,12 +2,12 @@ import { ApolloServer } from 'apollo-server';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema } from 'type-graphql';
 
-import MemberResolver from './resolvers/MemberResolver.js';
-import MemberServices from './services/MemberServices.js';
+import MemberResolver from './resolvers/MemberResolver';
+import MemberServices from './services/MemberServices';
 
-import { GlobalContext } from './utils/GlobalContext.js';
-import { getSessionIdInCookie } from './utils/getSessionIdInCookie.js';
-import { startDatabase } from './db.js';
+import { GlobalContext } from './utils/GlobalContext';
+import { getSessionIdInCookie } from './utils/getSessionIdInCookie';
+import { startDatabase } from './db';
 
 const startServer = async () => {
 	await startDatabase();

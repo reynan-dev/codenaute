@@ -1,13 +1,13 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import Member from '../entities/Member.js';
-import BaseServices from './base/BaseServices.js';
-import SessionServices from './SessionServices.js';
+import Member from '../entities/Member';
+import BaseServices from './base/BaseServices';
+import SessionServices from './SessionServices';
 
 import {
 	INVALID_CREDENTIALS_ERROR_MESSAGE,
 	MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
-} from '../utils/errorMessage.js';
+} from '../utils/errorMessage';
 
 class MemberServices extends BaseServices {
 	constructor() {
@@ -15,7 +15,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async signIn(email: string, password: string) {
-		const user = await this.repository.findOne({ email: email });
+		const user = await this.repository.findBy({ email: email });
 
 		if (!user || !compareSync(password, user.hashedPassword)) {
 			throw Error(INVALID_CREDENTIALS_ERROR_MESSAGE);

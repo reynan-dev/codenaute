@@ -1,11 +1,11 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
-import Member from '../entities/Member.js';
-import MemberServices from '../services/MemberServices.js';
+import Member from '../entities/Member';
+import MemberServices from '../services/MemberServices';
 
-import { SignInArgs, SignUpArgs } from './args/MemberArgs.js';
+import { SignInArgs, SignUpArgs } from './args/MemberArgs';
 
-import { GlobalContext } from '../utils/GlobalContext.js';
+import { GlobalContext } from '../utils/GlobalContext';
 
 @Resolver(Member)
 export default class MemberResolver {
