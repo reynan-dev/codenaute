@@ -1,4 +1,4 @@
-const MemberServices = require('../../../dist/services/MemberServices.js');
+import MemberServices from '../../../src/services/MemberServices';
 
 describe.skip('FindBySessionToken method in Member Services', () => {
   it('should be a function', () => {

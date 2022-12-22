@@ -1,4 +1,4 @@
-const BaseServices = require('../../../dist/services/base/BaseServices.js');
+import BaseServices from '../../../src/services/base/BaseServices';
 
 describe.skip('FindById method in Base Services', () => {
   it('should be a function', () => {

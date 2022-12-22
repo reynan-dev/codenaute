@@ -1,5 +1,5 @@
-const BaseServices = require('../../../dist/services/base/BaseServices.js');
-const MemberServices = require('../../../dist/services/MemberServices.js');
+import BaseServices from '../../../src/services/base/BaseServices';
+import MemberServices from '../../../src/services/MemberServices';
 
 describe.skip('Member Services', () => {
   it('should be a class', () => {

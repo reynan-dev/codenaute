@@ -1,5 +1,5 @@
-const { BaseEntity } = require('typeorm');
-const Member = require('../../dist/entities/Member.js');
+import { BaseEntity } from 'typeorm';
+import Member from '../../dist/entities/Member.js';
 
 describe.skip('Member Entity', () => {
   it('should be a class', () => {

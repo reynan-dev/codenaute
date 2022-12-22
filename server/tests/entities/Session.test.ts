@@ -1,4 +1,4 @@
-const Session = require('../../dist/entities/Session.js');
+import Session from '../../src/entities/Session';
 
 describe.skip('Session Entity', () => {
   it('should be a class', () => {

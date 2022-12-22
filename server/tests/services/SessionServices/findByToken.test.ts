@@ -1,4 +1,4 @@
-const SessionServices = require('../../../dist/services/SessionServices.js');
+import SessionServices from '../../../src/services/SessionServices';
 
 describe.skip('findByToken method in Session Services', () => {
   it('should be a function', () => {
