@@ -1,3 +1,13 @@
+CONTAINER_NAME = server-codenaute
+
+# If the first argument is "run"...
+ifeq (exec,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "run"
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(RUN_ARGS):;@:)
+endif
+
 install: ## Installing server dependencies
 	@echo "Installing server dependencies"
 	pnpm install
@@ -12,21 +22,25 @@ build: ## Compiling typescript
 	@echo "Building typescript on server"
 	pnpm build
 
-start-debug: ## Starting server in debug mode
+start-debug: ## Starting server container in debug mode
 	@echo "Starting server in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
-start-quiet: ## Starting server in mode quiet
+start-quiet: ## Starting server container in mode quiet
 	@echo "Starting server in quiet mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
-stop: ## Stoping server
+.PHONY: exec
+exec : ## Running server container
+	@echo docker exec $(CONTAINER_NAME) $(RUN_ARGS)
+
+stop: ## Stoping server container
 	@echo "Stoping server"
 	docker-compose stop server
 
-test: ## Runing tests on server
+test: ## Runing tests on server container
 	@echo "Testing server"
-	pnpm jest
+	pnpm test
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
