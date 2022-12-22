@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@types/bcryptjs': ^2.4.2
   '@types/cookie': ^0.5.1
-  '@types/jest': 29.2.4
+  '@types/jest': ^29.2.4
   '@types/node': 18.11.9
   apollo-server: 3.11.1
   apollo-server-core: 3.11.1
@@ -14,7 +14,7 @@ specifiers:
   dotenv: 16.0.3
   express: ^4.17.1
   graphql: 15.3.0
-  jest: 29.3.1
+  jest: '29.2'
   nodemon: 2.0.20
   pg: 8.8.0
   prettier: 2.7.1
@@ -47,11 +47,11 @@ devDependencies:
   '@types/cookie': 0.5.1
   '@types/jest': 29.2.4
   '@types/node': 18.11.9
-  jest: 29.3.1_odkjkoia5xunhxkdrka32ib6vi
+  jest: 29.2.2_odkjkoia5xunhxkdrka32ib6vi
   nodemon: 2.0.20
   prettier: 2.7.1
   prettier-plugin-packagejson: 2.3.0_prettier@2.7.1
-  ts-jest: 29.0.3_r24ewcothphvclnu77pxb4u4se
+  ts-jest: 29.0.3_r7gdwuj75x2gz25bauak3xcnbm
   typescript: 4.8.4
 
 packages:
@@ -3722,10 +3722,10 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jest/29.3.1_odkjkoia5xunhxkdrka32ib6vi:
+  /jest/29.2.2_odkjkoia5xunhxkdrka32ib6vi:
     resolution:
       {
-        integrity: sha512-6iWfL5DTT0Np6UYs/y5Niu7WIfNv/wRTtN5RSXt2DIEft3dx3zPuw/3WJQBCJfmEzvDiEKwoqMbGD9n49+qLSA==
+        integrity: sha512-r+0zCN9kUqoON6IjDdjbrsWobXM/09Nd45kIPRD8kloaRh1z5ZCMdVsgLXGxmlL7UpAJsvCYOQNO+NjvG/gqiQ==
       }
     engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
     hasBin: true
@@ -5083,7 +5083,7 @@ packages:
       }
     dev: false
 
-  /ts-jest/29.0.3_r24ewcothphvclnu77pxb4u4se:
+  /ts-jest/29.0.3_r7gdwuj75x2gz25bauak3xcnbm:
     resolution:
       {
         integrity: sha512-Ibygvmuyq1qp/z3yTh9QTwVVAbFdDy/+4BtIQR2sp6baF2SJU/8CKK/hhnGIDY2L90Az2jIqTwZPnN2p+BweiQ==
@@ -5109,7 +5109,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.3.1_odkjkoia5xunhxkdrka32ib6vi
+      jest: 29.2.2_odkjkoia5xunhxkdrka32ib6vi
       jest-util: 29.3.1
       json5: 2.2.2
       lodash.memoize: 4.1.2
