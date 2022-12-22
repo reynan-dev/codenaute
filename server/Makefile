@@ -40,7 +40,7 @@ stop: ## Stoping server container
 
 test: ## Runing tests on server
 	@echo "Testing server"
-	docker exec $(CONTAINER_NAME) -e NODE_ENV=test pnpm test
+	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
