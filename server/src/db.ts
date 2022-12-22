@@ -14,7 +14,7 @@ const dataSource = new DataSource({
 		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE,
 	entities: [`${__dirname}/**/entities/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
 	migrations: [`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
-	logging: process.env.NODE_ENV === 'development' ? ['query', 'error'] : ['error']
+	logging: process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error']
 });
 
 const startDatabase = async function () {
