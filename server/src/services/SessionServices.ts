@@ -2,6 +2,8 @@ import Member from '../entities/Member';
 import Session from '../entities/Session';
 import BaseServices from './base/BaseServices';
 
+import { SESSION_NOT_FOUND_ERROR_MESSAGE } from '../utils/errorMessage.js';
+
 class SessionServices extends BaseServices {
 	constructor() {
 		super(Session);
@@ -14,7 +16,7 @@ class SessionServices extends BaseServices {
 
 	async findByToken(token: string): Promise<Session | null> {
 		if (!token) {
-			throw Error('Empty token');
+			throw Error(SESSION_NOT_FOUND_ERROR_MESSAGE);
 		}
 
 		return await this.repository.findOneBy({ token: token });

@@ -4,20 +4,21 @@ import Member from '../entities/Member.js';
 import BaseServices from './base/BaseServices.js';
 import SessionServices from './SessionServices.js';
 
+import {
+	INVALID_CREDENTIALS_ERROR_MESSAGE,
+	MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
+} from '../utils/errorMessage.js';
+
 class MemberServices extends BaseServices {
 	constructor() {
 		super(Member);
 	}
 
 	async signIn(email: string, password: string) {
-		if (!email || !password) {
-			throw Error('Empty email or password');
-		}
-
-		let user = await this.repository.findOne({ email: email });
+		const user = await this.repository.findOne({ email: email });
 
 		if (!user || !compareSync(password, user.hashedPassword)) {
-			throw Error('Member not found');
+			throw Error(INVALID_CREDENTIALS_ERROR_MESSAGE);
 		}
 
 		const session = await SessionServices.create(user);
@@ -26,14 +27,10 @@ class MemberServices extends BaseServices {
 	}
 
 	async signUp(username: string, email: string, password: string) {
-		if (!email || !password) {
-			throw Error('Empty email or password');
-		}
-
 		let user = await this.repository.findBy({ email: email });
 
 		if (user) {
-			throw Error('Member already exists');
+			throw Error(MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 		}
 
 		const hashedPassword = hashSync(password, 10);
@@ -44,9 +41,7 @@ class MemberServices extends BaseServices {
 			hashedPassword: hashedPassword
 		});
 
-		const session = await SessionServices.create(user);
-
-		return { user, session };
+		return await this.repository.save(user);
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
