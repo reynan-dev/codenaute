@@ -18,9 +18,12 @@
 		/* Type Checking */
 		"strict": true,
 		"strictPropertyInitialization": false,
+		"typeRoots": ["node_modules/@types", "src/@types"],
+		"types": ["jest", "node", "bcryptjs", "cookie"],
 
 		/* Completeness */
 		"skipLibCheck": true
 	},
-	"exclude": ["**/*.test.ts", "**/*.spec.ts"]
+	"include": ["src/**/*", "tests/**/*"],
+	"exclude": ["node_modules", "dist"]
 }
