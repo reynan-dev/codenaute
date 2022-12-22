@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import Member from './Member.js';
+import Member from './Member';
 
 @Entity()
 @ObjectType()
