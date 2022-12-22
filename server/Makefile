@@ -32,7 +32,7 @@ start-quiet: ## Starting server container in mode quiet
 
 .PHONY: exec
 exec : ## Running server container
-	@echo docker exec $(CONTAINER_NAME) $(RUN_ARGS)
+	docker exec $(CONTAINER_NAME) $(RUN_ARGS)
 
 stop: ## Stoping server container
 	@echo "Stoping server"
@@ -40,7 +40,7 @@ stop: ## Stoping server container
 
 test: ## Runing tests on server
 	@echo "Testing server"
-	pnpm test
+	docker exec $(CONTAINER_NAME) pnpm test
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
@@ -52,11 +52,11 @@ prettier-fix: ## Fixing with prettier
 
 migration-run: ## Runing migrations
 	@echo "Executing migrations in mysql-coder database"
-	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:run
+	docker exec $(CONTAINER_NAME) pnpm migration:run
 
 migration-generate: ## Generating migrations
 	@echo "Generate a new migration"
-	cd .. && docker-compose -f docker-compose.yml exec server pnpm migration:generate
+	docker exec $(CONTAINER_NAME) pnpm migration:generate
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
