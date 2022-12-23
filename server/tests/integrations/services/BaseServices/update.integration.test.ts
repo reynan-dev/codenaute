@@ -3,9 +3,9 @@ import MemberServices from '../../../../src/services/MemberServices';
 import {
 	EMPTY_FIELD_ERROR_MESSAGE,
 	NOT_FOUND_ERROR_MESSAGE,
-  NOT_UPDATED_ERROR_MESSAGE
+	NOT_UPDATED_ERROR_MESSAGE
 } from '../../../../src/utils/errorMessage';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 describe('BaseService.find', () => {
 	beforeAll(async () => {
@@ -43,25 +43,25 @@ describe('BaseService.find', () => {
 	});
 
 	describe('when update a valid element', () => {
-    describe.skip('when update is not successful', () => {
-      it ('throw an error', async () => {
+		describe.skip('when update is not successful', () => {
+			it('throw an error', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
 				expect(await MemberServices.update(member.id, { username: 'tested' })).rejects.toThrowError(
 					NOT_UPDATED_ERROR_MESSAGE
 				);
-      });
-    });
-    describe('when update is successful', () => {
-      it('returns an element', async () => {
+			});
+		});
+		describe('when update is successful', () => {
+			it('returns an element', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
-        const update = await MemberServices.update(member.id, { username: 'tested' });
+				const update = await MemberServices.update(member.id, { username: 'tested' });
 
-        const updated = await MemberServices.findById(member.id);
+				const updated = await MemberServices.findById(member.id);
 
 				expect(update).toEqual(updated);
-      });
-    });
+			});
+		});
 	});
 });

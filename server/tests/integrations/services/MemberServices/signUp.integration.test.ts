@@ -21,28 +21,28 @@ describe('Authentication integration test', () => {
 	});
 
 	describe('when email address belongs to existing user', () => {
-    it('throws an member already exists error', async () => {
-      const username = 'username';
-      const email = 'unknown@email.com';
-      const password = 'password';
+		it('throws an member already exists error', async () => {
+			const username = 'username';
+			const email = 'unknown@email.com';
+			const password = 'password';
 
-      await MemberServices.signUp(username, email, password);
+			await MemberServices.signUp(username, email, password);
 
 			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
-        MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
-        );
-      });
-    });
-    describe("when email address doesn't belong to existing user", () => {
-      it('return an member', async () => {
-        const username = 'username';
-        const email = 'unknown@email.com';
-        const password = 'password';
+				MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
+			);
+		});
+	});
+	describe("when email address doesn't belong to existing user", () => {
+		it('return an member', async () => {
+			const username = 'username';
+			const email = 'unknown@email.com';
+			const password = 'password';
 
-        const user = await MemberServices.signUp(username, email, password);
+			const user = await MemberServices.signUp(username, email, password);
 
-        expect(user.username).toEqual(username);
-        expect(user.email).toEqual(email);
-      });
-    });
+			expect(user.username).toEqual(username);
+			expect(user.email).toEqual(email);
+		});
+	});
 });
