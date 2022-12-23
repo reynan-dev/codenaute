@@ -15,11 +15,7 @@ class SessionServices extends BaseServices {
 	}
 
 	async findByToken(token: string): Promise<Session | null> {
-		if (!token) {
-			throw Error(SESSION_NOT_FOUND_ERROR_MESSAGE);
-		}
-
-		return await this.repository.findOneBy({ token: token });
+		return await this.findOneBy({ token });
 	}
 }
 
