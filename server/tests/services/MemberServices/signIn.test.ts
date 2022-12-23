@@ -1,8 +1,7 @@
-import { dataSource, closeDatabase, startDatabase } from '../../../src/db';
-
 import MemberServices from '../../../src/services/MemberServices';
 import SessionServices from '../../../src/services/SessionServices';
 
+import { dataSource, closeDatabase, startDatabase } from '../../../src/db';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../../src/utils/errorMessage';
 
 describe('signIn integration', () => {
@@ -21,16 +20,16 @@ describe('signIn integration', () => {
         `TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`
         );
     }
-  })
+  });
 
   describe("when email address doesn't belong to existing user", () => {
     it ("throws invalid credentials error", async () => {
       const email = 'unknown@email.com';
 
       expect(() => MemberServices.signIn(email, 'password')).rejects.toThrowError(INVALID_CREDENTIALS_ERROR_MESSAGE)
-      });
     });
   });
+
 
   describe("when email address belongs to existing user", () => {
     const email = 'email@test.com'
@@ -39,8 +38,8 @@ describe('signIn integration', () => {
         await MemberServices.signUp('username', email, 'password');
 
         expect(() => MemberServices.signIn(email, 'incorrect')).rejects.toThrowError(INVALID_CREDENTIALS_ERROR_MESSAGE)
-        });
       });
+    });
 
     describe("when password is valid", () => {
       it ("creates session in database", async () => {
@@ -65,5 +64,5 @@ describe('signIn integration', () => {
       });
     });
   });
-
+});
 
