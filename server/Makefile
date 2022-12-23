@@ -42,6 +42,10 @@ test: ## Runing tests on server
 	@echo "Testing server"
 	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test
 
+test-watch: ## Runing tests on server
+	@echo "Testing server"
+	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test:watch
+
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
 	npx prettier --check .
