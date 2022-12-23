@@ -1,10 +1,10 @@
-import MemberServices from '../../../src/services/MemberServices';
-import SessionServices from '../../../src/services/SessionServices';
+import MemberServices from '../../src/services/MemberServices';
+import SessionServices from '../../src/services/SessionServices';
 
-import { dataSource, closeDatabase, startDatabase } from '../../../src/db';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../../src/utils/errorMessage';
+import { dataSource, closeDatabase, startDatabase } from '../../src/db';
+import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../src/utils/errorMessage';
 
-describe('signIn integration', () => {
+describe('Authentication integration test', () => {
   beforeAll(async () => {
     await startDatabase();
   });
@@ -49,7 +49,6 @@ describe('signIn integration', () => {
 
         const sessions = await SessionServices.findByToken(session.token);
 
-        expect(sessions).toHaveLength(1);
         expect(sessions?.member.email).toEqual(email);
       });
 
@@ -58,7 +57,7 @@ describe('signIn integration', () => {
 
         const login = await MemberServices.signIn(email, 'password');
 
-        expect(login).toHaveProperty('email');
+        expect(login).toHaveProperty('user');
         expect(login).toHaveProperty('session');
         expect(login.user.email).toEqual(email);
       });
