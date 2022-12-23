@@ -2,12 +2,14 @@
 build
 coverage
 
-**/volumes/*
-**/build/*
-**/dist/*
-**/tests/*
+**/volumes/**
+**/build/**
+**/dist/**
+**/tests/**
 
 # Ignore node_modules:
-
 ./node_modules
 **/node_modules
+
+# Ignore test coverage reports:
+**/coverage/**
