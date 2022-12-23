@@ -23,7 +23,15 @@ export default abstract class BaseServices {
 			return await this.find();
 		}
 
-		return await this.repository.find(filter);
+		return await this.repository.findBy(filter);
+	}
+
+	async findOneBy(filter: ObjectLiteral = {}) {
+		if (Object.keys(filter).length === 0) {
+			return await this.find();
+		}
+
+		return await this.repository.findOneBy(filter);
 	}
 
 	async findById(id: string) {

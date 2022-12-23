@@ -20,18 +20,8 @@ export default class Session {
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@Field()
-	@Column('timestamp with time zone')
-	expiresAt: number;
-
 	@BeforeInsert()
-	expirateIn() {
-		const now = new Date();
-		this.expiresAt = now.setHours(now.getDay() + 7);
-	}
-
-	@BeforeInsert()
-	setId() {
+	setToken() {
 		this.token = randomBytes(16).toString('hex');
 	}
 }

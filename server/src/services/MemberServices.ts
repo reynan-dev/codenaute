@@ -15,7 +15,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async signIn(email: string, password: string) {
-		const user = await this.repository.findBy({ email: email });
+		const user = (await this.findOneBy({ email })) as Member;
 
 		if (!user || !compareSync(password, user.hashedPassword)) {
 			throw Error(INVALID_CREDENTIALS_ERROR_MESSAGE);
@@ -27,7 +27,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async signUp(username: string, email: string, password: string) {
-		let user = await this.repository.findBy({ email: email });
+		let user = (await this.findOneBy({ email })) as Member;
 
 		if (user) {
 			throw Error(MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
@@ -35,7 +35,7 @@ class MemberServices extends BaseServices {
 
 		const hashedPassword = hashSync(password, 10);
 
-		return await this.repository.create({
+		return await this.create({
 			username: username,
 			email: email,
 			hashedPassword: hashedPassword
