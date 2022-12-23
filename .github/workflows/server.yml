@@ -45,6 +45,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: tests
     if: github.event.pull_request.draft == false
+    env:
+      NODE_ENV: test
 
     container:
       image: 'reynandev/codenaute:server'
@@ -82,9 +84,6 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
-
-      - name: Verify NODE_ENV
-        run: console.log(os.getenv('NODE_ENV'))
 
       - name: Run Prettier
         run: npx prettier --check .
