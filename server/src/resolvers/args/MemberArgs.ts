@@ -1,14 +1,13 @@
 import { IsEmail, Matches, MinLength } from 'class-validator';
 import { ArgsType, Field } from 'type-graphql';
+import { ErrorMessages } from '../../utils/enums/ErrorMessages';
 
 const passwordRegExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
 
 @ArgsType()
 export class SignUpArgs {
 	@Field()
-	@MinLength(1, {
-		message: 'Le username doit faire au moins un caractère de long.'
-	})
+	@MinLength(3, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	username: string;
 
 	@Field()
@@ -16,10 +15,7 @@ export class SignUpArgs {
 	email: string;
 
 	@Field()
-	@Matches(passwordRegExp, {
-		message:
-			'Le mot de passe doit comporter au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.'
-	})
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
 }
 
@@ -31,4 +27,45 @@ export class SignInArgs {
 
 	@Field()
 	password: string;
+}
+
+@ArgsType()
+export class UpdateUsernameArgs {
+	@Field()
+	@MinLength(3, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	username: string;
+
+	@Field()
+	id: string;
+}
+
+@ArgsType()
+export class UpdateEmailArgs {
+	@Field()
+	@IsEmail()
+	email: string;
+
+	@Field()
+	id: string;
+}
+
+@ArgsType()
+export class UpdatePasswordArgs {
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	password: string;
+
+	@Field()
+	@IsEmail()
+	email: string;
+}
+
+@ArgsType()
+export class DeleteAccountArgs {
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	password: string;
+
+	@Field()
+	id: string;
 }

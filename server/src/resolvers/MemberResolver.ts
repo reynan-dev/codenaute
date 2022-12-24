@@ -1,15 +1,21 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
 import Member from '../entities/Member';
-import Session from '../entities/Session';
 import MemberServices from '../services/MemberServices';
 
-import { SignInArgs, SignUpArgs } from './args/MemberArgs';
+import {
+	DeleteAccountArgs,
+	SignInArgs,
+	SignUpArgs,
+	UpdateEmailArgs,
+	UpdatePasswordArgs,
+	UpdateUsernameArgs
+} from './args/MemberArgs';
 
 import { GlobalContext } from '../utils/GlobalContext';
 import { setSessionTokenInCookie } from '../utils/setSessionTokenInCookie';
 import { getSessionTokenInCookie } from '../utils/getSessionTokenInCookie';
-import SessionServices from '../services/SessionServices';
+import { ErrorMessages } from '../utils/enums/ErrorMessages';
 
 @Resolver(Member)
 export default class MemberResolver {
@@ -41,5 +47,37 @@ export default class MemberResolver {
 	@Query(() => Member)
 	async profile(@Ctx() context: GlobalContext): Promise<Member> {
 		return context.user as Member;
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async updateUsername(@Args() { username, id }: UpdateUsernameArgs): Promise<Member> {
+		const user = (await MemberServices.findOneBy({ username })) as Member;
+
+		if (user) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
+
+		return await MemberServices.updateUsername(id, username);
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async updateEmail(@Args() { email, id }: UpdateEmailArgs): Promise<Member> {
+		const user = (await MemberServices.findOneBy({ email })) as Member;
+
+		if (user) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+
+		return await MemberServices.updateEmail(id, email);
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async updatePassword(@Args() { password, email }: UpdatePasswordArgs): Promise<Member> {
+		return await MemberServices.updatePassword(email, password);
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async deleteAccount(@Args() { password, id }: DeleteAccountArgs): Promise<Member> {
+		return await MemberServices.deleteAccount(id, password);
 	}
 }

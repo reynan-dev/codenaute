@@ -2,10 +2,7 @@ import MemberServices from '../../src/services/MemberServices';
 import SessionServices from '../../src/services/SessionServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../src/db';
-import {
-	INVALID_CREDENTIALS_ERROR_MESSAGE,
-	SESSION_NOT_FOUND_ERROR_MESSAGE
-} from '../../src/utils/errorMessage';
+import { ErrorMessages } from '../../src/utils/enums/ErrorMessages';
 import { randomBytes } from 'crypto';
 
 describe('Authentication integration test', () => {
@@ -29,7 +26,7 @@ describe('Authentication integration test', () => {
 			const email = 'unknown@email.com';
 
 			expect(() => MemberServices.signIn(email, 'password')).rejects.toThrowError(
-				INVALID_CREDENTIALS_ERROR_MESSAGE
+				ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE
 			);
 		});
 	});
@@ -41,7 +38,7 @@ describe('Authentication integration test', () => {
 				await MemberServices.signUp('username', email, 'password');
 
 				expect(() => MemberServices.signIn(email, 'incorrect')).rejects.toThrowError(
-					INVALID_CREDENTIALS_ERROR_MESSAGE
+					ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE
 				);
 			});
 		});
@@ -74,7 +71,7 @@ describe('Authentication integration test', () => {
 			it('throw a session not found error', async () => {
 				expect(() =>
 					SessionServices.deleteByToken(randomBytes(16).toString('hex'))
-				).rejects.toThrowError(SESSION_NOT_FOUND_ERROR_MESSAGE);
+				).rejects.toThrowError(ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE);
 			});
 		});
 

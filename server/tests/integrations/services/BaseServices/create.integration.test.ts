@@ -1,7 +1,6 @@
 import { hashSync } from 'bcryptjs';
 import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
 import MemberServices from '../../../../src/services/MemberServices';
-import { NOT_CREATED_ERROR_MESSAGE } from '../../../../src/utils/errorMessage';
 
 describe.skip('BaseService.find', () => {
 	beforeAll(async () => {
@@ -32,7 +31,7 @@ describe.skip('BaseService.find', () => {
 					password: hashedPassword
 				};
 
-				expect(() => MemberServices.create(data)).rejects.toThrowError(NOT_CREATED_ERROR_MESSAGE);
+				expect(() => MemberServices.create(data)).rejects.toThrowError();
 			});
 		});
 

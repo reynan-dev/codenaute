@@ -1,8 +1,7 @@
 import MemberServices from '../../../../src/services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../../../src/utils/errorMessage';
-import { MEMBER_ALREADY_EXISTS_ERROR_MESSAGE } from '../../../../src/utils/errorMessage';
+import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
 describe('Authentication integration test', () => {
 	beforeAll(async () => {
@@ -29,7 +28,7 @@ describe('Authentication integration test', () => {
 			await MemberServices.signUp(username, email, password);
 
 			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
-				MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
+				ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
 			);
 		});
 	});
