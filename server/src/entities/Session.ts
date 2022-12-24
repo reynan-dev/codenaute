@@ -1,3 +1,4 @@
+import { IsDate, IsHexadecimal } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
@@ -10,6 +11,7 @@ export default class Session {
 		this.member = member;
 	}
 	@PrimaryColumn('varchar', { length: 32 })
+	@IsHexadecimal()
 	token: string;
 
 	@ManyToOne(() => Member, { eager: true })
@@ -17,6 +19,7 @@ export default class Session {
 	member: Member;
 
 	@Field()
+	@IsDate()
 	@CreateDateColumn()
 	createdAt: Date;
 

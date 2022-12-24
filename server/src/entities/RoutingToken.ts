@@ -1,4 +1,4 @@
-import { IsEmail } from 'class-validator';
+import { IsDate, IsEmail, IsHexadecimal } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
@@ -11,6 +11,7 @@ export default class RoutingToken {
 	}
 
 	@PrimaryColumn('varchar', { length: 32 })
+	@IsHexadecimal()
 	token: string;
 
 	@Field()
@@ -19,6 +20,7 @@ export default class RoutingToken {
 
 	@Field()
 	@CreateDateColumn()
+	@IsDate()
 	createdAt: Date;
 
 	@BeforeInsert()
