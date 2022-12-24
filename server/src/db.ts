@@ -14,7 +14,8 @@ const dataSource = new DataSource({
 		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE,
 	entities: [`${__dirname}/**/entities/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
 	migrations: [`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
-	logging: process.env.NODE_ENV === 'development' ? ['query', 'error'] : ['error']
+	logging: process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'],
+	synchronize: true
 });
 
 const startDatabase = async function () {
@@ -29,7 +30,7 @@ const startDatabase = async function () {
 
 const closeDatabase = async function () {
 	try {
-		await dataSource.close();
+		await dataSource.destroy();
 		console.log('💀 Successfully closed database connection');
 	} catch (error) {
 		console.log('😞 Database disconnection error');

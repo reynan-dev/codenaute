@@ -36,7 +36,7 @@ stop: ## Run client
 
 test: ## Run client tests on client
 	@echo "Testing client with jest"
-	pnpm test
+	docker exec $(CONTAINER_NAME) pnpm test
 
 prettier: ## Run prettier
 	@echo "Running prettier"

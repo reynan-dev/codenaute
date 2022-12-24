@@ -6,8 +6,6 @@
 		"**/*": "prettier --write --ignore-unknown"
 	},
 	"dependencies": {
-		"apollo-server-core": "3.11.1",
-		"graphql": "16.6.0",
 		"pnpm": "7.16.0"
 	},
 	"devDependencies": {
