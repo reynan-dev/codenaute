@@ -21,8 +21,4 @@ export default class BaseModels {
 	@UpdateDateColumn()
 	@Field()
 	updateAt: Date;
-
-	@DeleteDateColumn()
-	@Field()
-	deletedAt: Date;
 }
