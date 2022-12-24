@@ -3,7 +3,7 @@ import MemberServices from '../../../../src/services/MemberServices';
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
-describe('Singup integration test', () => {
+describe('Singup a Member integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});

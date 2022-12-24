@@ -69,9 +69,9 @@ describe('Authentication integration test', () => {
 	describe('when signing out', () => {
 		describe('when session token is invalid', () => {
 			it('throw a session not found error', async () => {
-				expect(() =>
-					SessionServices.deleteByToken(randomBytes(16).toString('hex'))
-				).rejects.toThrowError(ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE);
+				expect(() => SessionServices.delete(randomBytes(16).toString('hex'))).rejects.toThrowError(
+					ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE
+				);
 			});
 		});
 

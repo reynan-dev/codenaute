@@ -2,7 +2,7 @@ import MemberServices from '../../../../src/services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
 
-describe('Update email integration test', () => {
+describe('Update a Member email integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});

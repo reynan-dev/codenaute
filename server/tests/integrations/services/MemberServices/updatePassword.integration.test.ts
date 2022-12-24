@@ -4,7 +4,7 @@ import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
 import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
-describe('Update password integration test', () => {
+describe('Update a Member password integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});

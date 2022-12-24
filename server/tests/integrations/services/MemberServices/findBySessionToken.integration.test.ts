@@ -3,7 +3,7 @@ import MemberServices from '../../../../src/services/MemberServices';
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
 import { randomBytes } from 'crypto';
 
-describe('Find by session token integration test', () => {
+describe('Find a Member by session token integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
