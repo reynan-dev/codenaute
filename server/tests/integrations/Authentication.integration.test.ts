@@ -2,7 +2,10 @@ import MemberServices from '../../src/services/MemberServices';
 import SessionServices from '../../src/services/SessionServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../src/db';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE, SESSION_NOT_FOUND_ERROR_MESSAGE } from '../../src/utils/errorMessage';
+import {
+	INVALID_CREDENTIALS_ERROR_MESSAGE,
+	SESSION_NOT_FOUND_ERROR_MESSAGE
+} from '../../src/utils/errorMessage';
 import { randomBytes } from 'crypto';
 
 describe('Authentication integration test', () => {
@@ -68,18 +71,18 @@ describe('Authentication integration test', () => {
 
 	describe('when signing out', () => {
 		describe('when session token is invalid', () => {
-			it("throw a session not found error", async () => {
-				expect(() => SessionServices.deleteByToken(randomBytes(16).toString('hex'))).rejects.toThrowError(
-					SESSION_NOT_FOUND_ERROR_MESSAGE
-				);
+			it('throw a session not found error', async () => {
+				expect(() =>
+					SessionServices.deleteByToken(randomBytes(16).toString('hex'))
+				).rejects.toThrowError(SESSION_NOT_FOUND_ERROR_MESSAGE);
 			});
-		 });
+		});
 
 		describe('when session token is valid', () => {
 			it('deletes session from database', async () => {
 				await MemberServices.signUp('username', 'user@test.com', 'password');
 
-				const { session } = await MemberServices.signIn("user@test.com", 'password');
+				const { session } = await MemberServices.signIn('user@test.com', 'password');
 
 				await MemberServices.signOut(session.token);
 
