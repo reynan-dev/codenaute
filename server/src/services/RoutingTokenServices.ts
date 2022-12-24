@@ -8,8 +8,9 @@ class RoutingTokenServices extends BaseServices {
 	}
 
 	async create(member: Member) {
-		const session = new RoutingToken(member.email);
-		return await this.repository.save(session);
+		const routingToken = new RoutingToken(member.email);
+
+		return await this.repository.save(routingToken);
 	}
 
 	async findByToken(token: string): Promise<RoutingToken | null> {
