@@ -18,7 +18,7 @@ class SessionServices extends BaseServices {
 		return await this.findOneBy({ token });
 	}
 
-	async deleteByToken(token: string) {
+	async delete(token: string) {
 		const session = await this.findByToken(token);
 		if (!session) throw Error(ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE);
 
