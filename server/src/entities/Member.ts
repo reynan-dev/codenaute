@@ -16,9 +16,9 @@ export default class Member extends BaseEntity {
 	@Index({ unique: true })
 	email: string;
 
-	@Column({ default: false })
+	@Column()
 	@Field()
-	isValidEmail: boolean;
+	isValidEmail: boolean = false;
 
 	@Column()
 	@Field()

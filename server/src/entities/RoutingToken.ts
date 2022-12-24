@@ -1,8 +1,7 @@
 import { IsEmail } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
-import { BeforeInsert, Column, CreateDateColumn, Entity, Index, PrimaryColumn } from 'typeorm';
-import Member from './Member';
+import { BeforeInsert, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
