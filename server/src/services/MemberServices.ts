@@ -37,7 +37,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async signOut(token: string) {
-		return await SessionServices.deleteByToken(token);
+		return await SessionServices.delete(token);
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
