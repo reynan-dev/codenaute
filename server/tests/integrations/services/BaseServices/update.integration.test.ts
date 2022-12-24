@@ -43,15 +43,6 @@ describe('BaseService.find', () => {
 	});
 
 	describe('when update a valid element', () => {
-		describe.skip('when update is not successful', () => {
-			it('throw an error', async () => {
-				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
-
-				expect(await MemberServices.update(member.id, { username: 'tested' })).rejects.toThrowError(
-					NOT_UPDATED_ERROR_MESSAGE
-				);
-			});
-		});
 		describe('when update is successful', () => {
 			it('returns an element', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
