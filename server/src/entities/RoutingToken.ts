@@ -14,7 +14,6 @@ export default class RoutingToken {
 	@IsHexadecimal()
 	token: string;
 
-	@Column()
 	@Field()
 	@IsEmail()
 	email: string;
