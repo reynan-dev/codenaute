@@ -17,18 +17,15 @@ export default class Member extends BaseEntity {
 	@Index({ unique: true })
 	email: string;
 
-	@IsBoolean()
 	@Column({ default: false })
-	@Field()
+	@IsBoolean()
 	isValidEmail: boolean;
 
 	@Column()
-	@Field()
 	@IsString()
 	hashedPassword: string;
 
 	@DeleteDateColumn()
 	@IsDate()
-	@Field()
 	deletedAt: Date;
 }

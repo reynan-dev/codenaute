@@ -10,6 +10,7 @@ export default class Session {
 	constructor(member: Member) {
 		this.member = member;
 	}
+
 	@PrimaryColumn('varchar', { length: 32 })
 	@IsHexadecimal()
 	token: string;
@@ -18,9 +19,9 @@ export default class Session {
 	@Field()
 	member: Member;
 
+	@CreateDateColumn()
 	@Field()
 	@IsDate()
-	@CreateDateColumn()
 	createdAt: Date;
 
 	@BeforeInsert()
