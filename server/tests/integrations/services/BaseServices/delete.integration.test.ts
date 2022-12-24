@@ -3,7 +3,7 @@ import MemberServices from '../../../../src/services/MemberServices';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
 
-describe('BaseService.find', () => {
+describe('Delete integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});

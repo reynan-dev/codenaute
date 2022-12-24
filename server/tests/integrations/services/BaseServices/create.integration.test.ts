@@ -2,7 +2,7 @@ import { hashSync } from 'bcryptjs';
 import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
 import MemberServices from '../../../../src/services/MemberServices';
 
-describe.skip('BaseService.find', () => {
+describe.skip('Create integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});

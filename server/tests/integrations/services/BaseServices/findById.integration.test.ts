@@ -2,7 +2,7 @@ import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
 import MemberServices from '../../../../src/services/MemberServices';
 import { v4 as uuid } from 'uuid';
 
-describe('BaseService.find', () => {
+describe('FindById integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
