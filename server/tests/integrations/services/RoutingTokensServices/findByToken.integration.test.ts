@@ -1,9 +1,9 @@
 import MemberServices from '../../../../src/services/MemberServices';
+import RoutingTokenServices from '../../../../src/services/RoutingTokenServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
-import { randomBytes } from 'crypto';
 
-describe('Find a Member by session token integration test', () => {
+describe('Find a RoutingToken ByToken integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -19,13 +19,7 @@ describe('Find a Member by session token integration test', () => {
 		}
 	});
 
-	describe('when session does not exists', () => {
-		it('return an element nullable', async () => {
-			expect(await MemberServices.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
-		});
-	});
-
-	describe('when session exists', () => {
+	describe('when find a routing token by the token', () => {
 		it('return an member', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
@@ -33,9 +27,9 @@ describe('Find a Member by session token integration test', () => {
 
 			const member = await MemberServices.signUp(username, email, password);
 
-			const login = await MemberServices.signIn(email, password);
+			const routingToken = await RoutingTokenServices.create(member.id);
 
-			expect(await MemberServices.findBySessionToken(login.session.token)).toEqual(member);
+			expect(await RoutingTokenServices.findByToken(routingToken.token)).toEqual(routingToken);
 		});
 	});
 });

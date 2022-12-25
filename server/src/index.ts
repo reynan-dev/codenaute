@@ -5,9 +5,9 @@ import { buildSchema } from 'type-graphql';
 import MemberResolver from './resolvers/MemberResolver';
 import MemberServices from './services/MemberServices';
 
-import { GlobalContext } from './utils/GlobalContext';
-import { getSessionTokenInCookie } from './utils/getSessionTokenInCookie';
+import { GlobalContext } from './utils/types/GlobalContext';
 import { startDatabase } from './db';
+import { Cookie } from './utils/methods/Cookie';
 
 const startServer = async () => {
 	await startDatabase();
@@ -20,7 +20,7 @@ const startServer = async () => {
 			}
 		}),
 		context: async (context): Promise<GlobalContext> => {
-			const token = getSessionTokenInCookie(context);
+			const token = Cookie.getSessionToken(context);
 			const user = !token ? null : await MemberServices.findBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };

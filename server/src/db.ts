@@ -31,7 +31,7 @@ const startDatabase = async function () {
 const closeDatabase = async function () {
 	try {
 		await dataSource.destroy();
-		console.log('💀 Successfully closed database connection');
+		console.log('💀 Successfully disconnected to database');
 	} catch (error) {
 		console.log('😞 Database disconnection error');
 		console.log(error);

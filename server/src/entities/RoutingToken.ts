@@ -1,23 +1,22 @@
-import { IsDate, IsHexadecimal } from 'class-validator';
+import { IsDate, IsEmail, IsHexadecimal } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
-import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import Member from './Member';
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export default class Session {
-	constructor(member: Member) {
-		this.member = member;
+export default class RoutingToken {
+	constructor(email: string) {
+		this.email = email;
 	}
 
 	@PrimaryColumn('varchar', { length: 32 })
 	@IsHexadecimal()
 	token: string;
 
-	@ManyToOne(() => Member, { eager: true })
 	@Field()
-	member: Member;
+	@IsEmail()
+	email: string;
 
 	@CreateDateColumn()
 	@Field()

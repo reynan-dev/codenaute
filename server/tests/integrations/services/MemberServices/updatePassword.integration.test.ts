@@ -1,9 +1,10 @@
 import MemberServices from '../../../../src/services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
+import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
-describe('Singup a Member integration test', () => {
+describe('Update a Member password integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -19,29 +20,30 @@ describe('Singup a Member integration test', () => {
 		}
 	});
 
-	describe('when email address belongs to existing user', () => {
-		it('throws an member already exists error', async () => {
-			const username = 'username';
+	describe('when update password with invalid email', () => {
+		it('throw an invalid email error', async () => {
 			const email = 'unknown@email.com';
-			const password = 'password';
+			const newPassword = 'newPassword';
 
-			await MemberServices.signUp(username, email, password);
-
-			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
-				ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
+			expect(() => MemberServices.updatePassword(email, newPassword)).rejects.toThrowError(
+				ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE
 			);
 		});
 	});
-	describe("when email address doesn't belong to existing user", () => {
+
+	describe('when update password with valid email', () => {
 		it('return an member', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const user = await MemberServices.signUp(username, email, password);
+			const member = await MemberServices.signUp(username, email, password);
 
-			expect(user.username).toEqual(username);
-			expect(user.email).toEqual(email);
+			const newPassword = 'newPassword';
+
+			const updated = await MemberServices.updatePassword(member.email, newPassword);
+
+			expect(compareSync(newPassword, updated.hashedPassword)).toBeTruthy();
 		});
 	});
 });

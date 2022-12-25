@@ -1,12 +1,7 @@
 import { ObjectLiteral } from 'typeorm';
 import { dataSource } from '../../db';
 
-import {
-	NOT_FOUND_ERROR_MESSAGE,
-	EMPTY_FIELD_ERROR_MESSAGE,
-	NOT_CREATED_ERROR_MESSAGE,
-	NOT_UPDATED_ERROR_MESSAGE
-} from '../../utils/errorMessage';
+import { ErrorMessages } from '../../utils/enums/ErrorMessages';
 export default abstract class BaseServices {
 	repository: any;
 
@@ -19,17 +14,13 @@ export default abstract class BaseServices {
 	}
 
 	async findBy(filter: ObjectLiteral = {}) {
-		if (Object.keys(filter).length === 0) {
-			return await this.find();
-		}
+		if (Object.keys(filter).length === 0) return await this.find();
 
 		return await this.repository.findBy(filter);
 	}
 
 	async findOneBy(filter: ObjectLiteral = {}) {
-		if (Object.keys(filter).length === 0) {
-			return await this.find();
-		}
+		if (Object.keys(filter).length === 0) return await this.find();
 
 		return await this.repository.findOneBy(filter);
 	}
@@ -47,13 +38,9 @@ export default abstract class BaseServices {
 	async update(id: string, data: ObjectLiteral) {
 		let obj = (await this.findById(id)) as ObjectLiteral;
 
-		if (!obj) {
-			throw Error(NOT_FOUND_ERROR_MESSAGE);
-		}
+		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);
 
-		if (Object.keys(data).length === 0) {
-			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
-		}
+		if (Object.keys(data).length === 0) throw Error(ErrorMessages.EMPTY_FIELD_ERROR_MESSAGE);
 
 		let updated = this.repository.merge(obj, data);
 
@@ -63,9 +50,7 @@ export default abstract class BaseServices {
 	async delete(id: string) {
 		let obj = await this.findById(id);
 
-		if (!obj) {
-			throw Error(NOT_FOUND_ERROR_MESSAGE);
-		}
+		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);
 
 		return await this.repository.remove(obj);
 	}
