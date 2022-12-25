@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+coverage
+
+**/volumes/**
+**/build/**
+**/dist/**
+
+# Ignore node_modules:
+./node_modules
+**/node_modules
+
+# Ignore test coverage reports:
+**/coverage/**
