@@ -1,7 +1,6 @@
 import MemberServices from '../../../../src/services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
-import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
 describe('Delete a Member account integration test', () => {
