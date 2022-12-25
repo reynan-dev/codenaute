@@ -35,49 +35,38 @@ export default abstract class BaseServices {
 	}
 
 	async findById(id: string) {
-		if (!id) {
-			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
-		}
-
 		return await this.repository.findOneBy({ id: id });
 	}
 
-	async create(data: ObjectLiteral = {}) {
-		if (Object.keys(data).length === 0) {
-			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
-		}
-
+	async create(data: ObjectLiteral) {
 		let created = await this.repository.create(data);
-		if (!created) {
-			throw Error(NOT_CREATED_ERROR_MESSAGE);
-		}
+
 		return await this.repository.save(created);
 	}
 
-	async update(id: string, data: ObjectLiteral = {}) {
-		if (!id) {
-			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
-		}
-
+	async update(id: string, data: ObjectLiteral) {
 		let obj = (await this.findById(id)) as ObjectLiteral;
 
-		if (Object.keys(data).length === 0) {
+		if (!obj) {
 			throw Error(NOT_FOUND_ERROR_MESSAGE);
 		}
 
-		let updated = this.repository.merge(obj, data);
-		if (!updated) {
-			throw Error(NOT_UPDATED_ERROR_MESSAGE);
+		if (Object.keys(data).length === 0) {
+			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
 		}
+
+		let updated = this.repository.merge(obj, data);
+
 		return await this.repository.save(updated);
 	}
 
 	async delete(id: string) {
-		if (!id) {
-			throw Error(EMPTY_FIELD_ERROR_MESSAGE);
+		let obj = await this.findById(id);
+
+		if (!obj) {
+			throw Error(NOT_FOUND_ERROR_MESSAGE);
 		}
 
-		let obj = await this.findById(id);
 		return await this.repository.remove(obj);
 	}
 }

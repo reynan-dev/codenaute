@@ -11,15 +11,20 @@ class SessionServices extends BaseServices {
 
 	async create(member: Member) {
 		const session = new Session(member);
-		return this.repository.save(session);
+		return await this.repository.save(session);
 	}
 
 	async findByToken(token: string): Promise<Session | null> {
-		if (!token) {
+		return await this.findOneBy({ token });
+	}
+
+	async deleteByToken(token: string) {
+		const session = await this.findByToken(token);
+		if (!session) {
 			throw Error(SESSION_NOT_FOUND_ERROR_MESSAGE);
 		}
 
-		return await this.repository.findOneBy({ token: token });
+		return await this.repository.remove(session);
 	}
 }
 

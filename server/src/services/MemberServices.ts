@@ -42,6 +42,10 @@ class MemberServices extends BaseServices {
 		});
 	}
 
+	async signOut(token: string) {
+		return await SessionServices.deleteByToken(token);
+	}
+
 	async findBySessionToken(token: string): Promise<Member | null> {
 		const session = await SessionServices.findByToken(token);
 		if (!session) {
