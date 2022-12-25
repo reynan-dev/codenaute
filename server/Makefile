@@ -42,10 +42,6 @@ test: ## Runing tests on server
 	@echo "Testing server"
 	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test
 
-test-verbose: ## Runing tests on server
-	@echo "Testing server"
-	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test:verbose
-
 test-watch: ## Runing tests on server
 	@echo "Testing server"
 	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test:watch
