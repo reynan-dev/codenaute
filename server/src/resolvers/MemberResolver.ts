@@ -12,10 +12,9 @@ import {
 	UpdateUsernameArgs
 } from './args/MemberArgs';
 
-import { GlobalContext } from '../utils/GlobalContext';
-import { setSessionTokenInCookie } from '../utils/setSessionTokenInCookie';
-import { getSessionTokenInCookie } from '../utils/getSessionTokenInCookie';
+import { GlobalContext } from '../utils/types/GlobalContext';
 import { ErrorMessages } from '../utils/enums/ErrorMessages';
+import { Cookie } from '../utils/methods/Cookie';
 
 @Resolver(Member)
 export default class MemberResolver {
@@ -26,7 +25,7 @@ export default class MemberResolver {
 	): Promise<Member> {
 		const { user, session } = await MemberServices.signIn(email, password);
 
-		setSessionTokenInCookie(context, session.token);
+		Cookie.setSessionToken(context, session.token);
 		return user;
 	}
 	@Mutation(() => Member)
@@ -38,7 +37,7 @@ export default class MemberResolver {
 
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
-		const token = getSessionTokenInCookie(context) as string;
+		const token = Cookie.getSessionToken(context) as string;
 
 		await MemberServices.signOut(token);
 	}

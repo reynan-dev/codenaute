@@ -5,7 +5,7 @@ import { buildSchema } from 'type-graphql';
 import MemberResolver from './resolvers/MemberResolver';
 import MemberServices from './services/MemberServices';
 
-import { GlobalContext } from './utils/GlobalContext';
+import { GlobalContext } from './utils/types/GlobalContext';
 import { getSessionTokenInCookie } from './utils/getSessionTokenInCookie';
 import { startDatabase } from './db';
 
