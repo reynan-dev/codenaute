@@ -4,23 +4,23 @@ specifiers:
   '@commitlint/cli': 17.3.0
   '@commitlint/config-conventional': 17.3.0
   husky: 8.0.2
-  lint-staged: 13.0.3
-  pnpm: 7.16.0
-  prettier: 2.7.1
+  lint-staged: 13.1.0
+  pnpm: 7.19.0
+  prettier: 2.8.1
   prettier-plugin-packagejson: 2.3.0
   prettier-plugin-tailwindcss: ^0.2.1
 
 dependencies:
-  pnpm: 7.16.0
+  pnpm: 7.19.0
 
 devDependencies:
   '@commitlint/cli': 17.3.0
   '@commitlint/config-conventional': 17.3.0
   husky: 8.0.2
-  lint-staged: 13.0.3
-  prettier: 2.7.1
-  prettier-plugin-packagejson: 2.3.0_prettier@2.7.1
-  prettier-plugin-tailwindcss: 0.2.1_prettier@2.7.1
+  lint-staged: 13.1.0
+  prettier: 2.8.1
+  prettier-plugin-packagejson: 2.3.0_prettier@2.8.1
+  prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
 
 packages:
   /@babel/code-frame/7.18.6:
@@ -1487,10 +1487,10 @@ packages:
     engines: { node: '>=0.10.0' }
     dev: true
 
-  /lilconfig/2.0.5:
+  /lilconfig/2.0.6:
     resolution:
       {
-        integrity: sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==
+        integrity: sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==
       }
     engines: { node: '>=10' }
     dev: true
@@ -1502,10 +1502,10 @@ packages:
       }
     dev: true
 
-  /lint-staged/13.0.3:
+  /lint-staged/13.1.0:
     resolution:
       {
-        integrity: sha512-9hmrwSCFroTSYLjflGI8Uk+GWAwMB4OlpU4bMJEAT5d/llQwtYKoim4bLOyLCuWFAhWEupE0vkIFqtw/WIsPug==
+        integrity: sha512-pn/sR8IrcF/T0vpWLilih8jmVouMlxqXxKuAojmbiGX5n/gDnz+abdPptlj0vYnbfE0SQNl3CY/HwtM0+yfOVQ==
       }
     engines: { node: ^14.13.1 || >=16.0.0 }
     hasBin: true
@@ -1515,8 +1515,8 @@ packages:
       commander: 9.4.1
       debug: 4.3.4
       execa: 6.1.0
-      lilconfig: 2.0.5
-      listr2: 4.0.5
+      lilconfig: 2.0.6
+      listr2: 5.0.6
       micromatch: 4.0.5
       normalize-path: 3.0.0
       object-inspect: 1.12.2
@@ -1528,12 +1528,12 @@ packages:
       - supports-color
     dev: true
 
-  /listr2/4.0.5:
+  /listr2/5.0.6:
     resolution:
       {
-        integrity: sha512-juGHV1doQdpNT3GSTs9IUN43QJb7KHdF9uqg7Vufs/tG9VTzpFphqF4pm/ICdAABGQxsyNn9CiYA3StkI6jpwA==
+        integrity: sha512-u60KxKBy1BR2uLJNTWNptzWQ1ob/gjMzIJPZffAENzpZqbMZ/5PrXXOomDcevIS/+IB7s1mmCEtSlT2qHWMqag==
       }
-    engines: { node: '>=12' }
+    engines: { node: ^14.13.1 || >=16.0.0 }
     peerDependencies:
       enquirer: '>= 2.3.0 < 3'
     peerDependenciesMeta:
@@ -2032,16 +2032,16 @@ packages:
     hasBin: true
     dev: true
 
-  /pnpm/7.16.0:
+  /pnpm/7.19.0:
     resolution:
       {
-        integrity: sha512-jGDe7kz6wmoJiiEn+zQBwV+h0PazsvkeXGS5RnM0bEAD2rTxMR+oOfhWfuEDXddiBocCDNuuo1PL4ChuvR0t/g==
+        integrity: sha512-0ZPqlBY9M5fqKI9Ya0kEB7PQj7Pg7bYEjXbRbg4pNnJIObzXeO+PaK/8FBd8KMgJe5QpLb6rn2nVFHNSNoz+kw==
       }
     engines: { node: '>=14.6' }
     hasBin: true
     dev: false
 
-  /prettier-plugin-packagejson/2.3.0_prettier@2.7.1:
+  /prettier-plugin-packagejson/2.3.0_prettier@2.8.1:
     resolution:
       {
         integrity: sha512-2SAPMMk1UDkqsB7DifWKcwCm6VC52JXMrzLHfbcQHJRWhRCj9zziOy+s+2XOyPBeyqFqS+A/1IKzOrxKFTo6pw==
@@ -2052,11 +2052,11 @@ packages:
       prettier:
         optional: true
     dependencies:
-      prettier: 2.7.1
+      prettier: 2.8.1
       sort-package-json: 1.57.0
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.1_prettier@2.7.1:
+  /prettier-plugin-tailwindcss/0.2.1_prettier@2.8.1:
     resolution:
       {
         integrity: sha512-aIO8IguumORyRsmT+E7JfJ3A9FEoyhqZR7Au7TBOege3VZkgMvHJMkufeYp4zjnDK2iq4ktkvGMNOQR9T8lisQ==
@@ -2065,13 +2065,13 @@ packages:
     peerDependencies:
       prettier: '>=2.2.0'
     dependencies:
-      prettier: 2.7.1
+      prettier: 2.8.1
     dev: true
 
-  /prettier/2.7.1:
+  /prettier/2.8.1:
     resolution:
       {
-        integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
+        integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==
       }
     engines: { node: '>=10.13.0' }
     hasBin: true
