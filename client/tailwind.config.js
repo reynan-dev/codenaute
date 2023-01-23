@@ -5,10 +5,11 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: {
-					DEFAULT: '#44A5FE'
+					DEFAULT: '#44A5FE',
+					100: '#7ec0fc'
 				},
 				secondary: {
-					DEFAULT: '#FAD402'
+					DEFAULT: '#8B77E2'
 				},
 				success: {
 					DEFAULT: '#28AF65'
@@ -33,6 +34,12 @@ module.exports = {
 					800: '#202225',
 					900: '#18191B'
 				}
+			},
+			fontFamily: {
+				archivo: ['Archivo']
+			},
+			minWidth: {
+				56: '14rem'
 			}
 		}
 	},
