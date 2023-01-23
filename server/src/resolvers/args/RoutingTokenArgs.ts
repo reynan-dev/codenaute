@@ -1,8 +1,9 @@
 import { IsEmail, Matches } from 'class-validator';
 import { ArgsType, Field } from 'type-graphql';
-import { ErrorMessages } from '../../utils/enums/ErrorMessages';
+import { ErrorMessages } from '@/utils/enums/ErrorMessages';
+import { Validations } from '@/utils/enums/Validations';
 
-const passwordRegExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
+const passwordRegExp = new RegExp(Validations.PASSWORD_REGEX);
 
 @ArgsType()
 export class ForgotPasswordArgs {
