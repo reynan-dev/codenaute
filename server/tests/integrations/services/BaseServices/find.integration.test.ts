@@ -1,5 +1,5 @@
-import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
-import MemberServices from '../../../../src/services/MemberServices';
+import { closeDatabase, dataSource, startDatabase } from '@/db';
+import MemberServices from '@/services/MemberServices';
 
 describe('Find integration test', () => {
 	beforeAll(async () => {

@@ -1,6 +1,6 @@
-import MemberServices from '../../../../src/services/MemberServices';
+import MemberServices from '@/services/MemberServices';
 
-import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
+import { dataSource, closeDatabase, startDatabase } from '@/db';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
