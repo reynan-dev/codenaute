@@ -25,7 +25,7 @@ describe('BaseService.find', () => {
 
 	describe('when update a invalid element', () => {
 		describe('when data is empty', () => {
-			it('throw an error empty field', async () => {
+			it('throws an error empty field', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
 				expect(() => MemberServices.update(member.id, {})).rejects.toThrowError(
@@ -34,7 +34,7 @@ describe('BaseService.find', () => {
 			});
 		});
 		describe('when id is invalid', () => {
-			it('throw an error not found', async () => {
+			it('throws an error not found', async () => {
 				expect(() => MemberServices.update(uuid(), { username: 'tested' })).rejects.toThrowError(
 					NOT_FOUND_ERROR_MESSAGE
 				);

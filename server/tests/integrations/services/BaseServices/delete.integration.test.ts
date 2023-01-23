@@ -21,12 +21,12 @@ describe('BaseService.find', () => {
 
 	describe('when delete a element', () => {
 		describe('when id is invalid', () => {
-			it('throw an error not found', async () => {
+			it('throws an error not found', async () => {
 				expect(() => MemberServices.delete(uuid())).rejects.toThrowError(NOT_FOUND_ERROR_MESSAGE);
 			});
 		});
 		describe('when id is valid', () => {
-			it('delete item', async () => {
+			it('deletes item', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
 				await MemberServices.delete(member.id);

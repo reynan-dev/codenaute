@@ -34,7 +34,7 @@ describe('Authentication integration test', () => {
 		});
 	});
 	describe("when email address doesn't belong to existing user", () => {
-		it('return an member', async () => {
+		it('returns an member', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
 			const password = 'password';
