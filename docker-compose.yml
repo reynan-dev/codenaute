@@ -69,6 +69,7 @@ services:
       - 2345
     volumes:
       - database-test:/var/lib/postgresql/data
+    command: -p 2345
 
 networks:
   default:

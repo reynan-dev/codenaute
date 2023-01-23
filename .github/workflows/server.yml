@@ -50,20 +50,25 @@ jobs:
       image: 'reynandev/codenaute:server'
       env:
         NODE_ENV: test
+        DB_TEST_PORT: 5432
+        DB_TEST_HOST: postgres-test
+        DB_TEST_DATABASE: ${{ secrets.DB_TEST_DATABASE }}
+        DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
+        DB_TEST_PASSWORD: ${{ secrets.DB_TEST_PASSWORD }}
       ports:
         - 5000:5000
       volumes:
         - ${{ github.workspace }}:/app
 
     services:
-      postgres:
+      postgres-test:
         image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         ports:
-          - 2345:5432
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
