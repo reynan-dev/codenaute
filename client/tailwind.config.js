@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
@@ -29,6 +32,7 @@ module.exports = {
 				dark: {
 					DEFAULT: '#131416',
 					300: '#A0A4AD',
+					500: '#545861',
 					600: '#35373E',
 					700: '#27292E',
 					800: '#202225',
@@ -43,5 +47,9 @@ module.exports = {
 			}
 		}
 	},
-	plugins: []
+	plugins: [
+		require('tailwindcss'),
+		require('autoprefixer'),
+		plugin(require('./src/styles/plugins/colorVarsExtractor'))
+	]
 };
