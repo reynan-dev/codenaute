@@ -6,7 +6,7 @@ import MemberResolver from './resolvers/MemberResolver';
 import MemberServices from './services/MemberServices';
 
 import { GlobalContext } from './utils/GlobalContext';
-import { getSessionIdInCookie } from './utils/getSessionIdInCookie';
+import { getSessionTokenInCookie } from './utils/getSessionTokenInCookie';
 import { startDatabase } from './db';
 
 const startServer = async () => {
@@ -20,8 +20,8 @@ const startServer = async () => {
 			}
 		}),
 		context: async (context): Promise<GlobalContext> => {
-			const sessionId = getSessionIdInCookie(context);
-			const user = !sessionId ? null : await MemberServices.findBySessionToken(sessionId);
+			const token = getSessionTokenInCookie(context);
+			const user = !token ? null : await MemberServices.findBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };
 		},

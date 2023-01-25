@@ -10,7 +10,7 @@
 		"start": "node dist/index.js",
 		"start:watch": "tsc -w & nodemon dist/index.js",
 		"test": "jest --runInBand",
-		"test:watch": "jest --watchAll --runInBand"
+		"test:watch": "jest --watchAll --runInBand --verbose"
 	},
 	"dependencies": {
 		"apollo-server": "3.11.1",
@@ -33,11 +33,13 @@
 		"@types/cookie": "^0.5.1",
 		"@types/jest": "^29.2.4",
 		"@types/node": "18.11.9",
+		"@types/uuid": "^9.0.0",
 		"jest": "29.2",
 		"nodemon": "2.0.20",
 		"prettier": "2.7.1",
 		"prettier-plugin-packagejson": "2.3.0",
 		"ts-jest": "29.0.3",
-		"typescript": "4.8.4"
+		"typescript": "4.8.4",
+		"uuid": "^9.0.0"
 	}
 }

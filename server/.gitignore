@@ -1,0 +1,2 @@
+# Ignore test coverage reports:
+**/coverage/**
