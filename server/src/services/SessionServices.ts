@@ -2,7 +2,7 @@ import Member from '../entities/Member';
 import Session from '../entities/Session';
 import BaseServices from './base/BaseServices';
 
-import { SESSION_NOT_FOUND_ERROR_MESSAGE } from '../utils/errorMessage';
+import { ErrorMessages } from '../utils/enums/ErrorMessages';
 
 class SessionServices extends BaseServices {
 	constructor() {
@@ -11,15 +11,18 @@ class SessionServices extends BaseServices {
 
 	async create(member: Member) {
 		const session = new Session(member);
-		return this.repository.save(session);
+		return await this.repository.save(session);
 	}
 
 	async findByToken(token: string): Promise<Session | null> {
-		if (!token) {
-			throw Error(SESSION_NOT_FOUND_ERROR_MESSAGE);
-		}
+		return await this.findOneBy({ token });
+	}
 
-		return await this.repository.findOneBy({ token: token });
+	async delete(token: string) {
+		const session = await this.findByToken(token);
+		if (!session) throw Error(ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE);
+
+		return await this.repository.remove(session);
 	}
 }
 

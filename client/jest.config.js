@@ -1,4 +1,3 @@
-'use strict';
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
@@ -18,5 +17,7 @@ exports.default = {
 	// A preset that is used as a base for Jest's configuration
 	preset: 'ts-jest',
 	// The test environment that will be used for testing
-	testEnvironment: 'jest-environment-node'
+	testEnvironment: 'jest-environment-node',
+	// A list of paths to modules that run some code to configure or set up the testing framework before each test
+	setupFilesAfterEnv: ['@testing-library/jest-dom']
 };

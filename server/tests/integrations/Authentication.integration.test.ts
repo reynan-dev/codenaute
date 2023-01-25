@@ -2,7 +2,8 @@ import MemberServices from '../../src/services/MemberServices';
 import SessionServices from '../../src/services/SessionServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../src/db';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../src/utils/errorMessage';
+import { ErrorMessages } from '../../src/utils/enums/ErrorMessages';
+import { randomBytes } from 'crypto';
 
 describe('Authentication integration test', () => {
 	beforeAll(async () => {
@@ -25,7 +26,7 @@ describe('Authentication integration test', () => {
 			const email = 'unknown@email.com';
 
 			expect(() => MemberServices.signIn(email, 'password')).rejects.toThrowError(
-				INVALID_CREDENTIALS_ERROR_MESSAGE
+				ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE
 			);
 		});
 	});
@@ -37,7 +38,7 @@ describe('Authentication integration test', () => {
 				await MemberServices.signUp('username', email, 'password');
 
 				expect(() => MemberServices.signIn(email, 'incorrect')).rejects.toThrowError(
-					INVALID_CREDENTIALS_ERROR_MESSAGE
+					ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE
 				);
 			});
 		});
@@ -61,6 +62,30 @@ describe('Authentication integration test', () => {
 				expect(login).toHaveProperty('user');
 				expect(login).toHaveProperty('session');
 				expect(login.user.email).toEqual(email);
+			});
+		});
+	});
+
+	describe('when signing out', () => {
+		describe('when session token is invalid', () => {
+			it('throw a session not found error', async () => {
+				expect(() => SessionServices.delete(randomBytes(16).toString('hex'))).rejects.toThrowError(
+					ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE
+				);
+			});
+		});
+
+		describe('when session token is valid', () => {
+			it('deletes session from database', async () => {
+				await MemberServices.signUp('username', 'user@test.com', 'password');
+
+				const { session } = await MemberServices.signIn('user@test.com', 'password');
+
+				await MemberServices.signOut(session.token);
+
+				const sessions = await SessionServices.findByToken(session.token);
+
+				expect(sessions).toBeNull();
 			});
 		});
 	});
