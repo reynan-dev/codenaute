@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 /* GLOBAL STYLE */
-/* :root {
-	--primary-color: ;
-	--secondary-color: #000;
-} */
 
 @layer base {
 	body {
@@ -16,7 +12,7 @@
 		@apply h-screen;
 	}
 
-	/* Custom style for inputs autofill */
+	/* Custom style for inputs browser autofill */
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
 	input:-webkit-autofill:focus input:-webkit-autofill,
@@ -26,6 +22,7 @@
 	select:-webkit-autofill:hover,
 	select:-webkit-autofill:focus {
 		-webkit-text-fill-color: var(--color-white);
+		-webkit-box-shadow: inset 0 0 0px 1000px var(--color-dark-800);
 	}
 }
 
