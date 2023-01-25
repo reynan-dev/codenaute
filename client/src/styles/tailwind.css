@@ -12,6 +12,30 @@
 		@apply h-screen;
 	}
 
+	h1 {
+		@apply text-5xl;
+		@apply font-black;
+	}
+
+	h2 {
+		@apply text-4xl;
+		@apply font-bold;
+	}
+
+	h3 {
+		@apply text-2xl;
+		@apply font-semibold;
+	}
+
+	h4 {
+		@apply text-xl;
+		@apply font-medium;
+	}
+
+	p {
+		@apply text-base;
+	}
+
 	/* Custom style for inputs browser autofill */
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
