@@ -1,6 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler, useMemo } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
-import { twMerge } from 'tailwind-merge';
 import { clsxMerge } from '../../helpers/clsxMerge';
 
 type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
@@ -76,7 +75,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (linkUrl !== undefined) {
 		return (
-			<link href={linkUrl} className={twMerge(style, className)}>
+			<link href={linkUrl} className={clsxMerge(style, className)}>
 				<span className='truncate'>{children}</span>
 			</link>
 		);
