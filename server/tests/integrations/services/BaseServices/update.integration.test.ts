@@ -1,13 +1,9 @@
 import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
 import MemberServices from '../../../../src/services/MemberServices';
-import {
-	EMPTY_FIELD_ERROR_MESSAGE,
-	NOT_FOUND_ERROR_MESSAGE,
-	NOT_UPDATED_ERROR_MESSAGE
-} from '../../../../src/utils/errorMessage';
+import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
 
-describe('BaseService.find', () => {
+describe('Update integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -25,18 +21,18 @@ describe('BaseService.find', () => {
 
 	describe('when update a invalid element', () => {
 		describe('when data is empty', () => {
-			it('throws an error empty field', async () => {
+			it('throw an error empty field', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
 				expect(() => MemberServices.update(member.id, {})).rejects.toThrowError(
-					EMPTY_FIELD_ERROR_MESSAGE
+					ErrorMessages.EMPTY_FIELD_ERROR_MESSAGE
 				);
 			});
 		});
 		describe('when id is invalid', () => {
-			it('throws an error not found', async () => {
+			it('throw an error not found', async () => {
 				expect(() => MemberServices.update(uuid(), { username: 'tested' })).rejects.toThrowError(
-					NOT_FOUND_ERROR_MESSAGE
+					ErrorMessages.NOT_FOUND_ERROR_MESSAGE
 				);
 			});
 		});

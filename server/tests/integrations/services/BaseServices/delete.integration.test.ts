@@ -1,9 +1,9 @@
 import { closeDatabase, dataSource, startDatabase } from '../../../../src/db';
 import MemberServices from '../../../../src/services/MemberServices';
-import { NOT_FOUND_ERROR_MESSAGE } from '../../../../src/utils/errorMessage';
+import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
 
-describe('BaseService.find', () => {
+describe('Delete integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -21,12 +21,14 @@ describe('BaseService.find', () => {
 
 	describe('when delete a element', () => {
 		describe('when id is invalid', () => {
-			it('throws an error not found', async () => {
-				expect(() => MemberServices.delete(uuid())).rejects.toThrowError(NOT_FOUND_ERROR_MESSAGE);
+			it('throw an error not found', async () => {
+				expect(() => MemberServices.delete(uuid())).rejects.toThrowError(
+					ErrorMessages.NOT_FOUND_ERROR_MESSAGE
+				);
 			});
 		});
 		describe('when id is valid', () => {
-			it('deletes item', async () => {
+			it('delete item', async () => {
 				const member = await MemberServices.signUp('usertest', 'unknow@test.com', 'password');
 
 				await MemberServices.delete(member.id);

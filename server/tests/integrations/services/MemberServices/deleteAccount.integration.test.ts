@@ -3,7 +3,7 @@ import MemberServices from '../../../../src/services/MemberServices';
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
 import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
 
-describe('Singup a Member integration test', () => {
+describe('Delete a Member account integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -19,29 +19,30 @@ describe('Singup a Member integration test', () => {
 		}
 	});
 
-	describe('when email address belongs to existing user', () => {
-		it('throws an member already exists error', async () => {
+	describe('when delete account with invalid password', () => {
+		it('throw an invalid password error', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			await MemberServices.signUp(username, email, password);
+			const member = await MemberServices.signUp(username, email, password);
 
-			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
-				ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
+			expect(() => MemberServices.deleteAccount(member.id, 'invalidPassword')).rejects.toThrowError(
+				ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE
 			);
 		});
 	});
-	describe("when email address doesn't belong to existing user", () => {
+
+	describe('when delete account with valid email', () => {
 		it('return an member', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const user = await MemberServices.signUp(username, email, password);
+			const member = await MemberServices.signUp(username, email, password);
+			await MemberServices.deleteAccount(member.id, password);
 
-			expect(user.username).toEqual(username);
-			expect(user.email).toEqual(email);
+			expect(await MemberServices.findById(member.id)).toBeNull();
 		});
 	});
 });

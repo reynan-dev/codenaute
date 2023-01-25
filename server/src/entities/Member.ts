@@ -1,12 +1,13 @@
-import { IsEmail } from 'class-validator';
+import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, Index } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index } from 'typeorm';
 import BaseEntity from './base/BaseEntity';
 
 @Entity()
 @ObjectType()
 export default class Member extends BaseEntity {
 	@Column()
+	@IsString()
 	@Field()
 	username: string;
 
@@ -16,7 +17,15 @@ export default class Member extends BaseEntity {
 	@Index({ unique: true })
 	email: string;
 
+	@Column('boolean', { default: false })
+	@IsBoolean()
+	isValidEmail: boolean;
+
 	@Column()
-	@Field()
+	@IsString()
 	hashedPassword: string;
+
+	@DeleteDateColumn()
+	@IsDate()
+	deletedAt: Date;
 }

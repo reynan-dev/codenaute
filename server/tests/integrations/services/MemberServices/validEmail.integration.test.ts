@@ -1,9 +1,8 @@
 import MemberServices from '../../../../src/services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
-import { randomBytes } from 'crypto';
 
-describe('Find a Member by session token integration test', () => {
+describe('Validate a Member email integration test', () => {
 	beforeAll(async () => {
 		await startDatabase();
 	});
@@ -19,13 +18,7 @@ describe('Find a Member by session token integration test', () => {
 		}
 	});
 
-	describe('when session does not exists', () => {
-		it('return an element nullable', async () => {
-			expect(await MemberServices.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
-		});
-	});
-
-	describe('when session exists', () => {
+	describe('when valid email', () => {
 		it('return an member', async () => {
 			const username = 'username';
 			const email = 'unknown@email.com';
@@ -33,9 +26,11 @@ describe('Find a Member by session token integration test', () => {
 
 			const member = await MemberServices.signUp(username, email, password);
 
-			const login = await MemberServices.signIn(email, password);
+			await MemberServices.validEmail(member.id);
 
-			expect(await MemberServices.findBySessionToken(login.session.token)).toEqual(member);
+			const updated = await MemberServices.findOneBy({ id: member.id });
+
+			expect(updated.isValidEmail).toBeTruthy();
 		});
 	});
 });
