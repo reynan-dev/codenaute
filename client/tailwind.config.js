@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const plugin = require('tailwindcss/plugin');
+// const plugin = require('tailwindcss/plugin');
 
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -49,7 +49,7 @@ module.exports = {
 	},
 	plugins: [
 		require('tailwindcss'),
-		require('autoprefixer'),
-		plugin(require('./src/styles/plugins/colorVarsExtractor'))
+		require('autoprefixer')
+		// plugin(require('./src/styles/plugins/colorVarsExtractor'))
 	]
 };
