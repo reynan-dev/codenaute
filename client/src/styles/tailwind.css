@@ -48,6 +48,13 @@
 		-webkit-text-fill-color: var(--color-white);
 		-webkit-box-shadow: inset 0 0 0px 1000px var(--color-dark-800);
 	}
+
+	/* just to trigger label animation when browser autofill is active */
+	.detect-autofill:-webkit-autofill ~ label {
+	}
+
+	.detect-autofill:not(:-webkit-autofill) ~ label {
+	}
 }
 
 /* CUSTOM CLASSES */

@@ -84,6 +84,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 									ref={ref}
 									className={clsx(
 										'peer block w-full  pl-5 pb-2.5 pt-4',
+										'detect-autofill',
 										'bg-transparent text-sm',
 										'focus:outline-none'
 									)}
