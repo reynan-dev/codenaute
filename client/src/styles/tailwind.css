@@ -53,7 +53,7 @@
 /* CUSTOM CLASSES */
 
 @layer components {
-	/* this class is now a tailwind class */
+	/* this class is now a tailwind one */
 	.example {
 		color: pink;
 	}
