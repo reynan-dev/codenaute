@@ -30,6 +30,10 @@ start-quiet: ## Start cliennt in mode quiet
 exec : ## Running server container
 	@echo docker exec $(CONTAINER_NAME) $(RUN_ARGS)
 
+terminal : ## Running server container
+	@echo docker exec -it $(CONTAINER_NAME) ash
+	docker exec -it $(CONTAINER_NAME) ash
+
 stop: ## Run client
 	@echo "Stoping client"
 	docker-compose stop client
