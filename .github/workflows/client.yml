@@ -6,13 +6,13 @@ name: Client CI
 on:
   pull_request:
     path:
-      - ".github/workflows/client.yml"
-      - "client/**"
+      - '.github/workflows/client.yml'
+      - 'client/**'
 
 env:
-  SERVICE_NAME: "client"
-  NODEJS_VERSION: "16.17.1"
-  PNPM_VERSION: "7.16.0"
+  SERVICE_NAME: 'client'
+  NODEJS_VERSION: '16.17.1'
+  PNPM_VERSION: '7.16.0'
 
 jobs:
   build-and-push:
@@ -46,7 +46,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: "reynandev/codenaute:client"
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:
@@ -68,11 +68,11 @@ jobs:
       - name: Restore Github Cache
         uses: actions/cache@v3
         with:
-          path: "**/node_modules"
+          path: '**/node_modules'
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
       - name: Run Prettier
-        run: npx prettier --config ./${{env.SERVICE_NAME}}/.prettierrc.json --check .
+        run: npx prettier --check .
         working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Run Tests
