@@ -6,13 +6,13 @@ name: Server CI
 on:
   pull_request:
     path:
-      - '.github/workflows/server.yml'
-      - 'server/**'
+      - ".github/workflows/server.yml"
+      - "server/**"
 
 env:
-  SERVICE_NAME: 'server'
-  NODEJS_VERSION: '16.17.1'
-  PNPM_VERSION: '7.16.0'
+  SERVICE_NAME: "server"
+  NODEJS_VERSION: "16.17.1"
+  PNPM_VERSION: "7.16.0"
 
 jobs:
   build-and-push:
@@ -47,7 +47,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: 'reynandev/codenaute:server'
+      image: "reynandev/codenaute:server"
       env:
         NODE_ENV: test
         DB_TEST_PORT: 5432
@@ -62,7 +62,7 @@ jobs:
 
     services:
       postgres-test:
-        image: 'postgres:15.1-alpine'
+        image: "postgres:15.1-alpine"
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -85,11 +85,11 @@ jobs:
       - name: Restore Github Cache
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
 
       - name: Run Prettier
-        run: npx prettier --check .
+        run: npx prettier --config ./${{env.SERVICE_NAME}}/.prettierrc.json --check .
         working-directory: ./${{env.SERVICE_NAME}}
 
       - name: Run Tests
