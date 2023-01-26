@@ -17,7 +17,7 @@ describe('Authentication integration test', () => {
 	beforeEach(async () => {
 		for (const entity of dataSource.entityMetadatas) {
 			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
+			await repository.query(`DELETE FROM ${entity.tableName};`);
 		}
 	});
 
