@@ -76,5 +76,5 @@ jobs:
         working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Run Tests
-        run: pnpm test --passWithNoTests
+        run: pnpm test
         working-directory: ./${{ env.SERVICE_NAME }}
