@@ -40,8 +40,24 @@ prettier: ## Starting checking with prettier
 	npx prettier --check .
 
 prettier-fix: ## Fixing with prettier
-	@echo "Fixing with prettier"
-	npx prettier --write .
+	@echo "------- ROOT : PRETTIER WRITE"
+	npx prettier --ignore-path .prettierignore --config .prettierrc.json --write .
+
+	@echo "------- CLIENT : PRETTIER WRITE"
+	npx prettier --ignore-path ./client/.prettierignore --config ./client/.prettierrc.json --write ./client
+
+	@echo "------- SERVER : PRETTIER WRITE"
+	npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --write ./server
+
+prettier-check: ## Fixing with prettier
+	@echo "------- ROOT : PRETTIER CHECK"
+	npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
+
+	@echo "------- CLIENT : PRETTIER CHECK"
+	npx prettier --ignore-path ./client/.prettierignore --config ./client/.prettierrc.json --check ./client
+
+	@echo "------- SERVER : PRETTIER CHECK"
+	npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --check ./server
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
