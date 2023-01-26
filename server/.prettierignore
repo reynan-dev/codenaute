@@ -5,6 +5,7 @@ coverage
 **/volumes/**
 **/build/**
 **/dist/**
+jest.config.js
 
 # Ignore node_modules:
 ./node_modules
