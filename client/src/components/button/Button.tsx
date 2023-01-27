@@ -90,11 +90,11 @@ export const Button: React.FC<ButtonProps> = ({
 	}
 
 	return (
-		<>
+		<div>
 			<button {...props} className={clsxMerge(style, className)} disabled={isDisabled}>
 				<span className='truncate'>{children}</span>
 				{renderLoader}
 			</button>
-		</>
+		</div>
 	);
 };
