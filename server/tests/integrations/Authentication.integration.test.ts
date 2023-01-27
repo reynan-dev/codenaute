@@ -15,10 +15,10 @@ describe('Authentication integration test', () => {
 	});
 
 	beforeEach(async () => {
-		dataSource.entityMetadatas.map(async (entity) => {
+		for (const entity of dataSource.entityMetadatas) {
 			const repository = dataSource.getRepository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		});
+		}
 	});
 
 	describe("when email address doesn't belong to existing user", () => {
