@@ -12,7 +12,6 @@ import React, {
 import { IconBaseProps } from 'react-icons';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-
 export type InputProps = DetailedHTMLProps<
 	InputHTMLAttributes<HTMLInputElement>,
 	HTMLInputElement
