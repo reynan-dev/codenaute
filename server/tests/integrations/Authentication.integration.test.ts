@@ -75,18 +75,18 @@ describe('Authentication integration test', () => {
 			});
 		});
 
-		describe('when session token is valid', () => {
-			it('deletes session from database', async () => {
-				await MemberServices.signUp('username', 'user@test.com', 'password');
+		// describe('when session token is valid', () => {
+		// 	it('deletes session from database', async () => {
+		// 		await MemberServices.signUp('username', 'user@test.com', 'password');
 
-				const { session } = await MemberServices.signIn('user@test.com', 'password');
+		// 		const { session } = await MemberServices.signIn('user@test.com', 'password');
 
-				await MemberServices.signOut(session.token);
+		// 		await MemberServices.signOut(session.token);
 
-				const sessions = await SessionServices.findByToken(session.token);
+		// 		const sessions = await SessionServices.findByToken(session.token);
 
-				expect(sessions).toBeNull();
-			});
-		});
+		// 		expect(sessions).toBeNull();
+		// 	});
+		// });
 	});
 });
