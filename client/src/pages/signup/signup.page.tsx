@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import Container from '../../components/Container';
-import LogoSvg from '../../components/Svgs/LogoSvg';
-import { BLACK, WHITE } from '../../styles/colors';
+import Container from 'components/Container';
+import LogoSvg from 'components/Svgs/LogoSvg';
+import { BLACK, WHITE } from 'styles/colors';
+
 import SignUpForm from './sections/SignUpForm';
 
 export default function SignUpPage() {

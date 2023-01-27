@@ -1,5 +1,5 @@
+import { clsxMerge } from 'helpers/clsxMerge';
 import React from 'react';
-import { clsxMerge } from '../../helpers/clsxMerge';
 
 interface ContainerProps {
 	children: React.ReactNode;

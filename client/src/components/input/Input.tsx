@@ -1,4 +1,6 @@
 import clsx from 'clsx';
+import { clsxMerge } from 'helpers/clsxMerge';
+import getBrowserName from 'helpers/getBrowserName';
 import React, {
 	DetailedHTMLProps,
 	HTMLInputTypeAttribute,
@@ -9,8 +11,7 @@ import React, {
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { clsxMerge } from '../../helpers/clsxMerge';
-import getBrowserName from '../../helpers/getBrowserName';
+
 
 export type InputProps = DetailedHTMLProps<
 	InputHTMLAttributes<HTMLInputElement>,

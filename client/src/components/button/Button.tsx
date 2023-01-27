@@ -1,6 +1,6 @@
+import { clsxMerge } from 'helpers/clsxMerge';
 import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler, useMemo } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
-import { clsxMerge } from '../../helpers/clsxMerge';
 
 type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
 	children: React.ReactNode;

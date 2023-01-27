@@ -1,8 +1,9 @@
+import CrossDeviceBackground from 'components/CrossDeviceBackground';
+import { HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { Home } from 'pages/home';
+import { SignUp } from 'pages/signup';
 import { Route, Routes } from 'react-router-dom';
-import CrossDeviceBackground from './components/CrossDeviceBackground/CrossDeviceBackground';
-import { HOME_PATH, SIGN_UP_PATH } from './constants/paths';
-import { Home } from './pages/home';
-import { SignUp } from './pages/signup';
+
 
 function App() {
 	return (

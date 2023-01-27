@@ -1,3 +1,3 @@
-import CrossDeviceBackgroundProps from './CrossDeviceBackground';
+import CrossDeviceBackground from "components/CrossDeviceBackground/CrossDeviceBackground";
 
-export default CrossDeviceBackgroundProps;
+export default CrossDeviceBackground;
