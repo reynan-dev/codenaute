@@ -1,10 +1,10 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import Member from '../entities/Member';
-import BaseServices from './base/BaseServices';
-import SessionServices from './SessionServices';
+import Member from '@/entities/Member';
+import BaseServices from '@/services/base/BaseServices';
+import SessionServices from '@/services/SessionServices';
 
-import { ErrorMessages } from '../utils/enums/ErrorMessages';
+import { ErrorMessages } from '@/utils/enums/ErrorMessages';
 
 class MemberServices extends BaseServices {
 	constructor() {
@@ -36,16 +36,16 @@ class MemberServices extends BaseServices {
 		});
 	}
 
-	async findBySessionToken(token: string) {
+	async signOut(token: string) {
+		return await SessionServices.delete(token);
+	}
+
+	async findBySessionToken(token: string): Promise<Member | null> {
 		const session = await SessionServices.findByToken(token);
 
 		if (!session) return null;
 
 		return session.member;
-	}
-
-	async signOut(token: string) {
-		return await SessionServices.delete(token);
 	}
 
 	async updateUsername(id: string, username: string) {
