@@ -1,8 +1,8 @@
-import MemberServices from '../../../../src/services/MemberServices';
-import SessionServices from '../../../../src/services/SessionServices';
+import MemberServices from '@/services/MemberServices';
+import SessionServices from '@/services/SessionServices';
 
-import { dataSource, closeDatabase, startDatabase } from '../../../../src/db';
-import { ErrorMessages } from '../../../../src/utils/enums/ErrorMessages';
+import { dataSource, closeDatabase, startDatabase } from '@/db';
+import { ErrorMessages } from '@/utils/enums/ErrorMessages';
 import { randomBytes } from 'crypto';
 
 describe('Delete Session integration test', () => {
