@@ -5,11 +5,19 @@
 /* GLOBAL STYLE */
 
 @layer base {
-	body {
+	html {
+		@apply h-full;
 		@apply bg-dark-900;
+	}
+
+	body {
 		@apply text-white;
 		@apply font-archivo;
-		@apply h-screen;
+		@apply lg:h-full;
+	}
+
+	#root {
+		@apply lg:h-full;
 	}
 
 	h1 {
@@ -60,8 +68,11 @@
 /* CUSTOM CLASSES */
 
 @layer components {
-	/* this class is now a tailwind class */
-	.example {
-		color: pink;
+	.full-center {
+		@apply flex items-center justify-center;
+	}
+
+	.full-center-col {
+		@apply flex flex-col items-center justify-center;
 	}
 }
