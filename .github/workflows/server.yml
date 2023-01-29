@@ -50,6 +50,7 @@ jobs:
       image: 'reynandev/codenaute:server'
       env:
         NODE_ENV: test
+        NODE_PATH: dist/
         DB_TEST_PORT: 5432
         DB_TEST_HOST: postgres-test
         DB_TEST_DATABASE: ${{ secrets.DB_TEST_DATABASE }}
