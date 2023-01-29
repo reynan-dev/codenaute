@@ -25,7 +25,7 @@
 		"skipLibCheck": true,
 
 		/* Source Maps */
-		"baseUrl": "src",
+		"baseUrl": "src"
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]

@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		/* Source Maps */
-		"baseUrl": "../src",
+		"baseUrl": "../src"
 	},
 	"src": "**/*.ts"
 }
