@@ -2,7 +2,7 @@ import { IsDate, IsHexadecimal } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import Member from '@/entities/Member';
+import Member from 'entities/Member';
 
 @Entity()
 @ObjectType()

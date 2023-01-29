@@ -1,6 +1,6 @@
 import { ExpressContext } from 'apollo-server-express';
 import { parse } from 'cookie';
-import { Validations } from '@/utils/enums/Validations';
+import { Validations } from 'utils/enums/Validations';
 
 export abstract class Cookie {
 	public static getSessionToken = (ctx: ExpressContext): string | undefined => {

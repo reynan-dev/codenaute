@@ -1,7 +1,7 @@
-import MemberServices from '@/services/MemberServices';
-import RoutingTokenServices from '@/services/RoutingTokenServices';
+import MemberServices from 'services/MemberServices';
+import RoutingTokenServices from 'services/RoutingTokenServices';
 
-import { dataSource, closeDatabase, startDatabase } from '@/db';
+import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Find a RoutingToken ByToken integration test', () => {
 	beforeAll(async () => {

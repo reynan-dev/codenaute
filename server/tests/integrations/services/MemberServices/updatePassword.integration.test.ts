@@ -1,8 +1,8 @@
-import MemberServices from '@/services/MemberServices';
+import MemberServices from 'services/MemberServices';
 
-import { dataSource, closeDatabase, startDatabase } from '@/db';
+import { dataSource, closeDatabase, startDatabase } from 'db';
 import { compareSync } from 'bcryptjs';
-import { ErrorMessages } from '@/utils/enums/ErrorMessages';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Update a Member password integration test', () => {
 	beforeAll(async () => {

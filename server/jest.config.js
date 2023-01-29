@@ -20,7 +20,4 @@ exports.default = {
 	// The test environment that will be used for testing
 	testEnvironment: 'jest-environment-node',
 	// The glob patterns Jest uses to detect test files
-	moduleNameMapper: {
-		'^@/(.*)$': '<rootDir>/src/$1'
-	}
 };

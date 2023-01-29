@@ -13,6 +13,7 @@ FROM base AS build
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+ENV NODE_PATH=dist/
 CMD pnpm start:watch
 
 # FROM base AS deploy
