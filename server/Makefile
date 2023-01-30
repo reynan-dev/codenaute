@@ -34,6 +34,10 @@ start-quiet: ## Starting server container in mode quiet
 exec : ## Running server container
 	docker exec $(CONTAINER_NAME) $(RUN_ARGS)
 
+terminal : ## Running server container
+	@echo docker exec -it $(CONTAINER_NAME) ash
+	docker exec -it $(CONTAINER_NAME) ash
+
 stop: ## Stoping server container
 	@echo "Stoping server"
 	docker-compose stop server

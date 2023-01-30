@@ -1,7 +1,7 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
-import Member from '@/entities/Member';
-import MemberServices from '@/services/MemberServices';
+import Member from 'entities/Member';
+import MemberServices from 'services/MemberServices';
 
 import {
 	DeleteAccountArgs,
@@ -10,11 +10,11 @@ import {
 	UpdateEmailArgs,
 	UpdatePasswordArgs,
 	UpdateUsernameArgs
-} from '@/resolvers/args/MemberArgs';
+} from 'resolvers/args/MemberArgs';
 
-import { GlobalContext } from '@/utils/types/GlobalContext';
-import { ErrorMessages } from '@/utils/enums/ErrorMessages';
-import { Cookie } from '@/utils/methods/Cookie';
+import { GlobalContext } from 'utils/types/GlobalContext';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { Cookie } from 'utils/methods/Cookie';
 
 @Resolver(Member)
 export default class MemberResolver {

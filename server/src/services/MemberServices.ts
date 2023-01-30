@@ -1,10 +1,10 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import Member from '@/entities/Member';
-import BaseServices from '@/services/base/BaseServices';
-import SessionServices from '@/services/SessionServices';
+import Member from 'entities/Member';
+import BaseServices from 'services/base/BaseServices';
+import SessionServices from 'services/SessionServices';
 
-import { ErrorMessages } from '@/utils/enums/ErrorMessages';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 class MemberServices extends BaseServices {
 	constructor() {

@@ -1,18 +1,18 @@
 import { Args, Mutation, Resolver } from 'type-graphql';
 
-import Member from '@/entities/Member';
-import RoutingToken from '@/entities/RoutingToken';
+import Member from 'entities/Member';
+import RoutingToken from 'entities/RoutingToken';
 
-import MemberServices from '@/services/MemberServices';
-import RoutingTokenServices from '@/services/RoutingTokenServices';
+import MemberServices from 'services/MemberServices';
+import RoutingTokenServices from 'services/RoutingTokenServices';
 
-import { ErrorMessages } from '@/utils/enums/ErrorMessages';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 import {
 	ForgotPasswordArgs,
 	ResetPasswordArgs,
 	ValidEmailArgs
-} from '@/resolvers/args/RoutingTokenArgs';
+} from 'resolvers/args/RoutingTokenArgs';
 
 @Resolver(RoutingToken)
 export default class MemberResolver {

@@ -1,7 +1,7 @@
 import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, Index } from 'typeorm';
-import BaseEntity from '@/entities/base/BaseEntity';
+import BaseEntity from 'entities/base/BaseEntity';
 
 @Entity()
 @ObjectType()

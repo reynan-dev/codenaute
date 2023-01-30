@@ -1,6 +1,6 @@
-import BaseServices from '@/services/base/BaseServices';
-import RoutingToken from '@/entities/RoutingToken';
-import Member from '@/entities/Member';
+import BaseServices from 'services/base/BaseServices';
+import RoutingToken from 'entities/RoutingToken';
+import Member from 'entities/Member';
 
 class RoutingTokenServices extends BaseServices {
 	constructor() {
