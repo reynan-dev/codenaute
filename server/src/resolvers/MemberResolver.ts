@@ -30,8 +30,7 @@ export default class MemberResolver {
 	}
 	@Mutation(() => Member)
 	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
-
-		const user = MemberServices.signUp(username, email, password)
+		const user = MemberServices.signUp(username, email, password);
 
 		return user;
 	}

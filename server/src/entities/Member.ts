@@ -6,16 +6,12 @@ import BaseEntity from 'entities/base/BaseEntity';
 @Entity()
 @ObjectType()
 export default class Member extends BaseEntity {
-	constructor(
-		username: string,
-		email: string,
-		hashedPassword: string
-	  ) {
+	constructor(username: string, email: string, hashedPassword: string) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.hashedPassword = hashedPassword;
-	  }
+	}
 
 	@Column()
 	@IsString()

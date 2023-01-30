@@ -27,11 +27,7 @@ class MemberServices extends BaseServices {
 
 		if (existingUser) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 
-		const user = new Member(
-			username,
-			email,
-			hashSync(password)
-		  );
+		const user = new Member(username, email, hashSync(password));
 
 		return this.repository.save(user);
 	}
