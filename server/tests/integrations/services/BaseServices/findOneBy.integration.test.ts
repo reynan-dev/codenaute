@@ -1,5 +1,5 @@
-import { closeDatabase, dataSource, startDatabase } from '@/db';
-import MemberServices from '@/services/MemberServices';
+import { closeDatabase, dataSource, startDatabase } from 'db';
+import MemberServices from 'services/MemberServices';
 
 describe('FindOneBy integration test', () => {
 	beforeAll(async () => {

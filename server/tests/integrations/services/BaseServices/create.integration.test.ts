@@ -1,6 +1,6 @@
 import { hashSync } from 'bcryptjs';
-import { closeDatabase, dataSource, startDatabase } from '@/db';
-import MemberServices from '@/services/MemberServices';
+import { closeDatabase, dataSource, startDatabase } from 'db';
+import MemberServices from 'services/MemberServices';
 
 describe.skip('Create integration test', () => {
 	beforeAll(async () => {

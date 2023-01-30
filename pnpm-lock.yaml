@@ -11,7 +11,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.1
 
 dependencies:
-  pnpm: 7.26.0
+  pnpm: 7.26.2
 
 devDependencies:
   '@commitlint/cli': 17.4.2
@@ -349,7 +349,7 @@ packages:
       open: 8.4.0
       picocolors: 1.0.0
       tiny-glob: 0.2.9
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /@tsconfig/node10/1.0.9:
@@ -2000,10 +2000,10 @@ packages:
     hasBin: true
     dev: true
 
-  /pnpm/7.26.0:
+  /pnpm/7.26.2:
     resolution:
       {
-        integrity: sha512-ASNhFsTa9YpJoalnGa28IKMimZk/oBOt19oxvB6+iP2EVr1h+PYcsTty4mrgSE/LegWQPy4yphZinshKjxycOA==
+        integrity: sha512-Ywwh8puMMJQDO0kX4gxW9yBdbYISt3B6IfekexzWIium5wmpopAHMUpLuxRac5U5AAIIvt4ZQntWy6VcXs0iEg==
       }
     engines: { node: '>=14.6' }
     hasBin: true
@@ -2263,7 +2263,7 @@ packages:
         integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==
       }
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /safe-buffer/5.2.1:
@@ -2548,7 +2548,7 @@ packages:
     engines: { node: ^14.18.0 || >=16.0.0 }
     dependencies:
       '@pkgr/utils': 2.3.1
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /text-extensions/1.9.0:
@@ -2637,10 +2637,10 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /tslib/2.4.1:
+  /tslib/2.5.0:
     resolution:
       {
-        integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
+        integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
       }
     dev: true
 

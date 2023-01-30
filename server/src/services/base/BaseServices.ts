@@ -1,7 +1,7 @@
 import { ObjectLiteral } from 'typeorm';
-import { dataSource } from '@/db';
+import { dataSource } from 'db';
 
-import { ErrorMessages } from '@/utils/enums/ErrorMessages';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
 export default abstract class BaseServices {
 	repository: any;
 
