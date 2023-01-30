@@ -23,17 +23,17 @@ class MemberServices extends BaseServices {
 	}
 
 	async signUp(username: string, email: string, password: string) {
-		let user = (await this.findOneBy({ email })) as Member;
+		let existingUser = (await this.findOneBy({ email })) as Member;
 
-		if (user) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
+		if (existingUser) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 
-		const hashedPassword = hashSync(password, 10);
+		const user = new Member(
+			username,
+			email,
+			hashSync(password)
+		  );
 
-		return await this.create({
-			username: username,
-			email: email,
-			hashedPassword: hashedPassword
-		});
+		return this.repository.save(user);
 	}
 
 	async signOut(token: string) {
