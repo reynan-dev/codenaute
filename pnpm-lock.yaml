@@ -19,7 +19,7 @@ devDependencies:
   husky: 8.0.3
   lint-staged: 13.1.0
   prettier: 2.8.3
-  prettier-plugin-packagejson: 2.4.0_prettier@2.8.3
+  prettier-plugin-packagejson: 2.4.2_prettier@2.8.3
   prettier-plugin-tailwindcss: 0.2.2_prettier@2.8.3
 
 packages:
@@ -2009,10 +2009,10 @@ packages:
     hasBin: true
     dev: false
 
-  /prettier-plugin-packagejson/2.4.0_prettier@2.8.3:
+  /prettier-plugin-packagejson/2.4.2_prettier@2.8.3:
     resolution:
       {
-        integrity: sha512-NW2xI9w0n251IH1r1QNIf+kVf28rr2p33aOENfrBDOFVfp3FdQ++rKHkU0odYQOlnTtvedAGxasNC+Mk+enxVQ==
+        integrity: sha512-Y/sW29qq0FhEQRA+85K98VOlMW7/Wicrm0Tm2j/EZ+Eh7F6jVUpGVv7WIMku+WsaEab/PyxaA5ckmTd3E0seNg==
       }
     peerDependencies:
       prettier: '>= 1.16.0'
@@ -2021,8 +2021,8 @@ packages:
         optional: true
     dependencies:
       prettier: 2.8.3
-      sort-package-json: 2.1.0
-      synckit: 0.8.4
+      sort-package-json: 2.2.0
+      synckit: 0.8.5
     dev: true
 
   /prettier-plugin-tailwindcss/0.2.2_prettier@2.8.3:
@@ -2367,10 +2367,10 @@ packages:
       }
     dev: true
 
-  /sort-package-json/2.1.0:
+  /sort-package-json/2.2.0:
     resolution:
       {
-        integrity: sha512-M5ctkdnn7znAkoVQJ0Y+PHDUieyXMhydPyW7r2J9ZM0Iwc3BTyEf5cmoSRfHNo07FEvzWwnphcP7GlrAX164UQ==
+        integrity: sha512-ux712xsrPqkW+0b51GdmC8QTvImM3wsdip9mNVSQTY9ZV3/1eTAK6jIcQ8Vz9kfN1WHL4wv/pLn89mrqeyQu6A==
       }
     hasBin: true
     dependencies:
@@ -2540,10 +2540,10 @@ packages:
     engines: { node: '>= 0.4' }
     dev: true
 
-  /synckit/0.8.4:
+  /synckit/0.8.5:
     resolution:
       {
-        integrity: sha512-Dn2ZkzMdSX827QbowGbU/4yjWuvNaCoScLLoMo/yKbu+P4GBR6cRGKZH27k6a9bRzdqcyd1DE96pQtQ6uNkmyw==
+        integrity: sha512-L1dapNV6vu2s/4Sputv8xGsCdAVlb5nRDMFU/E27D44l5U6cw1g0dGd45uLc+OXjNMmF4ntiMdCimzcjFKQI8Q==
       }
     engines: { node: ^14.18.0 || >=16.0.0 }
     dependencies:
