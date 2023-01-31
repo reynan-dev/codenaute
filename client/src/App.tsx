@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/toastify.css';
 
-
 function App() {
 	return (
 		<>
@@ -17,7 +16,7 @@ function App() {
 					<Route path={SIGN_UP_PATH} element={<SignUp />} />
 					<Route path={HOME_PATH} element={<Home />} />
 				</Routes>
-			<ToastContainer theme="colored" />
+				<ToastContainer theme='colored' />
 			</div>
 		</>
 	);
