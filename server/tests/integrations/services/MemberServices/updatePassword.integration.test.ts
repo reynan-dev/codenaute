@@ -53,6 +53,22 @@ describe('Update a Member password integration test', () => {
 		});
 	});
 
+	describe ('when update password with valid email but the old password is invalid', () => {
+		it('throw an invalid password error', async () => {
+			const username = 'username';
+			const email = 'email@email.com';
+			const password = 'password';
+
+			const member = await MemberServices.signUp(username, email, password);
+
+			const newPassword = 'newPassword';
+
+			expect(() => MemberServices.updatePassword(member.email, newPassword, newPassword, newPassword)).rejects.toThrowError(
+				ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE
+			);
+		});
+	});
+
 	describe('when update password with valid email and passwords match', () => {
 		it('return an member', async () => {
 			const username = 'username';
