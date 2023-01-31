@@ -70,8 +70,12 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updatePassword(@Args() { password, email }: UpdatePasswordArgs): Promise<Member> {
-		return MemberServices.updatePassword(email, password);
+	async updatePassword(@Args() { new_password, confirm_password, old_password }: UpdatePasswordArgs, @Ctx() context: GlobalContext): Promise<Member> {
+		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string)
+
+		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
+
+		return MemberServices.updatePassword(user.email, new_password, confirm_password, old_password);
 	}
 
 	@Authorized()
