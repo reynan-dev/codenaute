@@ -50,22 +50,30 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateUsername(@Args() { username, id }: UpdateUsernameArgs): Promise<Member> {
-		const user = (await MemberServices.findOneBy({ username })) as Member;
+	async updateUsername(@Args() { username }: UpdateUsernameArgs, @Ctx() context: GlobalContext): Promise<Member> {
+		const username_registered = (await MemberServices.findOneBy({ username })) as Member;
 
-		if (user) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateUsername(id, username);
+		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string)
+
+		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
+
+		return await MemberServices.updateUsername(user.id, username);
 	}
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateEmail(@Args() { email, id }: UpdateEmailArgs): Promise<Member> {
-		const user = (await MemberServices.findOneBy({ email })) as Member;
+	async updateEmail(@Args() { email }: UpdateEmailArgs, @Ctx() context: GlobalContext): Promise<Member> {
+		const email_registered = (await MemberServices.findOneBy({ email })) as Member;
 
-		if (user) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateEmail(id, email);
+		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string)
+
+		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
+
+		return await MemberServices.updateEmail(user.id, email);
 	}
 
 	@Authorized()
@@ -80,7 +88,11 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async deleteAccount(@Args() { password, id }: DeleteAccountArgs): Promise<Member> {
-		return MemberServices.deleteAccount(id, password);
+	async deleteAccount(@Args() { password }: DeleteAccountArgs, @Ctx() context: GlobalContext): Promise<Member> {
+		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string)
+
+		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
+
+		return MemberServices.deleteAccount(user.id, password);
 	}
 }
