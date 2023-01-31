@@ -26,21 +26,18 @@ export default class MemberResolver {
 		const { user, session } = await MemberServices.signIn(email, password);
 
 		Cookie.setSessionToken(context, session.token);
+
 		return user;
 	}
 	@Mutation(() => Member)
 	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
-		const user = MemberServices.signUp(username, email, password);
-
-		return user;
+		return MemberServices.signUp(username, email, password);
 	}
 
 	@Authorized()
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
-		const token = Cookie.getSessionToken(context) as string;
-
-		return await MemberServices.signOut(token);
+		return await MemberServices.signOut(Cookie.getSessionToken(context) as string);
 	}
 
 	@Authorized()
@@ -59,11 +56,7 @@ export default class MemberResolver {
 
 		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string);
-
-		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
-
-		return await MemberServices.updateUsername(user.id, username);
+		return await MemberServices.updateUsername(context.user?.id as string, username);
 	}
 
 	@Authorized()
@@ -76,11 +69,7 @@ export default class MemberResolver {
 
 		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string);
-
-		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
-
-		return await MemberServices.updateEmail(user.id, email);
+		return await MemberServices.updateEmail(context.user?.id as string, email);
 	}
 
 	@Authorized()
@@ -89,11 +78,7 @@ export default class MemberResolver {
 		@Args() { new_password, confirm_password, old_password }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string);
-
-		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
-
-		return MemberServices.updatePassword(user.email, new_password, confirm_password, old_password);
+		return MemberServices.updatePassword(context.user?.email as string, new_password, confirm_password, old_password);
 	}
 
 	@Authorized()
@@ -102,10 +87,6 @@ export default class MemberResolver {
 		@Args() { password }: DeleteAccountArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const user = await MemberServices.findBySessionToken(Cookie.getSessionToken(context) as string);
-
-		if (!user) throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
-
-		return MemberServices.deleteAccount(user.id, password);
+		return MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }
