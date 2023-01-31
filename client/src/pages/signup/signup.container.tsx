@@ -19,6 +19,12 @@ export default function SignUpContainer() {
 	const navigate = useNavigate();
 
 	const submit = async (username: string, email: string, password: string) => {
+		console.log({
+			username,
+			email,
+			password
+		});
+
 		try {
 			await signUp({
 				variables: { username, email, password }
@@ -31,6 +37,7 @@ export default function SignUpContainer() {
 		} catch (error) {
 			//   toast.error(getErrorMessage(error));
 			console.error('ERROR');
+			console.log(JSON.stringify(error, null, 2));
 		}
 	};
 

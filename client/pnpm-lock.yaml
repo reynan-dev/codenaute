@@ -3117,7 +3117,7 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
       '@types/node': 18.11.18
-      '@types/yargs': 17.0.20
+      '@types/yargs': 17.0.21
       chalk: 4.1.2
     dev: false
 
@@ -3132,7 +3132,7 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
       '@types/node': 18.11.18
-      '@types/yargs': 17.0.20
+      '@types/yargs': 17.0.21
       chalk: 4.1.2
     dev: true
 
@@ -4152,10 +4152,10 @@ packages:
       '@types/yargs-parser': 21.0.0
     dev: false
 
-  /@types/yargs/17.0.20:
+  /@types/yargs/17.0.21:
     resolution:
       {
-        integrity: sha512-eknWrTHofQuPk2iuqDm1waA7V6xPlbgBoaaXEgYkClhLOnB0TtbW+srJaOToAgawPxPlHQzwypFA2bhZaUGP5A==
+        integrity: sha512-kQxgIw2qr3/au36DPzK4Kzl5fpB/SehrD7TUBdWQlOLUkgBMhOBQzz1R9Kuukng9ukWxD3lewSMUZWCwNcmRHg==
       }
     dependencies:
       '@types/yargs-parser': 21.0.0

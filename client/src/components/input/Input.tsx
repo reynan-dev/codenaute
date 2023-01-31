@@ -93,7 +93,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 										'bg-transparent text-sm',
 										'focus:outline-none'
 									)}
-									placeholder=' '
+									{...props}
 									type={inputType}
 									onFocus={(e) => {
 										props.onFocus?.(e);

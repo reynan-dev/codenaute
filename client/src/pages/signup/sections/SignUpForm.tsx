@@ -1,6 +1,6 @@
 import Button from 'components/button';
 import Input from 'components/input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SignUpFormProps {
 	className?: string;
@@ -14,6 +14,14 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 	const [password, setPassword] = useState('');
 	const [repeatedPassword, setRepeatedPassword] = useState('');
 
+	useEffect(() => {
+		console.log({
+			username,
+			email,
+			password
+		});
+	}, [username, password, email]);
+
 	return (
 		<div className={className}>
 			<form
@@ -24,7 +32,6 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 				className='full-center-col w-full space-y-8'
 			>
 				<Input
-					placeholder='SuperCoder'
 					label='Username'
 					value={username}
 					onChange={(event) => {
@@ -32,7 +39,6 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					}}
 				/>
 				<Input
-					placeholder='john@doe.com'
 					label='Email'
 					value={email}
 					onChange={(event) => {
@@ -40,7 +46,6 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					}}
 				/>
 				<Input
-					placeholder='Password'
 					label='Password'
 					type='password'
 					value={password}
@@ -49,7 +54,6 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					}}
 				/>
 				<Input
-					placeholder='Repeat password'
 					label='Repeat password'
 					type='password'
 					value={repeatedPassword}

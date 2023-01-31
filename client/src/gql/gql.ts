@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-	'\n  mutation SignUp(\n    $username: String!\n    $email: String!\n    $password: String!\n  ) {\n    signUp(\n      username: $username\n      email: $email\n      password: $password\n    ) {\n      id\n      email\n    }\n  }\n':
+	'\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
 		types.SignUpDocument
 };
 
@@ -35,8 +35,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-	source: '\n  mutation SignUp(\n    $username: String!\n    $email: String!\n    $password: String!\n  ) {\n    signUp(\n      username: $username\n      email: $email\n      password: $password\n    ) {\n      id\n      email\n    }\n  }\n'
-): (typeof documents)['\n  mutation SignUp(\n    $username: String!\n    $email: String!\n    $password: String!\n  ) {\n    signUp(\n      username: $username\n      email: $email\n      password: $password\n    ) {\n      id\n      email\n    }\n  }\n'];
+	source: '\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
 
 export function graphql(source: string) {
 	return (documents as any)[source] ?? {};
