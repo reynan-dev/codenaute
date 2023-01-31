@@ -6,7 +6,6 @@ import BaseEntity from 'entities/base/BaseEntity';
 @Entity()
 @ObjectType()
 export default class Member extends BaseEntity {
-
 	@Column()
 	@IsString()
 	@Field()

@@ -20,7 +20,8 @@ export const validateForm = (inputsValue: InputsValueArg) => {
 	if (!username.match(USERNAME_REGEX)) errorMessages.username = USERNAME_MUST_BE_LONG_ERROR_MESSAGE;
 	if (!email.match(EMAIL_REGEX)) errorMessages.email = INVALID_EMAIL_ERROR_MESSAGE;
 	if (!password.match(PASSWORD_REGEX)) errorMessages.password = PASSWORD_FORMAT_ERROR_MESSAGE;
-	if (confirmedPassword !== password) errorMessages.confirmedPassword = CONFIRMED_PASSWORD_ERROR_MESSAGE;
+	if (confirmedPassword !== password)
+		errorMessages.confirmedPassword = CONFIRMED_PASSWORD_ERROR_MESSAGE;
 
 	return Object.keys(errorMessages).length ? errorMessages : null;
-  };
+};

@@ -26,5 +26,4 @@ export const USERNAME_MUST_BE_LONG_ERROR_MESSAGE =
 	'The username must be at least 3 character long.';
 export const PASSWORD_FORMAT_ERROR_MESSAGE =
 	'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.';
-export const CONFIRMED_PASSWORD_ERROR_MESSAGE =
-	'Password did not match.';
+export const CONFIRMED_PASSWORD_ERROR_MESSAGE = 'Password did not match.';

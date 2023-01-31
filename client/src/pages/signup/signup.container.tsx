@@ -18,7 +18,7 @@ const SIGN_UP = gql`
 export default function SignUpContainer() {
 	const [signUp, { loading }] = useMutation<SignUpMutation, SignUpMutationVariables>(SIGN_UP);
 	const navigate = useNavigate();
-	const [errorMessage, setErrorMessage] = useState('')
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const submit = async (username: string, email: string, password: string) => {
 		console.log({
@@ -38,7 +38,7 @@ export default function SignUpContainer() {
 			navigate(HOME_PATH);
 		} catch (error) {
 			//   toast.error(getErrorMessage(error));
-			setErrorMessage(getErrorMessage(error))
+			setErrorMessage(getErrorMessage(error));
 			console.error(getErrorMessage(error));
 		}
 	};
