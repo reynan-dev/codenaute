@@ -54,11 +54,15 @@ export class UpdateEmailArgs {
 export class UpdatePasswordArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	password: string;
+	new_password: string;
 
 	@Field()
-	@IsEmail()
-	email: string;
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	confirm_password: string;
+
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	old_password: string;
 }
 
 @ArgsType()
