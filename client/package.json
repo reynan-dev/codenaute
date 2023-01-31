@@ -38,6 +38,7 @@
 		"react-icons": "^4.7.1",
 		"react-router-dom": "^6.7.0",
 		"react-scripts": "^5.0.1",
+		"react-toastify": "^9.1.1",
 		"tailwind-merge": "^1.8.1",
 		"ts-node": "^10.9.1",
 		"web-vitals": "^3.1.1"

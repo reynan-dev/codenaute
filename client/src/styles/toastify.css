@@ -1,0 +1,19 @@
+.Toastify__toast-theme--colored.Toastify__toast--success {
+	background: var(--color-success);
+	color: var(--color-white);
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+	background: var(--color-warning);
+	color: var(--color-white);
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+	background: var(--color-danger);
+	color: var(--color-white);
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+	background: var(--color-primary);
+	color: var(--color-white);
+}

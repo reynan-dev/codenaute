@@ -2,8 +2,8 @@ import { gql, useMutation } from '@apollo/client';
 import { HOME_PATH } from 'constants/paths';
 import { SignUpMutation, SignUpMutationVariables } from 'gql/graphql';
 import { getErrorMessage } from 'helpers/getErrorMessage';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import SignUpPage from './signup.page';
 
 const SIGN_UP = gql`
@@ -18,7 +18,6 @@ const SIGN_UP = gql`
 export default function SignUpContainer() {
 	const [signUp, { loading }] = useMutation<SignUpMutation, SignUpMutationVariables>(SIGN_UP);
 	const navigate = useNavigate();
-	const [errorMessage, setErrorMessage] = useState('');
 
 	const submit = async (username: string, email: string, password: string) => {
 		console.log({
@@ -31,15 +30,10 @@ export default function SignUpContainer() {
 			await signUp({
 				variables: { username, email, password }
 			});
-			//   toast.success(
-			// 	`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`
-			//   );
-			console.log('SUCCESS');
+			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
 			navigate(HOME_PATH);
 		} catch (error) {
-			//   toast.error(getErrorMessage(error));
-			setErrorMessage(getErrorMessage(error));
-			console.error(getErrorMessage(error));
+			toast.error(getErrorMessage(error));
 		}
 	};
 
