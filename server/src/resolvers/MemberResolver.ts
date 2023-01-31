@@ -30,7 +30,7 @@ export default class MemberResolver {
 	}
 	@Mutation(() => Member)
 	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
-		const { user } = await MemberServices.signUp(username, email, password);
+		const user = MemberServices.signUp(username, email, password);
 
 		return user;
 	}
@@ -71,12 +71,12 @@ export default class MemberResolver {
 	@Authorized()
 	@Mutation(() => Member)
 	async updatePassword(@Args() { password, email }: UpdatePasswordArgs): Promise<Member> {
-		return await MemberServices.updatePassword(email, password);
+		return MemberServices.updatePassword(email, password);
 	}
 
 	@Authorized()
 	@Mutation(() => Member)
 	async deleteAccount(@Args() { password, id }: DeleteAccountArgs): Promise<Member> {
-		return await MemberServices.deleteAccount(id, password);
+		return MemberServices.deleteAccount(id, password);
 	}
 }
