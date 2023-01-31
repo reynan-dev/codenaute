@@ -35,11 +35,12 @@ export default class MemberResolver {
 		return user;
 	}
 
+	@Authorized()
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
 		const token = Cookie.getSessionToken(context) as string;
 
-		await MemberServices.signOut(token);
+		return await MemberServices.signOut(token);
 	}
 
 	@Authorized()
