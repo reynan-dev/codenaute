@@ -78,7 +78,12 @@ export default class MemberResolver {
 		@Args() { new_password, confirm_password, old_password }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		return MemberServices.updatePassword(context.user?.email as string, new_password, confirm_password, old_password);
+		return MemberServices.updatePassword(
+			context.user?.email as string,
+			new_password,
+			confirm_password,
+			old_password
+		);
 	}
 
 	@Authorized()
