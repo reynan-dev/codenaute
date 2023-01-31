@@ -75,7 +75,7 @@ describe('Authentication integration test', () => {
 			});
 		});
 
-		describe.skip('when session token is valid', () => {
+		describe('when session token is valid', () => {
 			it('deletes session from database', async () => {
 				await MemberServices.signUp('username', 'user@test.com', 'password');
 
@@ -83,9 +83,7 @@ describe('Authentication integration test', () => {
 
 				await MemberServices.signOut(session.token);
 
-				const sessions = await SessionServices.findByToken(session.token);
-
-				expect(sessions).toBeNull();
+				expect(await SessionServices.findByToken(session.token)).toBeNull();
 			});
 		});
 	});
