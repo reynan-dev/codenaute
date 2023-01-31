@@ -1,7 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 import { HOME_PATH } from 'constants/paths';
 import { SignUpMutation, SignUpMutationVariables } from 'gql/graphql';
-import React from 'react';
+import { getErrorMessage } from 'helpers/getErrorMessage';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignUpPage from './signup.page';
 
@@ -17,6 +18,7 @@ const SIGN_UP = gql`
 export default function SignUpContainer() {
 	const [signUp, { loading }] = useMutation<SignUpMutation, SignUpMutationVariables>(SIGN_UP);
 	const navigate = useNavigate();
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const submit = async (username: string, email: string, password: string) => {
 		console.log({
@@ -36,8 +38,8 @@ export default function SignUpContainer() {
 			navigate(HOME_PATH);
 		} catch (error) {
 			//   toast.error(getErrorMessage(error));
-			console.error('ERROR');
-			console.log(JSON.stringify(error, null, 2));
+			setErrorMessage(getErrorMessage(error))
+			console.error(getErrorMessage(error));
 		}
 	};
 

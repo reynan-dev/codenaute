@@ -87,6 +87,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 								<input
 									name='floating_outlined'
 									ref={ref}
+									placeholder=' '
 									className={clsx(
 										'peer block w-full  pl-5 pb-2.5 pt-4',
 										'detect-autofill',

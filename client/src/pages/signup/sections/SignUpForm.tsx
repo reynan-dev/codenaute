@@ -1,6 +1,7 @@
 import Button from 'components/button';
 import Input from 'components/input';
-import { useEffect, useState } from 'react';
+import { validateForm } from 'helpers/validateForm';
+import { useState } from 'react';
 
 interface SignUpFormProps {
 	className?: string;
@@ -8,26 +9,41 @@ interface SignUpFormProps {
 	isLoading: boolean;
 }
 
+interface ErrorMessages {
+	[key: string]: string;
+}
+
 export default function SignUpForm({ className, signUp, isLoading }: SignUpFormProps) {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [repeatedPassword, setRepeatedPassword] = useState('');
+	const [confirmedPassword, setConfirmedPassword] = useState('');
+	const [errorMessages, setErrorMessages] = useState<ErrorMessages | null>(null);
 
-	useEffect(() => {
-		console.log({
-			username,
-			email,
-			password
-		});
-	}, [username, password, email]);
+	const handleForm = async () => {
+		const inputsValue = {
+			username: username,
+			email: email,
+			password: password,
+			confirmedPassword: confirmedPassword
+		};
+
+		const errors = validateForm(inputsValue);
+
+		if (errors) {
+			setErrorMessages(errors);
+			return;
+		}
+
+		await signUp(username, email, password);
+	};
 
 	return (
 		<div className={className}>
 			<form
 				onSubmit={async (event) => {
 					event.preventDefault();
-					await signUp(username, email, password);
+					handleForm();
 				}}
 				className='full-center-col w-full space-y-8'
 			>
@@ -37,6 +53,7 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					onChange={(event) => {
 						setUsername(event.target.value);
 					}}
+					error={errorMessages?.username}
 				/>
 				<Input
 					label='Email'
@@ -44,6 +61,7 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					onChange={(event) => {
 						setEmail(event.target.value);
 					}}
+					error={errorMessages?.email}
 				/>
 				<Input
 					label='Password'
@@ -52,14 +70,16 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 					onChange={(event) => {
 						setPassword(event.target.value);
 					}}
+					error={errorMessages?.password}
 				/>
 				<Input
 					label='Repeat password'
 					type='password'
-					value={repeatedPassword}
+					value={confirmedPassword}
 					onChange={(event) => {
-						setRepeatedPassword(event.target.value);
+						setConfirmedPassword(event.target.value);
 					}}
+					error={errorMessages?.confirmedPassword}
 				/>
 
 				<Button type='submit' disabled={isLoading} className='my-8'>
