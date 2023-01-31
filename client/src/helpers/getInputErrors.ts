@@ -13,7 +13,7 @@ interface InputsValueArg {
 	confirmedPassword: string;
 }
 
-export const validateForm = (inputsValue: InputsValueArg) => {
+export const getInputErrors = (inputsValue: InputsValueArg) => {
 	const { username, email, password, confirmedPassword } = inputsValue;
 	const errorMessages: { [key: string]: string } = {};
 

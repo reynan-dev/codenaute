@@ -1,6 +1,6 @@
 import Button from 'components/button';
 import Input from 'components/input';
-import { validateForm } from 'helpers/validateForm';
+import { getInputErrors } from 'helpers/getInputErrors';
 import { useState } from 'react';
 
 interface SignUpFormProps {
@@ -28,7 +28,7 @@ export default function SignUpForm({ className, signUp, isLoading }: SignUpFormP
 			confirmedPassword: confirmedPassword
 		};
 
-		const errors = validateForm(inputsValue);
+		const errors = getInputErrors(inputsValue);
 
 		if (errors) {
 			setErrorMessages(errors);
