@@ -27,9 +27,13 @@ class MemberServices extends BaseServices {
 
 		if (existingUser) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 
-		const user = new Member(username, email, hashSync(password));
+		const hashedPassword = hashSync(password, 10);
 
-		return this.repository.save(user);
+		return await this.create({
+			username: username,
+			email: email,
+			hashedPassword: hashedPassword
+		});
 	}
 
 	async signOut(token: string) {
