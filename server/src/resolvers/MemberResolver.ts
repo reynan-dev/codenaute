@@ -34,8 +34,8 @@ export default class MemberResolver {
 
 		let existingEmail = (await MemberServices.findOneBy({ email })) as Member;
 		let existingUsername = (await MemberServices.findOneBy({ username })) as Member;
-		if (existingEmail) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
-		if (existingUsername) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (existingUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
 		if (confirmedPassword !== password) throw ErrorMessages.CONFIRMED_PASSWORD_ERROR_MESSAGE;
 

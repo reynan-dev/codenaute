@@ -25,5 +25,5 @@ export enum ErrorMessages {
 	// Validation Args
 	USERNAME_MUST_BE_LONG_ERROR_MESSAGE = 'The username must be at least 3 character long.',
 	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.',
-	CONFIRMED_PASSWORD_ERROR_MESSAGE = 'Password did not match.'
+	CONFIRMED_PASSWORD_ERROR_MESSAGE = 'Passwords did not match.'
 }
