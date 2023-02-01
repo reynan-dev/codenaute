@@ -38,7 +38,7 @@ export default function SignUpContainer() {
 	const submit = async () => {
 		try {
 			await signUp({
-				variables: { username, email, password }
+				variables: { username, email, password, confirmedPassword }
 			});
 			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
 			navigate(HOME_PATH);
@@ -55,12 +55,12 @@ export default function SignUpContainer() {
 			confirmedPassword: confirmedPassword
 		};
 
-		const formErrors = getFormErrors(fieldsValue);
+		// const formErrors = getFormErrors(fieldsValue);
 
-		if (formErrors) {
-			setFormErrorMessages(formErrors);
-			return;
-		}
+		// if (formErrors) {
+		// 	setFormErrorMessages(formErrors);
+		// 	return;
+		// }
 
 		await submit();
 	};

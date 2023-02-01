@@ -13,8 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-	'\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
-		types.SignUpDocument
+    "\n\tmutation SignUp($username: String!, $email: String!, $password: String!, $confirmedPassword: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password, confirmedPassword: $confirmedPassword) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n": types.SignUpDocument,
 };
 
 /**
@@ -34,13 +33,10 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation SignUp($username: String!, $email: String!, $password: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tmutation SignUp($username: String!, $email: String!, $password: String!, $confirmedPassword: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password, confirmedPassword: $confirmedPassword) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation SignUp($username: String!, $email: String!, $password: String!, $confirmedPassword: String!) {\n\t\tsignUp(username: $username, email: $email, password: $password, confirmedPassword: $confirmedPassword) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"];
 
 export function graphql(source: string) {
-	return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-	TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
