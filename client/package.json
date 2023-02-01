@@ -6,7 +6,7 @@
 		"build": "react-scripts build",
 		"codegen": "graphql-codegen --config codegen.ts",
 		"eject": "react-scripts eject",
-		"start": "WATCHPACK_POLLING=true HOST=0.0.0.0 react-scripts start --hot",
+		"start": "WATCHPACK_POLLING=true react-scripts start --hot",
 		"start:local": "react-scripts start",
 		"test": "react-scripts test --passWithNoTests"
 	},
