@@ -1,91 +1,71 @@
 import Button from 'components/button';
 import Input from 'components/input';
-import { getInputErrors } from 'helpers/getInputErrors';
-import { useState } from 'react';
+import { ErrorMessages } from 'pages/signup/signup.container';
 
 interface SignUpFormProps {
-	className?: string;
-	signUp: (username: string, email: string, password: string) => Promise<void>;
 	isLoading: boolean;
-}
-
-interface ErrorMessages {
-	[key: string]: string;
-}
-
-export default function SignUpForm({ className, signUp, isLoading }: SignUpFormProps) {
-	const [username, setUsername] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmedPassword, setConfirmedPassword] = useState('');
-	const [errorMessages, setErrorMessages] = useState<ErrorMessages | null>(null);
-
-	const handleForm = async () => {
-		const inputsValue = {
-			username: username,
-			email: email,
-			password: password,
-			confirmedPassword: confirmedPassword
-		};
-
-		const errors = getInputErrors(inputsValue);
-
-		if (errors) {
-			setErrorMessages(errors);
-			return;
-		}
-
-		await signUp(username, email, password);
+	handleForm: () => Promise<void>;
+	state: {
+		username: string;
+		setUsername: React.Dispatch<React.SetStateAction<string>>;
+		email: string;
+		setEmail: React.Dispatch<React.SetStateAction<string>>;
+		password: string;
+		setPassword: React.Dispatch<React.SetStateAction<string>>;
+		confirmedPassword: string;
+		setConfirmedPassword: React.Dispatch<React.SetStateAction<string>>;
+		errorMessages: ErrorMessages | null;
+		setErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
 	};
+}
 
+export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormProps) {
 	return (
-		<div className={className}>
-			<form
-				onSubmit={async (event) => {
-					event.preventDefault();
-					handleForm();
+		<form
+			onSubmit={async (event) => {
+				event.preventDefault();
+				handleForm();
+			}}
+			className='full-center-col w-full space-y-8'
+		>
+			<Input
+				label='Username'
+				value={state.username}
+				onChange={(event) => {
+					state.setUsername(event.target.value);
 				}}
-				className='full-center-col w-full space-y-8'
-			>
-				<Input
-					label='Username'
-					value={username}
-					onChange={(event) => {
-						setUsername(event.target.value);
-					}}
-					error={errorMessages?.username}
-				/>
-				<Input
-					label='Email'
-					value={email}
-					onChange={(event) => {
-						setEmail(event.target.value);
-					}}
-					error={errorMessages?.email}
-				/>
-				<Input
-					label='Password'
-					type='password'
-					value={password}
-					onChange={(event) => {
-						setPassword(event.target.value);
-					}}
-					error={errorMessages?.password}
-				/>
-				<Input
-					label='Repeat password'
-					type='password'
-					value={confirmedPassword}
-					onChange={(event) => {
-						setConfirmedPassword(event.target.value);
-					}}
-					error={errorMessages?.confirmedPassword}
-				/>
+				error={state.errorMessages?.username}
+			/>
+			<Input
+				label='Email'
+				value={state.email}
+				onChange={(event) => {
+					state.setEmail(event.target.value);
+				}}
+				error={state.errorMessages?.email}
+			/>
+			<Input
+				label='Password'
+				type='password'
+				value={state.password}
+				onChange={(event) => {
+					state.setPassword(event.target.value);
+				}}
+				error={state.errorMessages?.password}
+			/>
+			<Input
+				label='Repeat password'
+				type='password'
+				value={state.confirmedPassword}
+				onChange={(event) => {
+					state.setConfirmedPassword(event.target.value);
+				}}
+				error={state.errorMessages?.confirmedPassword}
+			/>
 
-				<Button type='submit' disabled={isLoading} className='my-8'>
-					Se connecter
-				</Button>
-			</form>
-		</div>
+			<Button type='submit' disabled={isLoading} className='my-8'>
+				Se connecter
+			</Button>
+		</form>
 	);
 }
