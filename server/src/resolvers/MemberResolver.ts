@@ -16,6 +16,8 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
+import { compareSync } from 'bcryptjs';
+
 @Resolver(Member)
 export default class MemberResolver {
 	@Mutation(() => Member)
@@ -26,20 +28,18 @@ export default class MemberResolver {
 		const { user, session } = await MemberServices.signIn(email, password);
 
 		Cookie.setSessionToken(context, session.token);
+
 		return user;
 	}
 	@Mutation(() => Member)
 	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
-		const user = MemberServices.signUp(username, email, password);
-
-		return user;
+		return MemberServices.signUp(username, email, password);
 	}
 
+	@Authorized()
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
-		const token = Cookie.getSessionToken(context) as string;
-
-		await MemberServices.signOut(token);
+		return await MemberServices.signOut(Cookie.getSessionToken(context) as string);
 	}
 
 	@Authorized()
@@ -50,33 +50,50 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateUsername(@Args() { username, id }: UpdateUsernameArgs): Promise<Member> {
-		const user = (await MemberServices.findOneBy({ username })) as Member;
+	async updateUsername(
+		@Args() { username }: UpdateUsernameArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
+		const username_registered = (await MemberServices.findOneBy({ username })) as Member;
 
-		if (user) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateUsername(id, username);
+		return await MemberServices.updateUsername(context.user?.id as string, username);
 	}
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateEmail(@Args() { email, id }: UpdateEmailArgs): Promise<Member> {
-		const user = (await MemberServices.findOneBy({ email })) as Member;
+	async updateEmail(
+		@Args() { email }: UpdateEmailArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
+		const email_registered = (await MemberServices.findOneBy({ email })) as Member;
 
-		if (user) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateEmail(id, email);
+		return await MemberServices.updateEmail(context.user?.id as string, email);
 	}
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updatePassword(@Args() { password, email }: UpdatePasswordArgs): Promise<Member> {
-		return MemberServices.updatePassword(email, password);
+	async updatePassword(
+		@Args() { newPassword, confirmPassword, oldPassword }: UpdatePasswordArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
+		const user = (await MemberServices.findById(context.user?.id as string)) as Member;
+
+		if (!compareSync(oldPassword, user.hashedPassword))
+			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
+
+		return MemberServices.updatePassword(user.email, newPassword, confirmPassword);
 	}
 
 	@Authorized()
 	@Mutation(() => Member)
-	async deleteAccount(@Args() { password, id }: DeleteAccountArgs): Promise<Member> {
-		return MemberServices.deleteAccount(id, password);
+	async deleteAccount(
+		@Args() { password }: DeleteAccountArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
+		return MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

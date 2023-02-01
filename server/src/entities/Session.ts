@@ -15,7 +15,7 @@ export default class Session {
 	@IsHexadecimal()
 	token: string;
 
-	@ManyToOne(() => Member, { eager: true })
+	@ManyToOne(() => Member, { eager: true, onDelete: 'CASCADE' })
 	@Field()
 	member: Member;
 

@@ -3,6 +3,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema } from 'type-graphql';
 
 import MemberResolver from 'resolvers/MemberResolver';
+import RoutingTokenResolver from 'resolvers/RoutingTokenResolver';
+
 import MemberServices from 'services/MemberServices';
 
 import { GlobalContext } from 'utils/types/GlobalContext';
@@ -14,13 +16,14 @@ const startServer = async () => {
 
 	const server = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [MemberResolver],
-			authChecker: ({ context }) => {
+			resolvers: [MemberResolver, RoutingTokenResolver],
+			authChecker: async ({ context }) => {
 				return Boolean(context.user);
 			}
 		}),
 		context: async (context): Promise<GlobalContext> => {
 			const token = Cookie.getSessionToken(context);
+
 			const user = !token ? null : await MemberServices.findBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };
