@@ -30,8 +30,9 @@ export default class MemberResolver {
 		return user;
 	}
 	@Mutation(() => Member)
-	async signUp(@Args() { username, email, password, confirmedPassword }: SignUpArgs): Promise<Member> {
-
+	async signUp(
+		@Args() { username, email, password, confirmedPassword }: SignUpArgs
+	): Promise<Member> {
 		let existingEmail = (await MemberServices.findOneBy({ email })) as Member;
 		let existingUsername = (await MemberServices.findOneBy({ username })) as Member;
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
