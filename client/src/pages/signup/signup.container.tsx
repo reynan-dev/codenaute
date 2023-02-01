@@ -55,12 +55,12 @@ export default function SignUpContainer() {
 			confirmedPassword: confirmedPassword
 		};
 
-		// const formErrors = getFormErrors(fieldsValue);
+		const formErrors = getFormErrors(fieldsValue);
 
-		// if (formErrors) {
-		// 	setFormErrorMessages(formErrors);
-		// 	return;
-		// }
+		if (formErrors) {
+			setFormErrorMessages(formErrors);
+			return;
+		}
 
 		await submit();
 	};
