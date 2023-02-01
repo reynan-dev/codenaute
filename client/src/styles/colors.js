@@ -7,13 +7,16 @@ const COLORS = {
 		DEFAULT: '#8B77E2'
 	},
 	SUCCESS: {
-		DEFAULT: '#28AF65'
+		DEFAULT: '#28AF65',
+		100: '#51c987'
 	},
 	WARNING: {
-		DEFAULT: '#F1DB4B'
+		DEFAULT: '#F1DB4B',
+		100: '#f0de6c'
 	},
 	DANGER: {
-		DEFAULT: '#F76958'
+		DEFAULT: '#F76958',
+		100: '#fc8072'
 	},
 	BLACK: {
 		DEFAULT: '#0C0D10'
