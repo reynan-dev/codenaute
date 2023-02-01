@@ -38,9 +38,6 @@ export class UpdateUsernameArgs {
 	@Field()
 	@MinLength(3, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	username: string;
-
-	@Field()
-	id: string;
 }
 
 @ArgsType()
@@ -48,20 +45,21 @@ export class UpdateEmailArgs {
 	@Field()
 	@IsEmail()
 	email: string;
-
-	@Field()
-	id: string;
 }
 
 @ArgsType()
 export class UpdatePasswordArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	password: string;
+	newPassword: string;
 
 	@Field()
-	@IsEmail()
-	email: string;
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	confirmPassword: string;
+
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	oldPassword: string;
 }
 
 @ArgsType()
@@ -69,7 +67,4 @@ export class DeleteAccountArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
-
-	@Field()
-	id: string;
 }

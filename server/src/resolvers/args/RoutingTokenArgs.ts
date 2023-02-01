@@ -16,7 +16,11 @@ export class ForgotPasswordArgs {
 export class ResetPasswordArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	password: string;
+	newPassword: string;
+
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	confirmPassword: string;
 
 	@Field()
 	token: string;

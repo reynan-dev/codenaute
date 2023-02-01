@@ -13,6 +13,7 @@ export enum ErrorMessages {
 	INVALID_USERNAME_ERROR_MESSAGE = 'Invalid username',
 	INVALID_TOKEN_ERROR_MESSAGE = 'Invalid token',
 	EMPTY_FIELD_ERROR_MESSAGE = 'Field cannot be empty',
+	PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE = 'Passwords do not match',
 
 	// Validation exists
 	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'This username is already taken',
