@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SignUpPage from './signup.page';
+import { useSignUp } from 'hooks/sign-up/useSignUp';
 
 
 
@@ -37,21 +38,7 @@ export default function SignUpContainer() {
 		setErrorMessages
 	}
 
-	const [signUp, { loading }] = useMutation<SignUpMutation, SignUpMutationVariables>(SIGN_UP_MUTATION);
-	const navigate = useNavigate();
-
-	const submit = async (username: string, email: string, password: string) => {
-		try {
-			await signUp({
-				variables: { username, email, password }
-			});
-			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
-			navigate(HOME_PATH);
-		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error));
-		}
-	};
-
+	const {submit, loading} = useSignUp(username, email, password)
 
 	const handleForm = async () => {
 		const inputsValue = {
@@ -68,7 +55,7 @@ export default function SignUpContainer() {
 			return;
 		}
 
-		await submit(username, email, password);
+		submit();
 	};
 
 	return <SignUpPage signUpForm={<SignUpForm isLoading={loading} handleForm={handleForm} state={state} />} />;
