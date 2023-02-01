@@ -43,7 +43,7 @@ export default function SignUpContainer() {
 			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
 			navigate(HOME_PATH);
 		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error));
+			toast.error(getGraphQLErrorMessage(error), {autoClose :10000});
 		}
 	};
 
