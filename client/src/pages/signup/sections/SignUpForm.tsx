@@ -1,5 +1,5 @@
-import Button from 'components/button';
-import Input from 'components/input';
+import Button from 'components/Button';
+import Input from 'components/Input';
 import { ErrorMessages } from 'pages/signup/signup.container';
 
 interface SignUpFormProps {
@@ -14,8 +14,8 @@ interface SignUpFormProps {
 		setPassword: React.Dispatch<React.SetStateAction<string>>;
 		confirmedPassword: string;
 		setConfirmedPassword: React.Dispatch<React.SetStateAction<string>>;
-		errorMessages: ErrorMessages | null;
-		setErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
+		formErrorMessages: ErrorMessages | null;
+		setFormErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
 	};
 }
 
@@ -34,7 +34,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 				onChange={(event) => {
 					state.setUsername(event.target.value);
 				}}
-				error={state.errorMessages?.username}
+				error={state.formErrorMessages?.username}
 			/>
 			<Input
 				label='Email'
@@ -42,7 +42,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 				onChange={(event) => {
 					state.setEmail(event.target.value);
 				}}
-				error={state.errorMessages?.email}
+				error={state.formErrorMessages?.email}
 			/>
 			<Input
 				label='Password'
@@ -51,7 +51,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 				onChange={(event) => {
 					state.setPassword(event.target.value);
 				}}
-				error={state.errorMessages?.password}
+				error={state.formErrorMessages?.password}
 			/>
 			<Input
 				label='Repeat password'
@@ -60,7 +60,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 				onChange={(event) => {
 					state.setConfirmedPassword(event.target.value);
 				}}
-				error={state.errorMessages?.confirmedPassword}
+				error={state.formErrorMessages?.confirmedPassword}
 			/>
 
 			<Button type='submit' disabled={isLoading} className='my-8'>

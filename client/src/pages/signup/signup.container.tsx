@@ -1,29 +1,23 @@
-import { useMutation } from '@apollo/client';
+import { useSignUp } from 'api/sign-up/useSignUp';
 import { HOME_PATH } from 'constants/paths';
-import { SignUpMutation, SignUpMutationVariables } from 'graphql/__generated__/graphql';
-import { SIGN_UP_MUTATION } from 'graphql/sign-up/signup.mutation';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
-import { getInputErrors } from 'helpers/getInputErrors';
+import { getFormErrors } from 'helpers/getFormErrors';
 import SignUpForm from 'pages/signup/sections/SignUpForm';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SignUpPage from './signup.page';
-import { useSignUp } from 'hooks/sign-up/useSignUp';
-
-
 
 export interface ErrorMessages {
 	[key: string]: string;
 }
-
 
 export default function SignUpContainer() {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmedPassword, setConfirmedPassword] = useState('');
-	const [errorMessages, setErrorMessages] = useState<ErrorMessages | null>(null);
+	const [formErrorMessages, setFormErrorMessages] = useState<ErrorMessages | null>(null);
 
 	const state = {
 		username,
@@ -34,29 +28,46 @@ export default function SignUpContainer() {
 		setPassword,
 		confirmedPassword,
 		setConfirmedPassword,
-		errorMessages,
-		setErrorMessages
-	}
+		formErrorMessages,
+		setFormErrorMessages
+	};
 
-	const {submit, loading} = useSignUp(username, email, password)
+	const { signUp, loading } = useSignUp();
+	const navigate = useNavigate();
+
+	const submit = async () => {
+		try {
+			await signUp({
+				variables: { username, email, password }
+			});
+			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
+			navigate(HOME_PATH);
+		} catch (error) {
+			toast.error(getGraphQLErrorMessage(error));
+		}
+	};
 
 	const handleForm = async () => {
-		const inputsValue = {
+		const fieldsValue = {
 			username: username,
 			email: email,
 			password: password,
 			confirmedPassword: confirmedPassword
 		};
 
-		const errors = getInputErrors(inputsValue);
+		const formErrors = getFormErrors(fieldsValue);
 
-		if (errors) {
-			setErrorMessages(errors);
+		if (formErrors) {
+			setFormErrorMessages(formErrors);
 			return;
 		}
 
-		submit();
+		await submit();
 	};
 
-	return <SignUpPage signUpForm={<SignUpForm isLoading={loading} handleForm={handleForm} state={state} />} />;
+	return (
+		<SignUpPage
+			signUpForm={<SignUpForm isLoading={loading} handleForm={handleForm} state={state} />}
+		/>
+	);
 }
