@@ -16,6 +16,8 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
+import { compareSync } from 'bcryptjs';
+
 @Resolver(Member)
 export default class MemberResolver {
 	@Mutation(() => Member)
@@ -75,15 +77,15 @@ export default class MemberResolver {
 	@Authorized()
 	@Mutation(() => Member)
 	async updatePassword(
-		@Args() { new_password, confirm_password, old_password }: UpdatePasswordArgs,
+		@Args() { newPassword, confirmPassword, oldPassword }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		return MemberServices.updatePassword(
-			context.user?.email as string,
-			new_password,
-			confirm_password,
-			old_password
-		);
+		const user = (await MemberServices.findById(context.user?.id as string)) as Member;
+
+		if (!compareSync(oldPassword, user.hashedPassword))
+			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
+
+		return MemberServices.updatePassword(user.email, newPassword, confirmPassword);
 	}
 
 	@Authorized()
