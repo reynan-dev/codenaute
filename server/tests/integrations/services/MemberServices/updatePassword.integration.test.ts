@@ -32,7 +32,7 @@ describe('Update a Member password integration test', () => {
 			const newPassword = 'newPassword';
 
 			expect(() =>
-				MemberServices.updatePassword(wrong_email, newPassword, newPassword, password)
+				MemberServices.updatePassword(wrong_email, newPassword, newPassword)
 			).rejects.toThrowError(ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE);
 		});
 	});
@@ -48,24 +48,8 @@ describe('Update a Member password integration test', () => {
 			const newPassword = 'newPassword';
 
 			expect(() =>
-				MemberServices.updatePassword(member.email, newPassword, password, password)
+				MemberServices.updatePassword(member.email, newPassword, password)
 			).rejects.toThrowError(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
-		});
-	});
-
-	describe('when update password with valid email but the old password is invalid', () => {
-		it('throw an invalid password error', async () => {
-			const username = 'username';
-			const email = 'email@email.com';
-			const password = 'password';
-
-			const member = await MemberServices.signUp(username, email, password);
-
-			const newPassword = 'newPassword';
-
-			expect(() =>
-				MemberServices.updatePassword(member.email, newPassword, newPassword, newPassword)
-			).rejects.toThrowError(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 		});
 	});
 
@@ -79,12 +63,7 @@ describe('Update a Member password integration test', () => {
 
 			const newPassword = 'newPassword';
 
-			const updated = await MemberServices.updatePassword(
-				member.email,
-				newPassword,
-				newPassword,
-				password
-			);
+			const updated = await MemberServices.updatePassword(member.email, newPassword, newPassword);
 
 			expect(compareSync(newPassword, updated.hashedPassword)).toBeTruthy();
 		});
