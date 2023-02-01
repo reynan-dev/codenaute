@@ -23,10 +23,6 @@ class MemberServices extends BaseServices {
 	}
 
 	async signUp(username: string, email: string, password: string) {
-		let existingUser = (await this.findOneBy({ email })) as Member;
-
-		if (existingUser) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
-
 		const hashedPassword = hashSync(password, 10);
 
 		return await this.create({

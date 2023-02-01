@@ -15,8 +15,8 @@ export enum ErrorMessages {
 	EMPTY_FIELD_ERROR_MESSAGE = 'Field cannot be empty',
 
 	// Validation exists
-	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'Username is already in use',
-	EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE = 'Email is already in use',
+	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'This username is already taken',
+	EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE = 'Another account already uses this email address',
 	MEMBER_ALREADY_EXISTS_ERROR_MESSAGE = 'Member already exists',
 
 	// Forgot Password
@@ -24,5 +24,6 @@ export enum ErrorMessages {
 
 	// Validation Args
 	USERNAME_MUST_BE_LONG_ERROR_MESSAGE = 'The username must be at least 3 character long.',
-	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.'
+	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.',
+	CONFIRMED_PASSWORD_ERROR_MESSAGE = 'Password did not match.'
 }

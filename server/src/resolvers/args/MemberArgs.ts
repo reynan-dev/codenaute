@@ -18,6 +18,9 @@ export class SignUpArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
+
+	@Field()
+	confirmedPassword: string;
 }
 
 @ArgsType()

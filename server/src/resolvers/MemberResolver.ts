@@ -15,6 +15,7 @@ import {
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
+import { Validations } from 'utils/enums/Validations';
 
 @Resolver(Member)
 export default class MemberResolver {
@@ -29,7 +30,15 @@ export default class MemberResolver {
 		return user;
 	}
 	@Mutation(() => Member)
-	async signUp(@Args() { username, email, password }: SignUpArgs): Promise<Member> {
+	async signUp(@Args() { username, email, password, confirmedPassword }: SignUpArgs): Promise<Member> {
+
+		let existingEmail = (await MemberServices.findOneBy({ email })) as Member;
+		let existingUsername = (await MemberServices.findOneBy({ username })) as Member;
+		if (existingEmail) throw Error(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
+		if (existingUsername) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+
+		if (confirmedPassword !== password) throw ErrorMessages.CONFIRMED_PASSWORD_ERROR_MESSAGE;
+
 		const user = MemberServices.signUp(username, email, password);
 
 		return user;
