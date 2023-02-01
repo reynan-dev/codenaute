@@ -29,18 +29,13 @@ export default class MemberResolver {
 
 	@Mutation(() => Member)
 	async resetPassword(
-		@Args() { token, new_password, confirm_password, old_password }: ResetPasswordArgs
+		@Args() { token, newPassword, confirmPassword }: ResetPasswordArgs
 	): Promise<Member> {
 		const routingToken = (await RoutingTokenServices.findByToken(token)) as RoutingToken;
 
 		if (!routingToken) throw Error(ErrorMessages.INVALID_TOKEN_ERROR_MESSAGE);
 
-		return await MemberServices.updatePassword(
-			routingToken.email,
-			new_password,
-			confirm_password,
-			old_password
-		);
+		return await MemberServices.updatePassword(routingToken.email, newPassword, confirmPassword);
 	}
 
 	@Mutation(() => RoutingToken)
