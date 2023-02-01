@@ -6,14 +6,14 @@ import {
 } from 'constants/errorMessages';
 import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from 'constants/validations';
 
-interface InputsValueArg {
+interface FieldsValue {
 	username: string;
 	email: string;
 	password: string;
 	confirmedPassword: string;
 }
 
-export const getFormErrors = (fieldsValue: InputsValueArg) => {
+export const getFormErrors = (fieldsValue: FieldsValue) => {
 	const { username, email, password, confirmedPassword } = fieldsValue;
 	const errorMessages: { [key: string]: string } = {};
 
