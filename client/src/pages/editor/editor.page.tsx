@@ -9,7 +9,7 @@ import {
 
 export default function Editor() {
 	return (
-		<SandpackProvider theme={'dark'} style={{height: "100%"}}>
+		<SandpackProvider theme={'dark'} style={{ height: '100%' }}>
 			<SandpackLayout
 				style={{
 					width: '100%',
@@ -28,7 +28,6 @@ export default function Editor() {
 						width: '100%',
 						height: '100%'
 					}}
-
 				/>
 				<SandpackPreview
 					showNavigator
