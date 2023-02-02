@@ -35,6 +35,6 @@ const startServer = async () => {
 
 	const { url } = await server.listen(process.env.GRAPHQL_PORT);
 
-	console.log(`🚀 Server ready at ${url}`);
+	console.info(`🚀 Server ready at ${url}`);
 };
 startServer();

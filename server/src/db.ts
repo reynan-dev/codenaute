@@ -21,7 +21,7 @@ const dataSource = new DataSource({
 const startDatabase = async function () {
 	try {
 		await dataSource.initialize();
-		console.log('🎉 Successfully connected to database');
+		console.info('🎉 Successfully connected to database');
 	} catch (error) {
 		console.log('😞 Database connection error');
 		console.log(error);
@@ -31,7 +31,7 @@ const startDatabase = async function () {
 const closeDatabase = async function () {
 	try {
 		await dataSource.destroy();
-		console.log('💀 Successfully disconnected to database');
+		console.info('💀 Successfully disconnected to database');
 	} catch (error) {
 		console.log('😞 Database disconnection error');
 		console.log(error);

@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 describe('Update integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 
