@@ -19,6 +19,19 @@ describe('Singup a Member integration test', () => {
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
+	describe("when email address doesn't belong to existing user", () => {
+		const username = 'username';
+		const email = 'unknown@email.com';
+		const password = 'password';
+		it('return an member', async () => {
+			console.log('prout');
+
+			const user = await MemberServices.signUp(username, email, password);
+
+			expect(user.username).toEqual(username);
+			expect(user.email).toEqual(email);
+		});
+	});
 
 	describe('when email address belongs to existing user', () => {
 		it('throws an member already exists error', async () => {
@@ -31,18 +44,6 @@ describe('Singup a Member integration test', () => {
 			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
 				ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
 			);
-		});
-	});
-	describe("when email address doesn't belong to existing user", () => {
-		it('return an member', async () => {
-			const username = 'username';
-			const email = 'unknown@email.com';
-			const password = 'password';
-
-			const user = await MemberServices.signUp(username, email, password);
-
-			expect(user.username).toEqual(username);
-			expect(user.email).toEqual(email);
 		});
 	});
 });
