@@ -35,12 +35,12 @@ export default class MemberResolver {
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs
 	): Promise<Member> {
-		let existingEmail = (await MemberServices.findOneBy({ email })) as Member;
-		let existingUsername = (await MemberServices.findOneBy({ username })) as Member;
+		const existingEmail = (await MemberServices.findOneBy({ email })) as Member;
+		const existingUsername = (await MemberServices.findOneBy({ username })) as Member;
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 		if (existingUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		if (confirmedPassword !== password) throw ErrorMessages.CONFIRMED_PASSWORD_ERROR_MESSAGE;
+		if (confirmedPassword !== password) throw ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE;
 
 		return MemberServices.signUp(username, email, password);
 	}
