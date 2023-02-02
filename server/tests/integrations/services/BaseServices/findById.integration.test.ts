@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 describe('FindById integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

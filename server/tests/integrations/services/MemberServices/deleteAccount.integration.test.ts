@@ -5,6 +5,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Delete a Member account integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

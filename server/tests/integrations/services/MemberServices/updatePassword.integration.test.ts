@@ -6,6 +6,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Update a Member password integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

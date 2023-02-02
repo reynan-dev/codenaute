@@ -4,6 +4,7 @@ import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Update a Member email integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

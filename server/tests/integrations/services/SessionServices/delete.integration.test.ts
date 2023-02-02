@@ -7,6 +7,7 @@ import { randomBytes } from 'crypto';
 
 describe('Delete Session integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 
