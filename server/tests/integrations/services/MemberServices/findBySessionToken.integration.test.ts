@@ -5,6 +5,7 @@ import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

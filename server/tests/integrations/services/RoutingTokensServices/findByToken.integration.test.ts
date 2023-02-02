@@ -5,6 +5,7 @@ import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Find a RoutingToken ByToken integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

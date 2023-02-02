@@ -3,6 +3,7 @@ import MemberServices from 'services/MemberServices';
 
 describe('Find integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 

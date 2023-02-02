@@ -5,6 +5,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Singup a Member integration test', () => {
 	beforeAll(async () => {
+		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
 	});
 
