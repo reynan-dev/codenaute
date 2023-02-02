@@ -1,5 +1,6 @@
 import CrossDeviceBackground from 'components/CrossDeviceBackground';
-import { HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { EDITOR_PATH, HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
+import Editor from 'pages/editor/editor.page';
 import { Home } from 'pages/home';
 import { SignUp } from 'pages/signup';
 import { Route, Routes } from 'react-router-dom';
@@ -15,6 +16,7 @@ function App() {
 				<Routes>
 					<Route path={SIGN_UP_PATH} element={<SignUp />} />
 					<Route path={HOME_PATH} element={<Home />} />
+					<Route path={EDITOR_PATH} element={<Editor />} />
 				</Routes>
 				<ToastContainer theme='colored' />
 			</div>
