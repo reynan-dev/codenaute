@@ -4,9 +4,8 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 
 const passwordRegExp = new RegExp(Validations.PASSWORD_REGEX);
-const emailRegExp = new RegExp(Validations.EMAIL_REGEX)
-const usernameRegExp = new RegExp(Validations.USERNAME_REGEX)
-
+const emailRegExp = new RegExp(Validations.EMAIL_REGEX);
+const usernameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
 export class SignUpArgs {
