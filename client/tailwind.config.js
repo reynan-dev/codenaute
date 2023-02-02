@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-// const plugin = require('tailwindcss/plugin');
+const plugin = require('tailwindcss/plugin');
+const COLORS = require('./src/styles/colors');
 
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -8,35 +9,38 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: {
-					DEFAULT: '#44A5FE',
-					100: '#7ec0fc'
+					DEFAULT: COLORS.PRIMARY.DEFAULT,
+					100: COLORS.PRIMARY[100]
 				},
 				secondary: {
-					DEFAULT: '#8B77E2'
+					DEFAULT: COLORS.SECONDARY.DEFAULT
 				},
 				success: {
-					DEFAULT: '#28AF65'
+					DEFAULT: COLORS.SUCCESS.DEFAULT,
+					100: COLORS.SUCCESS[100]
 				},
 				warning: {
-					DEFAULT: '#F1DB4B'
+					DEFAULT: COLORS.WARNING.DEFAULT,
+					100: COLORS.WARNING[100]
 				},
 				danger: {
-					DEFAULT: '#F76958'
+					DEFAULT: COLORS.DANGER.DEFAULT,
+					100: COLORS.DANGER[100]
 				},
 				black: {
-					DEFAULT: '#0C0D10'
+					DEFAULT: COLORS.BLACK.DEFAULT
 				},
 				white: {
-					DEFAULT: '#F2F2F2'
+					DEFAULT: COLORS.WHITE.DEFAULT
 				},
 				dark: {
-					DEFAULT: '#131416',
-					300: '#A0A4AD',
-					500: '#545861',
-					600: '#35373E',
-					700: '#27292E',
-					800: '#202225',
-					900: '#18191B'
+					DEFAULT: COLORS.DARK.DEFAULT,
+					300: COLORS.DARK[300],
+					500: COLORS.DARK[500],
+					600: COLORS.DARK[600],
+					700: COLORS.DARK[700],
+					800: COLORS.DARK[800],
+					900: COLORS.DARK[900]
 				}
 			},
 			fontFamily: {
@@ -50,6 +54,6 @@ module.exports = {
 	plugins: [
 		require('tailwindcss'),
 		require('autoprefixer'),
-		require('./src/styles/plugins/colorVarsExtractor')
+		plugin(require('./src/styles/plugins/colorVarsExtractor'))
 	]
 };

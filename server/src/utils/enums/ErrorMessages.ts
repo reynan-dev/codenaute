@@ -16,8 +16,8 @@ export enum ErrorMessages {
 	PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE = 'Passwords do not match',
 
 	// Validation exists
-	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'Username is already in use',
-	EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE = 'Email is already in use',
+	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'This username is already taken',
+	EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE = 'Another account already uses this email address',
 	MEMBER_ALREADY_EXISTS_ERROR_MESSAGE = 'Member already exists',
 
 	// Forgot Password

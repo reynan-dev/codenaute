@@ -4,20 +4,25 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 
 const passwordRegExp = new RegExp(Validations.PASSWORD_REGEX);
+const emailRegExp = new RegExp(Validations.EMAIL_REGEX);
+const usernameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
 export class SignUpArgs {
 	@Field()
-	@MinLength(3, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	username: string;
 
 	@Field()
-	@IsEmail()
+	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
 	email: string;
 
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
+
+	@Field()
+	confirmedPassword: string;
 }
 
 @ArgsType()

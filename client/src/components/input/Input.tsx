@@ -1,4 +1,6 @@
 import clsx from 'clsx';
+import { clsxMerge } from 'helpers/clsxMerge';
+import getBrowserName from 'helpers/getBrowserName';
 import React, {
 	DetailedHTMLProps,
 	HTMLInputTypeAttribute,
@@ -9,7 +11,6 @@ import React, {
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { clsxMerge } from '../../helpers/clsxMerge';
 
 export type InputProps = DetailedHTMLProps<
 	InputHTMLAttributes<HTMLInputElement>,
@@ -58,13 +59,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			[isPasswordVisible, type]
 		);
 
+		const browser = getBrowserName();
+
 		return (
 			<div className={clsxMerge(className, 'w-full')}>
 				<div className='relative h-16 w-full rounded-xl'>
 					<div
 						className={clsxMerge(
-							'absolute top-0 left-0 h-16 w-full rounded-xl ',
+							'absolute top-0 left-0 h-16 w-full rounded-xl',
 							isFocus && 'outline-3 outline outline-primary blur-sm',
+							isFocus && browser === 'safari' && 'outline-0',
 							isFocus && error && 'outline-danger'
 						)}
 					/>
@@ -72,7 +76,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						className={clsxMerge(
 							'absolute top-0 left-0 flex h-16 w-full items-center justify-between overflow-hidden',
 							'rounded-xl border border-dark-500 bg-dark-800 placeholder-primary',
-							isFocus && 'border-primary outline outline-2 outline-primary',
+							isFocus && 'border-primary outline outline-1 outline-primary',
+							isFocus && browser === 'safari' && 'outline-0',
 							error && 'border-danger',
 							error && isFocus && 'border-danger outline-danger'
 						)}
@@ -80,14 +85,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						<div className='flex w-full items-center'>
 							<div className='relative w-full'>
 								<input
-									id='floating_outlined'
+									name='floating_outlined'
 									ref={ref}
+									placeholder=' '
 									className={clsx(
 										'peer block w-full  pl-5 pb-2.5 pt-4',
+										'detect-autofill',
 										'bg-transparent text-sm',
 										'focus:outline-none'
 									)}
-									placeholder=' '
+									{...props}
 									type={inputType}
 									onFocus={(e) => {
 										props.onFocus?.(e);
