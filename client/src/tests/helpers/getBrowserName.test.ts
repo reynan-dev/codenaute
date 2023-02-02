@@ -56,9 +56,9 @@ describe('getBrowserName', () => {
 		expect(getBrowserName()).toBe('safari');
 	});
 
-  // Unknown
+	// Unknown
 	it('should return unknown for any other unknown user agent', () => {
-		originalUserAgent.mockReturnValue("any other user agent");
+		originalUserAgent.mockReturnValue('any other user agent');
 		expect(getBrowserName()).toBe('unknown');
 	});
 });

@@ -1,6 +1,5 @@
 export const USER_AGENTS = {
-	FIREFOX:
-        'Mozilla/5.0 (X11; Linux i686; rv:104.0) Gecko/20100101 Firefox/104.0',
+	FIREFOX: 'Mozilla/5.0 (X11; Linux i686; rv:104.0) Gecko/20100101 Firefox/104.0',
 	SAMSUNG:
 		'Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G955F Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/9.4 Chrome/67.0.3396.87 Mobile Safari/537.36',
 	OPERA:
