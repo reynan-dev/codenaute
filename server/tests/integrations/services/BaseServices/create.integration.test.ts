@@ -20,6 +20,10 @@ describe('Create integration test', () => {
 
 	describe('when try create an user with valid data', () => {
 		describe('when trying to create an element that already exists', () => {
+			beforeEach(() => {
+				jest.spyOn(console, 'log').mockImplementation(() => {});
+			});
+
 			it('throw an error not created', async () => {
 				const hashedPassword = hashSync('password', 10);
 
