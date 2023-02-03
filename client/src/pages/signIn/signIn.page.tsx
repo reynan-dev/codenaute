@@ -16,7 +16,7 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 						<LogoSvg color={BLACK.DEFAULT} backgroundColor={WHITE.DEFAULT} size='50px' />
 						<h1>Login</h1>
 					</div>
-					{/* <h4>Enter your informations</h4> */}
+					<h4>Enter your credentials to sign-in</h4>
 				</div>
 				<div className={clsx('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-1/2', 'xl:max-w-md')}>
 					{loginForm}
