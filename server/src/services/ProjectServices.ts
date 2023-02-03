@@ -4,7 +4,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 import Project from 'entities/Project';
 import Member from 'entities/Member';
-import File from 'entities/File';
+import ProjectFile from 'entities/ProjectFile';
 
 import BaseServices from 'services/base/BaseServices';
 import MemberServices from 'services/MemberServices';
@@ -58,7 +58,7 @@ class ProjectServices extends BaseServices {
 		return this.repository.save(project);
 	}
 
-	async addFile(id: string, files: File[]): Promise<Project> {
+	async addFile(id: string, files: ProjectFile[]): Promise<Project> {
 		const project = await this.findById(id);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);

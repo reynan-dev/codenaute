@@ -12,7 +12,7 @@ import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 import BaseModels from 'entities/base/BaseModels';
 import Language from 'entities/Language';
-import File from 'entities/File';
+import ProjectFile from 'entities/ProjectFile';
 import SandpackTemplate from 'entities/SandpackTemplate';
 import Member from 'entities/Member';
 
@@ -30,9 +30,9 @@ export default class Project extends BaseModels {
 	members: Member[];
 
 	@Column('text')
-	@Field(() => [File], { nullable: true })
-	@OneToMany(() => File, (file) => file.project, { eager: true })
-	files: File[];
+	@Field(() => [ProjectFile], { nullable: true })
+	@OneToMany(() => ProjectFile, (file) => file.project, { eager: true })
+	files: ProjectFile[];
 
 	@Column('varchar')
 	@Field(() => Language)
@@ -45,9 +45,9 @@ export default class Project extends BaseModels {
 	template: SandpackTemplate;
 
 	@Column('varchar', { nullable: true })
-	@Field(() => File, { nullable: true })
-	@OneToOne(() => File, (file) => file.id, { eager: true })
-	activeFile: File;
+	@Field(() => ProjectFile, { nullable: true })
+	@OneToOne(() => ProjectFile, (file) => file.id, { eager: true })
+	activeFile: ProjectFile;
 
 	@Field(() => [Member], { nullable: true })
 	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })

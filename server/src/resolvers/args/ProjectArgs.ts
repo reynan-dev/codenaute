@@ -3,7 +3,7 @@ import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 
-import File from 'entities/File';
+import ProjectFile from 'entities/ProjectFile';
 import Member from 'entities/Member';
 import SandpackTemplate from 'entities/SandpackTemplate';
 import Language from 'entities/Language';
@@ -50,7 +50,7 @@ export class createArgs {
 	members: Member[];
 
 	@Field()
-	files: File[];
+	files: ProjectFile[];
 
 	@Field()
 	language: Language;
@@ -59,7 +59,7 @@ export class createArgs {
 	template: SandpackTemplate;
 
 	@Field()
-	activeFile: File;
+	activeFile: ProjectFile;
 
 	@Field()
 	isTemplate: boolean;
@@ -89,7 +89,7 @@ export class addFileArgs {
 	id: string;
 
 	@Field()
-	files: File[];
+	files: ProjectFile[];
 }
 
 @ArgsType()
@@ -108,7 +108,7 @@ export class updateActiveFileArgs {
 	id: string;
 
 	@Field()
-	activeFile: File;
+	activeFile: ProjectFile;
 }
 
 @ArgsType()

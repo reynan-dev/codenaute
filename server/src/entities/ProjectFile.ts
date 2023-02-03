@@ -7,7 +7,7 @@ import BaseModels from 'entities/base/BaseModels';
 
 @Entity()
 @ObjectType()
-export default class File extends BaseModels {
+export default class ProjectFile extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()
