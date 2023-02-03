@@ -13,7 +13,6 @@ export enum ErrorMessages {
 	INVALID_USERNAME_ERROR_MESSAGE = 'Invalid username',
 	INVALID_TOKEN_ERROR_MESSAGE = 'Invalid token',
 	EMPTY_FIELD_ERROR_MESSAGE = 'Field cannot be empty',
-	PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE = 'Passwords do not match',
 
 	// Validation exists
 	USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE = 'This username is already taken',
@@ -23,7 +22,11 @@ export enum ErrorMessages {
 	// Forgot Password
 	EMAIL_NOT_FOUND_ERROR_MESSAGE = 'This account does not exist. Please try again.',
 
-	// Validation Args
+	// Validation Member
 	USERNAME_MUST_BE_LONG_ERROR_MESSAGE = 'The username must be at least 3 character long.',
-	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.'
+	PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE = 'Passwords do not match',
+	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.',
+
+	// Validation Project
+	PROJECT_NOT_FOUND = 'Project not found'
 }
