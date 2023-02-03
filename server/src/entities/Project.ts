@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
-import BaseEntity from 'entities/base/BaseEntity';
+import BaseModels from 'entities/base/BaseModels';
 import Language from 'entities/Language';
 import File from 'entities/File';
 import SandpackTemplate from 'entities/SandpackTemplate';
@@ -18,7 +18,7 @@ import Member from 'entities/Member';
 
 @Entity()
 @ObjectType()
-export default class Project extends BaseEntity {
+export default class Project extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()
@@ -26,7 +26,7 @@ export default class Project extends BaseEntity {
 
 	@Column()
 	@Field()
-	@ManyToMany(() => Member, { eager: true })
+	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
 	members: Member[];
 
 	@Column()
@@ -36,17 +36,17 @@ export default class Project extends BaseEntity {
 
 	@Column()
 	@Field()
-	@ManyToOne(() => Language, { eager: true })
+	@ManyToOne(() => Language, (language) => language.id, { eager: true })
 	language: Language;
 
 	@Column({ nullable: true })
 	@Field()
-	@ManyToOne(() => SandpackTemplate, { eager: true })
+	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true })
 	template: SandpackTemplate;
 
 	@Column({ nullable: true })
 	@Field()
-	@OneToOne(() => File, { eager: true })
+	@OneToOne(() => File, (file) => file.id, { eager: true })
 	activeFile: File;
 
 	@Column('boolean', { default: false })

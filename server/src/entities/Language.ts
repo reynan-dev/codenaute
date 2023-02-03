@@ -1,10 +1,13 @@
 import { IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
+
+import BaseModels from 'entities/base/BaseModels';
+import Project from 'entities/Project';
 
 @Entity()
 @ObjectType()
-export default class Language extends BaseEntity {
+export default class Language extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()
@@ -15,4 +18,9 @@ export default class Language extends BaseEntity {
 	@Field()
 	@IsString()
 	version: string;
+
+	@Column()
+	@Field()
+	@OneToMany(() => Project, (project) => project.language, { eager: true })
+	projects: Project;
 }

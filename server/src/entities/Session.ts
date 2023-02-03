@@ -2,6 +2,7 @@ import { IsDate, IsHexadecimal } from 'class-validator';
 import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+
 import Member from 'entities/Member';
 
 @Entity()
@@ -15,7 +16,7 @@ export default class Session {
 	@IsHexadecimal()
 	token: string;
 
-	@ManyToOne(() => Member, { eager: true, onDelete: 'CASCADE' })
+	@ManyToOne(() => Member, (member) => member.id, { eager: true, onDelete: 'CASCADE' })
 	@Field()
 	member: Member;
 

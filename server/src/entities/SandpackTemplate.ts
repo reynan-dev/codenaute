@@ -1,13 +1,21 @@
 import { IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
+
+import BaseModels from 'entities/base/BaseModels';
+import Project from 'entities/Project';
 
 @Entity()
 @ObjectType()
-export default class File extends BaseEntity {
+export default class File extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()
 	@Index({ unique: true })
 	slug: string;
+
+	@Column({ nullable: true })
+	@Field()
+	@OneToMany(() => Project, (project) => project.id, { eager: true })
+	projects: Project;
 }
