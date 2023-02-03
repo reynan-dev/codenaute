@@ -1,4 +1,4 @@
-import CrossDeviceBackground from 'components/CrossDeviceBackground';
+import CrossDeviceBackground from 'components/CrossDeviceBackground/CrossDeviceBackground';
 import { EDITOR_PATH, HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
 import Editor from 'pages/editor/editor.page';
 import { Home } from 'pages/home';

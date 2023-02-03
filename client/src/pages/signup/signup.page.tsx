@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Container from 'components/Container';
+import Container from 'components/Container/Container';
 import LogoSvg from 'components/Svgs/LogoSvg';
 import { BLACK, WHITE } from 'styles/colors';
 

@@ -1,5 +1,5 @@
-import Button from 'components/Button';
-import Input from 'components/Input';
+import {Button} from 'components/button/Button';
+import {Input} from 'components/input/Input';
 import { ErrorMessages } from 'pages/signup/signup.container';
 
 interface SignUpFormProps {
