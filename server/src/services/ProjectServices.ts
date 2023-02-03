@@ -10,33 +10,34 @@ import BaseServices from 'services/base/BaseServices';
 import MemberServices from 'services/MemberServices';
 import Language from 'entities/Language';
 import SandpackTemplate from 'entities/SandpackTemplate';
+import { LanguageType, MemberType, ProjectFileType, ProjectType, SandpackTemplateType } from 'utils/types/EntitiesTypes';
 
 class ProjectServices extends BaseServices {
 	constructor() {
 		super(Project);
 	}
 
-	async findAllPublic(): Promise<Project[]> {
+	async findAllPublic(): Promise<ProjectType[]> {
 		return this.repository.find({ where: { isPublic: true } });
 	}
 
-	async findByMemberId(memberId: string): Promise<Project[]> {
+	async findByMemberId(memberId: string): Promise<ProjectType[]> {
 		return this.repository.find({ where: { members: { id: memberId } } });
 	}
 
-	async findByFavorites(memberId: string): Promise<Project[]> {
+	async findByFavorites(memberId: string): Promise<ProjectType[]> {
 		return this.repository.find({ where: { favorites: { id: memberId } } });
 	}
 
-	async findByTemplate(template: SandpackTemplate): Promise<Project[]> {
+	async findByTemplate(template: SandpackTemplateType): Promise<ProjectType[]> {
 		return this.repository.find({ where: { template: template } });
 	}
 
-	async findByLanguage(language: Language): Promise<Project[]> {
+	async findByLanguage(language: LanguageType): Promise<ProjectType[]> {
 		return this.repository.find({ where: { language: language } });
 	}
 
-	async favorite(memberId: string, projectId: string): Promise<Project> {
+	async favorite(memberId: string, projectId: string): Promise<ProjectType> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -48,7 +49,7 @@ class ProjectServices extends BaseServices {
 		return this.repository.save(project);
 	}
 
-	async share(id: string, members: Member[]): Promise<Project> {
+	async share(id: string, members: MemberType[]): Promise<ProjectType> {
 		const project = await this.findById(id);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -58,7 +59,7 @@ class ProjectServices extends BaseServices {
 		return this.repository.save(project);
 	}
 
-	async addFile(id: string, files: ProjectFile[]): Promise<Project> {
+	async addFile(id: string, files: ProjectFileType[]): Promise<ProjectType> {
 		const project = await this.findById(id);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
