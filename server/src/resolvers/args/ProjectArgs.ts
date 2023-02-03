@@ -1,5 +1,5 @@
 import { Matches } from 'class-validator';
-import { ArgsType, Field } from 'type-graphql';
+import { ArgsType, Field, InputType } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 
@@ -30,13 +30,13 @@ export class getByMemberArgs {
 
 @ArgsType()
 export class getAllByTemplateArgs {
-	@Field()
+	@Field(() => SandpackTemplate, { nullable: true })
 	template: SandpackTemplate;
 }
 
 @ArgsType()
 export class getAllByLanguageArgs {
-	@Field()
+	@Field(() => Language)
 	language: Language;
 }
 
@@ -46,19 +46,19 @@ export class createArgs {
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	name: string;
 
-	@Field()
+	@Field(() => [Member])
 	members: Member[];
 
-	@Field()
+	@Field(() => [ProjectFile])
 	files: ProjectFile[];
 
-	@Field()
+	@Field(() => Language)
 	language: Language;
 
-	@Field()
+	@Field(() => SandpackTemplate, { nullable: true })
 	template: SandpackTemplate;
 
-	@Field()
+	@Field(() => ProjectFile, { nullable: true })
 	activeFile: ProjectFile;
 
 	@Field()
@@ -79,7 +79,7 @@ export class shareProjectArgs {
 	@Field()
 	id: string;
 
-	@Field()
+	@Field(() => [Member])
 	members: Member[];
 }
 
@@ -88,7 +88,7 @@ export class addFileArgs {
 	@Field()
 	id: string;
 
-	@Field()
+	@Field(() => [ProjectFile])
 	files: ProjectFile[];
 }
 
@@ -107,7 +107,7 @@ export class updateActiveFileArgs {
 	@Field()
 	id: string;
 
-	@Field()
+	@Field(() => ProjectFile)
 	activeFile: ProjectFile;
 }
 
