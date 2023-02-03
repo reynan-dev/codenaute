@@ -9,11 +9,11 @@ import { BaseEntity, Column, Entity, Index, ManyToOne } from 'typeorm';
 export default class Favorite extends BaseEntity {
 	@Column()
 	@Field()
-	@ManyToOne(() => Project, {eager: true})
+	@ManyToOne(() => Project, { eager: true })
 	project: Project;
 
 	@Column()
 	@Field()
-	@ManyToOne(() => Member, {eager: true})
+	@ManyToOne(() => Member, { eager: true })
 	member: Member;
 }

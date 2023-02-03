@@ -19,16 +19,15 @@ export default class File extends BaseEntity {
 
 	@Column()
 	@Field()
-    @ManyToOne(() => Project, {eager: true})
-    project: Project;
+	@ManyToOne(() => Project, { eager: true })
+	project: Project;
 
 	@Column('boolean', { default: false })
-    @Field()
-    @IsBoolean()
-    isHidden: boolean;
+	@Field()
+	@IsBoolean()
+	isHidden: boolean;
 
-    @DeleteDateColumn()
+	@DeleteDateColumn()
 	@IsDate()
 	deletedAt: Date;
 }
-

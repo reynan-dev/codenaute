@@ -13,6 +13,6 @@ export default class Language extends BaseEntity {
 
 	@Column('varchar', { length: 15 })
 	@Field()
-    @IsString()
+	@IsString()
 	version: string;
 }
