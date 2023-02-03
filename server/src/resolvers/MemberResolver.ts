@@ -40,7 +40,8 @@ export default class MemberResolver {
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 		if (existingUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		if (confirmedPassword !== password) throw ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE;
+		if (confirmedPassword !== password)
+			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
 		return MemberServices.signUp(username, email, password);
 	}
