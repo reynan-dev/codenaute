@@ -10,7 +10,13 @@ import BaseServices from 'services/base/BaseServices';
 import MemberServices from 'services/MemberServices';
 import Language from 'entities/Language';
 import SandpackTemplate from 'entities/SandpackTemplate';
-import { LanguageType, MemberType, ProjectFileType, ProjectType, SandpackTemplateType } from 'utils/types/EntitiesTypes';
+import {
+	LanguageType,
+	MemberType,
+	ProjectFileType,
+	ProjectType,
+	SandpackTemplateType
+} from 'utils/types/EntitiesTypes';
 
 class ProjectServices extends BaseServices {
 	constructor() {
