@@ -37,11 +37,11 @@ class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const session = await SessionServices.findByToken(token);
+		const member = await this.repository.find({ where: { sessions: { token } } });
 
-		if (!session) return null;
+		if (!member) return null;
 
-		return session.member;
+		return member;
 	}
 
 	async updateUsername(id: string, username: string) {
