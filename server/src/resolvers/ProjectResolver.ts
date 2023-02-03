@@ -8,6 +8,9 @@ import {
 	addFileArgs,
 	createArgs,
 	deleteArgs,
+	favoriteProjectArgs,
+	getAllByLanguageArgs,
+	getAllByTemplateArgs,
 	getByIdArgs,
 	getByNameArgs,
 	shareProjectArgs,
@@ -30,8 +33,30 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getByMember(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByMember(@Ctx() context: GlobalContext): Promise<Project[]> {
+		// TODO: Need to add pagination here
 		return ProjectServices.findByMemberId(context.user?.id as string);
+	}
+
+	@Authorized()
+	@Query(() => Project)
+	async getAllByFavorites(@Ctx() context: GlobalContext): Promise<Project[]> {
+		// TODO: Need to add pagination here
+		return ProjectServices.findByFavorites(context.user?.id as string);
+	}
+
+	@Authorized()
+	@Query(() => Project)
+	async getAllByTemplate(@Args() { template }: getAllByTemplateArgs, @Ctx() context: GlobalContext): Promise<Project[]> {
+		// TODO: Need to add pagination here
+		return ProjectServices.findByTemplate(template);
+	}
+
+	@Authorized()
+	@Query(() => Project)
+	async getAllByLanguage(@Args() { language }: getAllByLanguageArgs, @Ctx() context: GlobalContext): Promise<Project[]> {
+		// TODO: Need to add pagination here
+		return ProjectServices.findByLanguage(language);
 	}
 
 	@Authorized()
@@ -62,6 +87,15 @@ export default class MemberResolver {
 			isTemplate: isTemplate,
 			isPublic: isPublic
 		});
+	}
+
+	@Authorized()
+	@Query(() => Project)
+	async favoriteProject(
+		@Args() { id }: favoriteProjectArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Project> {
+		return ProjectServices.favorite(context.user?.id as string, id);
 	}
 
 	@Authorized()

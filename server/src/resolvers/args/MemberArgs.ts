@@ -22,30 +22,32 @@ export class SignUpArgs {
 	password: string;
 
 	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	confirmedPassword: string;
 }
 
 @ArgsType()
 export class SignInArgs {
 	@Field()
-	@IsEmail()
+	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
 	email: string;
 
 	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
 }
 
 @ArgsType()
 export class UpdateUsernameArgs {
 	@Field()
-	@MinLength(3, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	username: string;
 }
 
 @ArgsType()
 export class UpdateEmailArgs {
 	@Field()
-	@IsEmail()
+	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
 	email: string;
 }
 

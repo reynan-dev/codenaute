@@ -3,6 +3,11 @@ import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 
+import File from 'entities/File';
+import Member from 'entities/Member';
+import SandpackTemplate from 'entities/SandpackTemplate';
+import Language from 'entities/Language';
+
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
@@ -24,25 +29,37 @@ export class getByMemberArgs {
 }
 
 @ArgsType()
+export class getAllByTemplateArgs {
+	@Field()
+	template: SandpackTemplate;
+}
+
+@ArgsType()
+export class getAllByLanguageArgs {
+	@Field()
+	language: Language;
+}
+
+@ArgsType()
 export class createArgs {
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	name: string;
 
 	@Field()
-	members: string[];
+	members: Member[];
 
 	@Field()
-	files: string[];
+	files: File[];
 
 	@Field()
-	language: string;
+	language: Language;
 
 	@Field()
-	template: string;
+	template: SandpackTemplate;
 
 	@Field()
-	activeFile: string;
+	activeFile: File;
 
 	@Field()
 	isTemplate: boolean;
@@ -52,12 +69,18 @@ export class createArgs {
 }
 
 @ArgsType()
+export class favoriteProjectArgs {
+	@Field()
+	id: string;
+}
+
+@ArgsType()
 export class shareProjectArgs {
 	@Field()
 	id: string;
 
 	@Field()
-	members: string[];
+	members: Member[];
 }
 
 @ArgsType()
@@ -66,7 +89,7 @@ export class addFileArgs {
 	id: string;
 
 	@Field()
-	files: string[];
+	files: File[];
 }
 
 @ArgsType()
@@ -85,7 +108,7 @@ export class updateActiveFileArgs {
 	id: string;
 
 	@Field()
-	activeFile: string;
+	activeFile: File;
 }
 
 @ArgsType()
