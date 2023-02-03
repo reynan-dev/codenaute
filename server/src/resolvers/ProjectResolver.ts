@@ -47,14 +47,20 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByTemplate(@Args() { template }: getAllByTemplateArgs, @Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByTemplate(
+		@Args() { template }: getAllByTemplateArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return ProjectServices.findByTemplate(template);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByLanguage(@Args() { language }: getAllByLanguageArgs, @Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByLanguage(
+		@Args() { language }: getAllByLanguageArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return ProjectServices.findByLanguage(language);
 	}

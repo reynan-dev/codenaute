@@ -3,12 +3,10 @@ import { ObjectLiteral } from 'typeorm';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 import Project from 'entities/Project';
-import Favorite from 'entities/Favorite';
 import Member from 'entities/Member';
 import File from 'entities/File';
 
 import BaseServices from 'services/base/BaseServices';
-import FavoriteServices from 'services/FavoriteServices';
 import MemberServices from 'services/MemberServices';
 import Language from 'entities/Language';
 import SandpackTemplate from 'entities/SandpackTemplate';
@@ -27,23 +25,15 @@ class ProjectServices extends BaseServices {
 	}
 
 	async findByFavorites(memberId: string): Promise<Project[]> {
-		const favorites = await FavoriteServices.findAllByMemberId(memberId);
-
-		const projects: Project[] = [];
-
-		favorites.map((favorite: Favorite) => projects.push(favorite.project));
-
-		return projects;
+		return this.repository.find({ where: { favorites: { id: memberId } } });
 	}
 
 	async findByTemplate(template: SandpackTemplate): Promise<Project[]> {
 		return this.repository.find({ where: { template: template } });
-
 	}
 
 	async findByLanguage(language: Language): Promise<Project[]> {
 		return this.repository.find({ where: { language: language } });
-
 	}
 
 	async favorite(memberId: string, projectId: string): Promise<Project> {
@@ -51,9 +41,11 @@ class ProjectServices extends BaseServices {
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		const member = MemberServices.findById(memberId);
+		const member = await MemberServices.findById(memberId);
 
-		return FavoriteServices.create({ project, member });
+		project.favorites = [...project.members, ...member];
+
+		return this.repository.save(project);
 	}
 
 	async share(id: string, members: Member[]): Promise<Project> {
