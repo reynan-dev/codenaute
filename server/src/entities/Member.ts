@@ -7,8 +7,8 @@ import BaseEntity from 'entities/base/BaseEntity';
 @ObjectType()
 export default class Member extends BaseEntity {
 	@Column()
-	@IsString()
 	@Field()
+	@IsString()
 	username: string;
 
 	@Column()
@@ -18,6 +18,7 @@ export default class Member extends BaseEntity {
 	email: string;
 
 	@Column('boolean', { default: false })
+	@Field()
 	@IsBoolean()
 	isValidEmail: boolean;
 
