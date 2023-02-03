@@ -4,6 +4,7 @@ import { buildSchema } from 'type-graphql';
 
 import MemberResolver from 'resolvers/MemberResolver';
 import RoutingTokenResolver from 'resolvers/RoutingTokenResolver';
+import ProjectResolver from 'resolvers/ProjectResolver';
 
 import MemberServices from 'services/MemberServices';
 
@@ -16,7 +17,7 @@ const startServer = async () => {
 
 	const server = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [MemberResolver, RoutingTokenResolver],
+			resolvers: [MemberResolver, RoutingTokenResolver, ProjectResolver],
 			authChecker: async ({ context }) => {
 				return Boolean(context.user);
 			}
