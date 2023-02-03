@@ -23,7 +23,7 @@ import {
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 @Resolver(Project)
-export default class MemberResolver {
+export default class ProjectResolver {
 	@Authorized()
 	@Query(() => Project)
 	async getAllPublic(): Promise<Project[]> {
