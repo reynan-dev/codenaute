@@ -6,8 +6,9 @@ import {
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
 //import CustomSandpack from "components//CustomCodeEditor/CustomSandpack";
+//import Code from "components/CustomCodeEditor/Code";
 
-export default function Editor() {
+export default function CodeEditor() {
 	return (
 		<SandpackProvider theme={'dark'} style={{ height: '100%' }}>
 			<SandpackLayout
