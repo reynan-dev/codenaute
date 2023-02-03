@@ -24,30 +24,34 @@ export default class Project extends BaseModels {
 	@IsString()
 	name: string;
 
-	@Column()
-	@Field()
+	@Column('text')
+	@Field(() => [Member])
 	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
 	members: Member[];
 
-	@Column()
-	@Field()
+	@Column('text')
+	@Field(() => [File], { nullable: true })
 	@OneToMany(() => File, (file) => file.project, { eager: true })
 	files: File[];
 
-	@Column()
-	@Field()
+	@Column('varchar')
+	@Field(() => Language)
 	@ManyToOne(() => Language, (language) => language.id, { eager: true })
 	language: Language;
 
-	@Column({ nullable: true })
-	@Field()
+	@Column('varchar', { nullable: true })
+	@Field(() => SandpackTemplate, { nullable: true })
 	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true })
 	template: SandpackTemplate;
 
-	@Column({ nullable: true })
-	@Field()
+	@Column('varchar', { nullable: true })
+	@Field(() => File, { nullable: true })
 	@OneToOne(() => File, (file) => file.id, { eager: true })
 	activeFile: File;
+
+	@Field(() => [Member], { nullable: true })
+	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })
+	favorites: Member[];
 
 	@Column('boolean', { default: false })
 	@Field()

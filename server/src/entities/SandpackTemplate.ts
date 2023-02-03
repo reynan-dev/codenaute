@@ -14,8 +14,7 @@ export default class File extends BaseModels {
 	@Index({ unique: true })
 	slug: string;
 
-	@Column({ nullable: true })
-	@Field()
+	@Field(() => [Project], { nullable: true })
 	@OneToMany(() => Project, (project) => project.id, { eager: true })
 	projects: Project;
 }

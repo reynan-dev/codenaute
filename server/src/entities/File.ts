@@ -18,9 +18,9 @@ export default class File extends BaseModels {
 	@IsString()
 	code: string;
 
-	@Column()
-	@Field()
-	@ManyToOne(() => Project, (project) => project.files, { eager: true })
+	@Column('varchar')
+	@Field(() => Project)
+	@ManyToOne(() => Project, (project) => project.files)
 	project: Project;
 
 	@Column('boolean', { default: false })

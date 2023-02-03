@@ -1,10 +1,16 @@
 import { IsDate, IsUUID } from 'class-validator';
 import { Field, ID, ObjectType } from 'type-graphql';
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+	CreateDateColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+	BaseEntity
+} from 'typeorm';
 
 @Entity()
 @ObjectType()
-export default class BaseModels {
+export default class BaseModels extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	@Field(() => ID)
 	@IsUUID()

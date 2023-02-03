@@ -19,8 +19,7 @@ export default class Language extends BaseModels {
 	@IsString()
 	version: string;
 
-	@Column()
-	@Field()
-	@OneToMany(() => Project, (project) => project.language, { eager: true })
+	@Field(() => Project)
+	@OneToMany(() => Project, (project) => project.language)
 	projects: Project;
 }

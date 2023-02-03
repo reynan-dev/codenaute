@@ -28,10 +28,13 @@ export default class Member extends BaseModels {
 	@IsString()
 	hashedPassword: string;
 
-	@Column()
-	@Field()
-	@ManyToMany(() => Project, (project) => project.members, { eager: true })
+	@Field(() => [Project], { nullable: true })
+	@ManyToMany(() => Project, (project) => project.members)
 	projects: Project[];
+
+	@Field(() => [Project], { nullable: true })
+	@ManyToMany(() => Project, (project) => project.favorites)
+	favorites: Project[];
 
 	@DeleteDateColumn()
 	@IsDate()
