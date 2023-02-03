@@ -1,9 +1,11 @@
 import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { Column, DeleteDateColumn, Entity, Index, ManyToMany } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index, ManyToMany, OneToMany } from 'typeorm';
 
 import BaseModels from 'entities/base/BaseModels';
 import Project from 'entities/Project';
+import { ProjectType, SessionType } from 'utils/types/EntitiesTypes';
+import Session from 'entities/Session';
 
 @Entity()
 @ObjectType()
@@ -28,13 +30,17 @@ export default class Member extends BaseModels {
 	@IsString()
 	hashedPassword: string;
 
+	@OneToMany(() => Session, (session) => session.member, { nullable: true })
+	@Field(() => [Session], { nullable: true })
+	sessions: SessionType[];
+
 	@Field(() => [Project], { nullable: true })
 	@ManyToMany(() => Project, (project) => project.members)
-	projects: Project[];
+	projects: ProjectType[];
 
 	@Field(() => [Project], { nullable: true })
 	@ManyToMany(() => Project, (project) => project.favorites)
-	favorites: Project[];
+	favorites: ProjectType[];
 
 	@DeleteDateColumn()
 	@IsDate()

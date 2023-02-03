@@ -7,6 +7,12 @@ import ProjectFile from 'entities/ProjectFile';
 import Member from 'entities/Member';
 import SandpackTemplate from 'entities/SandpackTemplate';
 import Language from 'entities/Language';
+import {
+	LanguageType,
+	MemberType,
+	ProjectFileType,
+	SandpackTemplateType
+} from 'utils/types/EntitiesTypes';
 
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
@@ -30,14 +36,14 @@ export class getByMemberArgs {
 
 @ArgsType()
 export class getAllByTemplateArgs {
-	@Field(() => SandpackTemplate, { nullable: true })
-	template: SandpackTemplate;
+	@Field(() => SandpackTemplate)
+	template: SandpackTemplateType;
 }
 
 @ArgsType()
 export class getAllByLanguageArgs {
 	@Field(() => Language)
-	language: Language;
+	language: LanguageType;
 }
 
 @ArgsType()
@@ -50,16 +56,16 @@ export class createArgs {
 	members: Member[];
 
 	@Field(() => [ProjectFile])
-	files: ProjectFile[];
+	files: ProjectFileType[];
 
 	@Field(() => Language)
 	language: Language;
 
 	@Field(() => SandpackTemplate, { nullable: true })
-	template: SandpackTemplate;
+	template: SandpackTemplateType;
 
 	@Field(() => ProjectFile, { nullable: true })
-	activeFile: ProjectFile;
+	activeFile: ProjectFileType;
 
 	@Field()
 	isTemplate: boolean;
@@ -80,7 +86,7 @@ export class shareProjectArgs {
 	id: string;
 
 	@Field(() => [Member])
-	members: Member[];
+	members: MemberType[];
 }
 
 @ArgsType()
@@ -89,7 +95,7 @@ export class addFileArgs {
 	id: string;
 
 	@Field(() => [ProjectFile])
-	files: ProjectFile[];
+	files: ProjectFileType[];
 }
 
 @ArgsType()
@@ -108,7 +114,7 @@ export class updateActiveFileArgs {
 	id: string;
 
 	@Field(() => ProjectFile)
-	activeFile: ProjectFile;
+	activeFile: ProjectFileType;
 }
 
 @ArgsType()
