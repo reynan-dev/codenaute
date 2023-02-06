@@ -16,7 +16,7 @@ describe('getFormErrors()', () => {
 		};
 
 		it('should return null', () => {
-			expect(getFormErrors(fieldsValueOk)).toBe(null);
+			expect(getFormErrors(fieldsValueOk)).toBeNull();
 		});
 	});
 
