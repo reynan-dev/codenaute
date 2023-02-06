@@ -22,7 +22,9 @@ export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 				<div className={clsx('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-1/2', 'xl:max-w-md')}>
 					{signUpForm}
 				</div>
-				<Link to='/sign-in' color='primary'>I already have an account</Link>
+				<Link to='/sign-in' color='primary'>
+					I already have an account
+				</Link>
 			</div>
 		</Container>
 	);

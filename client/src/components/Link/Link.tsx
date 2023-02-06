@@ -7,7 +7,7 @@ type LinkProps = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLink
 	isLoading?: boolean;
 	color?: 'primary' | 'secondary';
 	to: To;
-}
+};
 
 export const Link: React.FC<LinkProps> = ({ children, className, href, to, color, ...props }) => {
 	const style = useMemo(() => {
