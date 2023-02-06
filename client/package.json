@@ -8,7 +8,7 @@
 		"eject": "react-scripts eject",
 		"start": "WATCHPACK_POLLING=true react-scripts start --hot",
 		"start:local": "react-scripts start",
-		"test": "react-scripts test --passWithNoTests"
+		"test": "react-scripts test --runInBand --verbose"
 	},
 	"browserslist": {
 		"production": [
