@@ -9,7 +9,7 @@ type LinkProps = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLink
 	to: To;
 };
 
-export const Link: React.FC<LinkProps> = ({ children, className, href, to, color, ...props }) => {
+export const Link: React.FC<LinkProps> = ({ children, className, to, color }) => {
 	const style = useMemo(() => {
 		return `font-semibold text-${color}`;
 	}, [color]);
