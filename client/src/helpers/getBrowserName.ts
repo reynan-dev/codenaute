@@ -1,17 +1,20 @@
 const browsers = [
-	{ keyword: 'Firefox', name: 'firefox' },
-	{ keyword: 'SamsungBrowser', name: 'samsung' },
-	{ keyword: 'Opera', name: 'opera' },
-	{ keyword: 'Trident', name: 'internet explorer' },
-	{ keyword: 'Edge', name: 'edge legacy' },
-	{ keyword: 'Edg', name: 'edge chromium' },
-	{ keyword: 'Chrome', name: 'chrome' },
-	{ keyword: 'Safari', name: 'safari' }
+	{ keywords: ['Firefox'], name: 'firefox' },
+	{ keywords: ['SamsungBrowser'], name: 'samsung' },
+	{ keywords: ['Opera', 'OPR'], name: 'opera' },
+	{ keywords: ['Trident'], name: 'internet explorer' },
+	{ keywords: ['Edge'], name: 'edge legacy' },
+	{ keywords: ['Edg'], name: 'edge chromium' },
+	{ keywords: ['Chrome'], name: 'chrome' },
+	{ keywords: ['Safari'], name: 'safari' }
 ];
 
 const getBrowserName = () => {
-	const browser = browsers.filter((browser) => navigator.userAgent.includes(browser.keyword));
-	return browser ? browser[0].name : 'unknown';
+	const matchingBrowsers = browsers.filter((browser) => {
+		return browser.keywords.some((keyword) => navigator.userAgent.includes(keyword));
+	});
+
+	return matchingBrowsers.length ? matchingBrowsers[0].name : 'unknown';
 };
 
 export default getBrowserName;
