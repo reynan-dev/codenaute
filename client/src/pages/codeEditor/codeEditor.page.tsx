@@ -3,21 +3,83 @@ import {
 	SandpackConsole,
 	SandpackLayout,
 	SandpackPreview,
-	SandpackProvider
+	SandpackProvider,
+	SandpackFileExplorer
 } from '@codesandbox/sandpack-react';
+<<<<<<< HEAD:client/src/pages/codeEditor/codeEditor.page.tsx
 //import CustomSandpack from "components//CustomCodeEditor/CustomSandpack";
 //import Code from "components/CustomCodeEditor/Code";
+=======
+import { findBreakingChanges } from 'graphql';
+import { isBooleanObject } from 'util/types';
+//import CustomSandpack from "components/CustomCodeEditor/CustomSandpack";
+
+const files: File[] = [
+	{
+		name: "index.ts",
+		code: "console.log('haha')"
+	},
+	{
+		name: "package.json",
+		code: `{
+		"dependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-scripts": "^4.0.0"
+		},
+		"devDependencies": {
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"typescript": "^4.0.0",
+		"jest": "^27.0.0"
+		},
+		"main": "/index.tsx"
+		}`
+	}
+];
+
+const dependencies = JSON.parse(files.filter(e => e.name === 'package.json')[0].code).dependencies
+const devDependencies = JSON.parse(files.filter(e => e.name === 'package.json')[0].code).devDependencies
+
+interface File {
+	[k: string]: string;
+
+	name: string;
+	code: string;
+}
+
+const ArrayToObject = (files: File[]) => {
+
+	let filesObject: File = {name: '', code: ''};
+
+	files.map((e) => {
+		filesObject[e.name] = `${e.code}`
+	})
+
+	return filesObject
+}
+>>>>>>> c1de0642477ec07ee2bf3f7d2fda66211cc55864:client/src/pages/editor/editor.page.tsx
 
 export default function CodeEditor() {
 	return (
-		<SandpackProvider theme={'dark'} style={{ height: '100%' }}>
+		<SandpackProvider
+		theme={'dark'}
+		style={{ height: '100%' }}
+		files= { ArrayToObject(files) }
+		customSetup={{dependencies: dependencies, devDependencies: devDependencies}}
+		>
+
 			<SandpackLayout
 				style={{
 					width: '100%',
 					height: '100%'
 				}}
-				draggable={true}
 			>
+				<SandpackFileExplorer
+ 				style={{
+					width: '10%',
+					height: '100%'
+				}}/>
 				<SandpackCodeEditor
 					showTabs={true}
 					showLineNumbers={true}
