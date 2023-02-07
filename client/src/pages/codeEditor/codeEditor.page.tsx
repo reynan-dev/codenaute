@@ -6,10 +6,6 @@ import {
 	SandpackProvider,
 	SandpackFileExplorer
 } from '@codesandbox/sandpack-react';
-<<<<<<< HEAD:client/src/pages/codeEditor/codeEditor.page.tsx
-//import CustomSandpack from "components//CustomCodeEditor/CustomSandpack";
-//import Code from "components/CustomCodeEditor/Code";
-=======
 import { findBreakingChanges } from 'graphql';
 import { isBooleanObject } from 'util/types';
 //import CustomSandpack from "components/CustomCodeEditor/CustomSandpack";
@@ -50,7 +46,7 @@ interface File {
 
 const ArrayToObject = (files: File[]) => {
 
-	let filesObject: File = {name: '', code: ''};
+	let filesObject: File = { name: '', code: '' };
 
 	files.map((e) => {
 		filesObject[e.name] = `${e.code}`
@@ -58,15 +54,14 @@ const ArrayToObject = (files: File[]) => {
 
 	return filesObject
 }
->>>>>>> c1de0642477ec07ee2bf3f7d2fda66211cc55864:client/src/pages/editor/editor.page.tsx
 
 export default function CodeEditor() {
 	return (
 		<SandpackProvider
-		theme={'dark'}
-		style={{ height: '100%' }}
-		files= { ArrayToObject(files) }
-		customSetup={{dependencies: dependencies, devDependencies: devDependencies}}
+			theme={'dark'}
+			style={{ height: '100%' }}
+			files={ArrayToObject(files)}
+			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
 
 			<SandpackLayout
@@ -76,10 +71,10 @@ export default function CodeEditor() {
 				}}
 			>
 				<SandpackFileExplorer
- 				style={{
-					width: '10%',
-					height: '100%'
-				}}/>
+					style={{
+						width: '10%',
+						height: '100%'
+					}} />
 				<SandpackCodeEditor
 					showTabs={true}
 					showLineNumbers={true}
