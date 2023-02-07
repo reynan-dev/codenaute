@@ -12,11 +12,11 @@ import { isBooleanObject } from 'util/types';
 
 const files: File[] = [
 	{
-		name: "index.ts",
+		name: 'index.ts',
 		code: "console.log('haha')"
 	},
 	{
-		name: "package.json",
+		name: 'package.json',
 		code: `{
 		"dependencies": {
 		"react": "^18.0.0",
@@ -34,8 +34,12 @@ const files: File[] = [
 	}
 ];
 
-const dependencies = JSON.parse(files.filter(e => e.name === 'package.json')[0].code).dependencies
-const devDependencies = JSON.parse(files.filter(e => e.name === 'package.json')[0].code).devDependencies
+const dependencies = JSON.parse(
+	files.filter((e) => e.name === 'package.json')[0].code
+).dependencies;
+const devDependencies = JSON.parse(
+	files.filter((e) => e.name === 'package.json')[0].code
+).devDependencies;
 
 interface File {
 	[k: string]: string;
@@ -45,15 +49,14 @@ interface File {
 }
 
 const ArrayToObject = (files: File[]) => {
-
 	let filesObject: File = { name: '', code: '' };
 
 	files.map((e) => {
-		filesObject[e.name] = `${e.code}`
-	})
+		filesObject[e.name] = `${e.code}`;
+	});
 
-	return filesObject
-}
+	return filesObject;
+};
 
 export default function CodeEditor() {
 	return (
@@ -63,7 +66,6 @@ export default function CodeEditor() {
 			files={ArrayToObject(files)}
 			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
-
 			<SandpackLayout
 				style={{
 					width: '100%',
@@ -74,7 +76,8 @@ export default function CodeEditor() {
 					style={{
 						width: '10%',
 						height: '100%'
-					}} />
+					}}
+				/>
 				<SandpackCodeEditor
 					showTabs={true}
 					showLineNumbers={true}
