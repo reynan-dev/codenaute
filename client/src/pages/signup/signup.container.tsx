@@ -1,12 +1,12 @@
-import { useSignUp } from 'api/sign-up/useSignUp';
 import { HOME_PATH } from 'constants/paths';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { getFormErrors } from 'helpers/getFormErrors';
-import SignUpForm from 'pages/signup/sections/SignUpForm';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import SignUpPage from './signup.page';
+import { useSignUp } from 'api/signUp/useSignUp';
+import SignUpForm from 'pages/signUp/sections/SignUpForm';
+import SignUpPage from 'pages/signUp/signUp.page';
 
 export interface ErrorMessages {
 	[key: string]: string;

@@ -7,7 +7,7 @@ import reportWebVitals from 'reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-	uri: 'http://localhost:5000/',
+	uri: '/',
 	cache: new InMemoryCache()
 });
 
