@@ -64,7 +64,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 			/>
 
 			<Button type='submit' disabled={isLoading} className='my-8'>
-				Se connecter
+				Sign up
 			</Button>
 		</form>
 	);
