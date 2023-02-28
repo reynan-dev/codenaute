@@ -24,7 +24,7 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 						</div>
 						<h4>Enter your credentials to sign-in</h4>
 					</div>
-					<div className={clsx('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-1/2', 'xl:max-w-md')}>
+					<div className={clsx('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-4/5', 'xl:max-w-md')}>
 						{loginForm}
 					</div>
 					<Link to='/sign-up' color='primary'>
