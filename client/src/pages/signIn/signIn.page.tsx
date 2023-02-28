@@ -12,9 +12,6 @@ interface LoginPageProps {
 export default function LoginPage({ loginForm }: LoginPageProps) {
 	return (
 		<div className='flex h-full'>
-			<div className='hidden w-full lg:block'>
-				<img src={astronautImage} className='h-full object-cover' alt='Astronaut illustration' />
-			</div>
 			<Container>
 				<div className='flex h-full w-full flex-col items-center justify-center'>
 					<div className='full-center-col mt-8 mb-16 space-y-5'>
@@ -32,6 +29,9 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 					</Link>
 				</div>
 			</Container>
+			<div className='hidden w-full lg:block'>
+				<img src={astronautImage} className='h-full object-cover' alt='Astronaut illustration' />
+			</div>
 		</div>
 	);
 }

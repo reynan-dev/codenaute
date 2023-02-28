@@ -12,9 +12,6 @@ interface SignUpPageProps {
 export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 	return (
 		<div className='flex h-full'>
-			<div className='w-full hidden lg:block'>
-				<img src={astronautImage} className="object-cover h-full" alt='Astronaut illustration' />
-			</div>
 			<Container>
 				<div className='flex h-full w-full flex-col items-center justify-center'>
 					<div className='full-center-col mt-8 mb-16 space-y-5'>
@@ -32,6 +29,9 @@ export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 					</Link>
 				</div>
 			</Container>
+			<div className='w-full hidden lg:block'>
+				<img src={astronautImage} className="object-cover h-full" alt='Astronaut illustration' />
+			</div>
 		</div>
 	);
 }
