@@ -29,8 +29,8 @@ export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 					</Link>
 				</div>
 			</Container>
-			<div className='w-full hidden lg:block'>
-				<img src={astronautImage} className="object-cover h-full" alt='Astronaut illustration' />
+			<div className='hidden w-full lg:block'>
+				<img src={astronautImage} className='h-full object-cover' alt='Astronaut illustration' />
 			</div>
 		</div>
 	);
