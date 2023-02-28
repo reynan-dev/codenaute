@@ -1,3 +1,3 @@
-import SignUpContainer from "pages/signUp/sign-up.container";
+import SignUpContainer from 'pages/signUp/signUp.container';
 
 export const SignUp = SignUpContainer;
