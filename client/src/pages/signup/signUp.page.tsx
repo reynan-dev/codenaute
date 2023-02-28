@@ -5,11 +5,11 @@ import { BLACK, WHITE } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 import astronautImage from 'assets/images/astronaut-auth.png';
 
-interface LoginPageProps {
-	loginForm: JSX.Element;
+interface SignUpPageProps {
+	signUpForm: JSX.Element;
 }
 
-export default function LoginPage({ loginForm }: LoginPageProps) {
+export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 	return (
 		<div className='flex h-full'>
 			<Container>
@@ -17,15 +17,15 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 					<div className='full-center-col mt-8 mb-16 space-y-5'>
 						<div className='flex space-x-3'>
 							<LogoSvg color={BLACK.DEFAULT} backgroundColor={WHITE.DEFAULT} size='50px' />
-							<h1>Login</h1>
+							<h1>Sign up</h1>
 						</div>
-						<h4>Enter your credentials to sign-in</h4>
+						<h4>Enter your informations to register</h4>
 					</div>
 					<div className={twJoin('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-4/5', 'xl:max-w-md')}>
-						{loginForm}
+						{signUpForm}
 					</div>
-					<Link to='/sign-up' color='primary'>
-						I don't have an account
+					<Link to='/sign-in' color='primary'>
+						I already have an account
 					</Link>
 				</div>
 			</Container>

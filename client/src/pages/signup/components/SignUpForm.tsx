@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { ErrorMessages } from 'pages/signUp/signup.container';
+import { ErrorMessages } from 'pages/signUp/signUp.container';
 
 interface SignUpFormProps {
 	isLoading: boolean;
@@ -64,7 +64,7 @@ export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormP
 			/>
 
 			<Button type='submit' disabled={isLoading} className='my-8'>
-				Se connecter
+				Sign up
 			</Button>
 		</form>
 	);

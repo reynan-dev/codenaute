@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSignUp } from 'api/signUp/useSignUp';
-import SignUpForm from 'pages/signUp/sections/SignUpForm';
 import SignUpPage from 'pages/signUp/signUp.page';
+import SignUpForm from 'pages/signUp/components/SignUpForm';
 
 export interface ErrorMessages {
 	[key: string]: string;

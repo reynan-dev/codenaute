@@ -1,7 +1,7 @@
 import { useSignIn } from 'api/signIn/useSignIn';
 import { HOME_PATH } from 'constants/paths';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
-import SignInForm from 'pages/signIn/sections/SignInForm';
+import SignInForm from 'pages/signIn/components/SignInForm';
 import LoginPage from 'pages/signIn/signIn.page';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
