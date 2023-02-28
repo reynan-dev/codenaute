@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-import { clsxMerge } from 'helpers/clsxMerge';
 import getBrowserName from 'helpers/getBrowserName';
 import React, {
 	DetailedHTMLProps,
@@ -11,6 +9,7 @@ import React, {
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 export type InputProps = DetailedHTMLProps<
 	InputHTMLAttributes<HTMLInputElement>,
@@ -62,10 +61,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		const browser = getBrowserName();
 
 		return (
-			<div className={clsxMerge(className, 'w-full')}>
+			<div className={twMerge(className, 'w-full')}>
 				<div className='relative h-16 w-full rounded-xl'>
 					<div
-						className={clsxMerge(
+						className={twMerge(
 							'absolute top-0 left-0 h-16 w-full rounded-xl',
 							isFocus && 'outline-3 outline outline-primary blur-sm',
 							isFocus && browser === 'safari' && 'outline-0',
@@ -73,7 +72,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						)}
 					/>
 					<div
-						className={clsxMerge(
+						className={twMerge(
 							'absolute top-0 left-0 flex h-16 w-full items-center justify-between overflow-hidden',
 							'rounded-xl border border-dark-500 bg-dark-800 placeholder-primary',
 							isFocus && 'border-primary outline outline-1 outline-primary',
@@ -88,7 +87,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 									name='floating_outlined'
 									ref={ref}
 									placeholder=' '
-									className={clsx(
+									className={twJoin(
 										'peer block w-full  pl-5 pb-2.5 pt-4',
 										'detect-autofill',
 										'bg-transparent text-sm',
@@ -107,7 +106,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 								/>
 								<label
 									htmlFor='floating_outlined'
-									className={clsxMerge(
+									className={twMerge(
 										'absolute top-2.5 left-1 z-10 scale-75 px-2 ',
 										'text-md pointer-events-none text-dark-300',
 										'origin-[0] -translate-y-4 transform duration-300',
@@ -127,7 +126,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				{error !== undefined && (
 					<span
 						role='alert'
-						className={clsx(
+						className={twJoin(
 							'mt-2',
 							'border-dark-500 bg-transparent text-sm text-danger placeholder-dark-300'
 						)}

@@ -1,6 +1,6 @@
-import { clsxMerge } from 'helpers/clsxMerge';
 import { DetailedHTMLProps, LinkHTMLAttributes, useMemo } from 'react';
 import { Link as RouterLink, To } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
 type LinkProps = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement> & {
 	children: React.ReactNode;
@@ -15,7 +15,7 @@ export const Link: React.FC<LinkProps> = ({ children, className, to, color }) =>
 	}, [color]);
 
 	return (
-		<RouterLink to={to} className={clsxMerge(style, className)}>
+		<RouterLink to={to} className={twMerge(style, className)}>
 			<span className='truncate'>{children}</span>
 		</RouterLink>
 	);

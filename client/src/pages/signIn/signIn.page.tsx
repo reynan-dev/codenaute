@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import Container from 'components/Container';
 import Link from 'components/Link';
 import LogoSvg from 'components/Svgs/LogoSvg';
 import { BLACK, WHITE } from 'styles/colors';
+import { twJoin } from 'tailwind-merge';
 import astronautImage from '../../assets/images/astronaut-auth.png';
 
 interface LoginPageProps {
@@ -21,7 +21,7 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 						</div>
 						<h4>Enter your credentials to sign-in</h4>
 					</div>
-					<div className={clsx('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-4/5', 'xl:max-w-md')}>
+					<div className={twJoin('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-4/5', 'xl:max-w-md')}>
 						{loginForm}
 					</div>
 					<Link to='/sign-up' color='primary'>
