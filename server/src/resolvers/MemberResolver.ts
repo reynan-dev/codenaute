@@ -31,6 +31,7 @@ export default class MemberResolver {
 
 		return user;
 	}
+
 	@Mutation(() => Member)
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs

@@ -12,6 +12,8 @@ export type Scalars = {
 	Boolean: boolean;
 	Int: number;
 	Float: number;
+	/** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+	DateTime: any;
 };
 
 export type Member = {
@@ -24,17 +26,29 @@ export type Member = {
 export type Mutation = {
 	__typename?: 'Mutation';
 	deleteAccount: Member;
+	forgotPassword: RoutingToken;
+	resetPassword: Member;
 	signIn: Member;
 	signOut: Scalars['Boolean'];
 	signUp: Member;
 	updateEmail: Member;
 	updatePassword: Member;
 	updateUsername: Member;
+	validEmail: RoutingToken;
 };
 
 export type MutationDeleteAccountArgs = {
-	id: Scalars['String'];
 	password: Scalars['String'];
+};
+
+export type MutationForgotPasswordArgs = {
+	email: Scalars['String'];
+};
+
+export type MutationResetPasswordArgs = {
+	confirmPassword: Scalars['String'];
+	newPassword: Scalars['String'];
+	token: Scalars['String'];
 };
 
 export type MutationSignInArgs = {
@@ -51,22 +65,42 @@ export type MutationSignUpArgs = {
 
 export type MutationUpdateEmailArgs = {
 	email: Scalars['String'];
-	id: Scalars['String'];
 };
 
 export type MutationUpdatePasswordArgs = {
-	email: Scalars['String'];
-	password: Scalars['String'];
+	confirmPassword: Scalars['String'];
+	newPassword: Scalars['String'];
+	oldPassword: Scalars['String'];
 };
 
 export type MutationUpdateUsernameArgs = {
-	id: Scalars['String'];
 	username: Scalars['String'];
+};
+
+export type MutationValidEmailArgs = {
+	id: Scalars['String'];
+	token: Scalars['String'];
 };
 
 export type Query = {
 	__typename?: 'Query';
 	profile: Member;
+};
+
+export type RoutingToken = {
+	__typename?: 'RoutingToken';
+	createdAt: Scalars['DateTime'];
+	email: Scalars['String'];
+};
+
+export type SignInMutationVariables = Exact<{
+	email: Scalars['String'];
+	password: Scalars['String'];
+}>;
+
+export type SignInMutation = {
+	__typename?: 'Mutation';
+	signIn: { __typename?: 'Member'; id: string; email: string };
 };
 
 export type SignUpMutationVariables = Exact<{
@@ -81,6 +115,62 @@ export type SignUpMutation = {
 	signUp: { __typename?: 'Member'; id: string; email: string };
 };
 
+export const SignInDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'SignIn' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'email' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'signIn' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'email' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'email' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'password' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
 export const SignUpDocument = {
 	kind: 'Document',
 	definitions: [

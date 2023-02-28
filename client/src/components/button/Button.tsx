@@ -81,6 +81,14 @@ export const Button: React.FC<ButtonProps> = ({
 		);
 	}
 
+	if (linkUrl !== undefined && designType === 'text') {
+		return (
+			<link href={linkUrl} className='font-semibold text-primary'>
+				<span className='truncate'>{children}</span>
+			</link>
+		);
+	}
+
 	if (designType === 'text') {
 		return (
 			<button {...props} className='font-semibold text-primary'>
