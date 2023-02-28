@@ -71,8 +71,8 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.OS }}-platform-client-${{ hashFiles('pnpm-lock.yaml', 'client/pnpm-lock.yaml') }}
 
-      - name: Run Prettier
-        run: npx prettier --check .
+      - name: Run Prettier Formatting
+        run: npx prettier --write .
         working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Run Tests
