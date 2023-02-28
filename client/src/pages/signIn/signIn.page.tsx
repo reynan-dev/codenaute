@@ -3,7 +3,7 @@ import Link from 'components/Link';
 import LogoSvg from 'components/Svgs/LogoSvg';
 import { BLACK, WHITE } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
-import astronautImage from '../../assets/images/astronaut-auth.png';
+import astronautImage from 'assets/images/astronaut-auth.png';
 
 interface LoginPageProps {
 	loginForm: JSX.Element;
