@@ -39,7 +39,7 @@ export const UpdateInformationsForm = ({ state }: UpdateInformationsFormProps) =
 
 			<Button size='small' type='submit' disabled={false} className='my-8'>
 				<span className='flex items-center space-x-3'>
-						<FaSave size={16} className='mb-0.5' />
+					<FaSave size={16} className='mb-0.5' />
 					<span>Save</span>
 				</span>
 			</Button>

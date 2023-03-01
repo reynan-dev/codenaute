@@ -15,7 +15,11 @@ export interface AccountContainerProps {
 	) => Promise<ApolloQueryResult<ProfileQuery>>;
 }
 
-export const AccountContainer = ({isProfileLoading, profileData, refetchProfile}: AccountContainerProps) => {
+export const AccountContainer = ({
+	isProfileLoading,
+	profileData,
+	refetchProfile
+}: AccountContainerProps) => {
 	const [email, setEmail] = useState(profileData?.profile.email);
 	const [username, setUsername] = useState(profileData?.profile.username);
 

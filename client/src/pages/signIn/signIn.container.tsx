@@ -15,7 +15,7 @@ interface SignInContainerProps {
 	) => Promise<ApolloQueryResult<ProfileQuery>>;
 }
 
-export const SignInContainer = ({refetchProfile}: SignInContainerProps) => {
+export const SignInContainer = ({ refetchProfile }: SignInContainerProps) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -35,7 +35,7 @@ export const SignInContainer = ({refetchProfile}: SignInContainerProps) => {
 				variables: { email, password }
 			});
 			toast.success(`You successfully signed in`);
-			refetchProfile()
+			refetchProfile();
 			navigate(HOME_PATH);
 		} catch (error) {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });

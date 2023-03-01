@@ -10,8 +10,7 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 			{isAuthenticated ? (
 				<>
 					<p>
-						Hello{' '}
-						<span className='font-bold text-primary'>{profileData?.profile.username}</span>
+						Hello <span className='font-bold text-primary'>{profileData?.profile.username}</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 					</p>
 					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
