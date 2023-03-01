@@ -43,8 +43,6 @@ export const AccountContainer = ({
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 
-	// const navigate = useNavigate();
-
 	useEffect(() => {
 		const initialEmail = profileData?.profile.email;
 		const initialUsername = profileData?.profile.username;
@@ -66,7 +64,6 @@ export const AccountContainer = ({
 	}, [email, profileData?.profile.email, profileData?.profile.username, username]);
 
 	const submitInformationsForm = async () => {
-		console.log("submit")
 		if (email && username) {
 			try {
 				if (hasEmailChanged) {
@@ -89,8 +86,6 @@ export const AccountContainer = ({
 	};
 
 	const handleInformationsForm = async () => {
-		console.log("handle")
-
 		const formErrors = getFormErrors({ username, email });
 
 		if (formErrors) {
