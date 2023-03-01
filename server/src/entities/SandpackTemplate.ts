@@ -2,12 +2,12 @@ import { IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
-import BaseModels from 'entities/base/BaseModels';
-import Project from 'entities/Project';
+import { BaseModels } from 'entities/base/BaseModels';
+import { Project } from 'entities/Project';
 
 @Entity()
 @ObjectType()
-export default class File extends BaseModels {
+export class SandpackTemplate extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()

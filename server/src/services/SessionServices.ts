@@ -1,10 +1,10 @@
-import Member from 'entities/Member';
-import Session from 'entities/Session';
-import BaseServices from 'services/base/BaseServices';
+import { Member } from 'entities/Member';
+import { Session } from 'entities/Session';
+import { BaseServices } from 'services/base/BaseServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-class SessionServices extends BaseServices {
+export class SessionServices extends BaseServices {
 	constructor() {
 		super(Session);
 	}
@@ -25,5 +25,3 @@ class SessionServices extends BaseServices {
 		return await this.repository.remove(session);
 	}
 }
-
-export default new SessionServices();

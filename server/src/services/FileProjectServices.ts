@@ -1,7 +1,7 @@
-import BaseServices from 'services/base/BaseServices';
-import FileProject from 'entities/FileProject';
+import { BaseServices } from 'services/base/BaseServices';
+import { FileProject } from 'entities/FileProject';
 
-class FileProjectServices extends BaseServices {
+export class FileProjectServices extends BaseServices {
 	constructor() {
 		super(FileProject);
 	}
@@ -10,5 +10,3 @@ class FileProjectServices extends BaseServices {
 		return this.findBy({ where: { project: { id: projectId } } });
 	}
 }
-
-export default new FileProjectServices();

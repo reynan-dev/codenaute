@@ -1,4 +1,4 @@
-import { IsEmail, Matches, MinLength } from 'class-validator';
+import { Matches } from 'class-validator';
 import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';

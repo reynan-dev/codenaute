@@ -1,7 +1,7 @@
-import BaseServices from 'services/base/BaseServices';
-import SandpackTemplate from 'entities/SandpackTemplate';
+import { BaseServices } from 'services/base/BaseServices';
+import { SandpackTemplate } from 'entities/SandpackTemplate';
 
-class SandpackTemplateServices extends BaseServices {
+export class SandpackTemplateServices extends BaseServices {
 	constructor() {
 		super(SandpackTemplate);
 	}
@@ -10,5 +10,3 @@ class SandpackTemplateServices extends BaseServices {
 		return this.repository.findOne({ slug });
 	}
 }
-
-export default new SandpackTemplateServices();

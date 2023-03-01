@@ -1,7 +1,7 @@
 import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 
-import SandpackTemplate from 'entities/SandpackTemplate';
-import SandpackTemplateServices from 'services/SandpackTemplateServices';
+import { SandpackTemplate } from 'entities/SandpackTemplate';
+import { SandpackTemplateServices } from 'services/SandpackTemplateServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
@@ -12,11 +12,13 @@ import {
 } from 'resolvers/args/SandpackTemplateArgs';
 
 @Resolver(SandpackTemplate)
-export default class SandpackTemplateResolver {
+export class SandpackTemplateResolver {
+	SandpackTemplateServices: SandpackTemplateServices = new SandpackTemplateServices();
+
 	@Authorized()
 	@Query(() => SandpackTemplate)
 	async getAllSandpackTemplates(): Promise<SandpackTemplate[]> {
-		return SandpackTemplateServices.find();
+		return this.SandpackTemplateServices.find();
 	}
 
 	@Authorized()
@@ -24,7 +26,7 @@ export default class SandpackTemplateResolver {
 	async getSandpackTemplateById(
 		@Args() { sandpackTemplateId }: getSandpackTemplateByIdArgs
 	): Promise<SandpackTemplate> {
-		return SandpackTemplateServices.findById(sandpackTemplateId);
+		return this.SandpackTemplateServices.findById(sandpackTemplateId);
 	}
 
 	@Authorized()
@@ -32,11 +34,11 @@ export default class SandpackTemplateResolver {
 	async createSandpackTemplate(
 		@Args() { slug }: createSandpackTemplateArgs
 	): Promise<SandpackTemplate> {
-		const sandpackTemplate = await SandpackTemplateServices.findBySlug(slug);
+		const sandpackTemplate = await this.SandpackTemplateServices.findBySlug(slug);
 
 		if (sandpackTemplate) throw new Error(ErrorMessages.SANDPACK_TEMPLATE_ALREADY_EXISTS);
 
-		return SandpackTemplateServices.create({ slug });
+		return this.SandpackTemplateServices.create({ slug });
 	}
 
 	@Authorized()
@@ -44,11 +46,11 @@ export default class SandpackTemplateResolver {
 	async updateSandpackTemplate(
 		@Args() { sandpackTemplateId, slug }: updateSandpackTemplateArgs
 	): Promise<SandpackTemplate> {
-		const sandpackTemplate = await SandpackTemplateServices.findById(sandpackTemplateId);
+		const sandpackTemplate = await this.SandpackTemplateServices.findById(sandpackTemplateId);
 
 		if (!sandpackTemplate) throw new Error(ErrorMessages.SANDPACK_TEMPLATE_NOT_FOUND);
 
-		return SandpackTemplateServices.update(sandpackTemplateId, { slug });
+		return this.SandpackTemplateServices.update(sandpackTemplateId, { slug });
 	}
 
 	@Authorized()
@@ -56,6 +58,6 @@ export default class SandpackTemplateResolver {
 	async deleteSandpackTemplate(
 		@Args() { sandpackTemplateId }: deleteSandpackTemplateArgs
 	): Promise<SandpackTemplate> {
-		return SandpackTemplateServices.delete(sandpackTemplateId);
+		return this.SandpackTemplateServices.delete(sandpackTemplateId);
 	}
 }

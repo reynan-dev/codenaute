@@ -1,12 +1,14 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import Member from 'entities/Member';
-import BaseServices from 'services/base/BaseServices';
-import SessionServices from 'services/SessionServices';
+import { Member } from 'entities/Member';
+import { BaseServices } from 'services/base/BaseServices';
+import { SessionServices } from 'services/SessionServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-class MemberServices extends BaseServices {
+export class MemberServices extends BaseServices {
+	SessionServices: SessionServices = new SessionServices();
+
 	constructor() {
 		super(Member);
 	}
@@ -17,7 +19,7 @@ class MemberServices extends BaseServices {
 		if (!user || !compareSync(password, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
 
-		const session = await SessionServices.create(user);
+		const session = await this.SessionServices.create(user);
 
 		return { user, session };
 	}
@@ -33,7 +35,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async signOut(token: string) {
-		return await SessionServices.delete(token);
+		return await this.SessionServices.delete(token);
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
@@ -78,5 +80,3 @@ class MemberServices extends BaseServices {
 		return await this.delete(id);
 	}
 }
-
-export default new MemberServices();

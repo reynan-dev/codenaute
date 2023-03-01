@@ -1,16 +1,14 @@
-import { ObjectLiteral } from 'typeorm';
-
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-import Project from 'entities/Project';
-import Member from 'entities/Member';
+import { Project } from 'entities/Project';
+import { Member } from 'entities/Member';
 
-import BaseServices from 'services/base/BaseServices';
-import MemberServices from 'services/MemberServices';
-import Language from 'entities/Language';
-import SandpackTemplate from 'entities/SandpackTemplate';
+import { BaseServices } from 'services/base/BaseServices';
+import { MemberServices } from 'services/MemberServices';
 
-class ProjectServices extends BaseServices {
+export class ProjectServices extends BaseServices {
+	MemberServices: MemberServices = new MemberServices();
+
 	constructor() {
 		super(Project);
 	}
@@ -40,7 +38,7 @@ class ProjectServices extends BaseServices {
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		const member = await MemberServices.findById(memberId);
+		const member = await this.MemberServices.findById(memberId);
 
 		project.favorites = [...project.members, ...member];
 
@@ -57,5 +55,3 @@ class ProjectServices extends BaseServices {
 		return this.repository.save(project);
 	}
 }
-
-export default new ProjectServices();

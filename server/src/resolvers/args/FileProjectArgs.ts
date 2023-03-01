@@ -1,5 +1,4 @@
 import { ArgsType, Field } from 'type-graphql';
-import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 @ArgsType()
 export class getAllFilesByProjectArgs {

@@ -5,7 +5,7 @@ import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn } from 't
 
 @Entity()
 @ObjectType()
-export default class RoutingToken {
+export class RoutingToken {
 	constructor(email: string) {
 		this.email = email;
 	}

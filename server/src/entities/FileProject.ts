@@ -2,12 +2,12 @@ import { IsBoolean, IsDate, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, ManyToOne } from 'typeorm';
 
-import Project from 'entities/Project';
-import BaseModels from 'entities/base/BaseModels';
+import { Project } from 'entities/Project';
+import { BaseModels } from 'entities/base/BaseModels';
 
 @Entity()
 @ObjectType()
-export default class FileProject extends BaseModels {
+export class FileProject extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()

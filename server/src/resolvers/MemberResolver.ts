@@ -1,7 +1,7 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
-import Member from 'entities/Member';
-import MemberServices from 'services/MemberServices';
+import { Member } from 'entities/Member';
+import { MemberServices } from 'services/MemberServices';
 
 import {
 	DeleteAccountArgs,
@@ -19,13 +19,14 @@ import { Cookie } from 'utils/methods/Cookie';
 import { compareSync } from 'bcryptjs';
 
 @Resolver(Member)
-export default class MemberResolver {
+export class MemberResolver {
+	MemberServices: MemberServices = new MemberServices();
 	@Mutation(() => Member)
 	async signIn(
 		@Args() { email, password }: SignInArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const { user, session } = await MemberServices.signIn(email, password);
+		const { user, session } = await this.MemberServices.signIn(email, password);
 
 		Cookie.setSessionToken(context, session.token);
 
@@ -36,21 +37,21 @@ export default class MemberResolver {
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs
 	): Promise<Member> {
-		const existingEmail = (await MemberServices.findOneBy({ email })) as Member;
-		const existingUsername = (await MemberServices.findOneBy({ username })) as Member;
+		const existingEmail = (await this.MemberServices.findOneBy({ email })) as Member;
+		const existingUsername = (await this.MemberServices.findOneBy({ username })) as Member;
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 		if (existingUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
 		if (confirmedPassword !== password)
 			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
-		return MemberServices.signUp(username, email, password);
+		return this.MemberServices.signUp(username, email, password);
 	}
 
 	@Authorized()
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
-		return await MemberServices.signOut(Cookie.getSessionToken(context) as string);
+		return await this.MemberServices.signOut(Cookie.getSessionToken(context) as string);
 	}
 
 	@Authorized()
@@ -65,11 +66,11 @@ export default class MemberResolver {
 		@Args() { username }: UpdateUsernameArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const username_registered = (await MemberServices.findOneBy({ username })) as Member;
+		const username_registered = (await this.MemberServices.findOneBy({ username })) as Member;
 
 		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateUsername(context.user?.id as string, username);
+		return await this.MemberServices.updateUsername(context.user?.id as string, username);
 	}
 
 	@Authorized()
@@ -78,11 +79,11 @@ export default class MemberResolver {
 		@Args() { email }: UpdateEmailArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const email_registered = (await MemberServices.findOneBy({ email })) as Member;
+		const email_registered = (await this.MemberServices.findOneBy({ email })) as Member;
 
 		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await MemberServices.updateEmail(context.user?.id as string, email);
+		return await this.MemberServices.updateEmail(context.user?.id as string, email);
 	}
 
 	@Authorized()
@@ -91,12 +92,12 @@ export default class MemberResolver {
 		@Args() { newPassword, confirmPassword, oldPassword }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const user = (await MemberServices.findById(context.user?.id as string)) as Member;
+		const user = (await this.MemberServices.findById(context.user?.id as string)) as Member;
 
 		if (!compareSync(oldPassword, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 
-		return MemberServices.updatePassword(user.email, newPassword, confirmPassword);
+		return this.MemberServices.updatePassword(user.email, newPassword, confirmPassword);
 	}
 
 	@Authorized()
@@ -105,6 +106,6 @@ export default class MemberResolver {
 		@Args() { password }: DeleteAccountArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		return MemberServices.deleteAccount(context.user?.id as string, password);
+		return this.MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

@@ -3,11 +3,11 @@ import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
-import Member from 'entities/Member';
+import { Member } from 'entities/Member';
 
 @Entity()
 @ObjectType()
-export default class Session {
+export class Session {
 	constructor(member: Member) {
 		this.member = member;
 	}

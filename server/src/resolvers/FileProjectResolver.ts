@@ -1,7 +1,7 @@
 import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 
-import FileProject from 'entities/FileProject';
-import FileProjectServices from 'services/FileProjectServices';
+import { FileProject } from 'entities/FileProject';
+import { FileProjectServices } from 'services/FileProjectServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
@@ -13,22 +13,25 @@ import {
 	updatePathFileProjectArgs
 } from 'resolvers/args/FileProjectArgs';
 
-import ProjectServices from 'services/ProjectServices';
+import { ProjectServices } from 'services/ProjectServices';
 
 @Resolver(FileProject)
-export default class FileProjectResolver {
+export class FileProjectResolver {
+	FileProjectServices: FileProjectServices = new FileProjectServices();
+	ProjectServices: ProjectServices = new ProjectServices();
+
 	@Authorized()
 	@Query(() => FileProject)
 	async getAllFilesByProject(
 		@Args() { projectId }: getAllFilesByProjectArgs
 	): Promise<FileProject[]> {
-		return FileProjectServices.findAllByProjectId(projectId);
+		return this.FileProjectServices.findAllByProjectId(projectId);
 	}
 
 	@Authorized()
 	@Query(() => FileProject)
 	async getFileProjectById(@Args() { fileId }: getFileProjectByIdArgs): Promise<FileProject> {
-		return FileProjectServices.findById(fileId);
+		return this.FileProjectServices.findById(fileId);
 	}
 
 	@Authorized()
@@ -36,11 +39,11 @@ export default class FileProjectResolver {
 	async createFileProject(
 		@Args() { path, code, projectId, isHidden }: createFileProjectArgs
 	): Promise<FileProject> {
-		const project = await ProjectServices.findById(projectId);
+		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		return FileProjectServices.create({
+		return this.FileProjectServices.create({
 			path: path,
 			code: code,
 			project: project,
@@ -53,11 +56,11 @@ export default class FileProjectResolver {
 	async updatePathFileProject(
 		@Args() { fileId, path }: updatePathFileProjectArgs
 	): Promise<FileProject> {
-		const file = FileProjectServices.findById(fileId);
+		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);
 
-		return FileProjectServices.update(fileId, { path });
+		return this.FileProjectServices.update(fileId, { path });
 	}
 
 	@Authorized()
@@ -65,11 +68,11 @@ export default class FileProjectResolver {
 	async updateCodeFileProject(
 		@Args() { fileId, code }: updateCodeFileProjectArgs
 	): Promise<FileProject> {
-		const file = FileProjectServices.findById(fileId);
+		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);
 
-		return FileProjectServices.update(fileId, { code });
+		return this.FileProjectServices.update(fileId, { code });
 	}
 
 	@Authorized()
@@ -77,20 +80,20 @@ export default class FileProjectResolver {
 	async updateHiddenFileProject(
 		@Args() { fileId, isHidden }: updateHiddenFileProjectArgs
 	): Promise<FileProject> {
-		const file = FileProjectServices.findById(fileId);
+		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);
 
-		return FileProjectServices.update(fileId, { isHidden });
+		return this.FileProjectServices.update(fileId, { isHidden });
 	}
 
 	@Authorized()
 	@Mutation(() => FileProject)
 	async deleteFileProject(@Args() { fileId }: updateCodeFileProjectArgs): Promise<FileProject> {
-		const file = FileProjectServices.findById(fileId);
+		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);
 
-		return FileProjectServices.delete(fileId);
+		return this.FileProjectServices.delete(fileId);
 	}
 }

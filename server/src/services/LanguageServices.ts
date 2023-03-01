@@ -1,7 +1,7 @@
-import BaseServices from 'services/base/BaseServices';
-import Language from 'entities/Language';
+import { BaseServices } from 'services/base/BaseServices';
+import { Language } from 'entities/Language';
 
-class LanguageServices extends BaseServices {
+export class LanguageServices extends BaseServices {
 	constructor() {
 		super(Language);
 	}
@@ -10,5 +10,3 @@ class LanguageServices extends BaseServices {
 		return this.repository.findOne({ where: { name } });
 	}
 }
-
-export default new LanguageServices();
