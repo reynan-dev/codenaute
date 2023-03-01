@@ -13,16 +13,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-	'\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n':
-		types.ProfileDocument,
-	'\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n':
-		types.UpdateEmailDocument,
-	'\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n':
-		types.UpdateUsernameDocument,
-	'\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
-		types.SignInDocument,
-	'\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
-		types.SignUpDocument
+    "\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n": types.ProfileDocument,
+    "\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n": types.UpdateEmailDocument,
+    "\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n": types.UpdatePasswordDocument,
+    "\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n": types.UpdateUsernameDocument,
+    "\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n": types.SignInDocument,
+    "\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n": types.SignUpDocument,
 };
 
 /**
@@ -42,37 +38,30 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-	source: '\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
+export function graphql(source: "\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n"];
 
 export function graphql(source: string) {
-	return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-	TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

@@ -6,9 +6,10 @@ import { twJoin } from 'tailwind-merge';
 
 interface AccountPageProps {
 	updateInformationsForm: JSX.Element;
+	updatePasswordForm: JSX.Element;
 }
 
-export const AccountPage = ({ updateInformationsForm }: AccountPageProps) => {
+export const AccountPage = ({ updateInformationsForm, updatePasswordForm }: AccountPageProps) => {
 	return (
 		<Container className='flex items-center justify-center'>
 			<div
@@ -21,19 +22,19 @@ export const AccountPage = ({ updateInformationsForm }: AccountPageProps) => {
 					'xl:w-4/6'
 				)}
 			>
-				<Container className='w-full border-b border-dark-700'>
+				<Container className='border-b border-dark-700 py-14'>
 					<div className='mb-5 flex items-center space-x-4'>
 						<FiUser size={24} color={PRIMARY.DEFAULT} />
 						<h3>Update informations</h3>
 					</div>
 					{updateInformationsForm}
 				</Container>
-				<Container className=''>
+				<Container className='py-14'>
 					<div className='mb-5 flex items-center space-x-4'>
 						<MdPassword size={24} color={PRIMARY.DEFAULT} />
 						<h3>Change password</h3>
 					</div>
-					{updateInformationsForm}
+					{updatePasswordForm}
 				</Container>
 			</div>
 		</Container>

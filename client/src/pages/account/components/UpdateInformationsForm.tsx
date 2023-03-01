@@ -53,7 +53,7 @@ export const UpdateInformationsForm = ({
 					size='small'
 					type='submit'
 					disabled={!state.hasEmailChanged && !state.hasUsernameChanged}
-					className='my-8 lg:mt-2.5'
+					className='mt-8 lg:mt-2.5 lg:mb-0'
 					isLoading={isLoading}
 				>
 					<span className='flex items-center space-x-3'>

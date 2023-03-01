@@ -1,54 +1,73 @@
 import Button from 'components/Button';
 import Input from 'components/Input';
+import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
 
-interface UpdateInformationsFormProps {
+interface UpdatePasswordFormProps {
 	state: {
-		email: string | undefined;
-		setEmail: React.Dispatch<React.SetStateAction<string | undefined>>;
-		username: string | undefined;
-		setUsername: React.Dispatch<React.SetStateAction<string | undefined>>;
-		hasEmailChanged: boolean;
-		hasUsernameChanged: boolean;
+		formErrorMessages: ErrorMessages | null;
+		setFormErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
+        oldPassword: string;
+		setOldPassword: React.Dispatch<React.SetStateAction<string>>;
+		newPassword: string;
+		setNewPassword: React.Dispatch<React.SetStateAction<string>>;
+		confirmedNewPassword: string;
+		setConfirmedNewPassword: React.Dispatch<React.SetStateAction<string>>;
+        isPasswordFormComplete: boolean;
 	};
 	isLoading: boolean;
-	handleForm: () => Promise<void>;
+	handlePasswordForm: () => Promise<void>;
 }
 
-export const UpdateInformationsForm = ({
+export const UpdatePasswordForm = ({
 	state,
 	isLoading,
-	handleForm
-}: UpdateInformationsFormProps) => {
+	handlePasswordForm
+}: UpdatePasswordFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {
 				event.preventDefault();
-				handleForm();
+				handlePasswordForm();
 			}}
 			className='flex w-full flex-col items-center space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5'
 		>
-			<Input
-				label='Email'
-				value={state.email}
-				onChange={(event) => {
-					state.setEmail(event.target.value);
-				}}
-			/>
-
-			<Input
-				label='Username'
-				value={state.username}
-				onChange={(event) => {
-					state.setUsername(event.target.value);
-				}}
-			/>
+			<div className='flex w-full flex-col space-y-5'>
+				<Input
+					label='Old password'
+					type='password'
+					value={state.oldPassword}
+					onChange={(event) => {
+						state.setOldPassword(event.target.value);
+					}}
+				/>
+				<div className='flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-5'>
+					<Input
+						label='New password'
+						type='password'
+						value={state.newPassword}
+						onChange={(event) => {
+							state.setNewPassword(event.target.value);
+						}}
+						error={state.formErrorMessages?.password}
+					/>
+					<Input
+						label='Repeat new password'
+						type='password'
+						value={state.confirmedNewPassword}
+						onChange={(event) => {
+							state.setConfirmedNewPassword(event.target.value);
+						}}
+						error={state.formErrorMessages?.confirmedPassword}
+					/>
+				</div>
+			</div>
 
 			<Button
 				size='small'
 				type='submit'
-				disabled={!state.hasEmailChanged && !state.hasUsernameChanged}
-				className='my-8'
+				disabled={!state.isPasswordFormComplete}
+				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
 			>
 				<span className='flex items-center space-x-3'>
