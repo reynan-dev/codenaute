@@ -20,7 +20,6 @@ specifiers:
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
   autoprefixer: ^10.4.13
-  clsx: ^1.2.1
   dotenv: ^16.0.3
   graphql: ^16.6.0
   postcss: ^8.4.21
@@ -40,10 +39,6 @@ specifiers:
 
 dependencies:
   '@apollo/client': 3.7.5_gdcq4dv6opitr3wbfwyjmanyra
-  '@codesandbox/sandpack-react': 1.20.8_biqbaboplfbrettd7655fr4n2y
-  '@codesandbox/sandpack-themes': 1.19.0
-  '@monaco-editor/react': 4.4.6_biqbaboplfbrettd7655fr4n2y
-  clsx: 1.2.1
   dotenv: 16.0.3
   graphql: 16.6.0
   react: 18.2.0
