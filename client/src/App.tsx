@@ -15,10 +15,11 @@ import 'styles/toastify.css';
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-	const { loading, refetch, data } = useProfile(setIsAuthenticated);
-
-	console.log(data);
-	console.log(isAuthenticated);
+	const {
+		loading: isProfileLoading,
+		refetch: refetchProfile,
+		data: profileData
+	} = useProfile(setIsAuthenticated);
 
 	return (
 		<>
@@ -27,7 +28,7 @@ const App = () => {
 				<Routes>
 					<Route
 						path={HOME_PATH}
-						element={<Home isAuthenticated={isAuthenticated} memberProfileData={data} />}
+						element={<Home isAuthenticated={isAuthenticated} profileData={profileData} />}
 					/>
 
 					<Route
@@ -43,7 +44,7 @@ const App = () => {
 						path={LOGIN_PATH}
 						element={
 							<ConditionalRoute type='unauth' isAuthenticated={isAuthenticated}>
-								<SignIn />
+								<SignIn refetchProfile={refetchProfile} />
 							</ConditionalRoute>
 						}
 					/>
