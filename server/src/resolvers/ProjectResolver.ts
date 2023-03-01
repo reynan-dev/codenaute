@@ -57,18 +57,14 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByTemplate(
-		@Args() { templateId }: getAllByTemplateArgs,
-	): Promise<Project[]> {
+	async getAllByTemplate(@Args() { templateId }: getAllByTemplateArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return ProjectServices.findByTemplate(templateId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByLanguage(
-		@Args() { languageId }: getAllByLanguageArgs
-	): Promise<Project[]> {
+	async getAllByLanguage(@Args() { languageId }: getAllByLanguageArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return ProjectServices.findByLanguage(languageId);
 	}
@@ -91,7 +87,6 @@ export default class ProjectResolver {
 		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-
 		const language = await LanguageServices.findById(languageId);
 
 		if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
@@ -125,7 +120,7 @@ export default class ProjectResolver {
 	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
 		const members = new Array();
 		membersId.map((id) => {
-			const member = MemberServices.findById(id)
+			const member = MemberServices.findById(id);
 			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
 			members.push(member);
 		});
@@ -145,7 +140,9 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateActiveFile(@Args() { projectId, activeFile }: updateActiveFileArgs): Promise<Project> {
+	async updateActiveFile(
+		@Args() { projectId, activeFile }: updateActiveFileArgs
+	): Promise<Project> {
 		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -155,7 +152,9 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateIsTemplate(@Args() { projectId, isTemplate }: updateIsTemplateArgs): Promise<Project> {
+	async updateIsTemplate(
+		@Args() { projectId, isTemplate }: updateIsTemplateArgs
+	): Promise<Project> {
 		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);

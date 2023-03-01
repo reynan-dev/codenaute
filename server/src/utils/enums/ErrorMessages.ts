@@ -33,5 +33,4 @@ export enum ErrorMessages {
 
 	// Validation Language
 	LANGUAGE_NOT_FOUND = 'Language not found'
-
 }
