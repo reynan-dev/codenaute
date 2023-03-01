@@ -92,6 +92,16 @@ jobs:
         run: npx prettier --check .
         working-directory: ./${{env.SERVICE_NAME}}
 
+      - name: Fixing with Prettier
+        if: ${{ failure() }}
+        run: |
+          pnpm format:server
+          git add .
+          git config user.name "Github Actions"
+          git config user.email: "<>"
+          git commit -m "style(${{ env.SERVICE_NAME }}): fixing prettier by GitHub Actions"
+          git push
+
       - name: Run Tests
         run: pnpm test
         working-directory: ./${{env.SERVICE_NAME}}

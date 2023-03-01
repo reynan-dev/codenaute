@@ -1,5 +1,7 @@
 {
 	"scripts": {
+		"format:client": "npx prettier --ignore-path ./client/.prettierignore --config ./client/.prettierrc.json --write ./client",
+		"format:server": "npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --write ./server",
 		"prepare": "husky install"
 	},
 	"lint-staged": {
