@@ -79,7 +79,7 @@ describe('Authentication integration test', () => {
 			});
 		});
 
-		describe.skip('when session token is valid', () => {
+		describe('when session token is valid', () => {
 			it('deletes session from database', async () => {
 				await MemberService.signUp('username', 'user@test.com', 'password');
 
