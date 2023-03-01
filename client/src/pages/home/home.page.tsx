@@ -1,4 +1,4 @@
-import { ACCOUNT_PATH, LOGIN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { ACCOUNT_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { HomeContainerProps } from 'pages/home/home.container';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 				<>
 					<Link to={SIGN_UP_PATH}>SIGN UP</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<Link to={LOGIN_PATH}>LOGIN</Link>
+					<Link to={SIGN_IN_PATH}>SIGN IN</Link>
 				</>
 			)}
 		</div>

@@ -1,7 +1,7 @@
 import { useProfile } from 'api/profile/useProfile';
-import CrossDeviceBackground from 'components/CrossDeviceBackground';
 import { ConditionalRoute } from 'components/ConditionalRoute/ConditionalRoute';
-import { ACCOUNT_PATH, HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import CrossDeviceBackground from 'components/CrossDeviceBackground';
+import { ACCOUNT_PATH, HOME_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { Account } from 'pages/account';
 import { Home } from 'pages/home';
 import { SignIn } from 'pages/signIn';
@@ -41,7 +41,7 @@ const App = () => {
 					/>
 
 					<Route
-						path={LOGIN_PATH}
+						path={SIGN_IN_PATH}
 						element={
 							<ConditionalRoute type='unauth' isAuthenticated={isAuthenticated}>
 								<SignIn refetchProfile={refetchProfile} />

@@ -14,7 +14,7 @@ export const ConditionalRoute = ({ children, isAuthenticated, type }: Conditiona
 	}
 
 	if (!isAuthenticated && type === 'private') {
-		return <Navigate to='/login' state={{ from: location }} replace />;
+		return <Navigate to='/sign-in' state={{ from: location }} replace />;
 	}
 
 	return children;

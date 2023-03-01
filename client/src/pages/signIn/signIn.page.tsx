@@ -17,7 +17,7 @@ export const SignInPage = ({ loginForm }: SignInPageProps) => {
 					<div className='full-center-col mt-8 mb-16 space-y-5'>
 						<div className='flex space-x-3'>
 							<LogoSvg color={BLACK.DEFAULT} backgroundColor={WHITE.DEFAULT} size='50px' />
-							<h1>Login</h1>
+							<h1>Sign in</h1>
 						</div>
 						<h4>Enter your credentials to sign-in</h4>
 					</div>
