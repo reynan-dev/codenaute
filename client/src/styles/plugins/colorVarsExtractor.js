@@ -12,7 +12,7 @@ module.exports = ({ addBase, theme }) => {
 
 			return { ...vars, ...newVars };
 		}, {});
-	}
+	};
 
 	addBase({
 		':root': extractColorVars(theme('colors'))

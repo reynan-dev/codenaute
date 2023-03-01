@@ -43,4 +43,4 @@ export const SignInForm = ({ isLoading, handleForm, state }: SignInFormProps) =>
 			</Button>
 		</form>
 	);
-}
+};

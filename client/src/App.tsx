@@ -33,7 +33,7 @@ const App = () => {
 					<Route
 						path={SIGN_UP_PATH}
 						element={
-							<ConditionalRoute type="unauth" isAuthenticated={isAuthenticated}>
+							<ConditionalRoute type='unauth' isAuthenticated={isAuthenticated}>
 								<SignUp />
 							</ConditionalRoute>
 						}
@@ -42,7 +42,7 @@ const App = () => {
 					<Route
 						path={LOGIN_PATH}
 						element={
-							<ConditionalRoute type="unauth" isAuthenticated={isAuthenticated}>
+							<ConditionalRoute type='unauth' isAuthenticated={isAuthenticated}>
 								<SignIn />
 							</ConditionalRoute>
 						}
@@ -51,7 +51,7 @@ const App = () => {
 					<Route
 						path={ACCOUNT_PATH}
 						element={
-							<ConditionalRoute type="private" isAuthenticated={isAuthenticated}>
+							<ConditionalRoute type='private' isAuthenticated={isAuthenticated}>
 								<Account />
 							</ConditionalRoute>
 						}
@@ -61,6 +61,6 @@ const App = () => {
 			</div>
 		</>
 	);
-}
+};
 
 export default App;

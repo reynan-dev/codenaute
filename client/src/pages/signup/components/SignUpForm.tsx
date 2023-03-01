@@ -68,4 +68,4 @@ export const SignUpForm = ({ isLoading, handleForm, state }: SignUpFormProps) =>
 			</Button>
 		</form>
 	);
-}
+};
