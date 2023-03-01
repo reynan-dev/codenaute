@@ -15,7 +15,11 @@ interface UpdateInformationsFormProps {
 	handleForm: () => Promise<void>;
 }
 
-export const UpdateInformationsForm = ({ state, isLoading, handleForm }: UpdateInformationsFormProps) => {
+export const UpdateInformationsForm = ({
+	state,
+	isLoading,
+	handleForm
+}: UpdateInformationsFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {
@@ -40,7 +44,13 @@ export const UpdateInformationsForm = ({ state, isLoading, handleForm }: UpdateI
 				}}
 			/>
 
-			<Button size='small' type='submit' disabled={!state.hasEmailChanged && !state.hasUsernameChanged} className='my-8' isLoading={isLoading}>
+			<Button
+				size='small'
+				type='submit'
+				disabled={!state.hasEmailChanged && !state.hasUsernameChanged}
+				className='my-8'
+				isLoading={isLoading}
+			>
 				<span className='flex items-center space-x-3'>
 					<FaSave size={16} className='mb-0.5' />
 					<span>Save</span>

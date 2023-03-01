@@ -57,9 +57,8 @@ export const AccountContainer = ({
 		checkEmailUpdate(email);
 		checkUsernameUpdate(username);
 
-		console.log(username)
+		console.log(username);
 	}, [email, profileData?.profile.email, profileData?.profile.username, username]);
-
 
 	const submitInformationsForm = async () => {
 		if (email && username) {
@@ -75,7 +74,7 @@ export const AccountContainer = ({
 					});
 				}
 				toast.success(`Informations successfully saved`);
-				refetchProfile()
+				refetchProfile();
 			} catch (error) {
 				toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 			}
