@@ -77,9 +77,9 @@ export default class MemberResolver {
 		@Args() { email }: UpdateEmailArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const email_registered = (await MemberServices.findOneBy({ email })) as Member;
+		const existingEmail = (await MemberServices.findOneBy({ email })) as Member;
 
-		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
 		return await MemberServices.updateEmail(context.user?.id as string, email);
 	}

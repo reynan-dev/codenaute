@@ -1,7 +1,6 @@
 import Container from 'components/Container';
 import { FiUser } from 'react-icons/fi';
 import { PRIMARY } from 'styles/colors';
-import { MdPassword } from 'react-icons/md';
 import { twJoin } from 'tailwind-merge';
 
 interface AccountPageProps {
@@ -28,13 +27,13 @@ export const AccountPage = ({ updateInformationsForm }: AccountPageProps) => {
 					</div>
 					{updateInformationsForm}
 				</Container>
-				<Container className=''>
+				{/* <Container className=''>
 					<div className='mb-5 flex items-center space-x-4'>
 						<MdPassword size={24} color={PRIMARY.DEFAULT} />
 						<h3>Change password</h3>
 					</div>
 					{updateInformationsForm}
-				</Container>
+				</Container> */}
 			</div>
 		</Container>
 	);
