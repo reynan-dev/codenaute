@@ -1,4 +1,7 @@
+import { AccountContainerProps } from "pages/account/account.container";
 
-export const UpdateInformationsForm = () => {
+interface UpdateInformationsFormProps extends AccountContainerProps {}
+
+export const UpdateInformationsForm = ({isProfileLoading}: UpdateInformationsFormProps ) => {
 	return <></>;
 };
