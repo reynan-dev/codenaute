@@ -1,9 +1,12 @@
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Delete a Member account integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -26,9 +29,9 @@ describe('Delete a Member account integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
-			expect(() => MemberServices.deleteAccount(member.id, 'invalidPassword')).rejects.toThrowError(
+			expect(() => MemberService.deleteAccount(member.id, 'invalidPassword')).rejects.toThrowError(
 				ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE
 			);
 		});
@@ -40,10 +43,10 @@ describe('Delete a Member account integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
-			await MemberServices.deleteAccount(member.id, password);
+			const member = await MemberService.signUp(username, email, password);
+			await MemberService.deleteAccount(member.id, password);
 
-			expect(await MemberServices.findById(member.id)).toBeNull();
+			expect(await MemberService.findById(member.id)).toBeNull();
 		});
 	});
 });

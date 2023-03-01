@@ -1,7 +1,10 @@
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 describe('FindOneBy integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -22,7 +25,7 @@ describe('FindOneBy integration test', () => {
 		it('returns an nullable element', async () => {
 			const email = 'unknow@test.com';
 
-			expect(await MemberServices.findOneBy({ email })).toBeNull();
+			expect(await MemberService.findOneBy({ email })).toBeNull();
 		});
 	});
 
@@ -30,15 +33,15 @@ describe('FindOneBy integration test', () => {
 		it('returns a element', async () => {
 			const email = 'unknow@test.com';
 
-			const member = await MemberServices.signUp('usertest', email, 'password');
+			const member = await MemberService.signUp('usertest', email, 'password');
 
-			expect(await MemberServices.findOneBy({ email })).toEqual(member);
+			expect(await MemberService.findOneBy({ email })).toEqual(member);
 		});
 	});
 
 	describe('when params is empty', () => {
 		it('returns an array empty', async () => {
-			expect(await MemberServices.findOneBy()).toEqual([]);
+			expect(await MemberService.findOneBy()).toEqual([]);
 		});
 	});
 });

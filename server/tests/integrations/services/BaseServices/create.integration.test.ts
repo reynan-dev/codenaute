@@ -1,8 +1,11 @@
 import { hashSync } from 'bcryptjs';
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 describe('Create integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -34,9 +37,9 @@ describe('Create integration test', () => {
 					hashedPassword: hashedPassword
 				};
 
-				await MemberServices.signUp(data.username, data.email, data.hashedPassword);
+				await MemberService.signUp(data.username, data.email, data.hashedPassword);
 
-				expect(() => MemberServices.create(data)).rejects.toThrowError();
+				expect(() => MemberService.create(data)).rejects.toThrowError();
 			});
 		});
 
@@ -50,7 +53,7 @@ describe('Create integration test', () => {
 					hashedPassword: hashedPassword
 				};
 
-				const created = await MemberServices.create(data);
+				const created = await MemberService.create(data);
 
 				expect(created.username).toEqual(data.username);
 				expect(created.email).toEqual(data.email);

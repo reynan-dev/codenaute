@@ -1,9 +1,12 @@
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -22,7 +25,7 @@ describe('Find a Member by session token integration test', () => {
 
 	describe('when session does not exists', () => {
 		it('return an element nullable', async () => {
-			expect(await MemberServices.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
+			expect(await MemberService.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
 		});
 	});
 
@@ -32,11 +35,11 @@ describe('Find a Member by session token integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
-			const login = await MemberServices.signIn(email, password);
+			const login = await MemberService.signIn(email, password);
 
-			expect(await MemberServices.findBySessionToken(login.session.token)).toEqual(member);
+			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(member);
 		});
 	});
 });

@@ -1,8 +1,11 @@
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 import { v4 as uuid } from 'uuid';
 
 describe('FindById integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -21,7 +24,7 @@ describe('FindById integration test', () => {
 
 	describe('when no records exist', () => {
 		it('returns an nullable element', async () => {
-			expect(await MemberServices.findById(uuid())).toBeNull();
+			expect(await MemberService.findById(uuid())).toBeNull();
 		});
 	});
 
@@ -29,9 +32,9 @@ describe('FindById integration test', () => {
 		it('returns a element', async () => {
 			const email = 'unknow@test.com';
 
-			const member = await MemberServices.signUp('usertest', email, 'password');
+			const member = await MemberService.signUp('usertest', email, 'password');
 
-			expect(await MemberServices.findById(member.id)).toEqual(member);
+			expect(await MemberService.findById(member.id)).toEqual(member);
 		});
 	});
 });

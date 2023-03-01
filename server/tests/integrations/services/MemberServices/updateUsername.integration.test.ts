@@ -1,8 +1,11 @@
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Update a Member username integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -25,11 +28,11 @@ describe('Update a Member username integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
 			const newUsername = 'newUsername';
 
-			const updated = await MemberServices.updateUsername(member.id, newUsername);
+			const updated = await MemberService.updateUsername(member.id, newUsername);
 
 			expect(updated.username).toEqual(newUsername);
 		});

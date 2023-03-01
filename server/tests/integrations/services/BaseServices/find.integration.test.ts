@@ -1,7 +1,10 @@
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import MemberServices from 'services/MemberServices';
+import {MemberServices} from 'services/MemberServices';
 
 describe('Find integration test', () => {
+
+	const MemberService = new MemberServices();
+
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
 		await startDatabase();
@@ -20,15 +23,15 @@ describe('Find integration test', () => {
 
 	describe('when no records exist', () => {
 		it('returns an empty array', async () => {
-			expect(await MemberServices.find()).toEqual([]);
+			expect(await MemberService.find()).toEqual([]);
 		});
 	});
 
 	describe('when records exist', () => {
 		it('returns an array of records', async () => {
-			const member = await MemberServices.signUp('usertest', 'user@test.com', 'password');
+			const member = await MemberService.signUp('usertest', 'user@test.com', 'password');
 
-			expect(await MemberServices.find()).toEqual([member]);
+			expect(await MemberService.find()).toEqual([member]);
 		});
 	});
 });
