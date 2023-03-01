@@ -53,7 +53,7 @@ const App = () => {
 						path={ACCOUNT_PATH}
 						element={
 							<ConditionalRoute type='private' isAuthenticated={isAuthenticated}>
-								<Account isProfileLoading={isProfileLoading} profileData={profileData} />
+								<Account isProfileLoading={isProfileLoading} profileData={profileData} refetchProfile={refetchProfile} />
 							</ConditionalRoute>
 						}
 					/>
