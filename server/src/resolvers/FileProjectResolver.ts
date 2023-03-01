@@ -8,10 +8,10 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
 	createFileProjectArgs,
 	getAllFilesByProjectArgs,
-    getFileProjectByIdArgs,
+	getFileProjectByIdArgs,
 	updateCodeFileProjectArgs,
 	updateHiddenFileProjectArgs,
-    updatePathFileProjectArgs
+	updatePathFileProjectArgs
 } from 'resolvers/args/FileProjectArgs';
 import ProjectServices from 'services/ProjectServices';
 
@@ -25,11 +25,11 @@ export default class FileProjectResolver {
 		return FileProjectServices.findAllByProjectId(projectId);
 	}
 
-    @Authorized()
-    @Query(() => FileProject)
-    async getFileProjectById(@Args() { fileId }: getFileProjectByIdArgs): Promise<FileProject> {
-        return FileProjectServices.findById(fileId);
-    }
+	@Authorized()
+	@Query(() => FileProject)
+	async getFileProjectById(@Args() { fileId }: getFileProjectByIdArgs): Promise<FileProject> {
+		return FileProjectServices.findById(fileId);
+	}
 
 	@Authorized()
 	@Mutation(() => FileProject)

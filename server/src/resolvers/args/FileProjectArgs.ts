@@ -9,8 +9,8 @@ export class getAllFilesByProjectArgs {
 
 @ArgsType()
 export class getFileProjectByIdArgs {
-    @Field()
-    fileId: string;
+	@Field()
+	fileId: string;
 }
 
 @ArgsType()
