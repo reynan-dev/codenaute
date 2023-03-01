@@ -2,15 +2,17 @@ import { ApolloServer } from 'apollo-server';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema } from 'type-graphql';
 
-import MemberResolver from 'resolvers/MemberResolver';
-import RoutingTokenResolver from 'resolvers/RoutingTokenResolver';
-import ProjectResolver from 'resolvers/ProjectResolver';
+import { MemberResolver } from 'resolvers/MemberResolver';
+import { RoutingTokenResolver } from 'resolvers/RoutingTokenResolver';
+import { ProjectResolver } from 'resolvers/ProjectResolver';
 
-import MemberServices from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { Cookie } from 'utils/methods/Cookie';
 import { startDatabase } from 'db';
+
+const MemberService = new MemberServices();
 
 const startServer = async () => {
 	await startDatabase();
@@ -25,7 +27,7 @@ const startServer = async () => {
 		context: async (context): Promise<GlobalContext> => {
 			const token = Cookie.getSessionToken(context);
 
-			const user = !token ? null : await MemberServices.findBySessionToken(token);
+			const user = !token ? null : await MemberService.findBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };
 		},
