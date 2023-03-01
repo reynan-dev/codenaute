@@ -5,6 +5,10 @@ class SandpackTemplateServices extends BaseServices {
 	constructor() {
 		super(SandpackTemplate);
 	}
+
+	async findBySlug(slug: string): Promise<SandpackTemplate> {
+		return this.repository.findOne({ slug });
+	}
 }
 
 export default new SandpackTemplateServices();
