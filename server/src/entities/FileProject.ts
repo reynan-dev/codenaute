@@ -4,11 +4,10 @@ import { Column, DeleteDateColumn, Entity, ManyToOne } from 'typeorm';
 
 import Project from 'entities/Project';
 import BaseModels from 'entities/base/BaseModels';
-import { ProjectType } from 'utils/types/EntitiesTypes';
 
 @Entity()
 @ObjectType()
-export default class ProjectFile extends BaseModels {
+export default class FileProject extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()
@@ -22,7 +21,7 @@ export default class ProjectFile extends BaseModels {
 	@Column('varchar')
 	@Field(() => Project)
 	@ManyToOne(() => Project, (project) => project.files)
-	project: ProjectType;
+	project: Project;
 
 	@Column('boolean', { default: false })
 	@Field()
