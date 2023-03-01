@@ -5,11 +5,11 @@ import { BLACK, WHITE } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 import astronautImage from 'assets/images/astronaut-auth.png';
 
-interface LoginPageProps {
+interface SignInPageProps {
 	loginForm: JSX.Element;
 }
 
-export const LoginPage = ({ loginForm }: LoginPageProps) => {
+export const SignInPage = ({ loginForm }: SignInPageProps) => {
 	return (
 		<div className='flex h-full'>
 			<Container>

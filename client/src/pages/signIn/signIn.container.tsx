@@ -2,7 +2,7 @@ import { useSignIn } from 'api/signIn/useSignIn';
 import { HOME_PATH } from 'constants/paths';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { SignInForm } from 'pages/signIn/components/SignInForm';
-import { LoginPage } from 'pages/signIn/signIn.page';
+import { SignInPage } from 'pages/signIn/signIn.page';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -34,6 +34,6 @@ export const SignInContainer = () => {
 	};
 
 	return (
-		<LoginPage loginForm={<SignInForm isLoading={loading} handleForm={submit} state={state} />} />
+		<SignInPage loginForm={<SignInForm isLoading={loading} handleForm={submit} state={state} />} />
 	);
 };
