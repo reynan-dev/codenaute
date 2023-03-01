@@ -5,13 +5,13 @@ import ProjectServices from 'services/ProjectServices';
 
 import { GlobalContext } from 'utils/types/GlobalContext';
 import {
-	addFileArgs,
 	createArgs,
 	deleteArgs,
 	favoriteProjectArgs,
 	getAllByLanguageArgs,
 	getAllByTemplateArgs,
 	getByIdArgs,
+	getByMemberArgs,
 	getByNameArgs,
 	shareProjectArgs,
 	updateActiveFileArgs,
@@ -21,6 +21,9 @@ import {
 } from 'resolvers/args/ProjectArgs';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import LanguageServices from 'services/LanguageServices';
+import FileProjectServices from 'services/FileProjectServices';
+import MemberServices from 'services/MemberServices';
 
 @Resolver(Project)
 export default class ProjectResolver {
@@ -33,6 +36,13 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
+	async getAllSelfProjects(@Ctx() context: GlobalContext): Promise<Project[]> {
+		// TODO: Need to add pagination here
+		return ProjectServices.findByMemberId(context.user?.id as string);
+	}
+
+	@Authorized()
+	@Query(() => Project)
 	async getAllByMember(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return ProjectServices.findByMemberId(context.user?.id as string);
@@ -40,56 +50,62 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByFavorites(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByFavorites(@Args() { memberId }: getByMemberArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return ProjectServices.findByFavorites(context.user?.id as string);
+		return ProjectServices.findByFavorites(memberId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
 	async getAllByTemplate(
-		@Args() { template }: getAllByTemplateArgs,
-		@Ctx() context: GlobalContext
+		@Args() { templateId }: getAllByTemplateArgs,
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return ProjectServices.findByTemplate(template);
+		return ProjectServices.findByTemplate(templateId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
 	async getAllByLanguage(
-		@Args() { language }: getAllByLanguageArgs,
-		@Ctx() context: GlobalContext
+		@Args() { languageId }: getAllByLanguageArgs
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return ProjectServices.findByLanguage(language);
+		return ProjectServices.findByLanguage(languageId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getById(@Args() { id }: getByIdArgs): Promise<Project> {
-		return ProjectServices.findById(id);
+	async getById(@Args() { projectId }: getByIdArgs): Promise<Project> {
+		return ProjectServices.findById(projectId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getByName(@Args() { name }: getByNameArgs): Promise<Project> {
-		return ProjectServices.findOneBy({ name });
+	async getByName(@Args() { projectName }: getByNameArgs): Promise<Project> {
+		return ProjectServices.findOneBy({ projectName });
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
 	async create(
-		@Args() { name, files, language, template, activeFile, isTemplate, isPublic }: createArgs,
+		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
+
+		const language = await LanguageServices.findById(languageId);
+
+		if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
+
+		const template = await ProjectServices.findById(templateId);
+
+		const file = await FileProjectServices.findById(activeFileId);
+
 		return ProjectServices.create({
 			name: name,
 			members: [context.user?.id as string],
-			files: [...files],
 			language: language,
 			template: template,
-			activeFile: activeFile,
+			activeFile: file,
 			isTemplate: isTemplate,
 			isPublic: isPublic
 		});
@@ -98,28 +114,29 @@ export default class ProjectResolver {
 	@Authorized()
 	@Query(() => Project)
 	async favoriteProject(
-		@Args() { id }: favoriteProjectArgs,
+		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		return ProjectServices.favorite(context.user?.id as string, id);
+		return ProjectServices.favorite(context.user?.id as string, projectId);
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
-	async shareProject(@Args() { id, members }: shareProjectArgs): Promise<Project> {
-		return ProjectServices.share(id, members);
+	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
+		const members = new Array();
+		membersId.map((id) => {
+			const member = MemberServices.findById(id)
+			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+			members.push(member);
+		});
+
+		return ProjectServices.share(projectId, members);
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
-	async addFile(@Args() { id, files }: addFileArgs): Promise<Project> {
-		return ProjectServices.addFile(id, files);
-	}
-
-	@Authorized()
-	@Mutation(() => Project)
-	async updateName(@Args() { id, name }: updateNameArgs): Promise<Project> {
-		const project = await ProjectServices.findById(id);
+	async updateName(@Args() { projectId, name }: updateNameArgs): Promise<Project> {
+		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
@@ -128,8 +145,8 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateActiveFile(@Args() { id, activeFile }: updateActiveFileArgs): Promise<Project> {
-		const project = await ProjectServices.findById(id);
+	async updateActiveFile(@Args() { projectId, activeFile }: updateActiveFileArgs): Promise<Project> {
+		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
@@ -138,8 +155,8 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateIsTemplate(@Args() { id, isTemplate }: updateIsTemplateArgs): Promise<Project> {
-		const project = await ProjectServices.findById(id);
+	async updateIsTemplate(@Args() { projectId, isTemplate }: updateIsTemplateArgs): Promise<Project> {
+		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
@@ -148,8 +165,8 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateIsPublic(@Args() { id, isPublic }: updateIsPublic): Promise<Project> {
-		const project = await ProjectServices.findById(id);
+	async updateIsPublic(@Args() { projectId, isPublic }: updateIsPublic): Promise<Project> {
+		const project = await ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
@@ -158,7 +175,7 @@ export default class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async delete(@Args() { id }: deleteArgs): Promise<Project> {
-		return ProjectServices.delete(id);
+	async delete(@Args() { projectId }: deleteArgs): Promise<Project> {
+		return ProjectServices.delete(projectId);
 	}
 }
