@@ -9,6 +9,19 @@ exports.default = {
 	clearMocks: true,
 	// Indicates whether the coverage information should be collected while executing the test
 	collectCoverage: true,
+	collectCoverageFrom: [
+		'src/**/*.ts',
+		'!src/migrations/**',
+		'!src/resolvers/**',
+		'!src/index.ts',
+		'!src/utils/**'
+	],
+	coverageThreshold: {
+		global: {
+			lines: 90,
+			statements: 90
+		}
+	},
 	// The directory where Jest should output its coverage files
 	coverageDirectory: './tests/coverage',
 	// An array of regexp pattern strings used to skip coverage collection

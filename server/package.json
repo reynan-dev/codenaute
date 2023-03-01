@@ -9,8 +9,8 @@
 		"migration:run": "typeorm-ts-node-esm migration:run -d ./src/db.ts",
 		"start": "node dist/index.js",
 		"start:watch": "tsc && (tsc -w & nodemon -L dist/index.js)",
-		"test": "jest --runInBand --verbose",
-		"test:watch": "jest --watchAll --runInBand --verbose"
+		"test": "jest --runInBand --verbose --coverage",
+		"test:watch": "jest --watchAll --runInBand --verbose --coverage"
 	},
 	"dependencies": {
 		"apollo-server": "3.11.1",
