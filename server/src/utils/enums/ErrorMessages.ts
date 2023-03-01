@@ -28,5 +28,10 @@ export enum ErrorMessages {
 	PASSWORD_FORMAT_ERROR_MESSAGE = 'The password must have at least 8 characters, one upper case, one lower case, one number and one special character.',
 
 	// Validation Project
-	PROJECT_NOT_FOUND = 'Project not found'
+	PROJECT_NOT_FOUND = 'Project not found',
+	MEMBER_NOT_FOUND = 'Member not found',
+
+	// Validation Language
+	LANGUAGE_NOT_FOUND = 'Language not found'
+
 }
