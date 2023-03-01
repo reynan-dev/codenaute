@@ -33,6 +33,7 @@ export enum ErrorMessages {
 
 	// Validation Language
 	LANGUAGE_NOT_FOUND = 'Language not found',
+	LANGUAGE_ALREADY_EXISTS = 'Language already exists',
 
 	// Validation FileProject
 	FILE_NOT_FOUND = 'File not found'
