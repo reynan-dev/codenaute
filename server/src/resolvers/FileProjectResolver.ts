@@ -3,7 +3,6 @@ import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 import FileProject from 'entities/FileProject';
 import FileProjectServices from 'services/FileProjectServices';
 
-import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
 	createFileProjectArgs,
@@ -13,6 +12,7 @@ import {
 	updateHiddenFileProjectArgs,
 	updatePathFileProjectArgs
 } from 'resolvers/args/FileProjectArgs';
+
 import ProjectServices from 'services/ProjectServices';
 
 @Resolver(FileProject)
