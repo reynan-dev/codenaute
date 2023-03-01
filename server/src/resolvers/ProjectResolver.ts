@@ -175,6 +175,10 @@ export default class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async delete(@Args() { projectId }: deleteArgs): Promise<Project> {
+		const project = await ProjectServices.findById(projectId);
+
+		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+
 		return ProjectServices.delete(projectId);
 	}
 }
