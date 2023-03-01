@@ -4,7 +4,6 @@ import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 import BaseModels from 'entities/base/BaseModels';
 import Project from 'entities/Project';
-import { ProjectType } from 'utils/types/EntitiesTypes';
 
 @Entity()
 @ObjectType()
@@ -22,5 +21,5 @@ export default class Language extends BaseModels {
 
 	@Field(() => Project)
 	@OneToMany(() => Project, (project) => project.language)
-	projects: ProjectType;
+	projects: Project;
 }

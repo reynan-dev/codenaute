@@ -17,7 +17,6 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
 import { compareSync } from 'bcryptjs';
-import { MemberType } from 'utils/types/EntitiesTypes';
 
 @Resolver(Member)
 export default class MemberResolver {
@@ -25,7 +24,7 @@ export default class MemberResolver {
 	async signIn(
 		@Args() { email, password }: SignInArgs,
 		@Ctx() context: GlobalContext
-	): Promise<MemberType> {
+	): Promise<Member> {
 		const { user, session } = await MemberServices.signIn(email, password);
 
 		Cookie.setSessionToken(context, session.token);
@@ -35,7 +34,7 @@ export default class MemberResolver {
 	@Mutation(() => Member)
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs
-	): Promise<MemberType> {
+	): Promise<Member> {
 		const existingEmail = (await MemberServices.findOneBy({ email })) as Member;
 		const existingUsername = (await MemberServices.findOneBy({ username })) as Member;
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
@@ -55,7 +54,7 @@ export default class MemberResolver {
 
 	@Authorized()
 	@Query(() => Member)
-	async profile(@Ctx() context: GlobalContext): Promise<MemberType> {
+	async profile(@Ctx() context: GlobalContext): Promise<Member> {
 		return context.user as Member;
 	}
 
@@ -64,7 +63,7 @@ export default class MemberResolver {
 	async updateUsername(
 		@Args() { username }: UpdateUsernameArgs,
 		@Ctx() context: GlobalContext
-	): Promise<MemberType> {
+	): Promise<Member> {
 		const username_registered = (await MemberServices.findOneBy({ username })) as Member;
 
 		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
@@ -77,7 +76,7 @@ export default class MemberResolver {
 	async updateEmail(
 		@Args() { email }: UpdateEmailArgs,
 		@Ctx() context: GlobalContext
-	): Promise<MemberType> {
+	): Promise<Member> {
 		const email_registered = (await MemberServices.findOneBy({ email })) as Member;
 
 		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
@@ -90,7 +89,7 @@ export default class MemberResolver {
 	async updatePassword(
 		@Args() { newPassword, confirmPassword, oldPassword }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
-	): Promise<MemberType> {
+	): Promise<Member> {
 		const user = (await MemberServices.findById(context.user?.id as string)) as Member;
 
 		if (!compareSync(oldPassword, user.hashedPassword))
@@ -104,7 +103,7 @@ export default class MemberResolver {
 	async deleteAccount(
 		@Args() { password }: DeleteAccountArgs,
 		@Ctx() context: GlobalContext
-	): Promise<MemberType> {
+	): Promise<Member> {
 		return MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

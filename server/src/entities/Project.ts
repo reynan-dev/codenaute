@@ -12,15 +12,9 @@ import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 import BaseModels from 'entities/base/BaseModels';
 import Language from 'entities/Language';
-import ProjectFile from 'entities/ProjectFile';
+import FileProject from 'entities/FileProject';
 import SandpackTemplate from 'entities/SandpackTemplate';
 import Member from 'entities/Member';
-import {
-	LanguageType,
-	MemberType,
-	ProjectFileType,
-	SandpackTemplateType
-} from 'utils/types/EntitiesTypes';
 
 @Entity()
 @ObjectType()
@@ -33,31 +27,31 @@ export default class Project extends BaseModels {
 	@Column('text')
 	@Field(() => [Member])
 	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
-	members: MemberType[];
+	members: Member[];
 
 	@Column('text')
-	@Field(() => [ProjectFile], { nullable: true })
-	@OneToMany(() => ProjectFile, (file) => file.project, { eager: true })
-	files: ProjectFileType[];
+	@Field(() => [FileProject], { nullable: true })
+	@OneToMany(() => FileProject, (file) => file.project)
+	files: FileProject[];
 
 	@Column('varchar')
 	@Field(() => Language)
 	@ManyToOne(() => Language, (language) => language.id, { eager: true })
-	language: LanguageType;
+	language: Language;
 
 	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
 	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true })
-	template: SandpackTemplateType;
+	template: SandpackTemplate;
 
 	@Column('varchar', { nullable: true })
-	@Field(() => ProjectFile, { nullable: true })
-	@OneToOne(() => ProjectFile, (file) => file.id, { eager: true })
-	activeFile: ProjectFileType;
+	@Field(() => FileProject, { nullable: true })
+	@OneToOne(() => FileProject, (file) => file.id, { eager: true })
+	activeFile: FileProject;
 
 	@Field(() => [Member], { nullable: true })
 	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })
-	favorites: MemberType[];
+	favorites: Member[];
 
 	@Column('boolean', { default: false })
 	@Field()

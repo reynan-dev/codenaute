@@ -4,7 +4,6 @@ import { Column, DeleteDateColumn, Entity, Index, ManyToMany, OneToMany } from '
 
 import BaseModels from 'entities/base/BaseModels';
 import Project from 'entities/Project';
-import { ProjectType, SessionType } from 'utils/types/EntitiesTypes';
 import Session from 'entities/Session';
 
 @Entity()
@@ -30,17 +29,17 @@ export default class Member extends BaseModels {
 	@IsString()
 	hashedPassword: string;
 
-	@OneToMany(() => Session, (session) => session.member, { nullable: true })
 	@Field(() => [Session], { nullable: true })
-	sessions: SessionType[];
+	@OneToMany(() => Session, (session) => session.member, { nullable: true })
+	sessions: Session[];
 
 	@Field(() => [Project], { nullable: true })
 	@ManyToMany(() => Project, (project) => project.members)
-	projects: ProjectType[];
+	projects: Project[];
 
 	@Field(() => [Project], { nullable: true })
 	@ManyToMany(() => Project, (project) => project.favorites)
-	favorites: ProjectType[];
+	favorites: Project[];
 
 	@DeleteDateColumn()
 	@IsDate()

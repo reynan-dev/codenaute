@@ -4,7 +4,6 @@ import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
 import Member from 'entities/Member';
-import { MemberType } from 'utils/types/EntitiesTypes';
 
 @Entity()
 @ObjectType()
@@ -19,7 +18,7 @@ export default class Session {
 
 	@ManyToOne(() => Member, (member) => member.id, { eager: true, onDelete: 'CASCADE' })
 	@Field(() => Member)
-	member: MemberType;
+	member: Member;
 
 	@CreateDateColumn()
 	@Field()

@@ -3,7 +3,6 @@ import Session from 'entities/Session';
 import BaseServices from 'services/base/BaseServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-import { SessionType } from 'utils/types/EntitiesTypes';
 
 class SessionServices extends BaseServices {
 	constructor() {
@@ -15,7 +14,7 @@ class SessionServices extends BaseServices {
 		return await this.repository.save(session);
 	}
 
-	async findByToken(token: string): Promise<SessionType | null> {
+	async findByToken(token: string): Promise<Session | null> {
 		return await this.findOneBy({ token });
 	}
 

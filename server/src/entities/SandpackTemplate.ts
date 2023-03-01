@@ -4,7 +4,6 @@ import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 import BaseModels from 'entities/base/BaseModels';
 import Project from 'entities/Project';
-import { ProjectType } from 'utils/types/EntitiesTypes';
 
 @Entity()
 @ObjectType()
@@ -17,5 +16,5 @@ export default class File extends BaseModels {
 
 	@Field(() => [Project], { nullable: true })
 	@OneToMany(() => Project, (project) => project.id, { eager: true })
-	projects: ProjectType;
+	projects: Project;
 }

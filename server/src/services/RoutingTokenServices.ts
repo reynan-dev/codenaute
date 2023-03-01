@@ -1,7 +1,6 @@
 import BaseServices from 'services/base/BaseServices';
 import RoutingToken from 'entities/RoutingToken';
 import Member from 'entities/Member';
-import { RoutingTokenType } from 'utils/types/EntitiesTypes';
 
 class RoutingTokenServices extends BaseServices {
 	constructor() {
@@ -14,7 +13,7 @@ class RoutingTokenServices extends BaseServices {
 		return await this.repository.save(routingToken);
 	}
 
-	async findByToken(token: string): Promise<RoutingTokenType | null> {
+	async findByToken(token: string): Promise<RoutingToken | null> {
 		return await this.findOneBy({ token });
 	}
 }
