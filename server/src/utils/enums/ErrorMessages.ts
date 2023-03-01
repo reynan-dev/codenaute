@@ -32,5 +32,8 @@ export enum ErrorMessages {
 	MEMBER_NOT_FOUND = 'Member not found',
 
 	// Validation Language
-	LANGUAGE_NOT_FOUND = 'Language not found'
+	LANGUAGE_NOT_FOUND = 'Language not found',
+
+	// Validation FileProject
+	FILE_NOT_FOUND = 'File not found'
 }
