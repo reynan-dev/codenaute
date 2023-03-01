@@ -1,6 +1,6 @@
 import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { Column, DeleteDateColumn, Entity, Index, ManyToMany, OneToMany } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 import BaseModels from 'entities/base/BaseModels';
 import Project from 'entities/Project';
@@ -30,15 +30,17 @@ export default class Member extends BaseModels {
 	hashedPassword: string;
 
 	@Field(() => [Session], { nullable: true })
-	@OneToMany(() => Session, (session) => session.member, { nullable: true })
+	@OneToMany(() => Session, (session) => session.member, { nullable: true, cascade: true})
 	sessions: Session[];
 
 	@Field(() => [Project], { nullable: true })
-	@ManyToMany(() => Project, (project) => project.members)
+	@ManyToMany(() => Project, (project) => project.members, { nullable: true, cascade: true})
+	@JoinTable()
 	projects: Project[];
 
 	@Field(() => [Project], { nullable: true })
-	@ManyToMany(() => Project, (project) => project.favorites)
+	@ManyToMany(() => Project, (project) => project.favorites, { nullable: true, cascade: true})
+	@JoinTable()
 	favorites: Project[];
 
 	@DeleteDateColumn()
