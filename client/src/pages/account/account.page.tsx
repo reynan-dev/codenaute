@@ -14,8 +14,8 @@ export const AccountPage = ({ updateInformationsForm, updatePasswordForm }: Acco
 		<Container className='flex items-center justify-center'>
 			<div
 				className={twJoin(
-					'flex flex-col w-full',
-					'bg-dark rounded-lg',
+					'flex w-full flex-col',
+					'rounded-lg bg-dark',
 					'sm:w-3/4',
 					'md:w-1/2',
 					'lg:w-11/12',

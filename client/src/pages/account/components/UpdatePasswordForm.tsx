@@ -7,13 +7,13 @@ interface UpdatePasswordFormProps {
 	state: {
 		formErrorMessages: ErrorMessages | null;
 		setFormErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
-        oldPassword: string;
+		oldPassword: string;
 		setOldPassword: React.Dispatch<React.SetStateAction<string>>;
 		newPassword: string;
 		setNewPassword: React.Dispatch<React.SetStateAction<string>>;
 		confirmedNewPassword: string;
 		setConfirmedNewPassword: React.Dispatch<React.SetStateAction<string>>;
-        isPasswordFormComplete: boolean;
+		isPasswordFormComplete: boolean;
 	};
 	isLoading: boolean;
 	handlePasswordForm: () => Promise<void>;
@@ -41,7 +41,7 @@ export const UpdatePasswordForm = ({
 						state.setOldPassword(event.target.value);
 					}}
 				/>
-				<div className='flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-5'>
+				<div className='flex flex-col space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5'>
 					<Input
 						label='New password'
 						type='password'
