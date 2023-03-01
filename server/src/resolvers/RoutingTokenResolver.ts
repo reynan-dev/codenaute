@@ -15,7 +15,7 @@ import {
 } from 'resolvers/args/RoutingTokenArgs';
 
 @Resolver(RoutingToken)
-export class MemberResolver {
+export class RoutingTokenResolver {
 	MemberServices: MemberServices = new MemberServices();
 	RoutingTokenServices: RoutingTokenServices = new RoutingTokenServices();
 	@Mutation(() => RoutingToken)
