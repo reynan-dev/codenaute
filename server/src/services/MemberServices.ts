@@ -37,7 +37,7 @@ class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const member = await this.repository.find({ where: { sessions: { token } } });
+		const member = await this.repository.findOneBy({ sessions: { token } });
 
 		if (!member) return null;
 
