@@ -19,31 +19,39 @@ describe('Singup a Member integration test', () => {
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
+
 	describe("when email address doesn't belong to existing user", () => {
-		const username = 'username';
-		const email = 'unknown@email.com';
-		const password = 'password';
 		it('return an member', async () => {
-			console.log('prout');
+			const data = {
+				username: 'username',
+				email: 'unknown@email.com',
+				password: 'password'
+			};
 
-			const user = await MemberServices.signUp(username, email, password);
+			const user = await MemberServices.signUp(data.username, data.email, data.password);
 
-			expect(user.username).toEqual(username);
-			expect(user.email).toEqual(email);
+			expect(user.username).toEqual(data.username);
+			expect(user.email).toEqual(data.email);
 		});
 	});
 
 	describe('when email address belongs to existing user', () => {
+		beforeEach(() => {
+			jest.spyOn(console, 'log').mockImplementation(() => {});
+		});
+
 		it('throws an member already exists error', async () => {
-			const username = 'username';
-			const email = 'unknown@email.com';
-			const password = 'password';
+			const data = {
+				username: 'username',
+				email: 'unknown@email.com',
+				password: 'password'
+			};
 
-			await MemberServices.signUp(username, email, password);
+			await MemberServices.signUp(data.username, data.email, data.password);
 
-			expect(() => MemberServices.signUp(username, email, password)).rejects.toThrowError(
-				ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE
-			);
+			expect(() =>
+				MemberServices.signUp(data.username, data.email, data.password)
+			).rejects.toThrowError(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 		});
 	});
 });
