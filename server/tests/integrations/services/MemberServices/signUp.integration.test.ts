@@ -1,10 +1,9 @@
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Singup a Member integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {
@@ -53,7 +52,7 @@ describe('Singup a Member integration test', () => {
 			await MemberService.signUp(data.username, data.email, data.password);
 
 			expect(() =>
-			MemberService.signUp(data.username, data.email, data.password)
+				MemberService.signUp(data.username, data.email, data.password)
 			).rejects.toThrowError(ErrorMessages.MEMBER_ALREADY_EXISTS_ERROR_MESSAGE);
 		});
 	});

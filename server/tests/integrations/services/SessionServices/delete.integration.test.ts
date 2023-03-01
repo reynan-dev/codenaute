@@ -1,12 +1,11 @@
-import {MemberServices} from 'services/MemberServices';
-import {SessionServices} from 'services/SessionServices';
+import { MemberServices } from 'services/MemberServices';
+import { SessionServices } from 'services/SessionServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { randomBytes } from 'crypto';
 
 describe('Delete Session integration test', () => {
-
 	const MemberService = new MemberServices();
 	const SessionService = new SessionServices();
 

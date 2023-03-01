@@ -1,10 +1,9 @@
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Delete a Member account integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {

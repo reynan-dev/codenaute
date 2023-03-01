@@ -1,10 +1,9 @@
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {

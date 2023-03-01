@@ -1,10 +1,9 @@
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
 
 describe('Update integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {

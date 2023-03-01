@@ -1,11 +1,10 @@
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Update a Member password integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {
@@ -36,7 +35,7 @@ describe('Update a Member password integration test', () => {
 			const newPassword = 'newPassword';
 
 			expect(() =>
-			MemberService.updatePassword(wrong_email, newPassword, newPassword)
+				MemberService.updatePassword(wrong_email, newPassword, newPassword)
 			).rejects.toThrowError(ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE);
 		});
 	});
@@ -52,7 +51,7 @@ describe('Update a Member password integration test', () => {
 			const newPassword = 'newPassword';
 
 			expect(() =>
-			MemberService.updatePassword(member.email, newPassword, password)
+				MemberService.updatePassword(member.email, newPassword, password)
 			).rejects.toThrowError(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 		});
 	});

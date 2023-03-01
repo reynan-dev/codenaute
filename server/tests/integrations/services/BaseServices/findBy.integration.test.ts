@@ -1,8 +1,7 @@
 import { closeDatabase, dataSource, startDatabase } from 'db';
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 describe('FindBy integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {

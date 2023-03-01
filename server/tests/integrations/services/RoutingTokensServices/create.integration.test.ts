@@ -1,10 +1,9 @@
-import {MemberServices} from 'services/MemberServices';
-import {RoutingTokenServices} from 'services/RoutingTokenServices';
+import { MemberServices } from 'services/MemberServices';
+import { RoutingTokenServices } from 'services/RoutingTokenServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Create RoutingToken integration test', () => {
-
 	const MemberService = new MemberServices();
 	const RoutingTokenService = new RoutingTokenServices();
 

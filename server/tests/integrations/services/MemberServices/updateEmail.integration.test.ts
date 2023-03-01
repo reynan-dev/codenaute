@@ -1,9 +1,8 @@
-import {MemberServices} from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 
 describe('Update a Member email integration test', () => {
-
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {
