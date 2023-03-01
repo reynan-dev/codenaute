@@ -36,5 +36,9 @@ export enum ErrorMessages {
 	LANGUAGE_ALREADY_EXISTS = 'Language already exists',
 
 	// Validation FileProject
-	FILE_NOT_FOUND = 'File not found'
+	FILE_NOT_FOUND = 'File not found',
+
+	// Validation SandpackTemplate
+	SANDPACK_TEMPLATE_ALREADY_EXISTS = 'Sandpack template already exists',
+	SANDPACK_TEMPLATE_NOT_FOUND = 'Sandpack template not found'
 }
