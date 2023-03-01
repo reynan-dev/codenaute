@@ -1,6 +1,11 @@
-import React from 'react';
+import { ProfileQuery } from 'graphql/__generated__/graphql';
 import HomePage from './home.page';
 
-export default function HomeContainer() {
-	return <HomePage />;
+export interface HomeContainerProps {
+	isAuthenticated: boolean;
+	memberProfileData?: ProfileQuery;
+}
+
+export default function HomeContainer(props: HomeContainerProps) {
+	return <HomePage {...props} />;
 }

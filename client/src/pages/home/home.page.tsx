@@ -1,11 +1,28 @@
-import { LOGIN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { ACCOUNT_PATH, LOGIN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { HomeContainerProps } from 'pages/home/home.container';
 import { Link } from 'react-router-dom';
 
-export default function HomePage() {
+export interface HomePageProps extends HomeContainerProps {}
+
+export default function HomePage({ isAuthenticated, memberProfileData }: HomePageProps) {
 	return (
-		<div>
-			<Link to={SIGN_UP_PATH}>SIGN UP</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
-			<Link to={LOGIN_PATH}>LOGIN</Link>
+		<div className='flex py-3 px-5'>
+			{isAuthenticated ? (
+				<>
+					<p>
+						Hello{' '}
+						<span className='font-bold text-primary'>{memberProfileData?.profile.username}</span>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+					</p>
+					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
+				</>
+			) : (
+				<>
+					<Link to={SIGN_UP_PATH}>SIGN UP</Link>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<Link to={LOGIN_PATH}>LOGIN</Link>
+				</>
+			)}
 		</div>
 	);
 }
