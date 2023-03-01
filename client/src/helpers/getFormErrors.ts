@@ -7,19 +7,19 @@ import {
 import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from 'constants/validations';
 
 interface FieldsValue {
-	username: string;
-	email: string;
-	password: string;
-	confirmedPassword: string;
+	username?: string;
+	email?: string;
+	password?: string;
+	confirmedPassword?: string;
 }
 
 export const getFormErrors = (fieldsValue: FieldsValue) => {
 	const { username, email, password, confirmedPassword } = fieldsValue;
 	const errorMessages: { [key: string]: string } = {};
 
-	if (!username.match(USERNAME_REGEX)) errorMessages.username = USERNAME_MUST_BE_LONG_ERROR_MESSAGE;
-	if (!email.match(EMAIL_REGEX)) errorMessages.email = INVALID_EMAIL_ERROR_MESSAGE;
-	if (!password.match(PASSWORD_REGEX)) errorMessages.password = PASSWORD_FORMAT_ERROR_MESSAGE;
+	if (!username?.match(USERNAME_REGEX)) errorMessages.username = USERNAME_MUST_BE_LONG_ERROR_MESSAGE;
+	if (!email?.match(EMAIL_REGEX)) errorMessages.email = INVALID_EMAIL_ERROR_MESSAGE;
+	if (!password?.match(PASSWORD_REGEX)) errorMessages.password = PASSWORD_FORMAT_ERROR_MESSAGE;
 	if (confirmedPassword !== password)
 		errorMessages.confirmedPassword = CONFIRMED_PASSWORD_ERROR_MESSAGE;
 

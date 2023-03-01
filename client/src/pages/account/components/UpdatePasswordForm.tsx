@@ -1,12 +1,9 @@
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
 
 interface UpdateInformationsFormProps {
 	state: {
-		formErrorMessages: ErrorMessages | null;
-		setFormErrorMessages: React.Dispatch<React.SetStateAction<ErrorMessages | null>>;
 		email: string | undefined;
 		setEmail: React.Dispatch<React.SetStateAction<string | undefined>>;
 		username: string | undefined;
@@ -15,19 +12,19 @@ interface UpdateInformationsFormProps {
 		hasUsernameChanged: boolean;
 	};
 	isLoading: boolean;
-	handleInformationsForm: () => Promise<void>;
+	handleForm: () => Promise<void>;
 }
 
 export const UpdateInformationsForm = ({
 	state,
 	isLoading,
-	handleInformationsForm
+	handleForm
 }: UpdateInformationsFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {
 				event.preventDefault();
-				handleInformationsForm();
+				handleForm();
 			}}
 			className='flex w-full flex-col items-center space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5'
 		>
@@ -37,7 +34,6 @@ export const UpdateInformationsForm = ({
 				onChange={(event) => {
 					state.setEmail(event.target.value);
 				}}
-				error={state.formErrorMessages?.email}
 			/>
 
 			<Input
@@ -46,7 +42,6 @@ export const UpdateInformationsForm = ({
 				onChange={(event) => {
 					state.setUsername(event.target.value);
 				}}
-				error={state.formErrorMessages?.username}
 			/>
 
 			<Button

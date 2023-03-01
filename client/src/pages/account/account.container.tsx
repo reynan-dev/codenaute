@@ -2,9 +2,11 @@ import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import { useUpdateEmail } from 'api/profile/useUpdateEmail';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
+import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { AccountPage } from 'pages/account/account.page';
 import { UpdateInformationsForm } from 'pages/account/components/UpdateInformationsForm';
+import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -25,14 +27,17 @@ export const AccountContainer = ({
 	const [username, setUsername] = useState(profileData?.profile.username);
 	const [hasEmailChanged, setHasEmailChanged] = useState(false);
 	const [hasUsernameChanged, setHasUsernameChanged] = useState(false);
+	const [formErrorMessages, setFormErrorMessages] = useState<ErrorMessages | null>(null);
 
 	const state = {
+		formErrorMessages,
+		setFormErrorMessages,
 		email,
 		setEmail,
 		username,
 		setUsername,
 		hasEmailChanged,
-		hasUsernameChanged
+		hasUsernameChanged,
 	};
 
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
@@ -61,6 +66,7 @@ export const AccountContainer = ({
 	}, [email, profileData?.profile.email, profileData?.profile.username, username]);
 
 	const submitInformationsForm = async () => {
+		console.log("submit")
 		if (email && username) {
 			try {
 				if (hasEmailChanged) {
@@ -82,13 +88,27 @@ export const AccountContainer = ({
 		return;
 	};
 
+	const handleInformationsForm = async () => {
+		console.log("handle")
+
+		const formErrors = getFormErrors({ username, email });
+
+		if (formErrors) {
+			setFormErrorMessages(formErrors);
+			return;
+		}
+
+		await submitInformationsForm();
+	};
+
+
 	return (
 		<AccountPage
 			updateInformationsForm={
 				<UpdateInformationsForm
 					isLoading={isUpdateEmailLoading || isUpdateUsernameLoading}
 					state={state}
-					handleForm={submitInformationsForm}
+					handleInformationsForm={handleInformationsForm}
 				/>
 			}
 		/>
