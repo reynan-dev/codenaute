@@ -6,6 +6,6 @@ interface ContainerProps {
 	className?: string;
 }
 
-export default function Container({ children, className }: ContainerProps) {
+export const Container = ({ children, className }: ContainerProps) => {
 	return <div className={twMerge(className, 'h-full w-full py-8 px-4', 'lg:p-12')}>{children}</div>;
 }

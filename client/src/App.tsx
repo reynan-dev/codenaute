@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/toastify.css';
 
-function App() {
+const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const { loading, refetch, data } = useProfile(setIsAuthenticated);

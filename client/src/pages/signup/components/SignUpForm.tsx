@@ -19,7 +19,7 @@ interface SignUpFormProps {
 	};
 }
 
-export default function SignUpForm({ isLoading, handleForm, state }: SignUpFormProps) {
+export const SignUpForm = ({ isLoading, handleForm, state }: SignUpFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {

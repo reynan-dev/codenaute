@@ -12,7 +12,7 @@ interface SignInFormProps {
 	};
 }
 
-export default function SignInForm({ isLoading, handleForm, state }: SignInFormProps) {
+export const SignInForm = ({ isLoading, handleForm, state }: SignInFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {

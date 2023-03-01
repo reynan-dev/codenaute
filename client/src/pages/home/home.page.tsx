@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export interface HomePageProps extends HomeContainerProps {}
 
-export default function HomePage({ isAuthenticated, memberProfileData }: HomePageProps) {
+export const HomePage = ({ isAuthenticated, memberProfileData }: HomePageProps) => {
 	return (
 		<div className='flex py-3 px-5'>
 			{isAuthenticated ? (

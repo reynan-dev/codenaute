@@ -9,7 +9,7 @@ interface LoginPageProps {
 	loginForm: JSX.Element;
 }
 
-export default function LoginPage({ loginForm }: LoginPageProps) {
+export const LoginPage = ({ loginForm }: LoginPageProps) => {
 	return (
 		<div className='flex h-full'>
 			<Container>
@@ -34,4 +34,4 @@ export default function LoginPage({ loginForm }: LoginPageProps) {
 			</div>
 		</div>
 	);
-}
+};

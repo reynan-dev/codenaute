@@ -1,13 +1,13 @@
 import { useSignIn } from 'api/signIn/useSignIn';
 import { HOME_PATH } from 'constants/paths';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
-import SignInForm from 'pages/signIn/components/SignInForm';
-import LoginPage from 'pages/signIn/signIn.page';
+import { SignInForm } from 'pages/signIn/components/SignInForm';
+import { LoginPage } from 'pages/signIn/signIn.page';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function SignInContainer() {
+export const SignInContainer = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -36,4 +36,4 @@ export default function SignInContainer() {
 	return (
 		<LoginPage loginForm={<SignInForm isLoading={loading} handleForm={submit} state={state} />} />
 	);
-}
+};

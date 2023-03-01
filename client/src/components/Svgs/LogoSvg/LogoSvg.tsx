@@ -7,11 +7,11 @@ interface LogoSvgProps {
 	backgroundColor?: string;
 }
 
-export default function LogoSvg({
+export const LogoSvg = ({
 	size = '100px',
 	color = COLORS.PRIMARY.DEFAULT,
 	backgroundColor = COLORS.PRIMARY[100]
-}: LogoSvgProps) {
+}: LogoSvgProps) => {
 	return (
 		<div>
 			<svg
@@ -139,4 +139,4 @@ export default function LogoSvg({
 			</svg>
 		</div>
 	);
-}
+};
