@@ -1,6 +1,6 @@
-import { clsxMerge } from 'helpers/clsxMerge';
 import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler, useMemo } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
+import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
 	children: React.ReactNode;
@@ -40,7 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
 	...props
 }) => {
 	const style = useMemo(() => {
-		const primaryStyle = clsxMerge(
+		const primaryStyle = twMerge(
 			'relative inline-flex min-w-56 items-center justify-center',
 			'border-primary bg-primary rounded-full border-2 border-solid font-semibold text-black text-xl',
 			'transition ease-in-out duration-150',
@@ -50,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
 			size === 'small' ? 'py-2 px-4 text-lg' : 'py-4 px-4 text-xl'
 		);
 		if (designType === 'primary') return primaryStyle;
-		const secondaryStyle = clsxMerge(
+		const secondaryStyle = twMerge(
 			primaryStyle,
 			'bg-transparent text-primary border-primary',
 			'hover:bg-primary hover:border-primary hover:text-black',
@@ -75,7 +75,15 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (linkUrl !== undefined) {
 		return (
-			<link href={linkUrl} className={clsxMerge(style, className)}>
+			<link href={linkUrl} className={twMerge(style, className)}>
+				<span className='truncate'>{children}</span>
+			</link>
+		);
+	}
+
+	if (linkUrl !== undefined && designType === 'text') {
+		return (
+			<link href={linkUrl} className='font-semibold text-primary'>
 				<span className='truncate'>{children}</span>
 			</link>
 		);
@@ -91,7 +99,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 	return (
 		<div>
-			<button {...props} className={clsxMerge(style, className)} disabled={isDisabled}>
+			<button {...props} className={twMerge(style, className)} disabled={isDisabled}>
 				<span className='truncate'>{children}</span>
 				{renderLoader}
 			</button>
