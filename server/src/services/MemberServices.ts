@@ -3,6 +3,7 @@ import { compareSync, hashSync } from 'bcryptjs';
 import { Member } from 'entities/Member';
 import { BaseServices } from 'services/base/BaseServices';
 import { SessionServices } from 'services/SessionServices';
+import { ObjectLiteral } from 'typeorm';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
@@ -24,7 +25,7 @@ export class MemberServices extends BaseServices {
 		return { user, session };
 	}
 
-	async signUp(username: string, email: string, password: string) {
+	async signUp(username: string, email: string, password: string): Promise<Member> {
 		const hashedPassword = hashSync(password, 10);
 
 		return await this.create({
@@ -39,7 +40,15 @@ export class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const member = await this.repository.findOneBy({ sessions: { token } });
+		const member = await this.repository.findOne({ where: {sessions: { token }}, relations: ['projects', 'favorites'] });
+
+		if (!member) return null;
+
+		return member;
+	}
+
+	async findOneById (id: string): Promise<Member | null> {
+		const member = await this.repository.findOne({ where: {id: id}, relations: ['projects', 'favorites'] });
 
 		if (!member) return null;
 

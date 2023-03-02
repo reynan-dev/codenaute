@@ -14,23 +14,23 @@ export class ProjectServices extends BaseServices {
 	}
 
 	async findAllPublic(): Promise<Project[]> {
-		return this.repository.find({ where: { isPublic: true } });
+		return this.repository.find({ where: { isPublic: true }, relations: ['members', 'favorites', 'files'] });
 	}
 
 	async findByMemberId(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { members: { id: memberId } } });
+		return this.repository.find({ where: { members: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async findByFavorites(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { favorites: { id: memberId } } });
+		return this.repository.find({ where: { favorites: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async findByTemplate(templateId: string): Promise<Project[]> {
-		return this.repository.find({ where: { template: { id: templateId } } });
+		return this.repository.find({ where: { template: { id: templateId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async findByLanguage(languageId: string): Promise<Project[]> {
-		return this.repository.find({ where: { language: { id: languageId } } });
+		return this.repository.find({ where: { language: { id: languageId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async favorite(memberId: string, projectId: string): Promise<Project> {

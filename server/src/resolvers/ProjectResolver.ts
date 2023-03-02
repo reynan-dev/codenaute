@@ -91,6 +91,8 @@ export class ProjectResolver {
 		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
+		const member = await this.MemberServices.findById(context.user?.id as string);
+
 		const language = await this.LanguageServices.findById(languageId);
 
 		if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
@@ -101,7 +103,7 @@ export class ProjectResolver {
 
 		return this.ProjectServices.create({
 			name: name,
-			members: [context.user?.id as string],
+			members: [member],
 			language: language,
 			template: template,
 			activeFile: file,
