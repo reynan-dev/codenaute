@@ -2,13 +2,13 @@ import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
-import { BaseModels } from 'entities/base/BaseModels';
-import { Project } from 'entities/Project';
-import { Session } from 'entities/Session';
+import { BaseModel } from 'models/base/BaseModel';
+import { Project } from 'models/Project';
+import { Session } from 'models/Session';
 
 @Entity()
 @ObjectType()
-export class Member extends BaseModels {
+export class Member extends BaseModel {
 	@Column()
 	@Field()
 	@IsString()

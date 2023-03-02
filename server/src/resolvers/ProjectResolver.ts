@@ -1,6 +1,6 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
-import { Project } from 'entities/Project';
+import { Project } from 'models/Project';
 import { ProjectServices } from 'services/ProjectServices';
 
 import { GlobalContext } from 'utils/types/GlobalContext';

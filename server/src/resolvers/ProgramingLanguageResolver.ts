@@ -1,6 +1,6 @@
 import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 
-import { ProgramingLanguage } from 'entities/ProgramingLanguage';
+import { ProgramingLanguage } from 'models/ProgramingLanguage';
 import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';

@@ -1,6 +1,6 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import { Member } from 'entities/Member';
+import { Member } from 'models/Member';
 import { BaseServices } from 'services/base/BaseServices';
 import { SessionServices } from 'services/SessionServices';
 import { ObjectLiteral } from 'typeorm';

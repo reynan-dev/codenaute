@@ -1,7 +1,7 @@
 import { Args, Mutation, Resolver } from 'type-graphql';
 
-import { Member } from 'entities/Member';
-import { RoutingToken } from 'entities/RoutingToken';
+import { Member } from 'models/Member';
+import { RoutingToken } from 'models/RoutingToken';
 
 import { MemberServices } from 'services/MemberServices';
 import { RoutingTokenServices } from 'services/RoutingTokenServices';

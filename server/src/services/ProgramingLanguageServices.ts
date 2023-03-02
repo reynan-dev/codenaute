@@ -1,5 +1,5 @@
 import { BaseServices } from 'services/base/BaseServices';
-import { ProgramingLanguage } from 'entities/ProgramingLanguage';
+import { ProgramingLanguage } from 'models/ProgramingLanguage';
 
 export class ProgramingLanguageServices extends BaseServices {
 	constructor() {

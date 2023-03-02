@@ -1,6 +1,6 @@
 import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 
-import { FileProject } from 'entities/FileProject';
+import { FileProject } from 'models/FileProject';
 import { FileProjectServices } from 'services/FileProjectServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';

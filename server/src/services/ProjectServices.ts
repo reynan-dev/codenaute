@@ -1,7 +1,7 @@
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-import { Project } from 'entities/Project';
-import { Member } from 'entities/Member';
+import { Project } from 'models/Project';
+import { Member } from 'models/Member';
 
 import { BaseServices } from 'services/base/BaseServices';
 import { MemberServices } from 'services/MemberServices';

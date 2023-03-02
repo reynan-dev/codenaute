@@ -1,6 +1,6 @@
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
 
-import { Member } from 'entities/Member';
+import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
 
 import {

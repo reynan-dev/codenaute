@@ -11,15 +11,15 @@ import {
 } from 'typeorm';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
-import { BaseModels } from 'entities/base/BaseModels';
-import { ProgramingLanguage } from 'entities/ProgramingLanguage';
-import { FileProject } from 'entities/FileProject';
-import { SandpackTemplate } from 'entities/SandpackTemplate';
-import { Member } from 'entities/Member';
+import { BaseModel } from 'models/base/BaseModel';
+import { ProgramingLanguage } from 'models/ProgramingLanguage';
+import { FileProject } from 'models/FileProject';
+import { SandpackTemplate } from 'models/SandpackTemplate';
+import { Member } from 'models/Member';
 
 @Entity()
 @ObjectType()
-export class Project extends BaseModels {
+export class Project extends BaseModel {
 	@Column()
 	@Field()
 	@IsString()
