@@ -10,7 +10,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class BaseModels extends BaseEntity {
+export class BaseModel extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	@Field(() => ID)
 	@IsUUID()

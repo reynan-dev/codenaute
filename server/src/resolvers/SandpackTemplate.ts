@@ -1,6 +1,6 @@
 import { Args, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 
-import { SandpackTemplate } from 'entities/SandpackTemplate';
+import { SandpackTemplate } from 'models/SandpackTemplate';
 import { SandpackTemplateServices } from 'services/SandpackTemplateServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
