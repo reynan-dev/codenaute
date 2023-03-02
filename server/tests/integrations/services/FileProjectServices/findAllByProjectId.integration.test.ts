@@ -1,7 +1,7 @@
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { LanguageServices } from 'services/LanguageServices';
+import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
 
 import { dataSource, closeDatabase, startDatabase } from 'db';
 
@@ -9,7 +9,7 @@ describe('Finding files by a project id integration test', () => {
 	const FileProjectService = new FileProjectServices();
     const MemberService = new MemberServices();
     const ProjectService = new ProjectServices();
-    const LanguageService = new LanguageServices();
+    const ProgramingLanguageService = new ProgramingLanguageServices();
 
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
@@ -50,7 +50,7 @@ describe('Finding files by a project id integration test', () => {
                 version: '3.10',
             }
 
-            const newLanguage = await LanguageService.create(language);
+            const newLanguage = await ProgramingLanguageService.create(language);
 
             const project = {
                 name: 'project name',

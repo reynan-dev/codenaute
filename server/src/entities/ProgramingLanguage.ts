@@ -7,7 +7,7 @@ import { Project } from 'entities/Project';
 
 @Entity()
 @ObjectType()
-export class Language extends BaseModels {
+export class ProgramingLanguage extends BaseModels {
 	@Column()
 	@Field()
 	@IsString()

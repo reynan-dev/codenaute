@@ -21,14 +21,14 @@ import {
 } from 'resolvers/args/ProjectArgs';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-import { LanguageServices } from 'services/LanguageServices';
+import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 
 @Resolver(Project)
 export class ProjectResolver {
 	ProjectServices: ProjectServices = new ProjectServices();
-	LanguageServices: LanguageServices = new LanguageServices();
+	LanguageServices: ProgramingLanguageServices = new ProgramingLanguageServices();
 	FileProjectServices: FileProjectServices = new FileProjectServices();
 	MemberServices: MemberServices = new MemberServices();
 	@Authorized()

@@ -12,7 +12,7 @@ import {
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 import { BaseModels } from 'entities/base/BaseModels';
-import { Language } from 'entities/Language';
+import { ProgramingLanguage } from 'entities/ProgramingLanguage';
 import { FileProject } from 'entities/FileProject';
 import { SandpackTemplate } from 'entities/SandpackTemplate';
 import { Member } from 'entities/Member';
@@ -35,9 +35,9 @@ export class Project extends BaseModels {
 	files: FileProject[];
 
 	@Column('varchar')
-	@Field(() => Language)
-	@ManyToOne(() => Language, (language) => language.id, { eager: true })
-	language: Language;
+	@Field(() => ProgramingLanguage)
+	@ManyToOne(() => ProgramingLanguage, (language) => language.id, { eager: true })
+	language: ProgramingLanguage;
 
 	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
