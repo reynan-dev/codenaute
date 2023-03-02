@@ -3,6 +3,7 @@ import Input from 'components/Input';
 import { isFormComplete } from 'helpers/areEmptyValues';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
+import { twJoin } from 'tailwind-merge';
 
 interface UpdatePasswordFormProps {
 	state: {
@@ -30,7 +31,10 @@ export const UpdatePasswordForm = ({
 				event.preventDefault();
 				handlePasswordForm();
 			}}
-			className='flex w-full flex-col items-center space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5'
+			className={twJoin(
+				'flex w-full flex-col items-center space-y-5',
+				'lg:flex-row lg:space-y-0 lg:space-x-5'
+			)}
 		>
 			<div className='flex w-full flex-col space-y-5'>
 				<Input
@@ -41,7 +45,7 @@ export const UpdatePasswordForm = ({
 						state.setOldPassword(event.target.value);
 					}}
 				/>
-				<div className='flex flex-col space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5'>
+				<div className={twJoin('flex flex-col space-y-5', 'lg:flex-row lg:space-y-0 lg:space-x-5')}>
 					<Input
 						label='New password'
 						type='password'
@@ -66,7 +70,9 @@ export const UpdatePasswordForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={!isFormComplete([state.newPassword, state.oldPassword, state.confirmedNewPassword])}
+				disabled={
+					!isFormComplete([state.newPassword, state.oldPassword, state.confirmedNewPassword])
+				}
 				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
 			>

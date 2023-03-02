@@ -3,6 +3,7 @@ import Input from 'components/Input';
 import { areSameValues } from 'helpers/areSameValues';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
+import { twJoin } from 'tailwind-merge';
 
 interface UpdateInformationsFormProps {
 	state: {
@@ -18,7 +19,7 @@ interface UpdateInformationsFormProps {
 	initialInformations: {
 		email: string | undefined;
 		username: string | undefined;
-	}
+	};
 }
 
 export const UpdateInformationsForm = ({
@@ -33,7 +34,10 @@ export const UpdateInformationsForm = ({
 				event.preventDefault();
 				handleInformationsForm();
 			}}
-			className='flex w-full flex-col items-center space-y-5 lg:flex-row lg:items-start lg:space-y-0 lg:space-x-5'
+			className={twJoin(
+				'flex w-full flex-col items-center space-y-5',
+				'lg:flex-row lg:items-start lg:space-y-0 lg:space-x-5'
+			)}
 		>
 			<Input
 				label='Email'
@@ -56,7 +60,10 @@ export const UpdateInformationsForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={areSameValues(initialInformations, {email: state.newEmail, username: state.newUsername})}
+				disabled={areSameValues(initialInformations, {
+					email: state.newEmail,
+					username: state.newUsername
+				})}
 				className='mt-8 lg:mt-2.5 lg:mb-0'
 				isLoading={isLoading}
 			>
