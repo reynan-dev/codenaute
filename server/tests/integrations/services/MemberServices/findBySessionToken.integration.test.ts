@@ -1,6 +1,6 @@
 import { MemberServices } from 'services/MemberServices';
 
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { Database } from 'db';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
@@ -8,16 +8,16 @@ describe('Find a Member by session token integration test', () => {
 
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
+		await Database.start();
 	});
 
 	afterAll(async () => {
-		await closeDatabase();
+		await Database.stop();
 	});
 
 	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
+		for (const entity of Database.entityMetadatas) {
+			const repository = Database.repository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
