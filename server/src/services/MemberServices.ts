@@ -55,6 +55,22 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
+	async followMember(id: string, memberId: string) {
+		const member = (await this.findOneById(id)) as Member;
+		const memberToFollow = (await this.findOneById(memberId)) as Member;
+
+		if (!member || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+
+		if (member.id === memberToFollow.id) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+
+		if (member.following.includes(memberToFollow))
+			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
+
+		member.following.push(memberToFollow);
+
+		return await this.repository.save(member);
+	}
+
 	async updateUsername(id: string, username: string) {
 		return await this.update(id, { username });
 	}

@@ -17,12 +17,16 @@ export class ProjectServices extends BaseServices {
 		return this.repository.find({ where: { isPublic: true }, relations: ['members', 'favorites', 'files'] });
 	}
 
-	async findByMemberId(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { members: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
+	async findByOwner(memberId: string): Promise<Project[]> {
+		return this.repository.find({ where: { owner: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
+	}
+
+	async findByEditorId(memberId: string): Promise<Project[]> {
+		return this.repository.find({ where: { editors: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async findByFavorites(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { favorites: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
+		return this.repository.find({ where: { favoritedBy: { id: memberId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
 	async findByTemplate(templateId: string): Promise<Project[]> {
@@ -30,17 +34,17 @@ export class ProjectServices extends BaseServices {
 	}
 
 	async findByLanguage(languageId: string): Promise<Project[]> {
-		return this.repository.find({ where: { language: { id: languageId } }, relations: ['members', 'favorites', 'files']  });
+		return this.repository.find({ where: { programmingLanguage: { id: languageId } }, relations: ['members', 'favorites', 'files']  });
 	}
 
-	async favorite(memberId: string, projectId: string): Promise<Project> {
+	async addToFavorite(memberId: string, projectId: string): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
 		const member = await this.MemberServices.findById(memberId);
 
-		project.favorites = [...project.members, ...member];
+		project.favoritedBy = [...project.members, ...member];
 
 		return this.repository.save(project);
 	}
