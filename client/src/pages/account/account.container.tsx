@@ -5,7 +5,7 @@ import { useUpdatePassword } from 'api/profile/useUpdatePassword';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
 import { HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
-import { areEmptyValues } from 'helpers/areEmptyValues';
+import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { areSameValues } from 'helpers/areSameValues';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
@@ -126,7 +126,7 @@ export const AccountContainer = ({
 	};
 
 	const handlePasswordForm = async () => {
-		if (!areEmptyValues([newPassword, oldPassword, confirmedNewPassword])) {
+		if (!isContainingEmptyValue([newPassword, oldPassword, confirmedNewPassword])) {
 			toast.error('Please fill all relating password fields', { autoClose: 10000 });
 		}
 
