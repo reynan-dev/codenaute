@@ -12,7 +12,7 @@ export class ProgramingLanguage extends BaseModel {
 	@Field()
 	@IsString()
 	@Index({ unique: true })
-	language: string;
+	name: string;
 
 	@Column('varchar', { length: 15 })
 	@Field()
@@ -20,6 +20,6 @@ export class ProgramingLanguage extends BaseModel {
 	version: string;
 
 	@Field(() => Project)
-	@OneToMany(() => Project, (project) => project.language)
+	@OneToMany(() => Project, (project) => project.programmingLanguage)
 	projects: Project;
 }
