@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { areEmptyValues } from 'helpers/areEmptyValues';
+import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
@@ -71,7 +71,7 @@ export const UpdatePasswordForm = ({
 				size='small'
 				type='submit'
 				disabled={
-					!areEmptyValues([state.newPassword, state.oldPassword, state.confirmedNewPassword])
+					!isContainingEmptyValue([state.newPassword, state.oldPassword, state.confirmedNewPassword])
 				}
 				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
