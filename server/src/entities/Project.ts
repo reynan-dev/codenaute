@@ -3,6 +3,7 @@ import {
 	Column,
 	DeleteDateColumn,
 	Entity,
+	JoinColumn,
 	ManyToMany,
 	ManyToOne,
 	OneToMany,
@@ -29,9 +30,8 @@ export class Project extends BaseModels {
 	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
 	members: Member[];
 
-	@Column('text')
-	@Field(() => [FileProject], { nullable: true })
-	@OneToMany(() => FileProject, (file) => file.project)
+	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
+	@OneToMany(() => FileProject, (file) => file.project, { eager: true, nullable: true, cascade: true })
 	files: FileProject[];
 
 	@Column('varchar')
@@ -47,9 +47,10 @@ export class Project extends BaseModels {
 	@Column('varchar', { nullable: true })
 	@Field(() => FileProject, { nullable: true })
 	@OneToOne(() => FileProject, (file) => file.id, { eager: true })
+	@JoinColumn()
 	activeFile: FileProject;
 
-	@Field(() => [Member], { nullable: true })
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })
 	favorites: Member[];
 

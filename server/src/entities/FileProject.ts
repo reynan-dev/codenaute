@@ -18,8 +18,6 @@ export class FileProject extends BaseModels {
 	@IsString()
 	code: string;
 
-	@Column('varchar')
-	@Field(() => Project)
 	@ManyToOne(() => Project, (project) => project.files)
 	project: Project;
 

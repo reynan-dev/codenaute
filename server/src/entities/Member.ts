@@ -29,16 +29,16 @@ export class Member extends BaseModels {
 	@IsString()
 	hashedPassword: string;
 
-	@Field(() => [Session], { nullable: true })
-	@OneToMany(() => Session, (session) => session.member, { nullable: true, cascade: true })
+	@Field(() => [Session], { nullable: true, defaultValue: [] })
+	@OneToMany(() => Session, (session) => session.member, { nullable: true, cascade: true, })
 	sessions: Session[];
 
-	@Field(() => [Project], { nullable: true })
+	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Project, (project) => project.members, { nullable: true, cascade: true })
 	@JoinTable()
 	projects: Project[];
 
-	@Field(() => [Project], { nullable: true })
+	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Project, (project) => project.favorites, { nullable: true, cascade: true })
 	@JoinTable()
 	favorites: Project[];
