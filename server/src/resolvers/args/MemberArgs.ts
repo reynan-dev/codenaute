@@ -40,7 +40,7 @@ export class SignInArgs {
 @ArgsType()
 export class FindMemberByIdArgs {
 	@Field()
-	id: string;
+	memberId: string;
 }
 
 @ArgsType()
