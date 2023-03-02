@@ -11,22 +11,6 @@ describe('Finding files by a project id integration test', () => {
     const ProjectService = new ProjectServices();
     const ProgramingLanguageService = new ProgramingLanguageServices();
 
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
-	});
-
-	afterAll(async () => {
-		await closeDatabase();
-	});
-
-	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
-
 	describe('when project id is not valid', () => {
 		it('throw an empty array', async () => {
 			const projectId = 'invalidProjectId';
