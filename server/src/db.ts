@@ -64,8 +64,5 @@ export abstract class Database {
 	static repository(entity: string) {
 		return this._dataSource.getRepository(entity);
 	}
-
-
-
 }
 

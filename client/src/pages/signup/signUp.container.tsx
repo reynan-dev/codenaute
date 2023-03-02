@@ -5,14 +5,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSignUp } from 'api/signUp/useSignUp';
-import SignUpPage from 'pages/signUp/signUp.page';
-import SignUpForm from 'pages/signUp/components/SignUpForm';
+import { SignUpPage } from 'pages/signUp/signUp.page';
+import { SignUpForm } from 'pages/signUp/components/SignUpForm';
 
 export interface ErrorMessages {
 	[key: string]: string;
 }
 
-export default function SignUpContainer() {
+export const SignUpContainer = () => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -70,4 +70,4 @@ export default function SignUpContainer() {
 			signUpForm={<SignUpForm isLoading={loading} handleForm={handleForm} state={state} />}
 		/>
 	);
-}
+};
