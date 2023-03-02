@@ -34,14 +34,28 @@ export class Member extends BaseModel {
 	sessions: Session[];
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Project, (project) => project.members, { nullable: true, cascade: true })
+	@OneToMany(() => Project, (project) => project.owner, { nullable: true, cascade: true })
+	myProjects: Project[];
+
+	@Field(() => [Project], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Project, (project) => project.editors, { nullable: true, cascade: true })
 	@JoinTable()
 	projects: Project[];
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Project, (project) => project.favorites, { nullable: true, cascade: true })
+	@ManyToMany(() => Project, (project) => project.favoritedBy, { nullable: true, cascade: true })
 	@JoinTable()
-	favorites: Project[];
+	favoritesProjects: Project[];
+
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Member, (member) => member.following, { nullable: true, cascade: true })
+	@JoinTable()
+	followers: Member[];
+
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Member, (member) => member.followers, { nullable: true, cascade: true })
+	@JoinTable()
+	following: Member[];
 
 	@DeleteDateColumn()
 	@IsDate()

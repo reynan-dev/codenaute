@@ -16,5 +16,5 @@ export class SandpackTemplate extends BaseModel {
 
 	@Field(() => [Project], { nullable: true })
 	@OneToMany(() => Project, (project) => project.id, { eager: true })
-	projects: Project;
+	projects: Project[];
 }

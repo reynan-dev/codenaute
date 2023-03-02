@@ -25,10 +25,14 @@ export class Project extends BaseModel {
 	@IsString()
 	name: string;
 
-	@Column('text')
+	@ManyToOne(() => Member, (member) => member.projects, { eager: true })
+	@JoinColumn()
+	@Field(() => Member)
+	owner: Member;
+
 	@Field(() => [Member])
 	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
-	members: Member[];
+	editors: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
 	@OneToMany(() => FileProject, (file) => file.project, { eager: true, nullable: true, cascade: true })
@@ -37,7 +41,7 @@ export class Project extends BaseModel {
 	@Column('varchar')
 	@Field(() => ProgramingLanguage)
 	@ManyToOne(() => ProgramingLanguage, (language) => language.id, { eager: true })
-	language: ProgramingLanguage;
+	programmingLanguage: ProgramingLanguage;
 
 	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
@@ -51,8 +55,8 @@ export class Project extends BaseModel {
 	activeFile: FileProject;
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })
-	favorites: Member[];
+	@ManyToMany(() => Member, (member) => member.favoritesProjects, { eager: true })
+	favoritedBy: Member[];
 
 	@Column('boolean', { default: false })
 	@Field()
