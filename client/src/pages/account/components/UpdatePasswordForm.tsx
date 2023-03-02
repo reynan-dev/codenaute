@@ -1,5 +1,6 @@
 import Button from 'components/Button';
 import Input from 'components/Input';
+import { isFormComplete } from 'helpers/areEmptyValues';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
 
@@ -13,7 +14,6 @@ interface UpdatePasswordFormProps {
 		setNewPassword: React.Dispatch<React.SetStateAction<string>>;
 		confirmedNewPassword: string;
 		setConfirmedNewPassword: React.Dispatch<React.SetStateAction<string>>;
-		isPasswordFormComplete: boolean;
 	};
 	isLoading: boolean;
 	handlePasswordForm: () => Promise<void>;
@@ -66,7 +66,7 @@ export const UpdatePasswordForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={!state.isPasswordFormComplete}
+				disabled={!isFormComplete([state.newPassword, state.oldPassword, state.confirmedNewPassword])}
 				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
 			>

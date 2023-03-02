@@ -3,13 +3,15 @@ import { useUpdateEmail } from 'api/profile/useUpdateEmail';
 import { useUpdatePassword } from 'api/profile/useUpdatePassword';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
+import { isFormComplete } from 'helpers/areEmptyValues';
+import { areSameValues } from 'helpers/areSameValues';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { AccountPage } from 'pages/account/account.page';
 import { UpdateInformationsForm } from 'pages/account/components/UpdateInformationsForm';
 import { UpdatePasswordForm } from 'pages/account/components/UpdatePasswordForm';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export interface AccountContainerProps {
@@ -25,27 +27,24 @@ export const AccountContainer = ({
 	profileData,
 	refetchProfile
 }: AccountContainerProps) => {
-	const [email, setEmail] = useState(profileData?.profile.email);
-	const [username, setUsername] = useState(profileData?.profile.username);
+	const initialEmail = profileData?.profile.email;
+	const initialUsername = profileData?.profile.username;
+
+	const [newEmail, setNewEmail] = useState(initialEmail);
+	const [newUsername, setNewUsername] = useState(initialUsername);
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmedNewPassword, setConfirmedNewPassword] = useState('');
-
-	const [hasEmailChanged, setHasEmailChanged] = useState(false);
-	const [hasUsernameChanged, setHasUsernameChanged] = useState(false);
-	const [isPasswordFormComplete, setIsPasswordFormComplete] = useState(false);
 
 	const [formErrorMessages, setFormErrorMessages] = useState<ErrorMessages | null>(null);
 
 	const informationsFormState = {
 		formErrorMessages,
 		setFormErrorMessages,
-		email,
-		setEmail,
-		username,
-		setUsername,
-		hasEmailChanged,
-		hasUsernameChanged
+		newEmail,
+		setNewEmail,
+		newUsername,
+		setNewUsername
 	};
 
 	const passwordFormState = {
@@ -57,49 +56,23 @@ export const AccountContainer = ({
 		setNewPassword,
 		confirmedNewPassword,
 		setConfirmedNewPassword,
-		isPasswordFormComplete
 	};
 
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 	const { updatePassword, loading: isUpdatePasswordLoading } = useUpdatePassword();
 
-	useEffect(() => {
-		const initialEmail = profileData?.profile.email;
-		const initialUsername = profileData?.profile.username;
-
-		const checkEmailUpdate = (emailState: string | undefined) => {
-			if (emailState && emailState === initialEmail) return setHasEmailChanged(false);
-			setHasEmailChanged(true);
-		};
-
-		const checkUsernameUpdate = (usernameState: string | undefined) => {
-			if (usernameState && usernameState === initialUsername) return setHasUsernameChanged(false);
-			setHasUsernameChanged(true);
-		};
-
-		checkEmailUpdate(email);
-		checkUsernameUpdate(username);
-	}, [email, profileData?.profile.email, profileData?.profile.username, username]);
-
-	useEffect(() => {
-		if (newPassword === '' || confirmedNewPassword === '' || oldPassword === '') {
-			return setIsPasswordFormComplete(false);
-		}
-		setIsPasswordFormComplete(true);
-	}, [newPassword, confirmedNewPassword, oldPassword]);
-
 	const submitInformationsForm = async () => {
-		if (email && username) {
+		if (newEmail && newUsername) {
 			try {
-				if (hasEmailChanged) {
+				if (!areSameValues({ email: initialEmail }, { email: newEmail })) {
 					await updateEmail({
-						variables: { email }
+						variables: { email: newEmail }
 					});
 				}
-				if (hasUsernameChanged) {
+				if (!areSameValues({ username: initialUsername }, { username: newUsername })) {
 					await updateUsername({
-						variables: { username }
+						variables: { username: newUsername }
 					});
 				}
 				toast.success(`Informations successfully saved`);
@@ -112,7 +85,7 @@ export const AccountContainer = ({
 	};
 
 	const handleInformationsForm = async () => {
-		const formErrors = getFormErrors({ username, email });
+		const formErrors = getFormErrors({ username: newUsername, email: newEmail });
 
 		if (formErrors) {
 			setFormErrorMessages(formErrors);
@@ -140,7 +113,15 @@ export const AccountContainer = ({
 	};
 
 	const handlePasswordForm = async () => {
-		const formErrors = getFormErrors({ password: newPassword, confirmedPassword: confirmedNewPassword });
+
+		if(!isFormComplete([newPassword, oldPassword, confirmedNewPassword])) {
+			toast.error("Please fill all relating password fields", { autoClose: 10000 });
+		}
+
+		const formErrors = getFormErrors({
+			password: newPassword,
+			confirmedPassword: confirmedNewPassword
+		});
 
 		if (formErrors) {
 			setFormErrorMessages(formErrors);
@@ -157,6 +138,7 @@ export const AccountContainer = ({
 					isLoading={isUpdateEmailLoading || isUpdateUsernameLoading}
 					state={informationsFormState}
 					handleInformationsForm={handleInformationsForm}
+					initialInformations={{ email: initialEmail, username: initialUsername }}
 				/>
 			}
 			updatePasswordForm={
