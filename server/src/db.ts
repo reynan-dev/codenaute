@@ -1,4 +1,4 @@
-import { DataSource, LoggerOptions } from 'typeorm';
+import { DataSource, LoggerOptions, ObjectLiteral, Repository } from 'typeorm';
 
 export abstract class Database {
 	private static readonly DB_PORT = process.env.DB_PORT as number | undefined;
@@ -41,15 +41,15 @@ export abstract class Database {
 		return this._dataSource.entityMetadatas;
 	}
 
-	private static async initialize() {
+	private static async initialize(): Promise<DataSource>  {
 		return await this._dataSource.initialize();
 	}
 
-	private static async destroy() {
+	private static async destroy(): Promise<void> {
 		return await this._dataSource.destroy();
 	}
 
-	static async start() {
+	static async start(): Promise<DataSource | void> {
 		try {
 			await this.initialize();
 			console.info('🎉 Successfully connected to database');
@@ -59,7 +59,7 @@ export abstract class Database {
 		}
 	}
 
-	static async stop() {
+	static async stop(): Promise<DataSource | void>  {
 		try {
 			await this.destroy();
 			console.info('💀 Successfully disconnected to database');
@@ -69,7 +69,7 @@ export abstract class Database {
 		}
 	}
 
-	static repository(entity: string) {
+	static repository(entity: string): Repository<ObjectLiteral> {
 		return this._dataSource.getRepository(entity);
 	}
 }
