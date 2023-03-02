@@ -12,7 +12,7 @@ export class Language extends BaseModels {
 	@Field()
 	@IsString()
 	@Index({ unique: true })
-	name: string;
+	language: string;
 
 	@Column('varchar', { length: 15 })
 	@Field()
