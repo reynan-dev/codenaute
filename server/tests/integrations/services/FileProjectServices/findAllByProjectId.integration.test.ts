@@ -3,7 +3,7 @@ import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
 
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { Database } from 'db';
 
 describe('Finding files by a project id integration test', () => {
 	const FileProjectService = new FileProjectServices();
@@ -13,23 +13,23 @@ describe('Finding files by a project id integration test', () => {
 
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
+		await Database.start();
 	});
 
 	afterAll(async () => {
-		await closeDatabase();
+		await Database.stop();
 	});
 
 	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
+		for (const entity of Database.entityMetadatas()) {
+			const repository = Database.repository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
 
 	describe('when project id is not valid', () => {
 		it('throw an empty array', async () => {
-            const projectId = 'invalidProjectId';
+			const projectId = 'invalidProjectId';
 
 			expect(() => FileProjectService.findAllByProjectId(projectId)).toHaveLength(0);
 		});
@@ -37,13 +37,13 @@ describe('Finding files by a project id integration test', () => {
 
 	describe('when project id is valid', () => {
 		it('return an array of files', async () => {
-            const member = {
-                username: 'username',
-                email: 'email',
-                password: 'password',
-            }
+			const member = {
+				username: 'username',
+				email: 'email',
+				password: 'password'
+			};
 
-            const newMember = await MemberService.signUp(member.username, member.email, member.password);
+			const newMember = await MemberService.signUp(member.username, member.email, member.password);
 
             const language = {
                 name: 'language name',
@@ -60,7 +60,7 @@ describe('Finding files by a project id integration test', () => {
                 isPublic: false
             };
 
-            const newProject = await ProjectService.create(project);
+			const newProject = await ProjectService.create(project);
 
 			const file = {
                 path: 'path',
@@ -71,14 +71,11 @@ describe('Finding files by a project id integration test', () => {
 
 			const newFile = await FileProjectService.create(file);
 
-            const searchResult = await FileProjectService.findById(newFile.id);
+			const searchResult = await FileProjectService.findById(newFile.id);
 
-            expect(await FileProjectService.findAllByProjectId(newProject.id))
-            .toHaveLength(1);
+			expect(await FileProjectService.findAllByProjectId(newProject.id)).toHaveLength(1);
 
-			expect(await FileProjectService.findAllByProjectId(newProject.id))
-            .toEqual([searchResult])
-
+			expect(await FileProjectService.findAllByProjectId(newProject.id)).toEqual([searchResult]);
 		});
 	});
 });

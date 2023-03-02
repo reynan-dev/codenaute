@@ -1,4 +1,4 @@
-import { closeDatabase, dataSource, startDatabase } from 'db';
+import { Database } from 'db';
 import { MemberServices } from 'services/MemberServices';
 
 describe('FindOneBy integration test', () => {
@@ -6,16 +6,16 @@ describe('FindOneBy integration test', () => {
 
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
+		await Database.start();
 	});
 
 	afterAll(async () => {
-		await closeDatabase();
+		await Database.stop();
 	});
 
 	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
+		for (const entity of Database.entityMetadatas()) {
+			const repository = Database.repository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
