@@ -6,22 +6,6 @@ import { randomBytes } from 'crypto';
 describe('Find a Member by session token integration test', () => {
 	const MemberService = new MemberServices();
 
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await Database.start();
-	});
-
-	afterAll(async () => {
-		await Database.stop();
-	});
-
-	beforeEach(async () => {
-		for (const entity of Database.entityMetadatas()) {
-			const repository = Database.repository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
-
 	describe('when session does not exists', () => {
 		it('return an element nullable', async () => {
 			expect(await MemberService.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();

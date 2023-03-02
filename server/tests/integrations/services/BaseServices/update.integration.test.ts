@@ -6,22 +6,6 @@ import { v4 as uuid } from 'uuid';
 describe('Update integration test', () => {
 	const MemberService = new MemberServices();
 
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await Database.start();
-	});
-
-	afterAll(async () => {
-		await Database.stop();
-	});
-
-	beforeEach(async () => {
-		for (const entity of Database.entityMetadatas()) {
-			const repository = Database.repository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
-
 	describe('when update a invalid element', () => {
 		describe('when data is empty', () => {
 			it('throw an error empty field', async () => {
