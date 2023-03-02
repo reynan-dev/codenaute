@@ -38,7 +38,9 @@ describe('Find a Member by session token integration test', () => {
 
 			const login = await MemberService.signIn(email, password);
 
-			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(member);
+			const searchResult = await MemberService.findOneById(member.id);
+
+			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(searchResult);
 		});
 	});
 });
