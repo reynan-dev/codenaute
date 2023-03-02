@@ -17,7 +17,7 @@ describe('Update a Member password integration test', () => {
 	});
 
 	beforeEach(async () => {
-		for (const entity of Database.entityMetadatas) {
+		for (const entity of Database.entityMetadatas()) {
 			const repository = Database.repository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}

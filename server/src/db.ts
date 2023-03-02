@@ -29,7 +29,9 @@ export abstract class Database {
 			synchronize: this.synchronize
 		});
 
-	static entityMetadatas = this._dataSource.entityMetadatas;
+	static entityMetadatas() {
+		return this._dataSource.entityMetadatas;
+	}
 
 	private static async initialize() {
 		return await this._dataSource.initialize();
