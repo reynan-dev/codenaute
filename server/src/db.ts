@@ -12,7 +12,7 @@ const dataSource = new DataSource({
 		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD,
 	database:
 		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE,
-	entities: [`${__dirname}/**/entities/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
+	entities: [`${__dirname}/**/models/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
 	migrations: [`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`],
 	logging: process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'],
 	synchronize: true
