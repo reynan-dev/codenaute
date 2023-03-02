@@ -140,12 +140,12 @@ export const AccountContainer = ({
 	};
 
 	const handlePasswordForm = async () => {
-		// const formErrors = getFormErrors({ username, email });
+		const formErrors = getFormErrors({ password: newPassword, confirmedPassword: confirmedNewPassword });
 
-		// if (formErrors) {
-		// 	setFormErrorMessages(formErrors);
-		// 	return;
-		// }
+		if (formErrors) {
+			setFormErrorMessages(formErrors);
+			return;
+		}
 
 		await submitPasswordForm();
 	};
