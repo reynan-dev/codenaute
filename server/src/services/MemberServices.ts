@@ -3,7 +3,6 @@ import { compareSync, hashSync } from 'bcryptjs';
 import { Member } from 'models/Member';
 import { BaseServices } from 'services/base/BaseServices';
 import { SessionServices } from 'services/SessionServices';
-import { ObjectLiteral } from 'typeorm';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
@@ -40,7 +39,7 @@ export class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {sessions: { token }}, relations: ['projects', 'favorites'] });
+		const member = await this.repository.findOne({ where: {sessions: { token }}, relations: ['projects', 'favoritesProjects'] });
 
 		if (!member) return null;
 
@@ -48,7 +47,7 @@ export class MemberServices extends BaseServices {
 	}
 
 	async findOneById (id: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {id: id}, relations: ['projects', 'favorites'] });
+		const member = await this.repository.findOne({ where: {id: id}, relations: ['projects', 'favoritesProjects'] });
 
 		if (!member) return null;
 
