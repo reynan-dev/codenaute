@@ -55,7 +55,7 @@ export const AccountContainer = ({
 		newPassword,
 		setNewPassword,
 		confirmedNewPassword,
-		setConfirmedNewPassword,
+		setConfirmedNewPassword
 	};
 
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
@@ -113,9 +113,8 @@ export const AccountContainer = ({
 	};
 
 	const handlePasswordForm = async () => {
-
-		if(!isFormComplete([newPassword, oldPassword, confirmedNewPassword])) {
-			toast.error("Please fill all relating password fields", { autoClose: 10000 });
+		if (!isFormComplete([newPassword, oldPassword, confirmedNewPassword])) {
+			toast.error('Please fill all relating password fields', { autoClose: 10000 });
 		}
 
 		const formErrors = getFormErrors({
