@@ -1,5 +1,5 @@
 import { BaseServices } from 'services/base/BaseServices';
-import { SandpackTemplate } from 'entities/SandpackTemplate';
+import { SandpackTemplate } from 'models/SandpackTemplate';
 
 export class SandpackTemplateServices extends BaseServices {
 	constructor() {

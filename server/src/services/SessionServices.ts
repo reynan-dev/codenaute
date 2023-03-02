@@ -1,5 +1,5 @@
-import { Member } from 'entities/Member';
-import { Session } from 'entities/Session';
+import { Member } from 'models/Member';
+import { Session } from 'models/Session';
 import { BaseServices } from 'services/base/BaseServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';

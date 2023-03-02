@@ -39,6 +39,11 @@ export enum ErrorMessages {
 	FILE_NOT_FOUND = 'File not found',
 
 	// Validation SandpackTemplate
-	SANDPACK_TEMPLATE_ALREADY_EXISTS = 'Sandpack template already exists',
-	SANDPACK_TEMPLATE_NOT_FOUND = 'Sandpack template not found'
+	SANDPACK_TEMPLATE_ALREADY_EXISTS = 'Code template already exists',
+	SANDPACK_TEMPLATE_NOT_FOUND = 'Code template not found',
+
+	// Validation Social
+	ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE = 'Already following member',
+	CANNOT_FOLLOW_SELF_ERROR_MESSAGE = 'Cannot follow self',
+
 }

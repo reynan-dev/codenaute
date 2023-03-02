@@ -18,7 +18,7 @@ export class createFileProjectArgs {
 	path: string;
 
 	@Field()
-	code: string;
+	content: string;
 
 	@Field()
 	projectId: string;
@@ -42,7 +42,7 @@ export class updateCodeFileProjectArgs {
 	fileId: string;
 
 	@Field()
-	code: string;
+	content: string;
 }
 
 @ArgsType()

@@ -1,7 +1,7 @@
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-import { Project } from 'entities/Project';
-import { Member } from 'entities/Member';
+import { Project } from 'models/Project';
+import { Member } from 'models/Member';
 
 import { BaseServices } from 'services/base/BaseServices';
 import { MemberServices } from 'services/MemberServices';
@@ -14,48 +14,37 @@ export class ProjectServices extends BaseServices {
 	}
 
 	async findAllPublic(): Promise<Project[]> {
-		return this.repository.find({
-			where: { isPublic: true },
-			relations: ['members', 'favorites', 'files']
-		});
+		return this.repository.find({ where: { isPublic: true }, relations: ['owner', 'editors', 'favoritedBy', 'files'] });
 	}
 
-	async findByMemberId(memberId: string): Promise<Project[]> {
-		return this.repository.find({
-			where: { members: { id: memberId } },
-			relations: ['members', 'favorites', 'files']
-		});
+	async findByOwner(memberId: string): Promise<Project[]> {
+		return this.repository.find({ where: { owner: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+	}
+
+	async findByEditorId(memberId: string): Promise<Project[]> {
+		return this.repository.find({ where: { editors: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
 	}
 
 	async findByFavorites(memberId: string): Promise<Project[]> {
-		return this.repository.find({
-			where: { favorites: { id: memberId } },
-			relations: ['members', 'favorites', 'files']
-		});
+		return this.repository.find({ where: { favoritedBy: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
 	}
 
 	async findByTemplate(templateId: string): Promise<Project[]> {
-		return this.repository.find({
-			where: { template: { id: templateId } },
-			relations: ['members', 'favorites', 'files']
-		});
+		return this.repository.find({ where: { template: { id: templateId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
 	}
 
 	async findByLanguage(languageId: string): Promise<Project[]> {
-		return this.repository.find({
-			where: { language: { id: languageId } },
-			relations: ['members', 'favorites', 'files']
-		});
+		return this.repository.find({ where: { programmingLanguage: { id: languageId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
 	}
 
-	async favorite(memberId: string, projectId: string): Promise<Project> {
+	async addToFavorite(memberId: string, projectId: string): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
 		const member = await this.MemberServices.findById(memberId);
 
-		project.favorites = [...project.members, ...member];
+		project.favoritedBy = [...project.members, ...member];
 
 		return this.repository.save(project);
 	}

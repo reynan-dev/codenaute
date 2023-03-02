@@ -11,24 +11,28 @@ import {
 } from 'typeorm';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
-import { BaseModels } from 'entities/base/BaseModels';
-import { Language } from 'entities/Language';
-import { FileProject } from 'entities/FileProject';
-import { SandpackTemplate } from 'entities/SandpackTemplate';
-import { Member } from 'entities/Member';
+import { BaseModel } from 'models/base/BaseModel';
+import { ProgramingLanguage } from 'models/ProgramingLanguage';
+import { FileProject } from 'models/FileProject';
+import { SandpackTemplate } from 'models/SandpackTemplate';
+import { Member } from 'models/Member';
 
 @Entity()
 @ObjectType()
-export class Project extends BaseModels {
+export class Project extends BaseModel {
 	@Column()
 	@Field()
 	@IsString()
 	name: string;
 
-	@Column('text')
+	@ManyToOne(() => Member, (member) => member.projects, { eager: true })
+	@JoinColumn()
+	@Field(() => Member)
+	owner: Member;
+
 	@Field(() => [Member])
 	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
-	members: Member[];
+	editors: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
 	@OneToMany(() => FileProject, (file) => file.project, {
@@ -39,9 +43,9 @@ export class Project extends BaseModels {
 	files: FileProject[];
 
 	@Column('varchar')
-	@Field(() => Language)
-	@ManyToOne(() => Language, (language) => language.id, { eager: true })
-	language: Language;
+	@Field(() => ProgramingLanguage)
+	@ManyToOne(() => ProgramingLanguage, (language) => language.id, { eager: true })
+	programmingLanguage: ProgramingLanguage;
 
 	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
@@ -55,8 +59,8 @@ export class Project extends BaseModels {
 	activeFile: FileProject;
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favorites, { eager: true })
-	favorites: Member[];
+	@ManyToMany(() => Member, (member) => member.favoritesProjects, { eager: true })
+	favoritedBy: Member[];
 
 	@Column('boolean', { default: false })
 	@Field()

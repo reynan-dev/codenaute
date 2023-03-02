@@ -1,5 +1,5 @@
 import { BaseServices } from 'services/base/BaseServices';
-import { FileProject } from 'entities/FileProject';
+import { FileProject } from 'models/FileProject';
 
 export class FileProjectServices extends BaseServices {
 	constructor() {

@@ -2,17 +2,17 @@ import { IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
-import { BaseModels } from 'entities/base/BaseModels';
-import { Project } from 'entities/Project';
+import { BaseModel } from 'models/base/BaseModel';
+import { Project } from 'models/Project';
 
 @Entity()
 @ObjectType()
-export class Language extends BaseModels {
+export class ProgramingLanguage extends BaseModel {
 	@Column()
 	@Field()
 	@IsString()
 	@Index({ unique: true })
-	language: string;
+	name: string;
 
 	@Column('varchar', { length: 15 })
 	@Field()
@@ -20,6 +20,6 @@ export class Language extends BaseModels {
 	version: string;
 
 	@Field(() => Project)
-	@OneToMany(() => Project, (project) => project.language)
+	@OneToMany(() => Project, (project) => project.programmingLanguage)
 	projects: Project;
 }
