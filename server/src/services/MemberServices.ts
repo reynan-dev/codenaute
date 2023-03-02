@@ -40,15 +40,21 @@ export class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {sessions: { token }}, relations: ['projects', 'favorites'] });
+		const member = await this.repository.findOne({
+			where: { sessions: { token } },
+			relations: ['projects', 'favorites']
+		});
 
 		if (!member) return null;
 
 		return member;
 	}
 
-	async findOneById (id: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {id: id}, relations: ['projects', 'favorites'] });
+	async findOneById(id: string): Promise<Member | null> {
+		const member = await this.repository.findOne({
+			where: { id: id },
+			relations: ['projects', 'favorites']
+		});
 
 		if (!member) return null;
 

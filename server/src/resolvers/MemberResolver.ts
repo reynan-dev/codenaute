@@ -48,7 +48,7 @@ export class MemberResolver {
 
 		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
 
-		return await this.MemberServices.findOneById(newMember.id)
+		return await this.MemberServices.findOneById(newMember.id);
 	}
 
 	@Authorized()

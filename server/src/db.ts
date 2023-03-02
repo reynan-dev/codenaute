@@ -5,29 +5,37 @@ export abstract class Database {
 	private static readonly DB_TEST_PORT = process.env.DB_TEST_PORT as number | undefined;
 
 	private static readonly type = 'postgres';
-	private static readonly host = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_HOST : process.env.DB_HOST;
+	private static readonly host =
+		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_HOST : process.env.DB_HOST;
 	private static readonly port = process.env.NODE_ENV === 'test' ? this.DB_TEST_PORT : this.DB_PORT;
-	private static readonly username = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_USER : process.env.DB_USER;
-	private static readonly password = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
-	private static readonly database = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
-	private static readonly entities = [`${__dirname}/**/entities/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`];
-	private static readonly migrations = [`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`];
-	private static readonly logging: LoggerOptions | undefined = process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'];
+	private static readonly username =
+		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_USER : process.env.DB_USER;
+	private static readonly password =
+		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
+	private static readonly database =
+		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
+	private static readonly entities = [
+		`${__dirname}/**/entities/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`
+	];
+	private static readonly migrations = [
+		`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`
+	];
+	private static readonly logging: LoggerOptions | undefined =
+		process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'];
 	private static readonly synchronize: boolean = true;
 
-
 	private static _dataSource: DataSource = new DataSource({
-			type: this.type,
-			host: this.host,
-			port: this.port,
-			username: this.username,
-			password: this.password,
-			database: this.database,
-			entities: this.entities,
-			migrations: this.migrations,
-			logging: this.logging,
-			synchronize: this.synchronize
-		});
+		type: this.type,
+		host: this.host,
+		port: this.port,
+		username: this.username,
+		password: this.password,
+		database: this.database,
+		entities: this.entities,
+		migrations: this.migrations,
+		logging: this.logging,
+		synchronize: this.synchronize
+	});
 
 	static entityMetadatas() {
 		return this._dataSource.entityMetadatas;
@@ -64,8 +72,4 @@ export abstract class Database {
 	static repository(entity: string) {
 		return this._dataSource.getRepository(entity);
 	}
-
-
-
 }
-
