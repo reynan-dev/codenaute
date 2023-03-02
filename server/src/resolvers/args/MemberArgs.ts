@@ -38,6 +38,12 @@ export class SignInArgs {
 }
 
 @ArgsType()
+export class FindMemberByIdArgs {
+	@Field()
+	id: string;
+}
+
+@ArgsType()
 export class UpdateUsernameArgs {
 	@Field()
 	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })

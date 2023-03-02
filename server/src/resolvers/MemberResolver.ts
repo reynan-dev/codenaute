@@ -7,6 +7,7 @@ import {
 	DeleteAccountArgs,
 	SignInArgs,
 	SignUpArgs,
+	FindMemberByIdArgs,
 	UpdateEmailArgs,
 	UpdatePasswordArgs,
 	UpdateUsernameArgs
@@ -36,7 +37,7 @@ export class MemberResolver {
 	@Mutation(() => Member)
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs
-	): Promise<Member> {
+	): Promise<Member | null> {
 		const existingEmail = (await this.MemberServices.findOneBy({ email })) as Member;
 		const existingUsername = (await this.MemberServices.findOneBy({ username })) as Member;
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
@@ -45,13 +46,21 @@ export class MemberResolver {
 		if (confirmedPassword !== password)
 			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
-		return this.MemberServices.signUp(username, email, password);
+		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
+
+		return await this.MemberServices.findOneById(newMember.id)
 	}
 
 	@Authorized()
 	@Mutation(() => Boolean)
 	async signOut(@Ctx() context: GlobalContext): Promise<any> {
 		return await this.MemberServices.signOut(Cookie.getSessionToken(context) as string);
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async findMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
+		return await this.MemberServices.findOneById(memberId);
 	}
 
 	@Authorized()
