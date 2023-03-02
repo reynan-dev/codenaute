@@ -18,7 +18,7 @@ const dataSource = new DataSource({
 	synchronize: true
 });
 
-const startDatabase = async function () {
+const startDatabase = async () => {
 	try {
 		await dataSource.initialize();
 		console.info('🎉 Successfully connected to database');
@@ -28,7 +28,7 @@ const startDatabase = async function () {
 	}
 };
 
-const closeDatabase = async function () {
+const closeDatabase = async () => {
 	try {
 		await dataSource.destroy();
 		console.info('💀 Successfully disconnected to database');

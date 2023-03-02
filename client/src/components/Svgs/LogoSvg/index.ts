@@ -1,3 +1,3 @@
-import LogoSvg from './LogoSvg';
+import { LogoSvg } from './LogoSvg';
 
 export default LogoSvg;

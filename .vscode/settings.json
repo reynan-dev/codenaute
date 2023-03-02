@@ -18,5 +18,9 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"dotenv.enableAutocloaking": false
+	"dotenv.enableAutocloaking": false,
+	"tailwindCSS.experimental.classRegex": [
+		["twJoin\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+		["twMerge\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	]
 }
