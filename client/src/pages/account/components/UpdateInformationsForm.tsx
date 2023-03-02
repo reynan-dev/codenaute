@@ -64,7 +64,7 @@ export const UpdateInformationsForm = ({
 					email: state.newEmail,
 					username: state.newUsername
 				})}
-				className='mt-8 lg:mt-2.5 lg:mb-0'
+				className='mt-8 ml-5 lg:mt-2.5 lg:mb-0'
 				isLoading={isLoading}
 			>
 				<span className='flex items-center space-x-3'>
