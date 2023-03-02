@@ -10,10 +10,11 @@ export class RoutingToken {
 		this.email = email;
 	}
 
-	@PrimaryColumn('varchar', { length: 32 })
+	@PrimaryColumn('varchar', { length: 32, unique: true })
 	@IsHexadecimal()
 	token: string;
 
+	@Column('varchar', { nullable: true })
 	@Field()
 	@IsEmail()
 	email: string;
