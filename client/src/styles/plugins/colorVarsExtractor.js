@@ -1,5 +1,5 @@
-module.exports = function ({ addBase, theme }) {
-	function extractColorVars(colorObj, colorGroup = '') {
+module.exports = ({ addBase, theme }) => {
+	const extractColorVars = (colorObj, colorGroup = '') => {
 		return Object.keys(colorObj).reduce((vars, colorKey) => {
 			const value = colorObj[colorKey];
 			const cssVariable =
@@ -12,7 +12,7 @@ module.exports = function ({ addBase, theme }) {
 
 			return { ...vars, ...newVars };
 		}, {});
-	}
+	};
 
 	addBase({
 		':root': extractColorVars(theme('colors'))

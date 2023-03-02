@@ -41,13 +41,13 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
 	const style = useMemo(() => {
 		const primaryStyle = twMerge(
-			'relative inline-flex min-w-56 items-center justify-center',
+			'relative inline-flex items-center justify-center',
 			'border-primary bg-primary rounded-full border-2 border-solid font-semibold text-black text-xl',
 			'transition ease-in-out duration-150',
 			'hover:bg-primary-100 hover:border-primary-100',
-			'disabled:border-dark-300 disabled:bg-dark-300',
-			isLoading && 'disabled:border-primary-200 disabled:bg-primary-200',
-			size === 'small' ? 'py-2 px-4 text-lg' : 'py-4 px-4 text-xl'
+			'disabled:border-dark-300 disabled:bg-dark-300 disabled:cursor-not-allowed',
+			isLoading && 'disabled:border-primary-200 disabled:bg-primary-200 disabled:cursor-wait',
+			size === 'small' ? 'py-2 px-8 text-base w-fit' : 'py-4 px-4 text-xl min-w-56'
 		);
 		if (designType === 'primary') return primaryStyle;
 		const secondaryStyle = twMerge(

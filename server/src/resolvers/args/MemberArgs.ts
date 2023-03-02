@@ -65,7 +65,7 @@ export class UpdatePasswordArgs {
 
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	confirmPassword: string;
+	confirmedNewPassword: string;
 
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })

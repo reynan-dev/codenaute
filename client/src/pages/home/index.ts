@@ -1,3 +1,3 @@
-import HomeContainer from './home.container';
+import { HomeContainer } from './home.container';
 
 export const Home = HomeContainer;

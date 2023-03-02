@@ -13,6 +13,5 @@ coverage
 # Ignore test coverage reports:
 **/coverage/**
 
-
 # Ignore .pnpm-store files:
 .pnpm-store/**

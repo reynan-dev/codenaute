@@ -88,9 +88,9 @@ export class MemberResolver {
 		@Args() { email }: UpdateEmailArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const email_registered = (await this.MemberServices.findOneBy({ email })) as Member;
+		const existingEmail = (await this.MemberServices.findOneBy({ email })) as Member;
 
-		if (email_registered) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
 		return await this.MemberServices.updateEmail(context.user?.id as string, email);
 	}
@@ -98,7 +98,7 @@ export class MemberResolver {
 	@Authorized()
 	@Mutation(() => Member)
 	async updatePassword(
-		@Args() { newPassword, confirmPassword, oldPassword }: UpdatePasswordArgs,
+		@Args() { newPassword, confirmedNewPassword, oldPassword }: UpdatePasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
 		const user = (await this.MemberServices.findById(context.user?.id as string)) as Member;
@@ -106,7 +106,7 @@ export class MemberResolver {
 		if (!compareSync(oldPassword, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 
-		return this.MemberServices.updatePassword(user.email, newPassword, confirmPassword);
+		return this.MemberServices.updatePassword(user.email, newPassword, confirmedNewPassword);
 	}
 
 	@Authorized()
