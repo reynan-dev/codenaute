@@ -46,7 +46,7 @@ describe('Finding files by a project id integration test', () => {
             const newMember = await MemberService.signUp(member.username, member.email, member.password);
 
             const language = {
-                language: 'language name',
+                name: 'language name',
                 version: '3.10',
             }
 
@@ -54,8 +54,8 @@ describe('Finding files by a project id integration test', () => {
 
             const project = {
                 name: 'project name',
-                members: [newMember],
-                language: newLanguage,
+                owner: newMember,
+                programmingLanguage: newLanguage,
                 isTemplate: false,
                 isPublic: false
             };
@@ -64,7 +64,7 @@ describe('Finding files by a project id integration test', () => {
 
 			const file = {
                 path: 'path',
-                code: 'code',
+                content: 'code',
                 project: newProject,
                 isHidden: false
             }
