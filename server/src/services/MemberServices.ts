@@ -73,12 +73,12 @@ export class MemberServices extends BaseServices {
 		return await this.update(id, { isValidEmail: true });
 	}
 
-	async updatePassword(email: string, newPassword: string, confirmPasssword: string) {
+	async updatePassword(email: string, newPassword: string, confirmedNewPassword: string) {
 		const user = (await this.findOneBy({ email })) as Member;
 
 		if (!user) throw Error(ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE);
 
-		if (newPassword !== confirmPasssword)
+		if (newPassword !== confirmedNewPassword)
 			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
 		const hashedPassword = hashSync(newPassword, 10);
