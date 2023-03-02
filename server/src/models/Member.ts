@@ -48,7 +48,7 @@ export class Member extends BaseModel {
 	favoritesProjects: Project[];
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.following, { nullable: true, cascade: true })
+	@ManyToMany(() => Member, (member) => member.following, { nullable: true })
 	@JoinTable()
 	followers: Member[];
 
