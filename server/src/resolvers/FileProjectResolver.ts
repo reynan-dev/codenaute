@@ -37,7 +37,7 @@ export class FileProjectResolver {
 	@Authorized()
 	@Mutation(() => FileProject)
 	async createFileProject(
-		@Args() { path, code, projectId, isHidden }: createFileProjectArgs
+		@Args() { path, content, projectId, isHidden }: createFileProjectArgs
 	): Promise<FileProject> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -45,7 +45,7 @@ export class FileProjectResolver {
 
 		return this.FileProjectServices.create({
 			path: path,
-			code: code,
+			content: content,
 			project: project,
 			isHidden: isHidden
 		});
@@ -66,13 +66,13 @@ export class FileProjectResolver {
 	@Authorized()
 	@Mutation(() => FileProject)
 	async updateCodeFileProject(
-		@Args() { fileId, code }: updateCodeFileProjectArgs
+		@Args() { fileId, content }: updateCodeFileProjectArgs
 	): Promise<FileProject> {
 		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);
 
-		return this.FileProjectServices.update(fileId, { code });
+		return this.FileProjectServices.update(fileId, { content });
 	}
 
 	@Authorized()

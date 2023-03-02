@@ -10,7 +10,8 @@ import {
 	FindMemberByIdArgs,
 	UpdateEmailArgs,
 	UpdatePasswordArgs,
-	UpdateUsernameArgs
+	UpdateUsernameArgs,
+	FollowMemberArgs
 } from 'resolvers/args/MemberArgs';
 
 import { GlobalContext } from 'utils/types/GlobalContext';
@@ -59,14 +60,25 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async findMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
+	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
 		return await this.MemberServices.findOneById(memberId);
+	}
+	@Authorized()
+	@Query(() => [Member])
+	async getAllMembers(): Promise<Member[]> {
+		return await this.MemberServices.find();
 	}
 
 	@Authorized()
 	@Query(() => Member)
 	async profile(@Ctx() context: GlobalContext): Promise<Member> {
 		return context.user as Member;
+	}
+
+	@Authorized()
+	@Mutation(() => Member)
+	async followMember(@Args() { memberId }: FollowMemberArgs, @Ctx() context: GlobalContext): Promise<Member> {
+		return await this.MemberServices.followMember(context.user?.id as string, memberId);
 	}
 
 	@Authorized()

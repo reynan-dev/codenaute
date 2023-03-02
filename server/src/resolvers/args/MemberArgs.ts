@@ -44,6 +44,12 @@ export class FindMemberByIdArgs {
 }
 
 @ArgsType()
+export class FollowMemberArgs {
+	@Field()
+	memberId: string;
+}
+
+@ArgsType()
 export class UpdateUsernameArgs {
 	@Field()
 	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })

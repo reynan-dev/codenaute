@@ -33,28 +33,28 @@ export class ProjectResolver {
 	MemberServices: MemberServices = new MemberServices();
 	@Authorized()
 	@Query(() => Project)
-	async getAllPublic(): Promise<Project[]> {
+	async getAllPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllSelfProjects(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByMemberId(context.user?.id as string);
+		return this.ProjectServices.findByOwner(context.user?.id as string);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByMember(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByMemberId(context.user?.id as string);
+		return this.ProjectServices.findByEditorId(context.user?.id as string);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByFavorites(@Args() { memberId }: getByMemberArgs): Promise<Project[]> {
+	async getFavoritedByMember(@Args() { memberId }: getByMemberArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByFavorites(memberId);
 	}
@@ -103,8 +103,8 @@ export class ProjectResolver {
 
 		return this.ProjectServices.create({
 			name: name,
-			members: [member],
-			language: language,
+			owner: member,
+			programmingLanguage: language,
 			template: template,
 			activeFile: file,
 			isTemplate: isTemplate,
@@ -118,7 +118,7 @@ export class ProjectResolver {
 		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		return this.ProjectServices.favorite(context.user?.id as string, projectId);
+		return this.ProjectServices.addToFavorite(context.user?.id as string, projectId);
 	}
 
 	@Authorized()
