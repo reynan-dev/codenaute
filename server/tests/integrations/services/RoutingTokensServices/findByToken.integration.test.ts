@@ -31,7 +31,7 @@ describe('Find a RoutingToken ByToken integration test', () => {
 
 			const member = await MemberService.signUp(username, email, password);
 
-			const routingToken = await RoutingTokenService.create(member.id);
+			const routingToken = await RoutingTokenService.create(member);
 
 			expect(await RoutingTokenService.findByToken(routingToken.token)).toEqual(routingToken);
 		});
