@@ -1,6 +1,6 @@
 import { BaseServices } from 'services/base/BaseServices';
-import { RoutingToken } from 'entities/RoutingToken';
-import { Member } from 'entities/Member';
+import { RoutingToken } from 'models/RoutingToken';
+import { Member } from 'models/Member';
 
 export class RoutingTokenServices extends BaseServices {
 	constructor() {
