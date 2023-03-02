@@ -9,7 +9,7 @@ interface SignUpPageProps {
 	signUpForm: JSX.Element;
 }
 
-export default function SignUpPage({ signUpForm }: SignUpPageProps) {
+export const SignUpPage = ({ signUpForm }: SignUpPageProps) => {
 	return (
 		<div className='flex h-full'>
 			<Container>
@@ -34,4 +34,4 @@ export default function SignUpPage({ signUpForm }: SignUpPageProps) {
 			</div>
 		</div>
 	);
-}
+};

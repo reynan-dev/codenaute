@@ -1,3 +1,3 @@
-import LogoSvg from 'components/Svgs/LogoSvg/LogoSvg';
+import { LogoSvg } from './LogoSvg';
 
 export default LogoSvg;
