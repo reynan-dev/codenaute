@@ -1,3 +1,3 @@
-import CrossDeviceBackground from 'components/CrossDeviceBackground/CrossDeviceBackground';
+import { CrossDeviceBackground } from 'components/CrossDeviceBackground/CrossDeviceBackground';
 
 export default CrossDeviceBackground;
