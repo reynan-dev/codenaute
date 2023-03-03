@@ -6,7 +6,7 @@ import { FileProjectServices } from 'services/FileProjectServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
 	createFileProjectArgs,
-	getAllFilesByProjectArgs,
+	getAllFilesByProjectIdArgs,
 	getFileProjectByIdArgs,
 	updateFileProjectCodeArgs,
 	updateFileProjectHiddenArgs,
@@ -22,8 +22,8 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Query(() => FileProject)
-	async getAllFilesByProject(
-		@Args() { projectId }: getAllFilesByProjectArgs
+	async getAllFilesProjectByProjectId(
+		@Args() { projectId }: getAllFilesByProjectIdArgs
 	): Promise<FileProject[]> {
 		return this.FileProjectServices.findAllByProjectId(projectId);
 	}

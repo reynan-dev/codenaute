@@ -1,7 +1,7 @@
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
-export class getAllFilesByProjectArgs {
+export class getAllFilesByProjectIdArgs {
 	@Field()
 	projectId: string;
 }

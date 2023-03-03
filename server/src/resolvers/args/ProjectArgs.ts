@@ -6,37 +6,37 @@ import { Validations } from 'utils/enums/Validations';
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
-export class getProjectByIdArgs {
+export class getProjectsByIdArgs {
 	@Field()
 	projectId: string;
 }
 
 @ArgsType()
-export class getProjectByNameArgs {
+export class getProjectsByNameArgs {
 	@Field()
 	projectName: string;
 }
 
 @ArgsType()
-export class getProjectByMemberArgs {
+export class getProjectsByMemberArgs {
 	@Field()
 	memberId: string;
 }
 
 @ArgsType()
-export class getAllProjectByTemplateArgs {
+export class getAllProjectsByTemplateArgs {
 	@Field()
 	templateId: string;
 }
 
 @ArgsType()
-export class getAllProjectByProgrammingLanguageArgs {
+export class getAllProjectsByProgrammingLanguageArgs {
 	@Field()
 	languageId: string;
 }
 
 @ArgsType()
-export class createProjectArgs {
+export class createProjectsArgs {
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	name: string;
@@ -61,13 +61,13 @@ export class createProjectArgs {
 }
 
 @ArgsType()
-export class favoriteProjectArgs {
+export class favoriteProjectsArgs {
 	@Field()
 	projectId: string;
 }
 
 @ArgsType()
-export class shareProjectArgs {
+export class shareProjectsArgs {
 	@Field()
 	projectId: string;
 
@@ -76,7 +76,7 @@ export class shareProjectArgs {
 }
 
 @ArgsType()
-export class updateProjectNameArgs {
+export class updateProjectsNameArgs {
 	@Field()
 	projectId: string;
 
@@ -86,7 +86,7 @@ export class updateProjectNameArgs {
 }
 
 @ArgsType()
-export class updateProjectActiveFileArgs {
+export class updateProjectsActiveFileArgs {
 	@Field()
 	projectId: string;
 
@@ -95,7 +95,7 @@ export class updateProjectActiveFileArgs {
 }
 
 @ArgsType()
-export class updateProjectIsTemplateArgs {
+export class updateProjectsIsTemplateArgs {
 	@Field()
 	projectId: string;
 
@@ -104,7 +104,7 @@ export class updateProjectIsTemplateArgs {
 }
 
 @ArgsType()
-export class updateProjectIsPublic {
+export class updateProjectsIsPublic {
 	@Field()
 	projectId: string;
 
@@ -113,7 +113,7 @@ export class updateProjectIsPublic {
 }
 
 @ArgsType()
-export class deleteProjectArgs {
+export class deleteProjectsArgs {
 	@Field()
 	projectId: string;
 }
