@@ -3,12 +3,12 @@ import { useDeleteAccount } from 'api/profile/useDeleteAccount';
 import { useUpdateEmail } from 'api/profile/useUpdateEmail';
 import { useUpdatePassword } from 'api/profile/useUpdatePassword';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
-import { HOME_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
-import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { areSameValues } from 'helpers/areSameValues';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
+import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { AccountPage } from 'pages/account/account.page';
 import { DeleteAccountForm } from 'pages/account/components/DeleteAccountForm';
 import { UpdateInformationsForm } from 'pages/account/components/UpdateInformationsForm';
@@ -159,7 +159,7 @@ export const AccountContainer = ({
 	};
 
 	const handleDeleteAccountForm = async () => {
-		if (!areEmptyValues([deleteAccountPassword])) {
+		if (!isContainingEmptyValue([deleteAccountPassword])) {
 			toast.error('Please type your password to delete your account', { autoClose: 10000 });
 		}
 
