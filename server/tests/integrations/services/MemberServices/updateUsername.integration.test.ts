@@ -1,22 +1,22 @@
 import { MemberServices } from 'services/MemberServices';
 
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { Database } from 'db';
 
 describe('Update a Member username integration test', () => {
 	const MemberService = new MemberServices();
 
 	beforeAll(async () => {
 		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
+		await Database.start();
 	});
 
 	afterAll(async () => {
-		await closeDatabase();
+		await Database.stop();
 	});
 
 	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
+		for (const entity of Database.entityMetadatas()) {
+			const repository = Database.repository(entity.name);
 			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 		}
 	});
