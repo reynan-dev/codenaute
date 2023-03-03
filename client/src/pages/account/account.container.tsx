@@ -127,7 +127,7 @@ export const AccountContainer = ({
 
 	const handlePasswordForm = async () => {
 		if (!isContainingEmptyValue([newPassword, oldPassword, confirmedNewPassword])) {
-			toast.error('Please fill all relating password fields', { autoClose: 10000 });
+			return toast.error('Please fill all relating password fields', { autoClose: 10000 });
 		}
 
 		const formErrors = getFormErrors({
@@ -159,8 +159,8 @@ export const AccountContainer = ({
 	};
 
 	const handleDeleteAccountForm = async () => {
-		if (!isContainingEmptyValue([deleteAccountPassword])) {
-			toast.error('Please type your password to delete your account', { autoClose: 10000 });
+		if (isContainingEmptyValue([deleteAccountPassword])) {
+			return toast.error('Please type your password to delete your account', { autoClose: 10000 });
 		}
 
 		await submitDeleteAccountForm();

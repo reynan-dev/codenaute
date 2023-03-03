@@ -2,6 +2,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { IoWarning } from 'react-icons/io5';
+import { Id } from 'react-toastify';
 import { twJoin } from 'tailwind-merge';
 
 interface DeleteAccountFormProps {
@@ -10,7 +11,7 @@ interface DeleteAccountFormProps {
 		setDeleteAccountPassword: React.Dispatch<React.SetStateAction<string>>;
 	};
 	isLoading: boolean;
-	handleDeleteAccountForm: () => Promise<void>;
+	handleDeleteAccountForm: () => Promise<Id | undefined>;
 }
 
 export const DeleteAccountForm = ({
@@ -41,7 +42,7 @@ export const DeleteAccountForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={!isContainingEmptyValue([state.deleteAccountPassword])}
+				disabled={false}
 				className='mt-8 ml-5 border-danger bg-danger hover:border-danger-100 hover:bg-danger-100 lg:mt-2.5 lg:mb-0'
 				isLoading={isLoading}
 			>
