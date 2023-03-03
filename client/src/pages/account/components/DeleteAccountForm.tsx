@@ -42,7 +42,7 @@ export const DeleteAccountForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={false}
+				disabled={isContainingEmptyValue([state.deleteAccountPassword])}
 				className='mt-8 ml-5 border-danger bg-danger hover:border-danger-100 hover:bg-danger-100 lg:mt-2.5 lg:mb-0'
 				isLoading={isLoading}
 			>
