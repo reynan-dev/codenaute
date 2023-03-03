@@ -12,12 +12,6 @@ export class getProjectsByIdArgs {
 }
 
 @ArgsType()
-export class getProjectsByNameArgs {
-	@Field()
-	projectName: string;
-}
-
-@ArgsType()
 export class getProjectsByMemberArgs {
 	@Field()
 	memberId: string;

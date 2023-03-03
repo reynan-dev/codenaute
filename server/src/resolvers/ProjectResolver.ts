@@ -12,7 +12,6 @@ import {
 	getAllProjectsByTemplateArgs,
 	getProjectsByIdArgs,
 	getProjectsByMemberArgs,
-	getProjectsByNameArgs,
 	shareProjectsArgs,
 	updateProjectsActiveFileArgs,
 	updateProjectsIsPublic,
@@ -77,12 +76,6 @@ export class ProjectResolver {
 	@Query(() => Project)
 	async getProjectsById(@Args() { projectId }: getProjectsByIdArgs): Promise<Project> {
 		return this.ProjectServices.findById(projectId);
-	}
-
-	@Authorized()
-	@Query(() => Project)
-	async getProjectsByName(@Args() { projectName }: getProjectsByNameArgs): Promise<Project> {
-		return this.ProjectServices.findOneBy({ projectName });
 	}
 
 	@Authorized()
