@@ -6,37 +6,37 @@ import { Validations } from 'utils/enums/Validations';
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
-export class getByIdArgs {
+export class getProjectsByIdArgs {
 	@Field()
 	projectId: string;
 }
 
 @ArgsType()
-export class getByNameArgs {
+export class getProjectsByNameArgs {
 	@Field()
 	projectName: string;
 }
 
 @ArgsType()
-export class getByMemberArgs {
+export class getProjectsByMemberArgs {
 	@Field()
 	memberId: string;
 }
 
 @ArgsType()
-export class getAllByTemplateArgs {
+export class getAllProjectsByTemplateArgs {
 	@Field()
 	templateId: string;
 }
 
 @ArgsType()
-export class getAllByLanguageArgs {
+export class getAllProjectsByProgrammingLanguageArgs {
 	@Field()
 	languageId: string;
 }
 
 @ArgsType()
-export class createArgs {
+export class createProjectsArgs {
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	name: string;
@@ -61,13 +61,13 @@ export class createArgs {
 }
 
 @ArgsType()
-export class favoriteProjectArgs {
+export class favoriteProjectsArgs {
 	@Field()
 	projectId: string;
 }
 
 @ArgsType()
-export class shareProjectArgs {
+export class shareProjectsArgs {
 	@Field()
 	projectId: string;
 
@@ -76,7 +76,7 @@ export class shareProjectArgs {
 }
 
 @ArgsType()
-export class updateNameArgs {
+export class updateProjectsNameArgs {
 	@Field()
 	projectId: string;
 
@@ -86,7 +86,7 @@ export class updateNameArgs {
 }
 
 @ArgsType()
-export class updateActiveFileArgs {
+export class updateProjectsActiveFileArgs {
 	@Field()
 	projectId: string;
 
@@ -95,7 +95,7 @@ export class updateActiveFileArgs {
 }
 
 @ArgsType()
-export class updateIsTemplateArgs {
+export class updateProjectsIsTemplateArgs {
 	@Field()
 	projectId: string;
 
@@ -104,7 +104,7 @@ export class updateIsTemplateArgs {
 }
 
 @ArgsType()
-export class updateIsPublic {
+export class updateProjectsIsPublic {
 	@Field()
 	projectId: string;
 
@@ -113,7 +113,7 @@ export class updateIsPublic {
 }
 
 @ArgsType()
-export class deleteArgs {
+export class deleteProjectsArgs {
 	@Field()
 	projectId: string;
 }

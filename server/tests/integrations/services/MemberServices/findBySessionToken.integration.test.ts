@@ -1,6 +1,4 @@
 import { MemberServices } from 'services/MemberServices';
-
-import { Database } from 'db';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {

@@ -1,6 +1,4 @@
 import { MemberServices } from 'services/MemberServices';
-
-import { Database } from 'db';
 import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 

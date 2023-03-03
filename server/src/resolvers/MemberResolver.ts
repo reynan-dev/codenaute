@@ -4,13 +4,13 @@ import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
 
 import {
-	DeleteAccountArgs,
+	DeleteMemberAccountArgs,
 	SignInArgs,
 	SignUpArgs,
 	FindMemberByIdArgs,
-	UpdateEmailArgs,
-	UpdatePasswordArgs,
-	UpdateUsernameArgs,
+	UpdateMemberEmailArgs,
+	UpdateMemberPasswordArgs,
+	UpdateMemberUsernameArgs,
 	FollowMemberArgs
 } from 'resolvers/args/MemberArgs';
 
@@ -86,8 +86,8 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateUsername(
-		@Args() { username }: UpdateUsernameArgs,
+	async updateMemberUsername(
+		@Args() { username }: UpdateMemberUsernameArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
 		const username_registered = (await this.MemberServices.findOneBy({ username })) as Member;
@@ -99,8 +99,8 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updateEmail(
-		@Args() { email }: UpdateEmailArgs,
+	async updateMemberEmail(
+		@Args() { email }: UpdateMemberEmailArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
 		const existingEmail = (await this.MemberServices.findOneBy({ email })) as Member;
@@ -112,8 +112,8 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async updatePassword(
-		@Args() { newPassword, confirmedNewPassword, oldPassword }: UpdatePasswordArgs,
+	async updateMemberPassword(
+		@Args() { newPassword, confirmedNewPassword, oldPassword }: UpdateMemberPasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
 		const user = (await this.MemberServices.findById(context.user?.id as string)) as Member;
@@ -126,8 +126,8 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async deleteAccount(
-		@Args() { password }: DeleteAccountArgs,
+	async deleteMemberAccount(
+		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
 		return this.MemberServices.deleteAccount(context.user?.id as string, password);

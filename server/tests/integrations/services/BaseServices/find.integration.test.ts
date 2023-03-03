@@ -1,4 +1,3 @@
-import { Database } from 'db';
 import { MemberServices } from 'services/MemberServices';
 
 describe('Find integration test', () => {

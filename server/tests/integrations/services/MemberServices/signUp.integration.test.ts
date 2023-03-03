@@ -1,6 +1,4 @@
 import { MemberServices } from 'services/MemberServices';
-
-import { Database } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Singup a Member integration test', () => {

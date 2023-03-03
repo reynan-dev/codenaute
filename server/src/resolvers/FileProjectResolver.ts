@@ -6,11 +6,11 @@ import { FileProjectServices } from 'services/FileProjectServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
 	createFileProjectArgs,
-	getAllFilesByProjectArgs,
+	getAllFilesByProjectIdArgs,
 	getFileProjectByIdArgs,
-	updateCodeFileProjectArgs,
-	updateHiddenFileProjectArgs,
-	updatePathFileProjectArgs
+	updateFileProjectCodeArgs,
+	updateFileProjectHiddenArgs,
+	updateFileProjectPathArgs
 } from 'resolvers/args/FileProjectArgs';
 
 import { ProjectServices } from 'services/ProjectServices';
@@ -22,8 +22,8 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Query(() => FileProject)
-	async getAllFilesByProject(
-		@Args() { projectId }: getAllFilesByProjectArgs
+	async getAllFilesProjectByProjectId(
+		@Args() { projectId }: getAllFilesByProjectIdArgs
 	): Promise<FileProject[]> {
 		return this.FileProjectServices.findAllByProjectId(projectId);
 	}
@@ -53,8 +53,8 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Mutation(() => FileProject)
-	async updatePathFileProject(
-		@Args() { fileId, path }: updatePathFileProjectArgs
+	async updateFileProjectPath(
+		@Args() { fileId, path }: updateFileProjectPathArgs
 	): Promise<FileProject> {
 		const file = this.FileProjectServices.findById(fileId);
 
@@ -65,8 +65,8 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Mutation(() => FileProject)
-	async updateCodeFileProject(
-		@Args() { fileId, content }: updateCodeFileProjectArgs
+	async updateFileProjectCode(
+		@Args() { fileId, content }: updateFileProjectCodeArgs
 	): Promise<FileProject> {
 		const file = this.FileProjectServices.findById(fileId);
 
@@ -77,8 +77,8 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Mutation(() => FileProject)
-	async updateHiddenFileProject(
-		@Args() { fileId, isHidden }: updateHiddenFileProjectArgs
+	async updateFileProjectHidden(
+		@Args() { fileId, isHidden }: updateFileProjectHiddenArgs
 	): Promise<FileProject> {
 		const file = this.FileProjectServices.findById(fileId);
 
@@ -89,7 +89,7 @@ export class FileProjectResolver {
 
 	@Authorized()
 	@Mutation(() => FileProject)
-	async deleteFileProject(@Args() { fileId }: updateCodeFileProjectArgs): Promise<FileProject> {
+	async deleteFileProject(@Args() { fileId }: updateFileProjectCodeArgs): Promise<FileProject> {
 		const file = this.FileProjectServices.findById(fileId);
 
 		if (!file) throw new Error(ErrorMessages.FILE_NOT_FOUND);

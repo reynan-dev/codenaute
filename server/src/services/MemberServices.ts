@@ -41,7 +41,14 @@ export class MemberServices extends BaseServices {
 	async findBySessionToken(token: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { sessions: { token } },
-			relations: ['projects', 'favoritesProjects']
+			relations: [
+				'projects',
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
 		});
 
 		if (!member) return null;
@@ -52,7 +59,14 @@ export class MemberServices extends BaseServices {
 	async findOneById(id: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { id: id },
-			relations: ['projects', 'favoritesProjects']
+			relations: [
+				'projects',
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
 		});
 
 		if (!member) return null;

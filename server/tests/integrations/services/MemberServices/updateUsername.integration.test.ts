@@ -1,7 +1,5 @@
 import { MemberServices } from 'services/MemberServices';
 
-import { Database } from 'db';
-
 describe('Update a Member username integration test', () => {
 	const MemberService = new MemberServices();
 
