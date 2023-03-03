@@ -3,7 +3,7 @@ import { useDeleteAccount } from 'api/profile/useDeleteAccount';
 import { useUpdateEmail } from 'api/profile/useUpdateEmail';
 import { useUpdatePassword } from 'api/profile/useUpdatePassword';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
-import { SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import { SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
 import { areSameValues } from 'helpers/areSameValues';
 import { getFormErrors } from 'helpers/getFormErrors';
@@ -15,7 +15,6 @@ import { UpdateInformationsForm } from 'pages/account/components/UpdateInformati
 import { UpdatePasswordForm } from 'pages/account/components/UpdatePasswordForm';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export interface AccountContainerProps {
@@ -67,8 +66,6 @@ export const AccountContainer = ({
 		deleteAccountPassword,
 		setDeleteAccountPassword
 	};
-
-	const navigate = useNavigate();
 
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();

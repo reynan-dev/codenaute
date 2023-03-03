@@ -43,7 +43,7 @@ export const SignUpContainer = () => {
 			await signUp({
 				variables: { username, email, password, confirmedPassword }
 			});
-			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
+			toast.success(`Your account is successfully created. You can now sign in.`);
 			navigate(SIGN_IN_PATH);
 		} catch (error) {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
