@@ -28,7 +28,9 @@ export class ProgrammingLanguageResolver {
 
 	@Authorized()
 	@Mutation(() => ProgrammingLanguage)
-	async createLanguage(@Args() { name, version }: createLanguageArgs): Promise<ProgrammingLanguage> {
+	async createLanguage(
+		@Args() { name, version }: createLanguageArgs
+	): Promise<ProgrammingLanguage> {
 		const language = await this.LanguageServices.findByName(name);
 
 		if (language) throw new Error(ErrorMessages.LANGUAGE_ALREADY_EXISTS);

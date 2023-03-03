@@ -77,7 +77,10 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async followMember(@Args() { memberId }: FollowMemberArgs, @Ctx() context: GlobalContext): Promise<Member> {
+	async followMember(
+		@Args() { memberId }: FollowMemberArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
 		return await this.MemberServices.followMember(context.user?.id as string, memberId);
 	}
 
