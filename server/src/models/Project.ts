@@ -25,13 +25,13 @@ export class Project extends BaseModel {
 	@IsString()
 	name: string;
 
-	@ManyToOne(() => Member, (member) => member.projects, { eager: true })
+	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true })
 	@JoinColumn()
 	@Field(() => Member)
 	owner: Member;
 
 	@Field(() => [Member])
-	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
+	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true })
 	editors: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
@@ -55,7 +55,7 @@ export class Project extends BaseModel {
 	activeFile: FileProject;
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritesProjects, { eager: true })
+	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true })
 	favoritedBy: Member[];
 
 	@Column('boolean', { default: false })

@@ -35,17 +35,17 @@ export class Member extends BaseModel {
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@OneToMany(() => Project, (project) => project.owner, { nullable: true, cascade: true })
-	myProjects: Project[];
+	ownedProjects: Project[];
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Project, (project) => project.editors, { nullable: true, cascade: true })
 	@JoinTable()
-	projects: Project[];
+	projectsInvitedOn: Project[];
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Project, (project) => project.favoritedBy, { nullable: true, cascade: true })
 	@JoinTable()
-	favoritesProjects: Project[];
+	favoritedProjects: Project[];
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Member, (member) => member.following, { nullable: true })

@@ -1,13 +1,13 @@
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
-export class getLanguageByIdArgs {
+export class getProgrammingLanguageByIdArgs {
 	@Field()
 	languageId: string;
 }
 
 @ArgsType()
-export class createLanguageArgs {
+export class createProgrammingLanguageArgs {
 	@Field()
 	name: string;
 
@@ -16,7 +16,7 @@ export class createLanguageArgs {
 }
 
 @ArgsType()
-export class updateLanguageArgs {
+export class updateProgrammingLanguageArgs {
 	@Field()
 	languageId: string;
 
@@ -28,7 +28,7 @@ export class updateLanguageArgs {
 }
 
 @ArgsType()
-export class deleteLanguageArgs {
+export class deleteProgrammingLanguageArgs {
 	@Field()
 	languageId: string;
 }

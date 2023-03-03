@@ -5,52 +5,52 @@ import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices'
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import {
-	createLanguageArgs,
-	deleteLanguageArgs,
-	getLanguageByIdArgs,
-	updateLanguageArgs
+	createProgrammingLanguageArgs,
+	deleteProgrammingLanguageArgs,
+	getProgrammingLanguageByIdArgs,
+	updateProgrammingLanguageArgs
 } from 'resolvers/args/ProgramingLanguageArgs';
 
 @Resolver(ProgramingLanguage)
 export class ProgramingLanguageResolver {
-	LanguageServices: ProgramingLanguageServices = new ProgramingLanguageServices();
+	ProgrammingLanguageServices: ProgramingLanguageServices = new ProgramingLanguageServices();
 	@Authorized()
 	@Query(() => ProgramingLanguage)
-	async getAllLanguages(): Promise<ProgramingLanguage[]> {
-		return this.LanguageServices.find();
+	async getAllProgrammingLanguages(): Promise<ProgramingLanguage[]> {
+		return this.ProgrammingLanguageServices.find();
 	}
 
 	@Authorized()
 	@Query(() => ProgramingLanguage)
-	async getLanguageById(@Args() { languageId }: getLanguageByIdArgs): Promise<ProgramingLanguage> {
-		return this.LanguageServices.findById(languageId);
+	async getProgrammingLanguageById(@Args() { languageId }: getProgrammingLanguageByIdArgs): Promise<ProgramingLanguage> {
+		return this.ProgrammingLanguageServices.findById(languageId);
 	}
 
 	@Authorized()
 	@Mutation(() => ProgramingLanguage)
-	async createLanguage(@Args() { name, version }: createLanguageArgs): Promise<ProgramingLanguage> {
-		const language = await this.LanguageServices.findByName(name);
+	async createProgrammingLanguage(@Args() { name, version }: createProgrammingLanguageArgs): Promise<ProgramingLanguage> {
+		const language = await this.ProgrammingLanguageServices.findByName(name);
 
 		if (language) throw new Error(ErrorMessages.LANGUAGE_ALREADY_EXISTS);
 
-		return this.LanguageServices.create({ name, version });
+		return this.ProgrammingLanguageServices.create({ name, version });
 	}
 
 	@Authorized()
 	@Mutation(() => ProgramingLanguage)
-	async updateLanguage(
-		@Args() { languageId, name, version }: updateLanguageArgs
+	async updateProgrammingLanguage(
+		@Args() { languageId, name, version }: updateProgrammingLanguageArgs
 	): Promise<ProgramingLanguage> {
-		const language = await this.LanguageServices.findById(languageId);
+		const language = await this.ProgrammingLanguageServices.findById(languageId);
 
 		if (!language) throw new Error(ErrorMessages.LANGUAGE_NOT_FOUND);
 
-		return this.LanguageServices.update(languageId, { name, version });
+		return this.ProgrammingLanguageServices.update(languageId, { name, version });
 	}
 
 	@Authorized()
 	@Mutation(() => ProgramingLanguage)
-	async deleteLanguage(@Args() { languageId }: deleteLanguageArgs): Promise<ProgramingLanguage> {
-		return this.LanguageServices.delete(languageId);
+	async deleteProgrammingLanguage(@Args() { languageId }: deleteProgrammingLanguageArgs): Promise<ProgramingLanguage> {
+		return this.ProgrammingLanguageServices.delete(languageId);
 	}
 }

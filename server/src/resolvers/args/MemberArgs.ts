@@ -50,21 +50,21 @@ export class FollowMemberArgs {
 }
 
 @ArgsType()
-export class UpdateUsernameArgs {
+export class UpdateMemberUsernameArgs {
 	@Field()
 	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	username: string;
 }
 
 @ArgsType()
-export class UpdateEmailArgs {
+export class UpdateMemberEmailArgs {
 	@Field()
 	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
 	email: string;
 }
 
 @ArgsType()
-export class UpdatePasswordArgs {
+export class UpdateMemberPasswordArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	newPassword: string;
@@ -79,7 +79,7 @@ export class UpdatePasswordArgs {
 }
 
 @ArgsType()
-export class DeleteAccountArgs {
+export class DeleteMemberAccountArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	password: string;
