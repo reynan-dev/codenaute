@@ -1,13 +1,13 @@
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
+import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 
 describe('Finding files by a project id integration test', () => {
 	const FileProjectService = new FileProjectServices();
     const MemberService = new MemberServices();
     const ProjectService = new ProjectServices();
-    const ProgramingLanguageService = new ProgramingLanguageServices();
+    const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
 	describe('when project id is not valid', () => {
 		it('throw an empty array', async () => {
@@ -32,7 +32,7 @@ describe('Finding files by a project id integration test', () => {
                 version: '3.10',
             }
 
-            const newLanguage = await ProgramingLanguageService.create(language);
+            const newLanguage = await ProgrammingLanguageService.create(language);
 
             const project = {
                 name: 'project name',

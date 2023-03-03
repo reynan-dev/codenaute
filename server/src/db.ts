@@ -11,7 +11,7 @@ export abstract class Database {
 	private static readonly username = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_USER : process.env.DB_USER;
 	private static readonly password = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
 	private static readonly database = process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
-	private static readonly entities = [`${__dirname}/**/models/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`];
+	private static readonly models = [`${__dirname}/**/models/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`];
 	private static readonly migrations = [`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`];
 	private static readonly logging: LoggerOptions | undefined = process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'];
 	private static readonly synchronize: boolean = true;
@@ -23,13 +23,13 @@ export abstract class Database {
 		username: this.username,
 		password: this.password,
 		database: this.database,
-		entities: this.entities,
+		entities: this.models,
 		migrations: this.migrations,
 		logging: this.logging,
 		synchronize: this.synchronize
 	});
 
-	static entityMetadatas() {
+	static entities() {
 		return this._dataSource.entityMetadatas;
 	}
 
