@@ -1,13 +1,16 @@
+import AuthContext from 'context/auth.context';
+import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface ConditionalRouteProps {
 	children: JSX.Element;
-	isAuthenticated: boolean;
 	type: 'unauth' | 'private';
 }
 
-export const ConditionalRoute = ({ children, isAuthenticated, type }: ConditionalRouteProps) => {
+export const ConditionalRoute = ({ children, type }: ConditionalRouteProps) => {
 	const location = useLocation();
+
+	const {isAuthenticated} = useContext(AuthContext)
 
 	if (isAuthenticated && type === 'unauth') {
 		return <Navigate to='/account' state={{ from: location }} replace />;

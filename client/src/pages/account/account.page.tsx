@@ -1,7 +1,6 @@
 import Container from 'components/Container';
-import { FiUser } from 'react-icons/fi';
+import { FiTrash2, FiUser } from 'react-icons/fi';
 import { MdPassword } from 'react-icons/md';
-import { FiTrash2 } from 'react-icons/fi';
 
 import { DANGER, PRIMARY } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';

@@ -1,11 +1,9 @@
-import { ProfileQuery } from 'graphql/__generated__/graphql';
+import AuthContext from 'context/auth.context';
+import { useContext } from 'react';
 import { HomePage } from './home.page';
 
-export interface HomeContainerProps {
-	isAuthenticated: boolean;
-	profileData?: ProfileQuery | null;
-}
+export const HomeContainer = () => {
+	const { profile: profileData, isAuthenticated} = useContext(AuthContext)
 
-export const HomeContainer = (props: HomeContainerProps) => {
-	return <HomePage {...props} />;
+	return <HomePage profileData={profileData} isAuthenticated={isAuthenticated} />;
 };

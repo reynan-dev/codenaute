@@ -1,23 +1,20 @@
-import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import { useSignIn } from 'api/signIn/useSignIn';
 import { HOME_PATH } from 'constants/paths';
-import { ProfileQuery } from 'graphql/__generated__/graphql';
+import AuthContext from 'context/auth.context';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { SignInForm } from 'pages/signIn/components/SignInForm';
 import { SignInPage } from 'pages/signIn/signIn.page';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-interface SignInContainerProps {
-	refetchProfile: ((
-		variables?: Partial<OperationVariables> | undefined
-	) => Promise<ApolloQueryResult<ProfileQuery>>) | (() => void);
-}
 
-export const SignInContainer = ({ refetchProfile }: SignInContainerProps) => {
+export const SignInContainer = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const { refetch: refetchProfile } = useContext(AuthContext)
+
 
 	const state = {
 		email,

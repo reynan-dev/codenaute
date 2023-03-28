@@ -1,8 +1,11 @@
 import { ACCOUNT_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
-import { HomeContainerProps } from 'pages/home/home.container';
+import { ProfileQuery } from 'graphql/__generated__/graphql';
 import { Link } from 'react-router-dom';
 
-export interface HomePageProps extends HomeContainerProps {}
+export interface HomePageProps {
+	isAuthenticated: boolean;
+	profileData?: ProfileQuery | null;
+}
 
 export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 	return (
