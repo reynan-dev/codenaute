@@ -59,10 +59,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies globaly
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Install dependencies on client
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
         working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Restore Github Cache
