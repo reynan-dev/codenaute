@@ -5,7 +5,7 @@ name: Server CI
 
 on:
   pull_request:
-    path:
+    paths:
       - '.github/workflows/server.yml'
       - 'server/**'
 

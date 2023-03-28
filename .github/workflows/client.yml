@@ -5,7 +5,7 @@ name: Client CI
 
 on:
   pull_request:
-    path:
+    paths:
       - '.github/workflows/client.yml'
       - 'client/**'
 
