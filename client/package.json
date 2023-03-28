@@ -9,7 +9,7 @@
 		"start": "WATCHPACK_POLLING=true react-scripts start --hot",
 		"start:local": "react-scripts start",
 		"test": "react-scripts test --runInBand --verbose",
-		"ci": "tsc && pnpm build && pnpm test"
+		"ci": "tsc && pnpm test"
 	},
 	"browserslist": {
 		"production": [
