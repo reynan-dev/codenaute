@@ -1,6 +1,6 @@
-import { useGetQueryParam } from "hooks/useGetQueryParam";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useGetQueryParam } from 'hooks/useGetQueryParam';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export const useCheckAccountDeletion = () => {
 	const isAccountDeleted = useGetQueryParam('accountDeleted');

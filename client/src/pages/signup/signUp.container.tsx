@@ -33,7 +33,7 @@ export const SignUpContainer = () => {
 		setFormErrorMessages
 	};
 
-	useCheckAccountDeletion()
+	useCheckAccountDeletion();
 
 	const { signUp, loading } = useSignUp();
 	const navigate = useNavigate();

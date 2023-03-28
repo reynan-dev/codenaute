@@ -71,9 +71,11 @@ export const UpdatePasswordForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={
-					isContainingEmptyValue([state.newPassword, state.oldPassword, state.confirmedNewPassword])
-				}
+				disabled={isContainingEmptyValue([
+					state.newPassword,
+					state.oldPassword,
+					state.confirmedNewPassword
+				])}
 				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
 			>

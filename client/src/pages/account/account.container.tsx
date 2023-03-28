@@ -138,7 +138,7 @@ export const AccountContainer = ({
 			await deleteAccount({
 				variables: { password: deleteAccountPassword }
 			});
-			window.location.replace(`${SIGN_UP_PATH}?accountDeleted=true`)
+			window.location.replace(`${SIGN_UP_PATH}?accountDeleted=true`);
 		} catch (error) {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}

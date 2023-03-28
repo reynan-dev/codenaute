@@ -45,7 +45,7 @@ export const AccountPage = ({
 				</Container>
 				<Container className='py-14'>
 					<div className='mb-5 flex items-center space-x-4'>
-						<FiTrash2 size={24} color={DANGER.DEFAULT} className="mb-0.5" />
+						<FiTrash2 size={24} color={DANGER.DEFAULT} className='mb-0.5' />
 						<h3>Delete account</h3>
 					</div>
 					{deleteAccountForm}

@@ -77,7 +77,7 @@ class MemberServices extends BaseServices {
 
 		await this.delete(id);
 
-		return true
+		return true;
 	}
 }
 
