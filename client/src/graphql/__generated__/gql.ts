@@ -13,11 +13,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
+	'\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteAccount(password: $password)\n\t}\n':
+		types.DeleteAccountDocument,
 	'\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n':
 		types.ProfileDocument,
 	'\n\tmutation UpdateEmail($email: String!) {\n\t\tupdateEmail(email: $email) {\n\t\t\temail\n\t\t\tid\n\t\t}\n\t}\n':
 		types.UpdateEmailDocument,
-	'\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
+	'\n\tmutation UpdatePassword(\n\t\t$newPassword: String!\n\t\t$confirmedNewPassword: String!\n\t\t$oldPassword: String!\n\t) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
 		types.UpdatePasswordDocument,
 	'\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n':
 		types.UpdateUsernameDocument,
@@ -45,6 +47,12 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+	source: '\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteAccount(password: $password)\n\t}\n'
+): (typeof documents)['\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteAccount(password: $password)\n\t}\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
 	source: '\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n'
 ): (typeof documents)['\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n'];
 /**
@@ -57,8 +65,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-	source: '\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation UpdatePassword($newPassword: String!, $confirmedNewPassword: String!, $oldPassword: String!) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
+	source: '\n\tmutation UpdatePassword(\n\t\t$newPassword: String!\n\t\t$confirmedNewPassword: String!\n\t\t$oldPassword: String!\n\t) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation UpdatePassword(\n\t\t$newPassword: String!\n\t\t$confirmedNewPassword: String!\n\t\t$oldPassword: String!\n\t) {\n\t\tupdatePassword(\n\t\t\tnewPassword: $newPassword\n\t\t\tconfirmedNewPassword: $confirmedNewPassword\n\t\t\toldPassword: $oldPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

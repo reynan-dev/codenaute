@@ -125,11 +125,12 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
-	async deleteMemberAccount(
+	@Mutation(() => Boolean)
+	deleteAccount(
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
-	): Promise<Member> {
+	): Promise<boolean> {
+		if (!context.user) throw Error("You're not authenticated");
 		return this.MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

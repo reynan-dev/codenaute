@@ -120,6 +120,8 @@ export class MemberServices extends BaseServices {
 		if (!compareSync(password, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 
-		return await this.delete(id);
+		await this.delete(id);
+
+		return true;
 	}
 }
