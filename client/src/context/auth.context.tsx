@@ -9,9 +9,11 @@ export type ProfileData = ProfileQuery | null;
 export interface AuthContextProps {
 	profile: ProfileData;
 	loading: boolean;
-	refetch: ((
-		variables?: Partial<OperationVariables> | undefined
-	) => Promise<ApolloQueryResult<ProfileQuery>>) | (() => void);
+	refetch:
+		| ((
+				variables?: Partial<OperationVariables> | undefined
+		  ) => Promise<ApolloQueryResult<ProfileQuery>>)
+		| (() => void);
 	isAuthenticated: boolean;
 	setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
