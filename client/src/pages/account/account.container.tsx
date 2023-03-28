@@ -15,14 +15,17 @@ import { UpdateInformationsForm } from 'pages/account/components/UpdateInformati
 import { UpdatePasswordForm } from 'pages/account/components/UpdatePasswordForm';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export interface AccountContainerProps {
 	isProfileLoading: boolean;
-	profileData: ProfileQuery | undefined;
-	refetchProfile: (
-		variables?: Partial<OperationVariables> | undefined
-	) => Promise<ApolloQueryResult<ProfileQuery>>;
+	profileData?: ProfileQuery | null;
+	refetchProfile:
+		| ((
+				variables?: Partial<OperationVariables> | undefined
+		  ) => Promise<ApolloQueryResult<ProfileQuery>>)
+		| (() => void);
 }
 
 export const AccountContainer = ({
@@ -71,6 +74,8 @@ export const AccountContainer = ({
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 	const { updatePassword, loading: isUpdatePasswordLoading } = useUpdatePassword();
 	const { deleteAccount, loading: isDeleteAccountLoading } = useDeleteAccount();
+
+	const navigate = useNavigate();
 
 	const submitInformationsForm = async () => {
 		if (newEmail && newUsername) {
@@ -133,14 +138,23 @@ export const AccountContainer = ({
 		await submitPasswordForm();
 	};
 
+	const fetchAndRedirect = async () => {
+		try {
+			await refetchProfile();
+		} catch {
+			navigate(SIGN_UP_PATH);
+		}
+	};
+
 	const submitDeleteAccountForm = async () => {
 		try {
 			await deleteAccount({
 				variables: { password: deleteAccountPassword }
 			});
-			window.location.replace(`${SIGN_UP_PATH}?accountDeleted=true`);
+			toast.success(`Account successfully deleted`);
+			fetchAndRedirect();
 		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
+			toast.error('getGraphQLErrorMessage(error), { autoClose: 10000 }');
 		}
 		return;
 	};

@@ -2,7 +2,6 @@ import { useSignUp } from 'api/signUp/useSignUp';
 import { SIGN_IN_PATH } from 'constants/paths';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
-import { useCheckAccountDeletion } from 'hooks/useCheckAccountDeletion';
 import { SignUpForm } from 'pages/signUp/components/SignUpForm';
 import { SignUpPage } from 'pages/signUp/signUp.page';
 import { useState } from 'react';
@@ -32,8 +31,6 @@ export const SignUpContainer = () => {
 		formErrorMessages,
 		setFormErrorMessages
 	};
-
-	useCheckAccountDeletion();
 
 	const { signUp, loading } = useSignUp();
 	const navigate = useNavigate();

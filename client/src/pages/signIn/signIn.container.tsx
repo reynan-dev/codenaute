@@ -10,9 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 interface SignInContainerProps {
-	refetchProfile: (
+	refetchProfile: ((
 		variables?: Partial<OperationVariables> | undefined
-	) => Promise<ApolloQueryResult<ProfileQuery>>;
+	) => Promise<ApolloQueryResult<ProfileQuery>>) | (() => void);
 }
 
 export const SignInContainer = ({ refetchProfile }: SignInContainerProps) => {

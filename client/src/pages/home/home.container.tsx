@@ -3,7 +3,7 @@ import { HomePage } from './home.page';
 
 export interface HomeContainerProps {
 	isAuthenticated: boolean;
-	profileData?: ProfileQuery;
+	profileData?: ProfileQuery | null;
 }
 
 export const HomeContainer = (props: HomeContainerProps) => {
