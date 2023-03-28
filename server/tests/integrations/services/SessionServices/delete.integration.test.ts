@@ -1,29 +1,11 @@
 import { MemberServices } from 'services/MemberServices';
 import { SessionServices } from 'services/SessionServices';
-
-import { Database } from 'db';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { randomBytes } from 'crypto';
 
 describe('Delete Session integration test', () => {
 	const MemberService = new MemberServices();
 	const SessionService = new SessionServices();
-
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await Database.start();
-	});
-
-	afterAll(async () => {
-		await Database.stop();
-	});
-
-	beforeEach(async () => {
-		for (const entity of Database.entityMetadatas()) {
-			const repository = Database.repository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
 
 	describe('when deleting a session by a invalid token', () => {
 		it('throw an session not found error', async () => {
