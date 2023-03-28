@@ -79,7 +79,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Install dependencies on server
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
         working-directory: ./${{ env.SERVICE_NAME }}
 
       - name: Restore Github Cache
