@@ -8,7 +8,7 @@
 		"migration:generate": "typeorm-ts-node-esm migration:generate ./src/migrations/default -d ./src/db.ts",
 		"migration:run": "typeorm-ts-node-esm migration:run -d ./src/db.ts",
 		"start": "node dist/index.js",
-		"start:watch": "tsc && (tsc -w & nodemon -L dist/index.js)",
+		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
 		"test:watch": "jest --watchAll --runInBand --verbose --coverage"
 	},
