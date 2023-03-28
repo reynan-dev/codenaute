@@ -25,7 +25,7 @@ export type Member = {
 
 export type Mutation = {
 	__typename?: 'Mutation';
-	deleteAccount: Member;
+	deleteAccount: Scalars['Boolean'];
 	forgotPassword: RoutingToken;
 	resetPassword: Member;
 	signIn: Member;
@@ -93,6 +93,12 @@ export type RoutingToken = {
 	email: Scalars['String'];
 };
 
+export type DeleteAccountMutationVariables = Exact<{
+	password: Scalars['String'];
+}>;
+
+export type DeleteAccountMutation = { __typename?: 'Mutation'; deleteAccount: boolean };
+
 export type ProfileQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProfileQuery = {
@@ -151,6 +157,42 @@ export type SignUpMutation = {
 	signUp: { __typename?: 'Member'; id: string; email: string };
 };
 
+export const DeleteAccountDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'DeleteAccount' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'deleteAccount' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'password' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
 export const ProfileDocument = {
 	kind: 'Document',
 	definitions: [

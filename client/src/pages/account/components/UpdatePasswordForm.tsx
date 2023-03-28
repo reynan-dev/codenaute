@@ -3,6 +3,7 @@ import Input from 'components/Input';
 import { isContainingEmptyValue } from 'helpers/isContainingEmptyValue';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
 import { FaSave } from 'react-icons/fa';
+import { Id } from 'react-toastify';
 import { twJoin } from 'tailwind-merge';
 
 interface UpdatePasswordFormProps {
@@ -17,7 +18,7 @@ interface UpdatePasswordFormProps {
 		setConfirmedNewPassword: React.Dispatch<React.SetStateAction<string>>;
 	};
 	isLoading: boolean;
-	handlePasswordForm: () => Promise<void>;
+	handlePasswordForm: () => Promise<Id | undefined>;
 }
 
 export const UpdatePasswordForm = ({
@@ -70,9 +71,11 @@ export const UpdatePasswordForm = ({
 			<Button
 				size='small'
 				type='submit'
-				disabled={
-					isContainingEmptyValue([state.newPassword, state.oldPassword, state.confirmedNewPassword])
-				}
+				disabled={isContainingEmptyValue([
+					state.newPassword,
+					state.oldPassword,
+					state.confirmedNewPassword
+				])}
 				className='mt-8 ml-5 lg:my-0'
 				isLoading={isLoading}
 			>

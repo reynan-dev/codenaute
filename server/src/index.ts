@@ -18,7 +18,7 @@ import { GraphQLSchema } from 'graphql/type/schema';
 import { Database } from 'db';
 
 abstract class Server {
-	private static readonly MemberServices: MemberServices = new MemberServices();
+	private static readonly MemberService: MemberServices = new MemberServices();
 	private static readonly csrfPrevention: boolean = true;
 	private static readonly cache: 'bounded' | undefined = 'bounded';
 	private static readonly plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
@@ -45,7 +45,7 @@ abstract class Server {
 		return async (context: GlobalContext): Promise<GlobalContext> => {
 			const token = Cookie.getSessionToken(context);
 
-			const user = !token ? null : await this.MemberServices.findBySessionToken(token);
+			const user = !token ? null : await this.MemberService.findBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };
 		};

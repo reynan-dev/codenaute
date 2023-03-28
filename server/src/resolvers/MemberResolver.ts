@@ -129,7 +129,8 @@ export class MemberResolver {
 	async deleteMemberAccount(
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
-	): Promise<Member> {
+	): Promise<Boolean> {
+
 		return this.MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

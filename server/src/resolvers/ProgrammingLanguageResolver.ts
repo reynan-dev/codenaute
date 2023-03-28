@@ -12,7 +12,7 @@ import {
 } from 'resolvers/args/ProgrammingLanguageArgs';
 
 @Resolver(ProgrammingLanguage)
-export class ProgramingLanguageResolver {
+export class ProgrammingLanguageResolver {
 	ProgrammingLanguageServices: ProgrammingLanguageServices = new ProgrammingLanguageServices();
 	@Authorized()
 	@Query(() => ProgrammingLanguage)

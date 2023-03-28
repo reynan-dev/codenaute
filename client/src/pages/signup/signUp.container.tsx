@@ -1,12 +1,13 @@
-import { HOME_PATH } from 'constants/paths';
-import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
+import { useSignUp } from 'api/signUp/useSignUp';
+import { SIGN_IN_PATH } from 'constants/paths';
 import { getFormErrors } from 'helpers/getFormErrors';
+import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
+import { useCheckAccountDeletion } from 'hooks/useCheckAccountDeletion';
+import { SignUpForm } from 'pages/signUp/components/SignUpForm';
+import { SignUpPage } from 'pages/signUp/signUp.page';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useSignUp } from 'api/signUp/useSignUp';
-import { SignUpPage } from 'pages/signUp/signUp.page';
-import { SignUpForm } from 'pages/signUp/components/SignUpForm';
 
 export interface ErrorMessages {
 	[key: string]: string;
@@ -32,6 +33,8 @@ export const SignUpContainer = () => {
 		setFormErrorMessages
 	};
 
+	useCheckAccountDeletion();
+
 	const { signUp, loading } = useSignUp();
 	const navigate = useNavigate();
 
@@ -40,8 +43,8 @@ export const SignUpContainer = () => {
 			await signUp({
 				variables: { username, email, password, confirmedPassword }
 			});
-			toast.success(`Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.`);
-			navigate(HOME_PATH);
+			toast.success(`Your account is successfully created. You can now sign in.`);
+			navigate(SIGN_IN_PATH);
 		} catch (error) {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}

@@ -42,7 +42,6 @@ export class MemberServices extends BaseServices {
 		const member = await this.repository.findOne({
 			where: { sessions: { token } },
 			relations: [
-				'projects',
 				'ownedProjects',
 				'projectsInvitedOn',
 				'favoritedProjects',
@@ -60,7 +59,6 @@ export class MemberServices extends BaseServices {
 		const member = await this.repository.findOne({
 			where: { id: id },
 			relations: [
-				'projects',
 				'ownedProjects',
 				'projectsInvitedOn',
 				'favoritedProjects',
@@ -122,6 +120,8 @@ export class MemberServices extends BaseServices {
 		if (!compareSync(password, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 
-		return await this.delete(id);
+		await this.delete(id);
+
+		return true;
 	}
 }
