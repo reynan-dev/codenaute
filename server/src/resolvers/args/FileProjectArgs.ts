@@ -1,7 +1,7 @@
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
-export class getAllFilesByProjectArgs {
+export class getAllFilesByProjectIdArgs {
 	@Field()
 	projectId: string;
 }
@@ -28,7 +28,7 @@ export class createFileProjectArgs {
 }
 
 @ArgsType()
-export class updatePathFileProjectArgs {
+export class updateFileProjectPathArgs {
 	@Field()
 	fileId: string;
 
@@ -37,7 +37,7 @@ export class updatePathFileProjectArgs {
 }
 
 @ArgsType()
-export class updateCodeFileProjectArgs {
+export class updateFileProjectCodeArgs {
 	@Field()
 	fileId: string;
 
@@ -46,7 +46,7 @@ export class updateCodeFileProjectArgs {
 }
 
 @ArgsType()
-export class updateHiddenFileProjectArgs {
+export class updateFileProjectHiddenArgs {
 	@Field()
 	fileId: string;
 

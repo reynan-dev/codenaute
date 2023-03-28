@@ -12,7 +12,7 @@ import {
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 import { BaseModel } from 'models/base/BaseModel';
-import { ProgramingLanguage } from 'models/ProgramingLanguage';
+import { ProgrammingLanguage } from 'models/ProgrammingLanguage';
 import { FileProject } from 'models/FileProject';
 import { SandpackTemplate } from 'models/SandpackTemplate';
 import { Member } from 'models/Member';
@@ -25,13 +25,13 @@ export class Project extends BaseModel {
 	@IsString()
 	name: string;
 
-	@ManyToOne(() => Member, (member) => member.projects, { eager: true })
+	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true })
 	@JoinColumn()
 	@Field(() => Member)
 	owner: Member;
 
 	@Field(() => [Member])
-	@ManyToMany(() => Member, (member) => member.projects, { eager: true })
+	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true })
 	editors: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
@@ -39,9 +39,9 @@ export class Project extends BaseModel {
 	files: FileProject[];
 
 	@Column('varchar')
-	@Field(() => ProgramingLanguage)
-	@ManyToOne(() => ProgramingLanguage, (language) => language.id, { eager: true })
-	programmingLanguage: ProgramingLanguage;
+	@Field(() => ProgrammingLanguage)
+	@ManyToOne(() => ProgrammingLanguage, (language) => language.id, { eager: true })
+	programmingLanguage: ProgrammingLanguage;
 
 	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
@@ -55,7 +55,7 @@ export class Project extends BaseModel {
 	activeFile: FileProject;
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritesProjects, { eager: true })
+	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true })
 	favoritedBy: Member[];
 
 	@Column('boolean', { default: false })

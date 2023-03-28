@@ -6,37 +6,31 @@ import { Validations } from 'utils/enums/Validations';
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
-export class getByIdArgs {
+export class getProjectByIdArgs {
 	@Field()
 	projectId: string;
 }
 
 @ArgsType()
-export class getByNameArgs {
-	@Field()
-	projectName: string;
-}
-
-@ArgsType()
-export class getByMemberArgs {
+export class getAllProjectsByMemberArgs {
 	@Field()
 	memberId: string;
 }
 
 @ArgsType()
-export class getAllByTemplateArgs {
+export class getAllProjectsByTemplateArgs {
 	@Field()
 	templateId: string;
 }
 
 @ArgsType()
-export class getAllByLanguageArgs {
+export class getAllProjectsByProgrammingLanguageArgs {
 	@Field()
 	languageId: string;
 }
 
 @ArgsType()
-export class createArgs {
+export class createProjectArgs {
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
 	name: string;
@@ -76,7 +70,7 @@ export class shareProjectArgs {
 }
 
 @ArgsType()
-export class updateNameArgs {
+export class updateProjectNameArgs {
 	@Field()
 	projectId: string;
 
@@ -86,7 +80,7 @@ export class updateNameArgs {
 }
 
 @ArgsType()
-export class updateActiveFileArgs {
+export class updateProjectActiveFileArgs {
 	@Field()
 	projectId: string;
 
@@ -95,7 +89,7 @@ export class updateActiveFileArgs {
 }
 
 @ArgsType()
-export class updateIsTemplateArgs {
+export class updateProjectIsTemplateArgs {
 	@Field()
 	projectId: string;
 
@@ -104,7 +98,7 @@ export class updateIsTemplateArgs {
 }
 
 @ArgsType()
-export class updateIsPublic {
+export class updateProjectIsPublic {
 	@Field()
 	projectId: string;
 
@@ -113,7 +107,7 @@ export class updateIsPublic {
 }
 
 @ArgsType()
-export class deleteArgs {
+export class deleteProjectArgs {
 	@Field()
 	projectId: string;
 }

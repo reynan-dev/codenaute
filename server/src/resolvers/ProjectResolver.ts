@@ -5,90 +5,83 @@ import { ProjectServices } from 'services/ProjectServices';
 
 import { GlobalContext } from 'utils/types/GlobalContext';
 import {
-	createArgs,
-	deleteArgs,
+	createProjectArgs,
+	deleteProjectArgs,
 	favoriteProjectArgs,
-	getAllByLanguageArgs,
-	getAllByTemplateArgs,
-	getByIdArgs,
-	getByMemberArgs,
-	getByNameArgs,
+	getAllProjectsByProgrammingLanguageArgs,
+	getAllProjectsByTemplateArgs,
+	getProjectByIdArgs,
+	getAllProjectsByMemberArgs,
 	shareProjectArgs,
-	updateActiveFileArgs,
-	updateIsPublic,
-	updateIsTemplateArgs,
-	updateNameArgs
+	updateProjectActiveFileArgs,
+	updateProjectIsPublic,
+	updateProjectIsTemplateArgs,
+	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-import { ProgramingLanguageServices } from 'services/ProgramingLanguageServices';
+import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 
 @Resolver(Project)
 export class ProjectResolver {
 	ProjectServices: ProjectServices = new ProjectServices();
-	LanguageServices: ProgramingLanguageServices = new ProgramingLanguageServices();
+	LanguageServices: ProgrammingLanguageServices = new ProgrammingLanguageServices();
 	FileProjectServices: FileProjectServices = new FileProjectServices();
 	MemberServices: MemberServices = new MemberServices();
 	@Authorized()
 	@Query(() => Project)
-	async getAllPublicProjects(): Promise<Project[]> {
+	async getAllProjectsPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByOwner(context.user?.id as string);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
+	async getAllProjectsByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByEditorId(context.user?.id as string);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getFavoritedByMember(@Args() { memberId }: getByMemberArgs): Promise<Project[]> {
+	async getAllFavoritedProjectsByMember(@Args() { memberId }: getAllProjectsByMemberArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByFavorites(memberId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByTemplate(@Args() { templateId }: getAllByTemplateArgs): Promise<Project[]> {
+	async getAllProjectsByTemplate(@Args() { templateId }: getAllProjectsByTemplateArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByTemplate(templateId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllByLanguage(@Args() { languageId }: getAllByLanguageArgs): Promise<Project[]> {
+	async getAllProjectsByProgrammingLanguage(@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByLanguage(languageId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getById(@Args() { projectId }: getByIdArgs): Promise<Project> {
+	async getProjectsById(@Args() { projectId }: getProjectByIdArgs): Promise<Project> {
 		return this.ProjectServices.findById(projectId);
 	}
 
 	@Authorized()
-	@Query(() => Project)
-	async getByName(@Args() { projectName }: getByNameArgs): Promise<Project> {
-		return this.ProjectServices.findOneBy({ projectName });
-	}
-
-	@Authorized()
 	@Mutation(() => Project)
-	async create(
-		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createArgs,
+	async createProjects(
+		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as string);
@@ -123,7 +116,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
+	async shareProjects(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
 		const members = new Array();
 		membersId.map((id) => {
 			const member = this.MemberServices.findById(id);
@@ -136,7 +129,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateName(@Args() { projectId, name }: updateNameArgs): Promise<Project> {
+	async updateProjectsName(@Args() { projectId, name }: updateProjectNameArgs): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -146,8 +139,8 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateActiveFile(
-		@Args() { projectId, activeFile }: updateActiveFileArgs
+	async updateProjectsActiveFile(
+		@Args() { projectId, activeFile }: updateProjectActiveFileArgs
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -158,8 +151,8 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateIsTemplate(
-		@Args() { projectId, isTemplate }: updateIsTemplateArgs
+	async updateProjectsIsTemplate(
+		@Args() { projectId, isTemplate }: updateProjectIsTemplateArgs
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -170,7 +163,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateIsPublic(@Args() { projectId, isPublic }: updateIsPublic): Promise<Project> {
+	async updateProjectsIsPublic(@Args() { projectId, isPublic }: updateProjectIsPublic): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -180,7 +173,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async delete(@Args() { projectId }: deleteArgs): Promise<Project> {
+	async deleteProjects(@Args() { projectId }: deleteProjectArgs): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
