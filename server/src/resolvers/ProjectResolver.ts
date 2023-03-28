@@ -53,21 +53,27 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllFavoritedProjectsByMember(@Args() { memberId }: getAllProjectsByMemberArgs): Promise<Project[]> {
+	async getAllFavoritedProjectsByMember(
+		@Args() { memberId }: getAllProjectsByMemberArgs
+	): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByFavorites(memberId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllProjectsByTemplate(@Args() { templateId }: getAllProjectsByTemplateArgs): Promise<Project[]> {
+	async getAllProjectsByTemplate(
+		@Args() { templateId }: getAllProjectsByTemplateArgs
+	): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByTemplate(templateId);
 	}
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllProjectsByProgrammingLanguage(@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs): Promise<Project[]> {
+	async getAllProjectsByProgrammingLanguage(
+		@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs
+	): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findByLanguage(languageId);
 	}
@@ -163,7 +169,9 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateProjectsIsPublic(@Args() { projectId, isPublic }: updateProjectIsPublic): Promise<Project> {
+	async updateProjectsIsPublic(
+		@Args() { projectId, isPublic }: updateProjectIsPublic
+	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);

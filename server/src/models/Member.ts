@@ -30,7 +30,7 @@ export class Member extends BaseModel {
 	hashedPassword: string;
 
 	@Field(() => [Session], { nullable: true, defaultValue: [] })
-	@OneToMany(() => Session, (session) => session.member, { nullable: true, cascade: true, })
+	@OneToMany(() => Session, (session) => session.member, { nullable: true, cascade: true })
 	sessions: Session[];
 
 	@Field(() => [Project], { nullable: true, defaultValue: [] })

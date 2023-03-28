@@ -22,13 +22,17 @@ export class ProgrammingLanguageResolver {
 
 	@Authorized()
 	@Query(() => ProgrammingLanguage)
-	async getProgrammingLanguageById(@Args() { languageId }: getProgrammingLanguageByIdArgs): Promise<ProgrammingLanguage> {
+	async getProgrammingLanguageById(
+		@Args() { languageId }: getProgrammingLanguageByIdArgs
+	): Promise<ProgrammingLanguage> {
 		return this.ProgrammingLanguageServices.findById(languageId);
 	}
 
 	@Authorized()
 	@Mutation(() => ProgrammingLanguage)
-	async createProgrammingLanguage(@Args() { name, version }: createProgrammingLanguageArgs): Promise<ProgrammingLanguage> {
+	async createProgrammingLanguage(
+		@Args() { name, version }: createProgrammingLanguageArgs
+	): Promise<ProgrammingLanguage> {
 		const language = await this.ProgrammingLanguageServices.findByName(name);
 
 		if (language) throw new Error(ErrorMessages.LANGUAGE_ALREADY_EXISTS);
@@ -50,7 +54,9 @@ export class ProgrammingLanguageResolver {
 
 	@Authorized()
 	@Mutation(() => ProgrammingLanguage)
-	async deleteProgrammingLanguage(@Args() { languageId }: deleteProgrammingLanguageArgs): Promise<ProgrammingLanguage> {
+	async deleteProgrammingLanguage(
+		@Args() { languageId }: deleteProgrammingLanguageArgs
+	): Promise<ProgrammingLanguage> {
 		return this.ProgrammingLanguageServices.delete(languageId);
 	}
 }

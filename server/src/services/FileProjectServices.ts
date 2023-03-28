@@ -6,11 +6,14 @@ export class FileProjectServices extends BaseServices {
 		super(FileProject);
 	}
 
-	async findById (id: string): Promise<FileProject> {
+	async findById(id: string): Promise<FileProject> {
 		return this.repository.findOne({ where: { id }, relations: ['project'] });
 	}
 
 	async findAllByProjectId(projectId: string): Promise<FileProject[]> {
-		return this.repository.find({ where: { project: { id: projectId }}, relations: { project: true } });
+		return this.repository.find({
+			where: { project: { id: projectId } },
+			relations: { project: true }
+		});
 	}
 }

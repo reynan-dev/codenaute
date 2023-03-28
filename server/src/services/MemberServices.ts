@@ -39,15 +39,33 @@ export class MemberServices extends BaseServices {
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {sessions: { token }}, relations: ['ownedProjects', 'projectsInvitedOn', 'favoritedProjects', 'followers', 'following'] });
+		const member = await this.repository.findOne({
+			where: { sessions: { token } },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
 
 		if (!member) return null;
 
 		return member;
 	}
 
-	async findOneById (id: string): Promise<Member | null> {
-		const member = await this.repository.findOne({ where: {id: id}, relations: ['ownedProjects', 'projectsInvitedOn', 'favoritedProjects', 'followers', 'following'] });
+	async findOneById(id: string): Promise<Member | null> {
+		const member = await this.repository.findOne({
+			where: { id: id },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
 
 		if (!member) return null;
 
@@ -60,7 +78,8 @@ export class MemberServices extends BaseServices {
 
 		if (!member || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
 
-		if (member.id === memberToFollow.id) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+		if (member.id === memberToFollow.id)
+			throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
 
 		if (member.following.includes(memberToFollow))
 			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);

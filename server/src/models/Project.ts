@@ -35,7 +35,11 @@ export class Project extends BaseModel {
 	editors: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
-	@OneToMany(() => FileProject, (file) => file.project, { eager: true, nullable: true, cascade: true })
+	@OneToMany(() => FileProject, (file) => file.project, {
+		eager: true,
+		nullable: true,
+		cascade: true
+	})
 	files: FileProject[];
 
 	@Column('varchar')

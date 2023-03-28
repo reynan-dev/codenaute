@@ -49,7 +49,7 @@ export class MemberResolver {
 
 		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
 
-		return await this.MemberServices.findOneById(newMember.id)
+		return await this.MemberServices.findOneById(newMember.id);
 	}
 
 	@Authorized()
@@ -77,7 +77,10 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async followMember(@Args() { memberId }: FollowMemberArgs, @Ctx() context: GlobalContext): Promise<Member> {
+	async followMember(
+		@Args() { memberId }: FollowMemberArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Member> {
 		return await this.MemberServices.followMember(context.user?.id as string, memberId);
 	}
 

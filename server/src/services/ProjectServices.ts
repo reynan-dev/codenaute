@@ -14,27 +14,45 @@ export class ProjectServices extends BaseServices {
 	}
 
 	async findAllPublic(): Promise<Project[]> {
-		return this.repository.find({ where: { isPublic: true }, relations: ['owner', 'editors', 'favoritedBy', 'files'] });
+		return this.repository.find({
+			where: { isPublic: true },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async findByOwner(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { owner: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+		return this.repository.find({
+			where: { owner: { id: memberId } },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async findByEditorId(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { editors: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+		return this.repository.find({
+			where: { editors: { id: memberId } },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async findByFavorites(memberId: string): Promise<Project[]> {
-		return this.repository.find({ where: { favoritedBy: { id: memberId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+		return this.repository.find({
+			where: { favoritedBy: { id: memberId } },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async findByTemplate(templateId: string): Promise<Project[]> {
-		return this.repository.find({ where: { template: { id: templateId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+		return this.repository.find({
+			where: { template: { id: templateId } },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async findByLanguage(languageId: string): Promise<Project[]> {
-		return this.repository.find({ where: { programmingLanguage: { id: languageId } }, relations: ['owner', 'editors', 'favoritedBy', 'files']  });
+		return this.repository.find({
+			where: { programmingLanguage: { id: languageId } },
+			relations: ['owner', 'editors', 'favoritedBy', 'files']
+		});
 	}
 
 	async addToFavorite(memberId: string, projectId: string): Promise<Project> {
