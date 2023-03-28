@@ -3,29 +3,11 @@ import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 
-import { Database } from 'db';
-
 describe('Finding files by a project id integration test', () => {
 	const FileProjectService = new FileProjectServices();
 	const MemberService = new MemberServices();
 	const ProjectService = new ProjectServices();
 	const ProgramingLanguageService = new ProgrammingLanguageServices();
-
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await Database.start();
-	});
-
-	afterAll(async () => {
-		await Database.stop();
-	});
-
-	beforeEach(async () => {
-		for (const entity of Database.entityMetadatas()) {
-			const repository = Database.repository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
 
 	describe('when project id is not valid', () => {
 		it('throw an empty array', async () => {
