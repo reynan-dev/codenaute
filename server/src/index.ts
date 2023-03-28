@@ -6,7 +6,7 @@ import { MemberResolver } from 'resolvers/MemberResolver';
 import { RoutingTokenResolver } from 'resolvers/RoutingTokenResolver';
 import { ProjectResolver } from 'resolvers/ProjectResolver';
 import { FileProjectResolver } from 'resolvers/FileProjectResolver';
-import { LanguageResolver } from 'resolvers/LanguageResolver';
+import { ProgrammingLanguageResolver } from 'resolvers/ProgrammingLanguageResolver';
 import { SandpackTemplateResolver } from 'resolvers/SandpackTemplate';
 
 import { MemberServices } from 'services/MemberServices';
@@ -28,7 +28,7 @@ abstract class Server {
 		RoutingTokenResolver,
 		ProjectResolver,
 		FileProjectResolver,
-		LanguageResolver,
+		ProgrammingLanguageResolver,
 		SandpackTemplateResolver
 	];
 
