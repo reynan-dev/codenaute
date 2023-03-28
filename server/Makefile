@@ -22,6 +22,10 @@ build: ## Compiling typescript
 	@echo "Building typescript on server"
 	pnpm build
 
+ci:
+	@echo "------- SERVER : CI CHECK"
+	pnpm ci
+
 start-debug: ## Starting server container in debug mode
 	@echo "Starting server in debug mode"
 	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
