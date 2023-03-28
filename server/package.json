@@ -10,7 +10,8 @@
 		"start": "node dist/index.js",
 		"start:watch": "tsc && (tsc -w & nodemon -L dist/index.js)",
 		"test": "jest --runInBand --verbose",
-		"test:watch": "jest --watchAll --runInBand --verbose"
+		"test:watch": "jest --watchAll --runInBand --verbose",
+		"ci": "pnpm build && pnpm test"
 	},
 	"dependencies": {
 		"apollo-server": "3.11.1",
