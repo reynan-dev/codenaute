@@ -89,7 +89,7 @@ jobs:
           key: ${{ runner.OS }}-platform-server-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
 
       - name: Run Tests
-        run: pnpm test
+        run: pnpm test:ci
         working-directory: ./${{env.SERVICE_NAME}}
 
       - name: Run Prettier Formatting

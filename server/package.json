@@ -10,6 +10,7 @@
 		"start": "node dist/index.js",
 		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
+		"test:ci": "jest --runInBand --verbose",
 		"test:watch": "jest --watchAll --runInBand --verbose --coverage"
 	},
 	"dependencies": {
