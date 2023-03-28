@@ -1,7 +1,5 @@
 import { MemberServices } from 'services/MemberServices';
 
-import { Database } from 'db';
-
 describe('Validate a Member email integration test', () => {
 	const MemberService = new MemberServices();
 

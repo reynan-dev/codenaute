@@ -1,8 +1,6 @@
 import { MemberServices } from 'services/MemberServices';
 import { RoutingTokenServices } from 'services/RoutingTokenServices';
 
-import { Database } from 'db';
-
 describe('Find a RoutingToken ByToken integration test', () => {
 	const MemberService = new MemberServices();
 	const RoutingTokenService = new RoutingTokenServices();

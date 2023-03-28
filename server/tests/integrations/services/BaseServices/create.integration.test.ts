@@ -1,5 +1,4 @@
 import { hashSync } from 'bcryptjs';
-import { Database } from 'db';
 import { MemberServices } from 'services/MemberServices';
 
 describe('Create integration test', () => {

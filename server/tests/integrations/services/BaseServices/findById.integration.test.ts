@@ -1,4 +1,3 @@
-import { Database } from 'db';
 import { MemberServices } from 'services/MemberServices';
 import { v4 as uuid } from 'uuid';
 
