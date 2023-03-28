@@ -1,23 +1,7 @@
-import MemberServices from 'services/MemberServices';
-
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { MemberServices } from 'services/MemberServices';
 
 describe('Update a Member username integration test', () => {
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
-	});
-
-	afterAll(async () => {
-		await closeDatabase();
-	});
-
-	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
+	const MemberService = new MemberServices();
 
 	describe('when update username', () => {
 		it('return an member', async () => {
@@ -25,11 +9,11 @@ describe('Update a Member username integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
 			const newUsername = 'newUsername';
 
-			const updated = await MemberServices.updateUsername(member.id, newUsername);
+			const updated = await MemberService.updateUsername(member.id, newUsername);
 
 			expect(updated.username).toEqual(newUsername);
 		});

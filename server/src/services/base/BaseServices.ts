@@ -1,12 +1,12 @@
 import { ObjectLiteral } from 'typeorm';
-import { dataSource } from 'db';
+import { Database } from 'db';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-export default abstract class BaseServices {
+export abstract class BaseServices {
 	repository: any;
 
 	constructor(entity: any) {
-		this.repository = dataSource.getRepository(entity);
+		this.repository = Database.repository(entity);
 	}
 
 	async find() {

@@ -1,23 +1,8 @@
 import { hashSync } from 'bcryptjs';
-import { closeDatabase, dataSource, startDatabase } from 'db';
-import MemberServices from 'services/MemberServices';
+import { MemberServices } from 'services/MemberServices';
 
 describe('Create integration test', () => {
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
-	});
-
-	afterAll(async () => {
-		await closeDatabase();
-	});
-
-	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
+	const MemberService = new MemberServices();
 
 	describe('when try create an user with valid data', () => {
 		describe('when trying to create an element that already exists', () => {
@@ -34,9 +19,9 @@ describe('Create integration test', () => {
 					hashedPassword: hashedPassword
 				};
 
-				await MemberServices.signUp(data.username, data.email, data.hashedPassword);
+				await MemberService.signUp(data.username, data.email, data.hashedPassword);
 
-				expect(() => MemberServices.create(data)).rejects.toThrowError();
+				expect(() => MemberService.create(data)).rejects.toThrowError();
 			});
 		});
 
@@ -50,7 +35,7 @@ describe('Create integration test', () => {
 					hashedPassword: hashedPassword
 				};
 
-				const created = await MemberServices.create(data);
+				const created = await MemberService.create(data);
 
 				expect(created.username).toEqual(data.username);
 				expect(created.email).toEqual(data.email);

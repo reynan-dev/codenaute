@@ -5,15 +5,16 @@ import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn } from 't
 
 @Entity()
 @ObjectType()
-export default class RoutingToken {
+export class RoutingToken {
 	constructor(email: string) {
 		this.email = email;
 	}
 
-	@PrimaryColumn('varchar', { length: 32 })
+	@PrimaryColumn('varchar', { length: 32, unique: true })
 	@IsHexadecimal()
 	token: string;
 
+	@Column('varchar', { nullable: true })
 	@Field()
 	@IsEmail()
 	email: string;
