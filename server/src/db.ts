@@ -54,7 +54,7 @@ export abstract class Database {
 			await this._initialize();
 			console.info('🎉 Successfully connected to database');
 		} catch (error) {
-			console.log('😞 Database connection error');
+			console.info('😞 Database connection error');
 			console.error(error);
 		}
 	}
