@@ -7,7 +7,7 @@ describe('Find All Projects By Programming Language', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
@@ -31,22 +31,22 @@ describe('Find All Projects By Programming Language', () => {
 				version: '3.10'
 			});
 
-			const data = {
+			const projectData = {
 				name: 'project_test',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: programmingLanguage
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
-			const find = await ProjectService.findAllByProgrammingLanguage(programmingLanguage.id);
+			const projectsFound = await ProjectService.findAllByProgrammingLanguage(programmingLanguage.id);
 
-			expect(find).toHaveLength(1);
-			expect(find[0].id).toEqual(project.id);
+			expect(projectsFound).toHaveLength(1);
+			expect(projectsFound[0].id).toEqual(project.id);
 		});
 	});
 });

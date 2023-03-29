@@ -9,7 +9,7 @@ describe('Find All Projects By Template', () => {
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 	const SandpackTemplateService = new SandpackTemplateServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
@@ -27,13 +27,13 @@ describe('Find All Projects By Template', () => {
 		it('returns an array of projects', async () => {
 			const template = await SandpackTemplateService.create({ slug: 'data' });
 
-			const data = {
+			const projectData = {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
@@ -42,12 +42,12 @@ describe('Find All Projects By Template', () => {
 				template: template
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
-			const find = await ProjectService.findAllByTemplate(template.id);
+			const projectsFound = await ProjectService.findAllByTemplate(template.id);
 
-			expect(find).toHaveLength(1);
-			expect(find[0].id).toEqual(project.id);
+			expect(projectsFound).toHaveLength(1);
+			expect(projectsFound[0].id).toEqual(project.id);
 		});
 	});
 });

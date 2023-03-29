@@ -6,13 +6,13 @@ import { v4 as uuid } from 'uuid';
 describe('Follow Member integration test', () => {
 	const MemberService = new MemberServices();
 
-	const data = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@email.com',
 		password: 'password'
 	};
 
-	const dataToFollow = {
+	const memberToFollowData = {
 		username: 'dataToFollow',
 		email: 'dataToFollow@email.com',
 		hashedPassword: 'password'
@@ -20,7 +20,7 @@ describe('Follow Member integration test', () => {
 
 	describe('when member or memberToFollow is not valid', () => {
 		it('throw a Member Not Found error', async () => {
-			const member = await MemberService.signUp(data.username, data.email, data.password);
+			const member = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
 
 			expect(() => MemberService.followMember(member.id, uuid())).rejects.toThrowError(
 				ErrorMessages.MEMBER_NOT_FOUND
@@ -31,13 +31,13 @@ describe('Follow Member integration test', () => {
 	describe('when memberToFollow and member is valid', () => {
 		describe.skip('when member is already following memberToFollow', () => {
 			it('throw a Already Following Member error', async () => {
-				const member = await MemberService.signUp(data.username, data.email, data.password);
+				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
 
-				const memberToFollow = await MemberService.create(dataToFollow);
+				const memberToFollow = await MemberService.create(memberToFollowData);
 
-				await MemberService.followMember(member.id, memberToFollow.id);
+				await MemberService.followMember(owner.id, memberToFollow.id);
 
-				expect(() => MemberService.followMember(member.id, memberToFollow.id)).rejects.toThrowError(
+				expect(() => MemberService.followMember(owner.id, memberToFollow.id)).rejects.toThrowError(
 					ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE
 				);
 			});
@@ -45,9 +45,9 @@ describe('Follow Member integration test', () => {
 
 		describe('when member and memberToFollow are the same', () => {
 			it('throw a Cannot Follow Self error', async () => {
-				const member = await MemberService.signUp(data.username, data.email, data.password);
+				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
 
-				expect(() => MemberService.followMember(member.id, member.id)).rejects.toThrowError(
+				expect(() => MemberService.followMember(owner.id, owner.id)).rejects.toThrowError(
 					ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE
 				);
 			});
@@ -55,22 +55,22 @@ describe('Follow Member integration test', () => {
 
 		describe('when member and memberToFollow are not the same', () => {
 			it('return the member', async () => {
-				const member = await MemberService.signUp(data.username, data.email, data.password);
+				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
 
 				const memberToFollow = await MemberService.signUp(
-					dataToFollow.username,
-					dataToFollow.email,
-					dataToFollow.hashedPassword
+					memberToFollowData.username,
+					memberToFollowData.email,
+					memberToFollowData.hashedPassword
 				);
 
-				const follow = await MemberService.followMember(member.id, memberToFollow.id);
+				const followingMember = await MemberService.followMember(owner.id, memberToFollow.id);
 
 				const followedMember = (await MemberService.findById(memberToFollow.id)) as Member;
 
-				expect(follow.following).toHaveLength(1);
-				expect(follow.following[0].id).toEqual(memberToFollow.id);
+				expect(followingMember.following).toHaveLength(1);
+				expect(followingMember.following[0].id).toEqual(memberToFollow.id);
 				expect(followedMember.followers).toHaveLength(1);
-				expect(followedMember.followers[0].id).toEqual(member.id);
+				expect(followedMember.followers[0].id).toEqual(owner.id);
 			});
 		});
 	});

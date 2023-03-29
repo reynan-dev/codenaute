@@ -7,13 +7,13 @@ describe('Find All Projects By Favorite Id', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
 	};
 
-	const favoriteData = {
+	const favoringData = {
 		username: 'favorite',
 		email: 'favorite@gmail.com',
 		password: 'data'
@@ -22,43 +22,43 @@ describe('Find All Projects By Favorite Id', () => {
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
 			const favoringUser = await MemberService.signUp(
-				favoriteData.username,
-				favoriteData.email,
-				favoriteData.password
+				favoringData.username,
+				favoringData.email,
+				favoringData.password
 			);
 
-			expect(await ProjectService.findAllByFavorites(favoriteUser.id)).toEqual([]);
+			expect(await ProjectService.findAllByFavorites(favoringUser.id)).toEqual([]);
 		});
 	});
 
 	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
-			const favoriteUser = await MemberService.signUp(
-				favoriteData.username,
-				favoriteData.email,
-				favoriteData.password
+			const favoringUser = await MemberService.signUp(
+				favoringData.username,
+				favoringData.email,
+				favoringData.password
 			);
 
 			const data = {
 				name: 'project_test',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: '3.10'
 				}),
-				favoritedBy: [favoriteUser]
+				favoritedBy: [favoringUser]
 			};
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllByFavorites(favoriteUser.id);
+			const projectsFound = await ProjectService.findAllByFavorites(favoringUser.id);
 
-			expect(find).toHaveLength(1);
-			expect(find[0].id).toEqual(project.id);
+			expect(projectsFound).toHaveLength(1);
+			expect(projectsFound[0].id).toEqual(project.id);
 		});
 	});
 });

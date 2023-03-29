@@ -7,7 +7,7 @@ describe('Find All Projects By Editor Id', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
@@ -21,42 +21,42 @@ describe('Find All Projects By Editor Id', () => {
 
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
-			const editor = await MemberService.signUp(
+			const editorMember = await MemberService.signUp(
 				editorData.username,
 				editorData.email,
 				editorData.password
 			);
 
-			expect(await ProjectService.findAllByEditorId(editor.id)).toEqual([]);
+			expect(await ProjectService.findAllByEditorId(editorMember.id)).toEqual([]);
 		});
 	});
 
 	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
-			const editor = await MemberService.signUp(
+			const editorMember = await MemberService.signUp(
 				editorData.username,
 				editorData.email,
 				editorData.password
 			);
 
-			const data = {
+			const projectData = {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'
 				}),
-				editors: [editor]
+				editors: [editorMember]
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
-			const find = await ProjectService.findAllByEditorId(editor.id);
+			const find = await ProjectService.findAllByEditorId(editorMember.id);
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

@@ -9,13 +9,13 @@ describe('Add to Favorite', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
 	};
 
-	const favoriteData = {
+	const favoringData = {
 		username: 'favorite',
 		email: 'favorite@gmail.com',
 		password: 'data'
@@ -23,13 +23,13 @@ describe('Add to Favorite', () => {
 
 	describe('when there are no project', () => {
 		it('throw a Project Not Found error', async () => {
-			const favorite = await MemberService.signUp(
-				favoriteData.username,
-				favoriteData.email,
-				favoriteData.password
+			const favoringMember = await MemberService.signUp(
+				favoringData.username,
+				favoringData.email,
+				favoringData.password
 			);
 
-			expect(() => ProjectService.addToFavorite(favorite, uuid())).rejects.toThrowError(
+			expect(() => ProjectService.addToFavorite(favoringMember, uuid())).rejects.toThrowError(
 				ErrorMessages.PROJECT_NOT_FOUND
 			);
 		});
@@ -38,18 +38,18 @@ describe('Add to Favorite', () => {
 	describe('when there are project and favorite', () => {
 		it('returns an array of members', async () => {
 			const favoringUser = await MemberService.signUp(
-				favoriteData.username,
-				favoriteData.email,
-				favoriteData.password
+				favoringData.username,
+				favoringData.email,
+				favoringData.password
 			);
 
 			const data = {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',

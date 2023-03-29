@@ -7,7 +7,7 @@ describe('Find Projects By Owner', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
@@ -15,39 +15,39 @@ describe('Find Projects By Owner', () => {
 
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
-			const member = await MemberService.signUp(
-				memberData.username,
-				memberData.email,
-				memberData.password
+			const ownerMember = await MemberService.signUp(
+				ownerData.username,
+				ownerData.email,
+				ownerData.password
 			);
 
-			expect(await ProjectService.findAllByOwner(member.id)).toEqual([]);
+			expect(await ProjectService.findAllByOwner(ownerMember.id)).toEqual([]);
 		});
 	});
 
 	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
-			const member = await MemberService.signUp(
-				memberData.username,
-				memberData.email,
-				memberData.password
+			const ownerMember = await MemberService.signUp(
+				ownerData.username,
+				ownerData.email,
+				ownerData.password
 			);
 
-			const data = {
+			const projectData = {
 				name: 'project_test',
-				owner: member,
+				owner: ownerMember,
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'
 				})
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
-			const find = await ProjectService.findAllByOwner(member.id);
+			const projectsFound = await ProjectService.findAllByOwner(ownerMember.id);
 
-			expect(find).toHaveLength(1);
-			expect(find[0].id).toEqual(project.id);
+			expect(projectsFound).toHaveLength(1);
+			expect(projectsFound[0].id).toEqual(project.id);
 		});
 	});
 });

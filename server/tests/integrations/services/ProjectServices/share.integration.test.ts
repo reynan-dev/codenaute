@@ -9,13 +9,13 @@ describe('Find All Projects By Editor Id', () => {
 	const MemberService = new MemberServices();
 	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
-	const memberData = {
+	const ownerData = {
 		username: 'data',
 		email: 'data@gmail.com',
 		password: 'data'
 	};
 
-	const shareData = {
+	const shareToData = {
 		username: 'share',
 		email: 'share@gmail.com',
 		password: 'data'
@@ -23,13 +23,13 @@ describe('Find All Projects By Editor Id', () => {
 
 	describe('when there are no project or member', () => {
 		it('throw a Project Not Found error', async () => {
-			const shareUser = await MemberService.signUp(
-				shareData.username,
-				shareData.email,
-				shareData.password
+			const shareToUser = await MemberService.signUp(
+				shareToData.username,
+				shareToData.email,
+				shareToData.password
 			);
 
-			expect(() => ProjectService.share(uuid(), [shareUser])).rejects.toThrowError(
+			expect(() => ProjectService.share(uuid(), [shareToUser])).rejects.toThrowError(
 				ErrorMessages.PROJECT_NOT_FOUND
 			);
 		});
@@ -38,17 +38,17 @@ describe('Find All Projects By Editor Id', () => {
 	describe('when there are project and member', () => {
 		it('returns an array of public projects', async () => {
 			const shareUser = await MemberService.signUp(
-				shareData.username,
-				shareData.email,
-				shareData.password
+				shareToData.username,
+				shareToData.email,
+				shareToData.password
 			);
 
-			const data = {
+			const projectData = {
 				name: 'project_test',
 				owner: await MemberService.signUp(
-					memberData.username,
-					memberData.email,
-					memberData.password
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
 				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
@@ -56,7 +56,7 @@ describe('Find All Projects By Editor Id', () => {
 				})
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
 			const sharedProject = await ProjectService.share(project.id, [shareUser]);
 
