@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"build": "react-scripts build",
+		"ci": "tsc && pnpm test",
 		"codegen": "graphql-codegen --config codegen.ts",
 		"eject": "react-scripts eject",
 		"start": "WATCHPACK_POLLING=true react-scripts start --hot",

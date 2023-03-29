@@ -1,10 +1,9 @@
-import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import { useDeleteAccount } from 'api/profile/useDeleteAccount';
 import { useUpdateEmail } from 'api/profile/useUpdateEmail';
 import { useUpdatePassword } from 'api/profile/useUpdatePassword';
 import { useUpdateUsername } from 'api/profile/useUpdateUsername';
 import { SIGN_UP_PATH } from 'constants/paths';
-import { ProfileQuery } from 'graphql/__generated__/graphql';
+import AuthContext from 'context/auth.context';
 import { areSameValues } from 'helpers/areSameValues';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
@@ -14,22 +13,13 @@ import { DeleteAccountForm } from 'pages/account/components/DeleteAccountForm';
 import { UpdateInformationsForm } from 'pages/account/components/UpdateInformationsForm';
 import { UpdatePasswordForm } from 'pages/account/components/UpdatePasswordForm';
 import { ErrorMessages } from 'pages/signUp/signUp.container';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export interface AccountContainerProps {
-	isProfileLoading: boolean;
-	profileData: ProfileQuery | undefined;
-	refetchProfile: (
-		variables?: Partial<OperationVariables> | undefined
-	) => Promise<ApolloQueryResult<ProfileQuery>>;
-}
+export const AccountContainer = () => {
+	const { profile: profileData, refetch: refetchProfile } = useContext(AuthContext);
 
-export const AccountContainer = ({
-	isProfileLoading,
-	profileData,
-	refetchProfile
-}: AccountContainerProps) => {
 	const initialEmail = profileData?.profile.email;
 	const initialUsername = profileData?.profile.username;
 
@@ -71,6 +61,8 @@ export const AccountContainer = ({
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 	const { updatePassword, loading: isUpdatePasswordLoading } = useUpdatePassword();
 	const { deleteAccount, loading: isDeleteAccountLoading } = useDeleteAccount();
+
+	const navigate = useNavigate();
 
 	const submitInformationsForm = async () => {
 		if (newEmail && newUsername) {
@@ -133,14 +125,23 @@ export const AccountContainer = ({
 		await submitPasswordForm();
 	};
 
+	const fetchAndRedirect = async () => {
+		try {
+			await refetchProfile();
+		} catch {
+			navigate(SIGN_UP_PATH);
+		}
+	};
+
 	const submitDeleteAccountForm = async () => {
 		try {
 			await deleteAccount({
 				variables: { password: deleteAccountPassword }
 			});
-			window.location.replace(`${SIGN_UP_PATH}?accountDeleted=true`);
+			toast.success(`Account successfully deleted`);
+			fetchAndRedirect();
 		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
+			toast.error('getGraphQLErrorMessage(error), { autoClose: 10000 }');
 		}
 		return;
 	};

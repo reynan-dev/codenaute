@@ -42,6 +42,10 @@ test: ## Run client tests on client
 	@echo "Testing client with jest"
 	docker exec $(CONTAINER_NAME) pnpm test
 
+ci:
+	@echo "------- CLIENT : CI CHECK"
+	pnpm ci
+
 prettier: ## Run prettier
 	@echo "Running prettier"
 	npx prettier --check .
