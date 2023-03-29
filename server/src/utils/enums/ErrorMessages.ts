@@ -44,5 +44,6 @@ export enum ErrorMessages {
 
 	// Validation Social
 	ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE = 'Already following member',
-	CANNOT_FOLLOW_SELF_ERROR_MESSAGE = 'Cannot follow self'
+	CANNOT_FOLLOW_SELF_ERROR_MESSAGE = 'Cannot follow self',
+	MEMBER_ALREADY_ADDED = "Member already shared this project"
 }
