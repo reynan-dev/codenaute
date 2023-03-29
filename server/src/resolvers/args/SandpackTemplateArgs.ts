@@ -1,9 +1,10 @@
+import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
 export class getSandpackTemplateByIdArgs {
 	@Field()
-	sandpackTemplateId: string;
+	sandpackTemplateId: UUID;
 }
 
 @ArgsType()
@@ -15,7 +16,7 @@ export class createSandpackTemplateArgs {
 @ArgsType()
 export class updateSandpackTemplateArgs {
 	@Field()
-	sandpackTemplateId: string;
+	sandpackTemplateId: UUID;
 
 	@Field()
 	slug: string;
@@ -24,5 +25,5 @@ export class updateSandpackTemplateArgs {
 @ArgsType()
 export class deleteSandpackTemplateArgs {
 	@Field()
-	sandpackTemplateId: string;
+	sandpackTemplateId: UUID;
 }
