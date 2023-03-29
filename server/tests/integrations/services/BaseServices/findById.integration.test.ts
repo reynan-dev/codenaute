@@ -17,7 +17,7 @@ describe('FindById integration test', () => {
 
 			const member = await MemberService.signUp('usertest', email, 'password');
 
-			const find = await MemberService.findById(member.id) as Member;
+			const find = (await MemberService.findById(member.id)) as Member;
 
 			expect(find.id).toEqual(member.id);
 		});

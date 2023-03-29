@@ -45,11 +45,15 @@ describe('Find All Projects By Editor Id', () => {
 
 			const data = {
 				name: 'project_test',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
+				owner: await MemberService.signUp(
+					memberData.username,
+					memberData.email,
+					memberData.password
+				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'
-				}),
+				})
 			};
 
 			const project = await ProjectService.create(data);

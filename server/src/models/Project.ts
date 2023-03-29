@@ -47,7 +47,9 @@ export class Project extends BaseModel {
 	files: FileProject[];
 
 	@Field(() => ProgrammingLanguage)
-	@ManyToOne(() => ProgrammingLanguage, (programmingLanguage) => programmingLanguage.projects, { eager: true })
+	@ManyToOne(() => ProgrammingLanguage, (programmingLanguage) => programmingLanguage.projects, {
+		eager: true
+	})
 	programmingLanguage: ProgrammingLanguage;
 
 	@Field(() => SandpackTemplate, { nullable: true })

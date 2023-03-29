@@ -42,7 +42,11 @@ describe('Find All Projects By Editor Id', () => {
 			const data = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
+				owner: await MemberService.signUp(
+					memberData.username,
+					memberData.email,
+					memberData.password
+				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'
@@ -52,7 +56,7 @@ describe('Find All Projects By Editor Id', () => {
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllByEditorId(editor.id)
+			const find = await ProjectService.findAllByEditorId(editor.id);
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

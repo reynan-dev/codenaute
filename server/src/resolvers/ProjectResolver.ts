@@ -123,8 +123,7 @@ export class ProjectResolver {
 
 		if (!member) throw new Error(ErrorMessages.MEMBER_NOT_FOUND);
 
-		if(project.favoritedBy.includes(member))
-			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
 		return this.ProjectServices.addToFavorite(member, projectId);
 	}
@@ -137,8 +136,7 @@ export class ProjectResolver {
 			const member = (await this.MemberServices.findById(id)) as Member;
 			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
 			const project = await this.ProjectServices.findById(projectId);
-			if(project.editors.includes(...members))
-			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+			if (project.editors.includes(...members)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 			members.push(member);
 		});
 

@@ -30,7 +30,11 @@ describe('Find All Projects By Template', () => {
 			const data = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
+				owner: await MemberService.signUp(
+					memberData.username,
+					memberData.email,
+					memberData.password
+				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: '3.10'

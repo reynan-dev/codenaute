@@ -41,7 +41,11 @@ describe('Find All Projects By Favorite Id', () => {
 
 			const data = {
 				name: 'project_test',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
+				owner: await MemberService.signUp(
+					memberData.username,
+					memberData.email,
+					memberData.password
+				),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: '3.10'
@@ -51,7 +55,7 @@ describe('Find All Projects By Favorite Id', () => {
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllByFavorites(favoriteUser.id)
+			const find = await ProjectService.findAllByFavorites(favoriteUser.id);
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

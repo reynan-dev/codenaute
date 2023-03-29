@@ -30,18 +30,18 @@ describe('Follow Member integration test', () => {
 
 	describe('when memberToFollow and member is valid', () => {
 		describe.skip('when member is already following memberToFollow', () => {
-		    it("throw a Already Following Member error", async () => {
-		        const member = await MemberService.signUp(data.username, data.email, data.password);
+			it('throw a Already Following Member error', async () => {
+				const member = await MemberService.signUp(data.username, data.email, data.password);
 
-		        const memberToFollow = await MemberService.create(dataToFollow);
+				const memberToFollow = await MemberService.create(dataToFollow);
 
-		        await MemberService.followMember(member.id, memberToFollow.id);
+				await MemberService.followMember(member.id, memberToFollow.id);
 
-		        expect(() => MemberService.followMember(member.id, memberToFollow.id)).rejects.toThrowError(
-		            ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE
-		            );
-		        });
-		    });
+				expect(() => MemberService.followMember(member.id, memberToFollow.id)).rejects.toThrowError(
+					ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE
+				);
+			});
+		});
 
 		describe('when member and memberToFollow are the same', () => {
 			it('throw a Cannot Follow Self error', async () => {
@@ -65,7 +65,7 @@ describe('Follow Member integration test', () => {
 
 				const follow = await MemberService.followMember(member.id, memberToFollow.id);
 
-				const followedMember = await MemberService.findById(memberToFollow.id) as Member;
+				const followedMember = (await MemberService.findById(memberToFollow.id)) as Member;
 
 				expect(follow.following).toHaveLength(1);
 				expect(follow.following[0].id).toEqual(memberToFollow.id);

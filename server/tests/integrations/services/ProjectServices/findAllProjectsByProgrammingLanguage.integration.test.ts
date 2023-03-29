@@ -33,7 +33,11 @@ describe('Find All Projects By Programming Language', () => {
 
 			const data = {
 				name: 'project_test',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
+				owner: await MemberService.signUp(
+					memberData.username,
+					memberData.email,
+					memberData.password
+				),
 				programmingLanguage: programmingLanguage
 			};
 

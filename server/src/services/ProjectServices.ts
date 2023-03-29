@@ -60,8 +60,7 @@ export class ProjectServices extends BaseServices {
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		if(project.favoritedBy.includes(member))
-			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
 		project.favoritedBy.push(member);
 
