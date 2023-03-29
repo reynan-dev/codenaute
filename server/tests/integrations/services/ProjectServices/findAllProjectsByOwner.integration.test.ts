@@ -21,7 +21,7 @@ describe('Find Projects By Owner', () => {
                 memberData.password
             );
 
-            expect(await ProjectService.findAllProjectsByOwner(member.id)).toEqual([]);
+            expect(await ProjectService.findAllByOwner(member.id)).toEqual([]);
         });
     });
 
@@ -34,8 +34,7 @@ describe('Find Projects By Owner', () => {
             );
 
             const data = {
-                name: 'data',
-                version: 'version',
+                name: 'project_test',
                 owner: member,
                 programmingLanguage: await ProgrammingLanguageService.create({
                     name: 'data',
@@ -45,7 +44,7 @@ describe('Find Projects By Owner', () => {
 
             const project = await ProjectService.create(data);
 
-            const find = await ProjectService.findAllProjectsByOwner(member.id)
+            const find = await ProjectService.findAllByOwner(member.id)
 
             expect(find).toHaveLength(1);
             expect(find[0].id).toEqual(project.id);

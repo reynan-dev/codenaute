@@ -21,7 +21,7 @@ describe('Find All Projects By Editor Id', () => {
 		password: 'data'
 	};
 
-	describe('when there are no project', () => {
+	describe('when there are no project or member', () => {
 		it('throw a Project Not Found error', async () => {
 			const shareUser = await MemberService.signUp(
 				shareData.username,
@@ -35,7 +35,7 @@ describe('Find All Projects By Editor Id', () => {
 		});
 	});
 
-	describe.skip('when there are project and favorite', () => {
+	describe('when there are project and member', () => {
 		it('returns an array of public projects', async () => {
 			const shareUser = await MemberService.signUp(
 				shareData.username,
@@ -44,8 +44,7 @@ describe('Find All Projects By Editor Id', () => {
 			);
 
 			const data = {
-				name: 'data',
-				version: 'version',
+				name: 'project_test',
 				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
@@ -55,10 +54,10 @@ describe('Find All Projects By Editor Id', () => {
 
 			const project = await ProjectService.create(data);
 
-			const favoriteProject = await ProjectService.share(project.id, [shareUser]);
+			const sharedProject = await ProjectService.share(project.id, [shareUser]);
 
-			expect(favoriteProject.editors).toHaveLength(1);
-			expect(favoriteProject.editors[0].id).toEqual(shareUser.id);
+			expect(sharedProject.editors).toHaveLength(1);
+			expect(sharedProject.editors[0].id).toEqual(shareUser.id);
 		});
 	});
 });

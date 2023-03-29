@@ -19,11 +19,11 @@ describe('Find All Projects By Template', () => {
 		it('returns an empty array', async () => {
 			const template = await SandpackTemplateService.create({ slug: 'data' });
 
-			expect(await ProjectService.findAllProjectsByTemplate(template.id)).toEqual([]);
+			expect(await ProjectService.findAllByTemplate(template.id)).toEqual([]);
 		});
 	});
 
-	describe.skip('when there are projects', () => {
+	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
 			const template = await SandpackTemplateService.create({ slug: 'data' });
 
@@ -40,7 +40,7 @@ describe('Find All Projects By Template', () => {
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllProjectsByTemplate(template.id);
+			const find = await ProjectService.findAllByTemplate(template.id);
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

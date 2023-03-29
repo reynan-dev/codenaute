@@ -15,7 +15,7 @@ describe('Find All Public Projects', () => {
 
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
-			expect(await ProjectService.findAllPublicProjects()).toEqual([]);
+			expect(await ProjectService.findAllPublic()).toEqual([]);
 		});
 	});
 
@@ -34,7 +34,7 @@ describe('Find All Public Projects', () => {
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllPublicProjects()
+			const find = await ProjectService.findAllPublic()
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

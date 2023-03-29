@@ -27,11 +27,11 @@ describe('Find All Projects By Favorite Id', () => {
 				favoriteData.password
 			);
 
-			expect(await ProjectService.findAllProjectsByFavorites(favoriteUser.id)).toEqual([]);
+			expect(await ProjectService.findAllByFavorites(favoriteUser.id)).toEqual([]);
 		});
 	});
 
-	describe.skip('when there are projects', () => {
+	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
 			const favoriteUser = await MemberService.signUp(
 				favoriteData.username,
@@ -40,19 +40,18 @@ describe('Find All Projects By Favorite Id', () => {
 			);
 
 			const data = {
-				name: 'data',
-				version: 'version',
+				name: 'project_test',
 				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
-					version: 'version'
+					version: '3.10'
 				}),
-				editors: [favoriteUser]
+				favoritedBy: [favoriteUser]
 			};
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllProjectsByFavorites(favoriteUser.id)
+			const find = await ProjectService.findAllByFavorites(favoriteUser.id)
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

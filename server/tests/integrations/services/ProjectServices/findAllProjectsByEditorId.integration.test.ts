@@ -27,7 +27,7 @@ describe('Find All Projects By Editor Id', () => {
 				editorData.password
 			);
 
-			expect(await ProjectService.findAllProjectsByEditorId(editor.id)).toEqual([]);
+			expect(await ProjectService.findAllByEditorId(editor.id)).toEqual([]);
 		});
 	});
 
@@ -52,7 +52,7 @@ describe('Find All Projects By Editor Id', () => {
 
 			const project = await ProjectService.create(data);
 
-			const find = await ProjectService.findAllProjectsByEditorId(editor.id)
+			const find = await ProjectService.findAllByEditorId(editor.id)
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

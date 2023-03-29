@@ -20,11 +20,11 @@ describe('Find All Projects By Programming Language', () => {
 				version: '3.10'
 			});
 
-			expect(await ProjectService.findAllProjectsByTemplate(programmingLanguage.id)).toEqual([]);
+			expect(await ProjectService.findAllByTemplate(programmingLanguage.id)).toEqual([]);
 		});
 	});
 
-	describe.skip('when there are projects', () => {
+	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
 			const programmingLanguage = await ProgrammingLanguageService.create({
 				name: 'data',
@@ -32,17 +32,14 @@ describe('Find All Projects By Programming Language', () => {
 			});
 
 			const data = {
-				name: 'data',
-				version: 'version',
+				name: 'project_test',
 				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
 				programmingLanguage: programmingLanguage
 			};
 
 			const project = await ProjectService.create(data);
 
-			console.log(project);
-
-			const find = await ProjectService.findAllProjectsByProgrammingLanguage(programmingLanguage.id);
+			const find = await ProjectService.findAllByProgrammingLanguage(programmingLanguage.id);
 
 			expect(find).toHaveLength(1);
 			expect(find[0].id).toEqual(project.id);

@@ -29,33 +29,13 @@ describe('Add to Favorite', () => {
 				favoriteData.password
 			);
 
-			expect(() => ProjectService.addToFavorite(favorite.id, uuid())).rejects.toThrowError(
+			expect(() => ProjectService.addToFavorite(favorite, uuid())).rejects.toThrowError(
 				ErrorMessages.PROJECT_NOT_FOUND
 			);
 		});
 	});
 
-	describe('when there are project but not favorite user', () => {
-		it('throw a Member Not Found error', async () => {
-			const data = {
-				name: 'data',
-				version: 'version',
-				owner: await MemberService.signUp(memberData.username, memberData.email, memberData.password),
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: 'version'
-				}),
-			};
-
-			const project = await ProjectService.create(data);
-
-			expect(() => ProjectService.addToFavorite(uuid(), project.id)).rejects.toThrowError(
-				ErrorMessages.MEMBER_NOT_FOUND
-			);
-		});
-	});
-
-	describe.skip('when there are project and favorite', () => {
+	describe('when there are project and favorite', () => {
 		it('returns an array of members', async () => {
 			const favoriteUser = await MemberService.signUp(
 				favoriteData.username,
@@ -75,7 +55,7 @@ describe('Add to Favorite', () => {
 
 			const project = await ProjectService.create(data);
 
-			const favoriteProject = await ProjectService.addToFavorite(favoriteUser.id, project.id);
+			const favoriteProject = await ProjectService.addToFavorite(favoriteUser, project.id);
 
 			expect(favoriteProject.favoritedBy).toHaveLength(1);
 			expect(favoriteProject.favoritedBy[0].id).toEqual(favoriteUser.id);
