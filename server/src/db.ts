@@ -64,7 +64,7 @@ export abstract class Database {
 			await this._destroy();
 			console.info('💀 Successfully disconnected to database');
 		} catch (error) {
-			console.log('😞 Database disconnection error');
+			console.info('😞 Database disconnection error');
 			console.log(error);
 		}
 	}
