@@ -5,6 +5,7 @@ import 'styles/tailwind.css';
 import App from 'App';
 import reportWebVitals from 'reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { AuthProvider } from 'context/auth.context';
 
 const client = new ApolloClient({
 	uri: '/',
@@ -16,7 +17,9 @@ root.render(
 	<React.StrictMode>
 		<ApolloProvider client={client}>
 			<BrowserRouter>
-				<App />
+				<AuthProvider>
+					<App />
+				</AuthProvider>
 			</BrowserRouter>
 		</ApolloProvider>
 	</React.StrictMode>

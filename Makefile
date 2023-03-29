@@ -59,5 +59,12 @@ prettier-check: ## Fixing with prettier
 	@echo "------- SERVER : PRETTIER CHECK"
 	npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --check ./server
 
+ci:
+	@echo "------- SERVER : CI CHECK"
+	cd server && pnpm ci
+
+	@echo "------- CLIENT : CI CHECK"
+	cd client && pnpm ci
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'

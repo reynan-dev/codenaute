@@ -11,7 +11,8 @@
 		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
 		"test:ci": "jest --runInBand --verbose",
-		"test:watch": "jest --watchAll --runInBand --verbose --coverage"
+		"test:watch": "jest --watchAll --runInBand --verbose --coverage",
+		"ci": "pnpm build && pnpm test"
 	},
 	"dependencies": {
 		"apollo-server": "3.11.1",
