@@ -65,7 +65,7 @@ export abstract class Database {
 			console.info('💀 Successfully disconnected to database');
 		} catch (error) {
 			console.info('😞 Database disconnection error');
-			console.log(error);
+			console.error(error);
 		}
 	}
 
