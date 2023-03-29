@@ -14,7 +14,7 @@ export const SignInPage = ({ loginForm }: SignInPageProps) => {
 		<div className='flex h-full'>
 			<Container>
 				<div className='flex h-full w-full flex-col items-center justify-center'>
-					<div className='full-center-col mt-8 mb-16 space-y-5'>
+					<div className='full-center-col mb-16 mt-8 space-y-5'>
 						<div className='flex space-x-3'>
 							<LogoSvg color={BLACK.DEFAULT} backgroundColor={WHITE.DEFAULT} size='50px' />
 							<h1>Sign in</h1>

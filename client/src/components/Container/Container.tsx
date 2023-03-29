@@ -7,5 +7,5 @@ interface ContainerProps {
 }
 
 export const Container = ({ children, className }: ContainerProps) => {
-	return <div className={twMerge('h-full w-full py-8 px-4', 'lg:p-12', className)}>{children}</div>;
+	return <div className={twMerge('h-full w-full px-4 py-8', 'lg:p-12', className)}>{children}</div>;
 };
