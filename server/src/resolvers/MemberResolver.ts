@@ -81,6 +81,8 @@ export class MemberResolver {
 		@Args() { memberId }: FollowMemberArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
+		if (context.user?.id === memberId) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+
 		return await this.MemberServices.followMember(context.user?.id as string, memberId);
 	}
 

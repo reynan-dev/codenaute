@@ -20,59 +20,60 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async findByOwner(memberId: string): Promise<Project[]> {
+	async findAllByOwner(memberId: string): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByEditorId(memberId: string): Promise<Project[]> {
+	async findAllByEditorId(memberId: string): Promise<Project[]> {
 		return this.repository.find({
 			where: { editors: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByFavorites(memberId: string): Promise<Project[]> {
+	async findAllByFavorites(memberId: string): Promise<Project[]> {
 		return this.repository.find({
 			where: { favoritedBy: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByTemplate(templateId: string): Promise<Project[]> {
+	async findAllByTemplate(templateId: string): Promise<Project[]> {
 		return this.repository.find({
 			where: { template: { id: templateId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByLanguage(languageId: string): Promise<Project[]> {
+	async findAllByProgrammingLanguage(programmingLanguageId: string): Promise<Project[]> {
 		return this.repository.find({
-			where: { programmingLanguage: { id: languageId } },
+			where: { programmingLanguage: { id: programmingLanguageId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async addToFavorite(memberId: string, projectId: string): Promise<Project> {
+	async addToFavorite(member: Member, projectId: string): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		const member = await this.MemberServices.findById(memberId);
+		if(project.favoritedBy.includes(member))
+			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
-		project.favoritedBy = [...project.members, ...member];
+		project.favoritedBy.push(member);
 
 		return this.repository.save(project);
 	}
 
-	async share(id: string, members: Member[]): Promise<Project> {
-		const project = await this.findById(id);
+	async share(projectId: string, members: Member[]): Promise<Project> {
+		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		project.members = [...project.members, ...members];
+		project.editors = [...members];
 
 		return this.repository.save(project);
 	}
