@@ -6,10 +6,10 @@ import { BLACK, WHITE } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 
 interface SignInPageProps {
-	loginForm: JSX.Element;
+	signInForm: JSX.Element;
 }
 
-export const SignInPage = ({ loginForm }: SignInPageProps) => {
+export const SignInPage = ({ signInForm }: SignInPageProps) => {
 	return (
 		<div className='flex h-full'>
 			<Container>
@@ -22,7 +22,7 @@ export const SignInPage = ({ loginForm }: SignInPageProps) => {
 						<h4>Enter your credentials to sign-in</h4>
 					</div>
 					<div className={twJoin('w-full', 'sm:w-3/4', 'md:w-3/5', 'lg:w-4/5', 'xl:max-w-md')}>
-						{loginForm}
+						{signInForm}
 					</div>
 					<Link to='/sign-up' color='primary'>
 						I don't have an account

@@ -38,6 +38,6 @@ export const SignInContainer = () => {
 	};
 
 	return (
-		<SignInPage loginForm={<SignInForm isLoading={loading} handleForm={submit} state={state} />} />
+		<SignInPage signInForm={<SignInForm isLoading={loading} handleForm={submit} state={state} />} />
 	);
 };
