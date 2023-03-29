@@ -55,7 +55,7 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
-	async findOneById(id: string): Promise<Member | null> {
+	async findById(id: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { id: id },
 			relations: [
@@ -72,21 +72,20 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
-	async followMember(id: string, memberId: string) {
-		const member = (await this.findOneById(id)) as Member;
-		const memberToFollow = (await this.findOneById(memberId)) as Member;
+	async followMember(memberId: string, memberToFollowId: string) {
+		if (memberId == memberToFollowId) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+
+		const member = (await this.findById(memberId)) as Member;
+		const memberToFollow = (await this.findById(memberToFollowId)) as Member;
 
 		if (!member || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
-
-		if (member.id === memberToFollow.id)
-			throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
 
 		if (member.following.includes(memberToFollow))
 			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
 
 		member.following.push(memberToFollow);
 
-		return await this.repository.save(member);
+		return this.repository.save(member);
 	}
 
 	async updateUsername(id: string, username: string) {

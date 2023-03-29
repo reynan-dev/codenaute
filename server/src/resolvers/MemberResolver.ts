@@ -49,7 +49,7 @@ export class MemberResolver {
 
 		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
 
-		return await this.MemberServices.findOneById(newMember.id);
+		return await this.MemberServices.findById(newMember.id);
 	}
 
 	@Authorized()
@@ -61,7 +61,7 @@ export class MemberResolver {
 	@Authorized()
 	@Mutation(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
-		return await this.MemberServices.findOneById(memberId);
+		return await this.MemberServices.findById(memberId);
 	}
 	@Authorized()
 	@Query(() => [Member])
