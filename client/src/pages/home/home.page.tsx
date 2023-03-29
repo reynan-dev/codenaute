@@ -1,8 +1,8 @@
 import Button from 'components/Button';
 import { ACCOUNT_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
+import { LogOutButton } from 'pages/home/components/LogOutButton';
 import { Link } from 'react-router-dom';
-import { FiLogOut } from 'react-icons/fi';
 
 export interface HomePageProps {
 	isAuthenticated: boolean;
@@ -20,9 +20,7 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 					</p>
 					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<Button designType='text' onClick={() => {}} className='flex'>
-						<FiLogOut className='mt-1 mr-2' /> Log out
-					</Button>
+					<LogOutButton />
 				</>
 			) : (
 				<>
