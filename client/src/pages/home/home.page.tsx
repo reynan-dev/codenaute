@@ -1,14 +1,14 @@
 import { ACCOUNT_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
-import { SignOutButton } from 'pages/home/components/SignOutButton';
 import { Link } from 'react-router-dom';
 
 export interface HomePageProps {
 	isAuthenticated: boolean;
 	profileData?: ProfileQuery | null;
+	signOutButton: JSX.Element;
 }
 
-export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
+export const HomePage = ({ isAuthenticated, profileData, signOutButton }: HomePageProps) => {
 	return (
 		<div className='flex py-3 px-5'>
 			{isAuthenticated ? (
@@ -19,7 +19,7 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 					</p>
 					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<SignOutButton />
+					{signOutButton}
 				</>
 			) : (
 				<>
