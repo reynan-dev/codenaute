@@ -25,14 +25,18 @@ export class Project extends BaseModel {
 	@IsString()
 	name: string;
 
+	@Field(() => Member)
 	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true })
 	@JoinColumn()
-	@Field(() => Member)
 	owner: Member;
 
-	@Field(() => [Member])
-	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true })
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true, nullable: true })
 	editors: Member[];
+
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true, nullable: true })
+	favoritedBy: Member[];
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
 	@OneToMany(() => FileProject, (file) => file.project, {
@@ -42,25 +46,18 @@ export class Project extends BaseModel {
 	})
 	files: FileProject[];
 
-	@Column('varchar')
 	@Field(() => ProgrammingLanguage)
-	@ManyToOne(() => ProgrammingLanguage, (language) => language.id, { eager: true })
+	@ManyToOne(() => ProgrammingLanguage, (programmingLanguage) => programmingLanguage.projects, { eager: true })
 	programmingLanguage: ProgrammingLanguage;
 
-	@Column('varchar', { nullable: true })
 	@Field(() => SandpackTemplate, { nullable: true })
-	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true })
+	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true, nullable: true })
 	template: SandpackTemplate;
 
-	@Column('varchar', { nullable: true })
 	@Field(() => FileProject, { nullable: true })
-	@OneToOne(() => FileProject, (file) => file.id, { eager: true })
+	@OneToOne(() => FileProject, (file) => file.id, { eager: true, nullable: true })
 	@JoinColumn()
 	activeFile: FileProject;
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true })
-	favoritedBy: Member[];
 
 	@Column('boolean', { default: false })
 	@Field()

@@ -54,7 +54,6 @@ export class Member extends BaseModel {
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Member, (member) => member.followers, { nullable: true, cascade: true })
-	@JoinTable()
 	following: Member[];
 
 	@DeleteDateColumn()
