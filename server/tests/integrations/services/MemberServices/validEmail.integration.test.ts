@@ -5,13 +5,15 @@ describe('Validate a Member email integration test', () => {
 
 	describe('when valid email', () => {
 		it('return an member', async () => {
-			const username = 'username';
-			const email = 'unknown@email.com';
-			const password = 'password';
+			const memberData = {
+				username: 'username',
+				email: 'email',
+				password: 'password'
+			}
 
-			const member = await MemberService.signUp(username, email, password);
+			const member = await MemberService.signUp(memberData.username, memberData.email, memberData.password);
 
-			await MemberService.validEmail(member.id);
+			await MemberService.validEmail(member.email);
 
 			const updated = await MemberService.findOneBy({ id: member.id });
 

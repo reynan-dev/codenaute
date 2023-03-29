@@ -2,6 +2,7 @@ import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
+import { v4 as uuid } from 'uuid';
 
 describe('Finding files by a project id integration test', () => {
 	const FileProjectService = new FileProjectServices();
@@ -11,9 +12,7 @@ describe('Finding files by a project id integration test', () => {
 
 	describe('when project id is not valid', () => {
 		it('throw an empty array', async () => {
-			const projectId = 'invalidProjectId';
-
-			expect(() => FileProjectService.findAllByProjectId(projectId)).toHaveLength(0);
+			expect(() => FileProjectService.findAllByProjectId(uuid())).toHaveLength(0);
 		});
 	});
 
