@@ -41,11 +41,7 @@ describe('Find All Projects By Favorite Id', () => {
 
 			const data = {
 				name: 'project_test',
-				owner: await MemberService.signUp(
-					ownerData.username,
-					ownerData.email,
-					ownerData.password
-				),
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: '3.10'

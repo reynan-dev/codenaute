@@ -42,11 +42,7 @@ describe('Find All Projects By Editor Id', () => {
 			const projectData = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(
-					ownerData.username,
-					ownerData.email,
-					ownerData.password
-				),
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'

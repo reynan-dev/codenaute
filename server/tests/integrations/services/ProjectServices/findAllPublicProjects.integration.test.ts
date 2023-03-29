@@ -24,11 +24,7 @@ describe('Find All Public Projects', () => {
 			const projectData = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(
-					ownerData.username,
-					ownerData.email,
-					ownerData.password
-				),
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'

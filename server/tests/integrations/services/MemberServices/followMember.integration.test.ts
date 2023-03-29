@@ -20,7 +20,11 @@ describe('Follow Member integration test', () => {
 
 	describe('when member or memberToFollow is not valid', () => {
 		it('throw a Member Not Found error', async () => {
-			const member = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
+			const member = await MemberService.signUp(
+				ownerData.username,
+				ownerData.email,
+				ownerData.password
+			);
 
 			expect(() => MemberService.followMember(member.id, uuid())).rejects.toThrowError(
 				ErrorMessages.MEMBER_NOT_FOUND
@@ -31,7 +35,11 @@ describe('Follow Member integration test', () => {
 	describe('when memberToFollow and member is valid', () => {
 		describe.skip('when member is already following memberToFollow', () => {
 			it('throw a Already Following Member error', async () => {
-				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
+				const owner = await MemberService.signUp(
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
+				);
 
 				const memberToFollow = await MemberService.create(memberToFollowData);
 
@@ -45,7 +53,11 @@ describe('Follow Member integration test', () => {
 
 		describe('when member and memberToFollow are the same', () => {
 			it('throw a Cannot Follow Self error', async () => {
-				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
+				const owner = await MemberService.signUp(
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
+				);
 
 				expect(() => MemberService.followMember(owner.id, owner.id)).rejects.toThrowError(
 					ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE
@@ -55,7 +67,11 @@ describe('Follow Member integration test', () => {
 
 		describe('when member and memberToFollow are not the same', () => {
 			it('return the member', async () => {
-				const owner = await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password);
+				const owner = await MemberService.signUp(
+					ownerData.username,
+					ownerData.email,
+					ownerData.password
+				);
 
 				const memberToFollow = await MemberService.signUp(
 					memberToFollowData.username,

@@ -33,17 +33,15 @@ describe('Find All Projects By Programming Language', () => {
 
 			const projectData = {
 				name: 'project_test',
-				owner: await MemberService.signUp(
-					ownerData.username,
-					ownerData.email,
-					ownerData.password
-				),
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				programmingLanguage: programmingLanguage
 			};
 
 			const project = await ProjectService.create(projectData);
 
-			const projectsFound = await ProjectService.findAllByProgrammingLanguage(programmingLanguage.id);
+			const projectsFound = await ProjectService.findAllByProgrammingLanguage(
+				programmingLanguage.id
+			);
 
 			expect(projectsFound).toHaveLength(1);
 			expect(projectsFound[0].id).toEqual(project.id);

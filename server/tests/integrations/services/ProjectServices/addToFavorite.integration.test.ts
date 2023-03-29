@@ -46,11 +46,7 @@ describe('Add to Favorite', () => {
 			const data = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(
-					ownerData.username,
-					ownerData.email,
-					ownerData.password
-				),
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				programmingLanguage: await ProgrammingLanguageService.create({
 					name: 'data',
 					version: 'version'
@@ -59,10 +55,10 @@ describe('Add to Favorite', () => {
 
 			const project = await ProjectService.create(data);
 
-			const favoritedProject = await ProjectService.addToFavorite(favoringUser , project.id);
+			const favoritedProject = await ProjectService.addToFavorite(favoringUser, project.id);
 
 			expect(favoritedProject.favoritedBy).toHaveLength(1);
-			expect(favoritedProject.favoritedBy[0].id).toEqual(favoringUser .id);
+			expect(favoritedProject.favoritedBy[0].id).toEqual(favoringUser.id);
 		});
 	});
 });
