@@ -21,7 +21,7 @@ describe('Find All Projects By Favorite Id', () => {
 
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
-			const favoriteUser = await MemberService.signUp(
+			const favoringUser = await MemberService.signUp(
 				favoriteData.username,
 				favoriteData.email,
 				favoriteData.password
