@@ -20,7 +20,7 @@ describe('Find a Member by session token integration test', () => {
 
 			const login = await MemberService.signIn(email, password);
 
-			const searchResult = await MemberService.findOneById(member.id);
+			const searchResult = await MemberService.findById(member.id);
 
 			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(searchResult);
 		});

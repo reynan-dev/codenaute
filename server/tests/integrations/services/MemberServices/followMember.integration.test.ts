@@ -1,3 +1,4 @@
+import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
@@ -14,7 +15,7 @@ describe('Follow Member integration test', () => {
 	const dataToFollow = {
 		username: 'dataToFollow',
 		email: 'dataToFollow@email.com',
-		password: 'password'
+		hashedPassword: 'password'
 	};
 
 	describe('when member or memberToFollow is not valid', () => {
@@ -32,7 +33,7 @@ describe('Follow Member integration test', () => {
 		    it("throw a Already Following Member error", async () => {
 		        const member = await MemberService.signUp(data.username, data.email, data.password);
 
-		        const memberToFollow = await MemberService.signUp(dataToFollow.username, dataToFollow.email, dataToFollow.password);
+		        const memberToFollow = await MemberService.create(dataToFollow);
 
 		        await MemberService.followMember(member.id, memberToFollow.id);
 
@@ -59,13 +60,17 @@ describe('Follow Member integration test', () => {
 				const memberToFollow = await MemberService.signUp(
 					dataToFollow.username,
 					dataToFollow.email,
-					dataToFollow.password
+					dataToFollow.hashedPassword
 				);
 
 				const follow = await MemberService.followMember(member.id, memberToFollow.id);
 
+				const followedMember = await MemberService.findById(memberToFollow.id) as Member;
+
 				expect(follow.following).toHaveLength(1);
 				expect(follow.following[0].id).toEqual(memberToFollow.id);
+				expect(followedMember.followers).toHaveLength(1);
+				expect(followedMember.followers[0].id).toEqual(member.id);
 			});
 		});
 	});
