@@ -5,10 +5,11 @@ name: Client CI
 
 on:
   pull_request:
-    paths:
-      - '.github/workflows/client.yml'
-      - 'client/**'
     types: [ready_for_review, opened, reopened]
+  push:
+    paths:
+      - '.github/workflows/server.yml'
+      - 'server/**'
 
 env:
   SERVICE_NAME: 'client'
