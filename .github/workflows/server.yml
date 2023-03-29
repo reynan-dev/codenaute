@@ -4,12 +4,11 @@
 name: Server CI
 
 on:
-  push:
+  pull_request:
+    types: [ready_for_review, opened, reopened]
     paths:
       - '.github/workflows/server.yml'
       - 'server/**'
-  pull_request:
-    types: [ready_for_review, opened, reopened]
 
 env:
   SERVICE_NAME: 'server'
