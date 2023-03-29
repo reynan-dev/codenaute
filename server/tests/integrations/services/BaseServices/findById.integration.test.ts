@@ -19,8 +19,6 @@ describe('FindById integration test', () => {
 
 			const find = await MemberService.findById(member.id) as Member;
 
-			console.log(find)
-
 			expect(find.id).toEqual(member.id);
 		});
 	});
