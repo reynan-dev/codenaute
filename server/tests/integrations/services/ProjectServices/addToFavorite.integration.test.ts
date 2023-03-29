@@ -37,7 +37,7 @@ describe('Add to Favorite', () => {
 
 	describe('when there are project and favorite', () => {
 		it('returns an array of members', async () => {
-			const favoriteUser = await MemberService.signUp(
+			const favoringUser = await MemberService.signUp(
 				favoriteData.username,
 				favoriteData.email,
 				favoriteData.password
