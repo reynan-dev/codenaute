@@ -141,7 +141,7 @@ export const AccountContainer = () => {
 			toast.success(`Account successfully deleted`);
 			fetchAndRedirect();
 		} catch (error) {
-			toast.error('getGraphQLErrorMessage(error), { autoClose: 10000 }');
+			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}
 		return;
 	};
