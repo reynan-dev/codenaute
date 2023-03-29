@@ -1,7 +1,6 @@
-import Button from 'components/Button';
 import { ACCOUNT_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
-import { LogOutButton } from 'pages/home/components/LogOutButton';
+import { SignOutButton } from 'pages/home/components/SignOutButton';
 import { Link } from 'react-router-dom';
 
 export interface HomePageProps {
@@ -20,7 +19,7 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 					</p>
 					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<LogOutButton />
+					<SignOutButton />
 				</>
 			) : (
 				<>
