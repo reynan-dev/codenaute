@@ -1,12 +1,14 @@
 import { compareSync, hashSync } from 'bcryptjs';
 
-import Member from 'entities/Member';
-import BaseServices from 'services/base/BaseServices';
-import SessionServices from 'services/SessionServices';
+import { Member } from 'models/Member';
+import { BaseServices } from 'services/base/BaseServices';
+import { SessionServices } from 'services/SessionServices';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-class MemberServices extends BaseServices {
+export class MemberServices extends BaseServices {
+	SessionServices: SessionServices = new SessionServices();
+
 	constructor() {
 		super(Member);
 	}
@@ -17,12 +19,12 @@ class MemberServices extends BaseServices {
 		if (!user || !compareSync(password, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
 
-		const session = await SessionServices.create(user);
+		const session = await this.SessionServices.create(user);
 
 		return { user, session };
 	}
 
-	async signUp(username: string, email: string, password: string) {
+	async signUp(username: string, email: string, password: string): Promise<Member> {
 		const hashedPassword = hashSync(password, 10);
 
 		return await this.create({
@@ -33,15 +35,58 @@ class MemberServices extends BaseServices {
 	}
 
 	async signOut(token: string) {
-		return await SessionServices.delete(token);
+		return await this.SessionServices.delete(token);
 	}
 
 	async findBySessionToken(token: string): Promise<Member | null> {
-		const session = await SessionServices.findByToken(token);
+		const member = await this.repository.findOne({
+			where: { sessions: { token } },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
 
-		if (!session) return null;
+		if (!member) return null;
 
-		return session.member;
+		return member;
+	}
+
+	async findOneById(id: string): Promise<Member | null> {
+		const member = await this.repository.findOne({
+			where: { id: id },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
+
+		if (!member) return null;
+
+		return member;
+	}
+
+	async followMember(id: string, memberId: string) {
+		const member = (await this.findOneById(id)) as Member;
+		const memberToFollow = (await this.findOneById(memberId)) as Member;
+
+		if (!member || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+
+		if (member.id === memberToFollow.id)
+			throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+
+		if (member.following.includes(memberToFollow))
+			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
+
+		member.following.push(memberToFollow);
+
+		return await this.repository.save(member);
 	}
 
 	async updateUsername(id: string, username: string) {
@@ -56,12 +101,12 @@ class MemberServices extends BaseServices {
 		return await this.update(id, { isValidEmail: true });
 	}
 
-	async updatePassword(email: string, newPassword: string, confirmPasssword: string) {
+	async updatePassword(email: string, newPassword: string, confirmedNewPassword: string) {
 		const user = (await this.findOneBy({ email })) as Member;
 
 		if (!user) throw Error(ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE);
 
-		if (newPassword !== confirmPasssword)
+		if (newPassword !== confirmedNewPassword)
 			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
 		const hashedPassword = hashSync(newPassword, 10);
@@ -80,5 +125,3 @@ class MemberServices extends BaseServices {
 		return true;
 	}
 }
-
-export default new MemberServices();

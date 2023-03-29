@@ -1,8 +1,8 @@
-import BaseServices from 'services/base/BaseServices';
-import RoutingToken from 'entities/RoutingToken';
-import Member from 'entities/Member';
+import { BaseServices } from 'services/base/BaseServices';
+import { RoutingToken } from 'models/RoutingToken';
+import { Member } from 'models/Member';
 
-class RoutingTokenServices extends BaseServices {
+export class RoutingTokenServices extends BaseServices {
 	constructor() {
 		super(RoutingToken);
 	}
@@ -17,5 +17,3 @@ class RoutingTokenServices extends BaseServices {
 		return await this.findOneBy({ token });
 	}
 }
-
-export default new RoutingTokenServices();

@@ -1,28 +1,12 @@
-import MemberServices from 'services/MemberServices';
-
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { MemberServices } from 'services/MemberServices';
 import { randomBytes } from 'crypto';
 
 describe('Find a Member by session token integration test', () => {
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
-	});
-
-	afterAll(async () => {
-		await closeDatabase();
-	});
-
-	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
+	const MemberService = new MemberServices();
 
 	describe('when session does not exists', () => {
 		it('return an element nullable', async () => {
-			expect(await MemberServices.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
+			expect(await MemberService.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
 		});
 	});
 
@@ -32,11 +16,13 @@ describe('Find a Member by session token integration test', () => {
 			const email = 'unknown@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
-			const login = await MemberServices.signIn(email, password);
+			const login = await MemberService.signIn(email, password);
 
-			expect(await MemberServices.findBySessionToken(login.session.token)).toEqual(member);
+			const searchResult = await MemberService.findOneById(member.id);
+
+			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(searchResult);
 		});
 	});
 });

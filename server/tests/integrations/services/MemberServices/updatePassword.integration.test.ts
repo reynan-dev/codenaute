@@ -1,25 +1,9 @@
-import MemberServices from 'services/MemberServices';
-
-import { dataSource, closeDatabase, startDatabase } from 'db';
+import { MemberServices } from 'services/MemberServices';
 import { compareSync } from 'bcryptjs';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Update a Member password integration test', () => {
-	beforeAll(async () => {
-		jest.spyOn(console, 'info').mockImplementation(() => {});
-		await startDatabase();
-	});
-
-	afterAll(async () => {
-		await closeDatabase();
-	});
-
-	beforeEach(async () => {
-		for (const entity of dataSource.entityMetadatas) {
-			const repository = dataSource.getRepository(entity.name);
-			await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-		}
-	});
+	const MemberService = new MemberServices();
 
 	describe('when update password with invalid email', () => {
 		it('throw an invalid email error', async () => {
@@ -27,13 +11,13 @@ describe('Update a Member password integration test', () => {
 			const email = 'email@email.com';
 			const password = 'password';
 
-			await MemberServices.signUp(username, email, password);
+			await MemberService.signUp(username, email, password);
 
 			const wrong_email = 'unknown@email.com';
 			const newPassword = 'newPassword';
 
 			expect(() =>
-				MemberServices.updatePassword(wrong_email, newPassword, newPassword)
+				MemberService.updatePassword(wrong_email, newPassword, newPassword)
 			).rejects.toThrowError(ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE);
 		});
 	});
@@ -44,12 +28,12 @@ describe('Update a Member password integration test', () => {
 			const email = 'email@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
 			const newPassword = 'newPassword';
 
 			expect(() =>
-				MemberServices.updatePassword(member.email, newPassword, password)
+				MemberService.updatePassword(member.email, newPassword, password)
 			).rejects.toThrowError(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 		});
 	});
@@ -60,11 +44,11 @@ describe('Update a Member password integration test', () => {
 			const email = 'email@email.com';
 			const password = 'password';
 
-			const member = await MemberServices.signUp(username, email, password);
+			const member = await MemberService.signUp(username, email, password);
 
 			const newPassword = 'newPassword';
 
-			const updated = await MemberServices.updatePassword(member.email, newPassword, newPassword);
+			const updated = await MemberService.updatePassword(member.email, newPassword, newPassword);
 
 			expect(compareSync(newPassword, updated.hashedPassword)).toBeTruthy();
 		});
