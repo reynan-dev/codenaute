@@ -55,7 +55,7 @@ export abstract class Database {
 			console.info('🎉 Successfully connected to database');
 		} catch (error) {
 			console.log('😞 Database connection error');
-			console.log(error);
+			console.error(error);
 		}
 	}
 
