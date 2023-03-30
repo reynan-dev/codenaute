@@ -62,7 +62,7 @@ jobs:
 
     services:
       postgres-test:
-        image: 'postgres:15.1-alpine'
+        image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
