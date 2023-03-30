@@ -28,11 +28,11 @@ ci:
 
 start-debug: ## Starting server container in debug mode
 	@echo "Starting server in debug mode"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
 start-quiet: ## Starting server container in mode quiet
 	@echo "Starting server in quiet mode"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
 
 .PHONY: exec
 exec : ## Running server container
@@ -52,7 +52,7 @@ test: ## Runing tests on server
 
 test-watch: ## Runing tests on server
 	@echo "Testing server"
-	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm test:watch
+	NODE_ENV=test COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
 
 prettier: ## Starting checking with prettier
 	@echo "Checking with prettier"
