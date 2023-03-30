@@ -1,2 +1,2 @@
 #!/bin/sh
-docker-compose -f docker-compose.yml up --build --detach
+NODE_ENV=production docker-compose -f docker-compose.yml up --build --detach
