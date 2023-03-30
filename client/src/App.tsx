@@ -17,7 +17,8 @@ const App = () => {
 		<>
 			<CrossDeviceBackground />
 			<div className='flex flex-col md:flex-row md:h-full'>
-				<NavBar />
+
+				<NavBar className='fixed z-50' />
 				<Main>
 					<Routes>
 						<Route path={HOME_PATH} element={<Home />} />

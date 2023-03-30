@@ -31,7 +31,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 				<NavBarLogoSvg />
 			</Link>
 
-			<div className='flex flex-col items-center space-y-8'>
+			<div className='hidden flex-col items-center space-y-8 md:flex'>
 				<Link to='/account'>
 					<FiUser
 						size={24}

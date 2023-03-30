@@ -17,14 +17,13 @@ export const AccountPage = ({
 	deleteAccountForm
 }: AccountPageProps) => {
 	return (
-		<Container className='flex items-center justify-center'>
+		<Container className='flex items-start lg:h-full lg:items-center justify-center'>
 			<div
 				className={twJoin(
 					'flex w-full flex-col',
 					'rounded-lg bg-dark',
 					'sm:w-3/4',
-					'md:w-1/2',
-					'lg:w-11/12',
+					'md:w-11/12',
 					'xl:w-4/6'
 				)}
 			>
