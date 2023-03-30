@@ -8,6 +8,8 @@ on:
 jobs:
   deploy-main-on-staging:
     runs-on: ubuntu-latest
+    if: ${{ (github.event.pull_request.draft == false) && (github.event.pull_request.label != null) }}
+
     steps:
       - name: Call webhook to deploy main branch on staging environment
         run: curl ${{ secrets.URL_WEBHOOK_DEPLOY_MAIN_ON_STAGING }}
