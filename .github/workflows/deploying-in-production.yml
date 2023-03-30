@@ -4,8 +4,6 @@ on:
   push:
     branch:
       production
-    tag:
-      '*'
 
 jobs:
   deploy-main-on-staging:
