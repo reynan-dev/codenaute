@@ -94,7 +94,7 @@ export class MemberServices extends BaseServices {
 	}
 
 	async updateEmail(memberId: UUID, email: string) {
-		return await this.update(memberId, { email });
+		return await this.update(memberId, { email, isValidEmail: false });
 	}
 
 	async validEmail(email: string) {
