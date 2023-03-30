@@ -83,7 +83,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (linkUrl !== undefined && designType === 'text') {
 		return (
-			<link href={linkUrl} className='font-semibold text-primary'>
+			<link href={linkUrl} className={twMerge('font-semibold text-primary', className)}>
 				<span className='truncate'>{children}</span>
 			</link>
 		);
@@ -91,7 +91,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 	if (designType === 'text') {
 		return (
-			<button {...props} className='font-semibold text-primary'>
+			<button {...props} className={twMerge('font-semibold text-primary', className)}>
 				{children}
 			</button>
 		);

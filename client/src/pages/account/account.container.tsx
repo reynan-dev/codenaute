@@ -57,10 +57,20 @@ export const AccountContainer = () => {
 		setDeleteAccountPassword
 	};
 
+
+	const onDeleteAccountSuccess = async () => {
+		try {
+			await refetchProfile();
+		} finally {
+			navigate(SIGN_UP_PATH);
+			toast.success(`Account successfully deleted`);
+		}
+	};
+
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 	const { updatePassword, loading: isUpdatePasswordLoading } = useUpdatePassword();
-	const { deleteAccount, loading: isDeleteAccountLoading } = useDeleteAccount();
+	const { deleteAccount, loading: isDeleteAccountLoading } = useDeleteAccount(onDeleteAccountSuccess);
 
 	const navigate = useNavigate();
 
@@ -125,23 +135,13 @@ export const AccountContainer = () => {
 		await submitPasswordForm();
 	};
 
-	const fetchAndRedirect = async () => {
-		try {
-			await refetchProfile();
-		} catch {
-			navigate(SIGN_UP_PATH);
-		}
-	};
-
 	const submitDeleteAccountForm = async () => {
 		try {
 			await deleteAccount({
 				variables: { password: deleteAccountPassword }
 			});
-			toast.success(`Account successfully deleted`);
-			fetchAndRedirect();
 		} catch (error) {
-			toast.error('getGraphQLErrorMessage(error), { autoClose: 10000 }');
+			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}
 		return;
 	};
