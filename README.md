@@ -133,3 +133,15 @@ To maintain some minimal standards within our codebase, we rely on [prettier](ht
 ### Node version
 
 We did set up a `.nvmrc` file to allow developers to quickly change and use the right node version. See [nvm](https://github.com/nvm-sh/nvm) package and [deeper shell integration](https://github.com/nvm-sh/nvm#deeper-shell-integration).
+
+### How to deploy
+
+To deploy the application, we need to create a new PR comparing `main` to base `production`.It's mandatory write the `description` with `release template` and put a label, to undestand the labels we can base on this table:
+
+| Label name      | Description                                                                                                 |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| `release/major` | ✨ Modify the first number of version, used to delivery big features. Example: v**X**.0.0                   |
+| `release/minor` | 📚 Modify the second number of version, used to delivery smalls features or refactores. Example: v1.**X**.0 |
+| `release/patch` | 🐛 Modify the third number of version, used to fix some bugs. Example: v1.0.**X**                           |
+
+After merged this pull request, will be launch workflows to create tags and release notes and the workflow to deploy into production.
