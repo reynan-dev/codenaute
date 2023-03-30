@@ -18,7 +18,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    if: ${{ (github.event.pull_request.draft == false) && (github.event.pull_request.label != null) }}
 
     steps:
       - name: Checkout Codebase
@@ -79,3 +79,11 @@ jobs:
       - name: Run Prettier Formatting
         run: npx prettier --write .
         working-directory: ./${{ env.SERVICE_NAME }}
+
+    add_assignees:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ecosystem/action-add-assignees@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          assignees: ${{ github.actor }}
