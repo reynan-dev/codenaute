@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     container_name: postgres-codenaute
-    image: postgres:14.6-alpine
+    image: postgres:15.1-alpine
     restart: always
     env_file:
       - ./database/.env.database
@@ -14,7 +14,7 @@ services:
 
   postgres-test:
     container_name: db-test-codenaute
-    image: postgres:14.6-alpine
+    image: postgres:15.1-alpine
     restart: always
     env_file:
       - ./database/.env.test
