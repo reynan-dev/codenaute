@@ -2,7 +2,8 @@ name: Start the deployment in staging environment
 
 on:
   push:
-    branch: [main]
+    branch:
+      main
 
 jobs:
   deploy-main-on-staging:

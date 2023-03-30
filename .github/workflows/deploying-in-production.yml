@@ -2,8 +2,10 @@ name: Start the deployment in production environment
 
 on:
   push:
-    branch: [production]
-    tag: ['*']
+    branch:
+      production
+    tag:
+      '*'
 
 jobs:
   deploy-main-on-staging:
