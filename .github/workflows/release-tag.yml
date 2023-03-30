@@ -3,7 +3,7 @@ name: Push new tag and a relase about the new version
 on:
   pull_request:
     types: [closed]
-    branch: main
+    branch: production
 
 jobs:
   tag:
