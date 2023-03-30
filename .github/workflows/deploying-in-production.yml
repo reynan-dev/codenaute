@@ -4,6 +4,10 @@ on:
   push:
     branch:
       production
+    paths:
+      - 'server/src/**'
+      - 'client/src/**'
+      - 'client/public/**'
 
 jobs:
   deploy-main-on-staging:
