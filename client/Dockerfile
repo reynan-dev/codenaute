@@ -8,9 +8,31 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
-FROM base AS build
+FROM dependencies AS build
 
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+ENV NODE_PATH=build/
+CMD pnpm build
+
+FROM build AS development
+
+WORKDIR /app
+COPY --from=build /app/node_modules ./node_modules
+CMD pnpm start:local
+
+FROM build AS test
+
+WORKDIR /app
+COPY --from=build /app/node_modules ./node_modules
+CMD pnpm test
+
+FROM build AS production
+# TODO: remove all dev dependencies and files, like src folder.
+WORKDIR /app
+RUN pnpm prune --prod
+COPY --from=build /app/build ./build
+COPY --from=build /app/node_modules ./node_modules
+
 CMD pnpm start
