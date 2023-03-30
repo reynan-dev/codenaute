@@ -6,6 +6,8 @@ coverage
 **/build/**
 **/dist/**
 
+**/workflows/**
+
 # Ignore node_modules:
 ./node_modules
 **/node_modules
