@@ -10,7 +10,8 @@ module.exports = {
 			colors: {
 				primary: {
 					DEFAULT: COLORS.PRIMARY.DEFAULT,
-					100: COLORS.PRIMARY[100]
+					100: COLORS.PRIMARY[100],
+					200: COLORS.PRIMARY[200]
 				},
 				secondary: {
 					DEFAULT: COLORS.SECONDARY.DEFAULT
