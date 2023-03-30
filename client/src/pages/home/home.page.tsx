@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 export interface HomePageProps {
 	isAuthenticated: boolean;
 	profileData?: ProfileQuery | null;
+	signOutButton: JSX.Element;
 }
 
-export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
+export const HomePage = ({ isAuthenticated, profileData, signOutButton }: HomePageProps) => {
 	return (
 		<div className='flex py-3 px-5'>
 			{isAuthenticated ? (
@@ -17,6 +18,8 @@ export const HomePage = ({ isAuthenticated, profileData }: HomePageProps) => {
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 					</p>
 					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					{signOutButton}
 				</>
 			) : (
 				<>
