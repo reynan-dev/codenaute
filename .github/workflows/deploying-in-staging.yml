@@ -1,0 +1,12 @@
+name: Start the deployment in staging environment
+
+on:
+  push:
+    branch: [main]
+
+jobs:
+  deploy-main-on-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call webhook to deploy main branch on staging environment
+        run: curl ${{ secrets.URL_WEBHOOK_DEPLOY_MAIN_ON_STAGING }}

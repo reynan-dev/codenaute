@@ -1,0 +1,13 @@
+name: Start the deployment in production environment
+
+on:
+  push:
+    branch: [production]
+    tag: ['*']
+
+jobs:
+  deploy-main-on-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call webhook to deploy production branch on production environment
+        run: curl ${{ secrets.URL_WEBHOOK_DEPLOY_PRODUCTION_ON_PROD }}
