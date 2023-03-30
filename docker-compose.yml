@@ -10,7 +10,25 @@ services:
     expose:
       - 5432
     volumes:
-      - database-content:/var/lib/postgresql/data
+      - database-prod:/var/lib/postgresql/data
+
+  postgres-test:
+    container_name: db-test-codenaute
+    image: postgres:14.6-alpine
+    restart: always
+    env_file:
+      - ./database/.env.test
+    expose:
+      - 2345
+    volumes:
+      - database-test:/var/lib/postgresql/data
+    command: -p 2345
+
+  redis:
+    container_name: redis-codenaute
+    image: redis:alpine
+    expose:
+      - 6379
 
   adminer:
     container_name: adminer-codenaute
@@ -21,17 +39,12 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
 
-  redis:
-    container_name: redis-codenaute
-    image: redis:alpine
-    expose:
-      - 6379
-
   server:
     container_name: server-codenaute
     build:
       context: ./server
       dockerfile: Dockerfile
+      target: ${NODE_ENV}
     env_file:
       - ./server/.env.server
     restart: always
@@ -50,6 +63,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      target: ${NODE_ENV}
     env_file:
       - ./client/.env.client
     restart: always
@@ -59,22 +73,8 @@ services:
       - ./client:/app
       - /app/node_modules
 
-  postgres-test:
-    container_name: db-test-codenaute
-    image: postgres:14.6-alpine
-    restart: always
-    env_file:
-      - ./database/.env.test
-    expose:
-      - 2345
-    volumes:
-      - database-test:/var/lib/postgresql/data
-    command: -p 2345
-
   gateway:
     image: nginx
-    env_file:
-      - ./gateway/.env.gateway
     ports:
       - ${GATEWAY_PORT}:80
     depends_on:
@@ -89,5 +89,5 @@ networks:
     driver: bridge
 
 volumes:
-  database-content:
+  database-prod:
   database-test:
