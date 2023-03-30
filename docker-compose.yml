@@ -71,6 +71,19 @@ services:
       - database-test:/var/lib/postgresql/data
     command: -p 2345
 
+  gateway:
+    image: nginx
+    env_file:
+      - ./gateway/.env.gateway
+    ports:
+      - ${GATEWAY_PORT}:80
+    depends_on:
+      - server
+      - client
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+
 networks:
   default:
     driver: bridge
