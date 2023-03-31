@@ -3,7 +3,7 @@ import NavBarLogoSvg from 'components/Svgs/NavBarLogoSvg';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 interface NavBarProps {
 	className?: string;
@@ -33,6 +33,16 @@ export const NavBar = ({ className }: NavBarProps) => {
 		handleMenuClick();
 	};
 
+	const style = {
+		mobileMenuItemLink: twJoin(
+			'flex items-center justify-center',
+			'h-20',
+			'text-xl hover:bg-dark-700'
+		),
+		renderDesktopMenuIconStyle: (locationPathname: string) =>
+			twJoin(location === locationPathname ? 'text-primary' : 'text-primary-200')
+	};
+
 	return (
 		<>
 			<div
@@ -58,7 +68,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 							size={24}
 							className={twMerge(
 								'hover:text-primary',
-								location === '/account' ? 'text-primary' : 'text-primary-200'
+								style.renderDesktopMenuIconStyle('/account')
 							)}
 						/>
 					</Link>
@@ -68,7 +78,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 							size={24}
 							className={twMerge(
 								'hover:text-primary',
-								location === '/code-editor' ? 'text-primary' : 'text-primary-200'
+								style.renderDesktopMenuIconStyle('/code-editor')
 							)}
 						/>
 					</Link>
@@ -78,7 +88,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 							size={24}
 							className={twMerge(
 								'hover:text-primary',
-								location === '/explore' ? 'text-primary' : 'text-primary-200'
+								style.renderDesktopMenuIconStyle('/explore')
 							)}
 						/>
 					</Link>
@@ -90,25 +100,13 @@ export const NavBar = ({ className }: NavBarProps) => {
 				}`}
 			>
 				<ul className='flex flex-col'>
-					<Link
-						to='/account'
-						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
-						onClick={handleMenuItemClick}
-					>
+					<Link to='/account' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 						<li>Account</li>
 					</Link>
-					<Link
-						to='#'
-						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
-						onClick={handleMenuItemClick}
-					>
+					<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 						<li>New code</li>
 					</Link>
-					<Link
-						to='#'
-						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
-						onClick={handleMenuItemClick}
-					>
+					<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 						<li>Explore</li>
 					</Link>
 				</ul>
