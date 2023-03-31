@@ -17,44 +17,44 @@ export abstract class Database {
 	private static _DB_HOST(): string | undefined {
 		switch (process.env.NODE_ENV) {
 			case Environment.IS_TEST:
-				return process.env.DB_TEST_HOST as string | undefined;
+				return process.env.DB_TEST_HOST;
 			case Environment.IS_PRODUCTION:
-				return process.env.DB_PROD_HOST as string | undefined;
+				return process.env.DB_PROD_HOST;
 			case Environment.IS_DEVELOPMENT:
-				return process.env.DB_DEV_HOST as string | undefined;
+				return process.env.DB_DEV_HOST;
 		}
 	}
 
 	private static _DB_NAME(): string | undefined {
 		switch (process.env.NODE_ENV) {
 			case Environment.IS_TEST:
-				return process.env.DB_TEST_DATABASE as string | undefined;
+				return process.env.DB_TEST_DATABASE;
 			case Environment.IS_PRODUCTION:
-				return process.env.DB_PROD_DATABASE as string | undefined;
+				return process.env.DB_PROD_DATABASE;
 			case Environment.IS_DEVELOPMENT:
-				return process.env.DB_DEV_DATABASE as string | undefined;
+				return process.env.DB_DEV_DATABASE;
 		}
 	}
 
 	private static _DB_USER(): string | undefined {
 		switch (process.env.NODE_ENV) {
 			case Environment.IS_TEST:
-				return process.env.DB_TEST_USER as string | undefined;
+				return process.env.DB_TEST_USER;
 			case Environment.IS_PRODUCTION:
-				return process.env.DB_PROD_USER as string | undefined;
+				return process.env.DB_PROD_USER;
 			case Environment.IS_DEVELOPMENT:
-				return process.env.DB_DEV_USER as string | undefined;
+				return process.env.DB_DEV_USER;
 		}
 	}
 
 	private static _DB_PASSWORD(): string | undefined {
 		switch (process.env.NODE_ENV) {
 			case Environment.IS_TEST:
-				return process.env.DB_TEST_PASSWORD as string | undefined;
+				return process.env.DB_TEST_PASSWORD;
 			case Environment.IS_PRODUCTION:
-				return process.env.DB_PROD_PASSWORD as string | undefined;
+				return process.env.DB_PROD_PASSWORD;
 			case Environment.IS_DEVELOPMENT:
-				return process.env.DB_DEV_PASSWORD as string | undefined;
+				return process.env.DB_DEV_PASSWORD;
 		}
 	}
 
