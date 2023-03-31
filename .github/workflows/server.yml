@@ -61,7 +61,7 @@ jobs:
         - ${{ github.workspace }}:/app
 
     services:
-      postgres-test:
+      database-test:
         image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
