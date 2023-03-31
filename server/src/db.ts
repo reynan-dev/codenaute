@@ -1,4 +1,5 @@
 import { DataSource, LoggerOptions } from 'typeorm';
+import { Environment } from 'utils/enums/Environment';
 
 export abstract class Database {
 	private static readonly DB_PORT = process.env.DB_PORT as number | undefined;
@@ -6,22 +7,22 @@ export abstract class Database {
 
 	private static readonly type = 'postgres';
 	private static readonly host =
-		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_HOST : process.env.DB_HOST;
-	private static readonly port = process.env.NODE_ENV === 'test' ? this.DB_TEST_PORT : this.DB_PORT;
+		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_HOST : process.env.DB_HOST;
+	private static readonly port = process.env.NODE_ENV === Environment.IS_TEST ? this.DB_TEST_PORT : this.DB_PORT;
 	private static readonly username =
-		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_USER : process.env.DB_USER;
+		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_USER : process.env.DB_USER;
 	private static readonly password =
-		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
+		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
 	private static readonly database =
-		process.env.NODE_ENV === 'test' ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
+		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
 	private static readonly entities = [
-		`${__dirname}/**/models/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`
+		`${__dirname}/**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
 	private static readonly migrations = [
-		`${__dirname}/**/migrations/*.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`
+		`${__dirname}/**/migrations/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
 	private static readonly logging: LoggerOptions | undefined =
-		process.env.NODE_ENV === 'test' ? ['error'] : ['query', 'error'];
+		process.env.NODE_ENV === Environment.IS_PRODUCTION ? ['error'] : ['query', 'error'];
 	private static readonly synchronize: boolean = true;
 
 	private static _dataSource: DataSource = new DataSource({
@@ -52,7 +53,7 @@ export abstract class Database {
 	static async start() {
 		try {
 			await this.initialize();
-			console.info('🎉 Successfully connected to database');
+			if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info('🎉 Successfully connected to database');
 		} catch (error) {
 			console.log('😞 Database connection error');
 			console.log(error);
@@ -62,7 +63,7 @@ export abstract class Database {
 	static async stop() {
 		try {
 			await this.destroy();
-			console.info('💀 Successfully disconnected to database');
+			if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info('💀 Successfully disconnected to database');
 		} catch (error) {
 			console.log('😞 Database disconnection error');
 			console.log(error);

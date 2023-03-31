@@ -16,6 +16,7 @@ import { Cookie } from 'utils/methods/Cookie';
 import { GraphQLSchema } from 'graphql/type/schema';
 
 import { Database } from 'db';
+import { Environment } from 'utils/enums/Environment';
 
 abstract class Server {
 	private static readonly MemberService: MemberServices = new MemberServices();
@@ -66,7 +67,7 @@ abstract class Server {
 
 		const { url } = await ((await this._build()) as ApolloServer).listen(process.env.GRAPHQL_PORT);
 
-		console.info(`🚀 Server ready at ${url}`);
+		if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info(`🚀 Server ready at ${url}`);
 	}
 }
 
