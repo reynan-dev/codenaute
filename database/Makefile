@@ -1,10 +1,10 @@
 start-quiet: ## Starting database (detached)
 	@echo "Initializating database"
-	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build postgres adminer redis postgres-test
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build database-dev adminer redis database-test
 
 start-debug: ## Starting database in debug mode
 	@echo "Initializating database in debug mode"
-	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build postgres adminer redis postgres-test
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build database-dev adminer redis database-test
 
 stop: ## Stoping database
 	@echo "Stoping database"
