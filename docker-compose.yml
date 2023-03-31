@@ -25,13 +25,13 @@ services:
     command: -p 2345
 
   redis:
-    container_name: redis-codenaute
+    container_name: redis-dev--codenaute
     image: redis:alpine
     expose:
       - 6379
 
   adminer:
-    container_name: adminer-codenaute
+    container_name: adminer-dev--codenaute
     image: adminer
     ports:
       - 8080:8080
@@ -40,7 +40,7 @@ services:
       - ADMINER_DEFAULT_SERVER=postgres
 
   server:
-    container_name: server-codenaute
+    container_name: server-dev-codenaute
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -61,7 +61,7 @@ services:
       - /app/node_modules
 
   client:
-    container_name: client-codenaute
+    container_name: client-dev-codenaute
     build:
       context: ./client
       dockerfile: Dockerfile

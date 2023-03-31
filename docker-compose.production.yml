@@ -13,13 +13,13 @@ services:
       - database-prod:/var/lib/postgresql/data
 
   redis:
-    container_name: redis-codenaute
+    container_name: redis-prod-codenaute
     image: redis:alpine
     expose:
       - 6379
 
   adminer:
-    container_name: adminer-codenaute
+    container_name: adminer-prod-codenaute
     image: adminer
     ports:
       - 8080:8080
@@ -28,7 +28,7 @@ services:
       - ADMINER_DEFAULT_SERVER=postgres
 
   server:
-    container_name: server-codenaute
+    container_name: server-prod-codenaute
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -46,7 +46,7 @@ services:
       - adminer
 
   client:
-    container_name: client-codenaute
+    container_name: client-prod-codenaute
     build:
       context: ./client
       dockerfile: Dockerfile
