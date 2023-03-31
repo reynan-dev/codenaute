@@ -1,19 +1,23 @@
 import BurgerButton from 'components/BurgerButton';
 import NavBarLogoSvg from 'components/Svgs/NavBarLogoSvg';
+import { useWindowSize } from 'hooks/useWindowsSize';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
 import { twJoin, twMerge } from 'tailwind-merge';
-
 interface NavBarProps {
 	className?: string;
 }
 
 export const NavBar = ({ className }: NavBarProps) => {
 	const { pathname } = useLocation();
+	const { width } = useWindowSize();
+
 	const [location, setLocation] = useState<string>(pathname);
 	const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 	const [isHidden, setIsHidden] = useState(false);
+
+	const TAILWIND_MD_BREAKPOINT = 768;
 
 	useEffect(() => {
 		setLocation(pathname);
@@ -39,9 +43,16 @@ export const NavBar = ({ className }: NavBarProps) => {
 			'h-20',
 			'text-xl hover:bg-dark-700'
 		),
+		mobileMenuIcons: twJoin('mr-5'),
 		renderDesktopMenuIconStyle: (locationPathname: string) =>
-			twJoin(location === locationPathname ? 'text-primary' : 'text-primary-200')
+			twMerge(
+				'hover:text-primary hover:scale-125',
+				location === locationPathname ? 'text-primary scale-125' : 'text-primary-200'
+			)
 	};
+
+
+	const shouldShowMobileMenu = () => width !== undefined && width <= TAILWIND_MD_BREAKPOINT;
 
 	return (
 		<>
@@ -64,53 +75,41 @@ export const NavBar = ({ className }: NavBarProps) => {
 
 				<div className='hidden flex-col items-center space-y-8 md:flex'>
 					<Link to='/account'>
-						<FiUser
-							size={24}
-							className={twMerge(
-								'hover:text-primary',
-								style.renderDesktopMenuIconStyle('/account')
-							)}
-						/>
+						<FiUser size={18} className={style.renderDesktopMenuIconStyle('/account')} />
 					</Link>
 
 					<Link to='#'>
-						<FiCode
-							size={24}
-							className={twMerge(
-								'hover:text-primary',
-								style.renderDesktopMenuIconStyle('/code-editor')
-							)}
-						/>
+						<FiCode size={18} className={style.renderDesktopMenuIconStyle('/code-editor')} />
 					</Link>
 
 					<Link to='#'>
-						<FiSearch
-							size={24}
-							className={twMerge(
-								'hover:text-primary',
-								style.renderDesktopMenuIconStyle('/explore')
-							)}
-						/>
+						<FiSearch size={16} className={style.renderDesktopMenuIconStyle('/explore')} />
 					</Link>
 				</div>
 			</div>
-			<div
-				className={`fixed z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
-					isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
-				}`}
-			>
-				<ul className='flex flex-col'>
-					<Link to='/account' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
-						<li>Account</li>
-					</Link>
-					<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
-						<li>New code</li>
-					</Link>
-					<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
-						<li>Explore</li>
-					</Link>
-				</ul>
-			</div>
+
+			{shouldShowMobileMenu() && (
+				<div
+					className={`fixed z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
+						isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
+					}`}
+				>
+					<ul className='flex flex-col'>
+						<Link to='/account' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+							<FiUser size={22} className={style.mobileMenuIcons} />
+							<li>Account</li>
+						</Link>
+						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+							<FiCode size={22} className={style.mobileMenuIcons} />
+							<li>New code</li>
+						</Link>
+						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+							<FiSearch size={20} className={style.mobileMenuIcons} />
+							<li>Explore</li>
+						</Link>
+					</ul>
+				</div>
+			)}
 		</>
 	);
 };
