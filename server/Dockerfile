@@ -14,18 +14,19 @@ WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 ENV NODE_PATH=dist/
-CMD pnpm build
+RUN pnpm build
 
 FROM build AS development
 
 WORKDIR /app
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY --from=dependencies /app/node_modules ./node_modules
 CMD pnpm start:watch
 
 FROM dependencies AS test
 
 WORKDIR /app
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
 CMD pnpm test:watch
 
 FROM build AS production
@@ -33,6 +34,6 @@ FROM build AS production
 WORKDIR /app
 RUN pnpm prune --prod
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=dependencies /app/node_modules ./node_modules
 
 CMD ["node", "dist/index.js"]

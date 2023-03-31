@@ -14,13 +14,13 @@ WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 ENV NODE_PATH=build/
-CMD pnpm build
+RUN pnpm build
 
 FROM dependencies AS development
 
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
-CMD pnpm start:local
+CMD pnpm start
 
 FROM dependencies AS test
 
@@ -34,5 +34,6 @@ WORKDIR /app
 RUN pnpm prune --prod
 COPY --from=build /app/build ./build
 COPY --from=build /app/node_modules ./node_modules
+RUN pnpm add -g serve
 
-CMD pnpm start
+CMD npx serve build
