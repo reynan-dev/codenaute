@@ -35,6 +35,8 @@ services:
       target: ${NODE_ENV}
     env_file:
       - ./server/.env.server
+    environment:
+      - NODE_ENV=${NODE_ENV}
     restart: always
     expose:
       - 5000

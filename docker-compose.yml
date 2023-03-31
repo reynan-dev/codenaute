@@ -6,7 +6,7 @@ services:
     image: postgres:14.6-alpine
     restart: always
     env_file:
-      - ./database/.env.database.prod
+      - ./database/.env.database.dev
     expose:
       - 5432
     volumes:
@@ -17,7 +17,7 @@ services:
     image: postgres:14.6-alpine
     restart: always
     env_file:
-      - ./database/.env.test
+      - ./database/.env.database.test
     expose:
       - 2345
     volumes:
@@ -47,11 +47,13 @@ services:
       target: ${NODE_ENV}
     env_file:
       - ./server/.env.server
+    environment:
+      - NODE_ENV=${NODE_ENV}
     restart: always
     ports:
       - 5000:5000
     depends_on:
-      - postgres
+      - database-dev
       - redis
       - adminer
     volumes:
