@@ -24,8 +24,8 @@ export const NavBar = ({ className }: NavBarProps) => {
 	};
 
 	const handleMenuItemClick = () => {
-		handleMenuClick();
-		setIsBurgerOpen(!isBurgerOpen);
+		setIsHidden(false);
+		setIsBurgerOpen(false);
 	};
 
 	const handleBurgerOnClick = () => {
@@ -44,7 +44,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 					className
 				)}
 			>
-				<Link to='/' className='md:mb-16'>
+				<Link to='/' className='md:mb-16' onClick={handleMenuItemClick}>
 					<NavBarLogoSvg />
 				</Link>
 
