@@ -2,19 +2,68 @@ import { DataSource, LoggerOptions } from 'typeorm';
 import { Environment } from 'utils/enums/Environment';
 
 export abstract class Database {
-	private static readonly DB_PORT = process.env.DB_PORT as number | undefined;
-	private static readonly DB_TEST_PORT = process.env.DB_TEST_PORT as number | undefined;
+
+	private static _DB_PORT(): number | undefined {
+		switch (process.env.NODE_ENV) {
+			case Environment.IS_TEST:
+				return process.env.DB_TEST_PORT as number | undefined;
+			case Environment.IS_PRODUCTION:
+				return process.env.DB_PROD_PORT as number | undefined;
+			case Environment.IS_DEVELOPMENT:
+				return process.env.DB_DEV_PORT as number | undefined;
+		}
+	}
+
+	private static _DB_HOST(): string | undefined {
+		switch (process.env.NODE_ENV) {
+			case Environment.IS_TEST:
+				return process.env.DB_TEST_HOST as string | undefined;
+			case Environment.IS_PRODUCTION:
+				return process.env.DB_PROD_HOST as string | undefined;
+			case Environment.IS_DEVELOPMENT:
+				return process.env.DB_DEV_HOST as string | undefined;
+		}
+	}
+
+	private static _DB_NAME(): string | undefined {
+		switch (process.env.NODE_ENV) {
+			case Environment.IS_TEST:
+				return process.env.DB_TEST_DATABASE as string | undefined;
+			case Environment.IS_PRODUCTION:
+				return process.env.DB_PROD_DATABASE as string | undefined;
+			case Environment.IS_DEVELOPMENT:
+				return process.env.DB_DEV_DATABASE as string | undefined;
+		}
+	}
+
+	private static _DB_USER(): string | undefined {
+		switch (process.env.NODE_ENV) {
+			case Environment.IS_TEST:
+				return process.env.DB_TEST_USER as string | undefined;
+			case Environment.IS_PRODUCTION:
+				return process.env.DB_PROD_USER as string | undefined;
+			case Environment.IS_DEVELOPMENT:
+				return process.env.DB_DEV_USER as string | undefined;
+		}
+	}
+
+	private static _DB_PASSWORD(): string | undefined {
+		switch (process.env.NODE_ENV) {
+			case Environment.IS_TEST:
+				return process.env.DB_TEST_PASSWORD as string | undefined;
+			case Environment.IS_PRODUCTION:
+				return process.env.DB_PROD_PASSWORD as string | undefined;
+			case Environment.IS_DEVELOPMENT:
+				return process.env.DB_DEV_PASSWORD as string | undefined;
+		}
+	}
 
 	private static readonly type = 'postgres';
-	private static readonly host =
-		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_HOST : process.env.DB_HOST;
-	private static readonly port = process.env.NODE_ENV === Environment.IS_TEST ? this.DB_TEST_PORT : this.DB_PORT;
-	private static readonly username =
-		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_USER : process.env.DB_USER;
-	private static readonly password =
-		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD;
-	private static readonly database =
-		process.env.NODE_ENV === Environment.IS_TEST ? process.env.DB_TEST_DATABASE : process.env.DB_DATABASE;
+	private static readonly host = this._DB_HOST();
+	private static readonly port = this._DB_PORT();
+	private static readonly username = this._DB_USER();
+	private static readonly password = this._DB_PASSWORD();
+	private static readonly database = this._DB_NAME();
 	private static readonly entities = [
 		`${__dirname}/**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
