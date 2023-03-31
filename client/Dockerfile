@@ -16,7 +16,7 @@ COPY --from=dependencies /app/node_modules ./node_modules
 ENV NODE_PATH=build/
 CMD pnpm build
 
-FROM build AS development
+FROM dependencies AS development
 
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
