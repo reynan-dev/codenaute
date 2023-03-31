@@ -1,5 +1,4 @@
 import BurgerButton from 'components/BurgerButton';
-import Button from 'components/Button';
 import NavBarLogoSvg from 'components/Svgs/NavBarLogoSvg';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
@@ -18,12 +17,12 @@ export const NavBar = ({ className }: NavBarProps) => {
 		setLocation(pathname);
 	}, [pathname]);
 
-	const [popCard, setPopCard] = useState('hidden');
-	const [fade, setFade] = useState(false);
+	const [popMenu, setPopMenu] = useState('hidden');
+	const [isHidden, setIsHidden] = useState(false);
 
 	const handleMenuClick = () => {
-		setPopCard(fade === false ? 'inline-block' : 'hidden');
-		setFade(!fade);
+		setPopMenu(isHidden === false ? 'inline-block' : 'hidden');
+		setIsHidden(!isHidden);
 	};
 
 	return (
@@ -79,7 +78,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 			</div>
 			<div
 				className={`absolute z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
-					fade ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
+					isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
 				}`}
 			>
 				<ul className='flex flex-col'>
