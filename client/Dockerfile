@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 CMD pnpm start:local
 
-FROM build AS test
+FROM dependencies AS test
 
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules

@@ -16,13 +16,13 @@ COPY --from=dependencies /app/node_modules ./node_modules
 ENV NODE_PATH=dist/
 CMD pnpm build
 
-FROM build AS development
+FROM dependencies AS development
 
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 CMD pnpm start:watch
 
-FROM build AS test
+FROM dependencies AS test
 
 WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
