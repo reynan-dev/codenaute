@@ -12,17 +12,25 @@ interface NavBarProps {
 export const NavBar = ({ className }: NavBarProps) => {
 	const { pathname } = useLocation();
 	const [location, setLocation] = useState<string>(pathname);
+	const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+	const [isHidden, setIsHidden] = useState(false);
 
 	useEffect(() => {
 		setLocation(pathname);
 	}, [pathname]);
 
-	const [popMenu, setPopMenu] = useState('hidden');
-	const [isHidden, setIsHidden] = useState(false);
-
 	const handleMenuClick = () => {
-		setPopMenu(isHidden === false ? 'inline-block' : 'hidden');
 		setIsHidden(!isHidden);
+	};
+
+	const handleMenuItemClick = () => {
+		handleMenuClick();
+		setIsBurgerOpen(!isBurgerOpen);
+	};
+
+	const handleBurgerOnClick = () => {
+		setIsBurgerOpen(!isBurgerOpen);
+		handleMenuClick();
 	};
 
 	return (
@@ -41,7 +49,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 				</Link>
 
 				<div className='flex w-full items-center justify-end md:hidden'>
-					<BurgerButton onClick={handleMenuClick}></BurgerButton>
+					<BurgerButton onClick={handleBurgerOnClick} isOpen={isBurgerOpen}></BurgerButton>
 				</div>
 
 				<div className='hidden flex-col items-center space-y-8 md:flex'>
@@ -77,14 +85,32 @@ export const NavBar = ({ className }: NavBarProps) => {
 				</div>
 			</div>
 			<div
-				className={`absolute z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
+				className={`fixed z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
 					isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
 				}`}
 			>
 				<ul className='flex flex-col'>
-					<li className='flex h-20 items-center justify-center text-xl'>Account</li>
-					<li className='flex h-20 items-center justify-center text-xl'>New code</li>
-					<li className='flex h-20 items-center justify-center text-xl'>Explore</li>
+					<Link
+						to='/account'
+						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
+						onClick={handleMenuItemClick}
+					>
+						<li>Account</li>
+					</Link>
+					<Link
+						to='/'
+						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
+						onClick={handleMenuItemClick}
+					>
+						<li>New code</li>
+					</Link>
+					<Link
+						to=''
+						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
+						onClick={handleMenuItemClick}
+					>
+						<li>Explore</li>
+					</Link>
 				</ul>
 			</div>
 		</>

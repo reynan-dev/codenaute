@@ -3,21 +3,18 @@ import { twMerge } from 'tailwind-merge';
 
 interface BurgerButtonProps {
 	onClick: () => void;
+  isOpen: boolean
 }
 
-export const BurgerButton = ({ onClick }: BurgerButtonProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+export const BurgerButton = ({ onClick, isOpen }: BurgerButtonProps) => {
 	const genericHamburgerLine = 'h-[3px] w-8 my-1 rounded-full bg-primary transition ease transform duration-300';
 
-	const handleOnClick = () => {
-		setIsOpen(!isOpen);
-		onClick();
-	};
+
 
 	return (
 		<button
 			className='group flex h-10 w-fit flex-col items-center justify-center'
-			onClick={() => handleOnClick()}
+			onClick={onClick}
 		>
 			<div
 				className={twMerge(
