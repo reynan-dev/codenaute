@@ -63,12 +63,12 @@ export const NavBar = ({ className }: NavBarProps) => {
 						/>
 					</Link>
 
-					<Link to='/'>
+					<Link to='#'>
 						<FiCode
 							size={24}
 							className={twMerge(
 								'hover:text-primary',
-								location === '/' ? 'text-primary' : 'text-primary-200'
+								location === '/code-editor' ? 'text-primary' : 'text-primary-200'
 							)}
 						/>
 					</Link>
@@ -98,14 +98,14 @@ export const NavBar = ({ className }: NavBarProps) => {
 						<li>Account</li>
 					</Link>
 					<Link
-						to='/'
+						to='#'
 						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
 						onClick={handleMenuItemClick}
 					>
 						<li>New code</li>
 					</Link>
 					<Link
-						to=''
+						to='#'
 						className='flex h-20 items-center justify-center text-xl hover:bg-dark-700'
 						onClick={handleMenuItemClick}
 					>
