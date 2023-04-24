@@ -15,8 +15,8 @@ export const Loader = ({
 	return (
 		<div className='flex h-full w-full items-center justify-center'>
 			<div className='relative'>
-				<div className='absolute top-0 left-0 mx-auto w-32'>
-					<svg
+				<div className='absolute left-0 top-0 mx-auto w-32'>
+					{/* <svg
 						version='1.1'
 						id='L3'
 						xmlns='http://www.w3.org/2000/svg'
@@ -25,47 +25,59 @@ export const Loader = ({
 						viewBox='0 0 100 100'
 						enable-background='new 0 0 0 0'
 					>
+						<linearGradient id='myGradient'>
+							<stop offset='0%' stop-color='gold' />
+							<stop offset='100%' stop-color='red' />
+						</linearGradient>
+
 						<circle
 							fill='none'
-							stroke={color}
+							stroke='url(#myGradient)'
 							stroke-width='4'
 							cx='50'
 							cy='50'
 							r='44'
 							style={{ opacity: '0.5;' }}
-						>
-						</circle>
+						></circle>
 
-						<circle fill={backgroundColor} stroke={color} stroke-width='3' cx='8' cy='54' r='6'>
+					</svg> */}
+					<svg
+						// width={size}
+						// height={size}
+						viewBox='0 0 200 200'
+						color={color}
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'
+					>
+						<defs>
+							<linearGradient id='spinner-secondHalf'>
+								<stop offset='0%' stop-opacity='0' stop-color='currentColor' />
+								<stop offset='100%' stop-opacity='0.5' stop-color='currentColor' />
+							</linearGradient>
+							<linearGradient id='spinner-firstHalf'>
+								<stop offset='0%' stop-opacity='1' stop-color='currentColor' />
+								<stop offset='100%' stop-opacity='0.5' stop-color='currentColor' />
+							</linearGradient>
+						</defs>
 
-							<animate
-								attributeType='XML'
-								attributeName='stroke'
-								from={color}
-								to='transparent'
-								dur='3s'
-								repeatCount='indefinite'
-							/>
+						<g stroke-width='8'>
+							<path stroke='url(#spinner-secondHalf)' d='M 4 100 A 96 96 0 0 1 196 100' />
+							<path stroke='url(#spinner-firstHalf)' d='M 196 100 A 96 96 0 0 1 4 100' />
 
-							<animate
-								attributeType='XML'
-								attributeName='fill'
-								from={backgroundColor}
-								to='transparent'
-								dur='1.5s'
-								repeatCount='indefinite'
-							/>
-							<animateTransform
-								attributeName='transform'
-								dur='1.5s'
-								type='rotate'
-								from='0 50 48'
-								to='360 50 52'
-								repeatCount='indefinite'
-							/>
-						</circle>
+							<path stroke='currentColor' stroke-linecap='round' d='M 4 100 A 96 96 0 0 1 4 98' />
+						</g>
+
+						<animateTransform
+							from='0 0 0'
+							to='360 0 0'
+							attributeName='transform'
+							type='rotate'
+							repeatCount='indefinite'
+							dur='1300ms'
+						/>
 					</svg>
 				</div>
+
 				<div className='flex h-32 w-32 items-center justify-center'>
 					<svg
 						version='1.1'

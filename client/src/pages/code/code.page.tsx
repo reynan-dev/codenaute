@@ -1,9 +1,3 @@
-import Loader from "components/svgs/loader";
-
-export interface CodePageProps {}
-
-export const CodePage = ({}: CodePageProps) => {
-	return <div className='flex py-3 px-5'>
-		<Loader />
-	</div>;
+export const CodePage = () => {
+	return <div className='flex px-5 py-3'>CODE</div>;
 };
