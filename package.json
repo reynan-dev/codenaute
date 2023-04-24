@@ -6,6 +6,7 @@
 		"**/*": "prettier --write --ignore-unknown"
 	},
 	"dependencies": {
+		"@codesandbox/sandpack-react": "2.6.1",
 		"pnpm": "^8.0.0"
 	},
 	"devDependencies": {
