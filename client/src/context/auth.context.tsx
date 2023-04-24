@@ -8,7 +8,7 @@ export type ProfileData = ProfileQuery | null;
 
 export interface AuthContextProps {
 	profile: ProfileData;
-	loading: boolean;
+	isLoading: boolean;
 	refetch:
 		| ((
 				variables?: Partial<OperationVariables> | undefined
@@ -20,7 +20,7 @@ export interface AuthContextProps {
 
 export const AuthContext = createContext<AuthContextProps>({
 	profile: null,
-	loading: true,
+	isLoading: true,
 	refetch: () => {},
 	isAuthenticated: false,
 	setIsAuthenticated: () => {}
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ profile, loading, refetch, isAuthenticated, setIsAuthenticated }}
+			value={{ profile, isLoading: loading, refetch, isAuthenticated, setIsAuthenticated }}
 		>
 			{children}
 		</AuthContext.Provider>

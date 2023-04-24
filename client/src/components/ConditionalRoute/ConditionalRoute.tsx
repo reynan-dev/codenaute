@@ -10,7 +10,11 @@ interface ConditionalRouteProps {
 export const ConditionalRoute = ({ children, type }: ConditionalRouteProps) => {
 	const location = useLocation();
 
-	const { isAuthenticated } = useContext(AuthContext);
+	const { isAuthenticated, isLoading } = useContext(AuthContext);
+
+	console.log({ isAuthenticated });
+
+	if (isLoading) return <p>Loading...</p>;
 
 	if (isAuthenticated && type === 'unauth') {
 		return <Navigate to='/account' state={{ from: location }} replace />;
