@@ -3,7 +3,7 @@ import { SIGN_IN_PATH } from 'constants/paths';
 import { getFormErrors } from 'helpers/getFormErrors';
 import { getGraphQLErrorMessage } from 'helpers/getGraphQLErrorMessage';
 import { SignUpForm } from 'pages/signUp/components/SignUpForm';
-import { SignUpPage } from 'pages/signUp/signUp.page';
+import { SignUpPage } from 'pages/signup/signUp.page';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
