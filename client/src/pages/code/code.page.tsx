@@ -1,4 +1,4 @@
-import { Loader } from "components/Svgs/LogoSvg/Loader";
+import Loader from "components/Svgs/loader";
 
 export interface CodePageProps {}
 

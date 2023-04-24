@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { useProfile } from 'api/profile/useProfile';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
+import { useProfile } from 'api/profile/use-profile';
 
 export type ProfileData = ProfileQuery | null;
 
