@@ -2,6 +2,7 @@ import { ConditionalRoute } from 'components/ConditionalRoute/ConditionalRoute';
 import CrossDeviceBackground from 'components/CrossDeviceBackground';
 import { ACCOUNT_PATH, HOME_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
 import { Account } from 'pages/account';
+import { Code } from 'pages/code';
 import { Home } from 'pages/home';
 import { SignIn } from 'pages/signIn';
 import { SignUp } from 'pages/signUp';
@@ -9,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/toastify.css';
+import { CODE_PATH } from './constants/paths';
 
 const App = () => {
 	return (
@@ -41,6 +43,15 @@ const App = () => {
 						element={
 							<ConditionalRoute type='private'>
 								<Account />
+							</ConditionalRoute>
+						}
+					/>
+
+					<Route
+						path={CODE_PATH}
+						element={
+							<ConditionalRoute type='private'>
+								<Code />
 							</ConditionalRoute>
 						}
 					/>
