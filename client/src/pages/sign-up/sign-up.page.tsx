@@ -1,6 +1,6 @@
 import Container from 'components/container';
 import Link from 'components/link';
-import LogoSvg from 'components/Svgs/logo';
+import LogoSvg from 'components/svgs/logo';
 import { BLACK, WHITE } from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 import astronautImage from 'assets/images/astronaut-auth.png';
