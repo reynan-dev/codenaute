@@ -10,12 +10,6 @@ dependencies:
   graphql:
     specifier: ^16.6.0
     version: 16.6.0
-  prettier-plugin-packagejson:
-    specifier: ^2.4.3
-    version: 2.4.3(prettier@2.8.8)
-  prettier-plugin-tailwindcss:
-    specifier: ^0.2.7
-    version: 0.2.7(prettier@2.8.8)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -93,6 +87,12 @@ devDependencies:
   postcss:
     specifier: ^8.4.21
     version: 8.4.21
+  prettier-plugin-packagejson:
+    specifier: ^2.4.3
+    version: 2.4.3(prettier@2.8.8)
+  prettier-plugin-tailwindcss:
+    specifier: ^0.2.7
+    version: 0.2.7(prettier@2.8.8)
   tailwindcss:
     specifier: ^3.2.7
     version: 3.3.0(postcss@8.4.21)(ts-node@10.9.1)
@@ -2690,7 +2690,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /@graphql-tools/prisma-loader@7.2.66(@types/node@18.15.11)(graphql@16.6.0):
@@ -2739,7 +2739,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -3385,7 +3385,7 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
-    dev: false
+    dev: true
 
   /@pmmmwh/react-refresh-webpack-plugin@0.5.10(react-refresh@0.11.0)(webpack-dev-server@4.13.1)(webpack@5.77.0):
     resolution:
@@ -6324,7 +6324,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: false
 
   /crypto-random-string@2.0.0:
     resolution:
@@ -6820,7 +6819,6 @@ packages:
         integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==
       }
     engines: { node: '>=8' }
-    dev: false
 
   /define-properties@1.2.0:
     resolution:
@@ -6885,7 +6883,7 @@ packages:
         integrity: sha512-Mc7QhQ8s+cLrnUfU/Ji94vG/r8M26m8f++vyres4ZoojaRDpZ1eSIh/EpzLNwlWuvzSZ3UbDFspjFvTDXe6e/g==
       }
     engines: { node: '>=12.20' }
-    dev: false
+    dev: true
 
   /detect-newline@3.1.0:
     resolution:
@@ -6901,7 +6899,7 @@ packages:
         integrity: sha512-1aXUEPdfGdzVPFpzGJJNgq9o81bGg1s09uxTWsqBlo9PI332uyJRQq13+LK/UN4JfxJbFdCXonUFQ9R/p7yCtw==
       }
     engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
-    dev: false
+    dev: true
 
   /detect-node@2.1.0:
     resolution:
@@ -8458,7 +8456,7 @@ packages:
       {
         integrity: sha512-LF8VeHeR7v+wAbXqfgRlTSX/1BJR9Q1vEMR8JAz1cEg6GX07+zyj3sAdDvYjj/xnlIfVuGgj4qBei1K3hKH+PA==
       }
-    dev: false
+    dev: true
 
   /glob-parent@5.1.2:
     resolution:
@@ -8565,7 +8563,7 @@ packages:
       {
         integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==
       }
-    dev: false
+    dev: true
 
   /globby@11.1.0:
     resolution:
@@ -8593,14 +8591,14 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
-    dev: false
+    dev: true
 
   /globrex@0.1.2:
     resolution:
       {
         integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
       }
-    dev: false
+    dev: true
 
   /gopd@1.0.1:
     resolution:
@@ -9337,7 +9335,6 @@ packages:
       }
     engines: { node: '>=8' }
     hasBin: true
-    dev: false
 
   /is-extglob@2.1.1:
     resolution:
@@ -9454,7 +9451,7 @@ packages:
         integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==
       }
     engines: { node: '>=12' }
-    dev: false
+    dev: true
 
   /is-potential-custom-element-name@1.0.1:
     resolution:
@@ -9626,7 +9623,6 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       is-docker: 2.2.1
-    dev: false
 
   /isarray@1.0.0:
     resolution:
@@ -9646,7 +9642,6 @@ packages:
       {
         integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
       }
-    dev: false
 
   /isomorphic-ws@5.0.0(ws@8.12.1):
     resolution:
@@ -11626,7 +11621,6 @@ packages:
       define-lazy-prop: 2.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
-    dev: false
 
   /optimism@0.16.2:
     resolution:
@@ -11873,7 +11867,6 @@ packages:
         integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
       }
     engines: { node: '>=8' }
-    dev: false
 
   /path-parse@1.0.7:
     resolution:
@@ -12991,7 +12984,7 @@ packages:
       prettier: 2.8.8
       sort-package-json: 2.4.1
       synckit: 0.8.5
-    dev: false
+    dev: true
 
   /prettier-plugin-tailwindcss@0.2.7(prettier@2.8.8):
     resolution:
@@ -13049,7 +13042,7 @@ packages:
         optional: true
     dependencies:
       prettier: 2.8.8
-    dev: false
+    dev: true
 
   /prettier@2.8.8:
     resolution:
@@ -13058,7 +13051,7 @@ packages:
       }
     engines: { node: '>=10.13.0' }
     hasBin: true
-    dev: false
+    dev: true
 
   /pretty-bytes@5.6.0:
     resolution:
@@ -14282,7 +14275,6 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       shebang-regex: 3.0.0
-    dev: false
 
   /shebang-regex@3.0.0:
     resolution:
@@ -14290,7 +14282,6 @@ packages:
         integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
       }
     engines: { node: '>=8' }
-    dev: false
 
   /shell-quote@1.8.0:
     resolution:
@@ -14341,7 +14332,6 @@ packages:
         integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
       }
     engines: { node: '>=12' }
-    dev: false
 
   /slice-ansi@3.0.0:
     resolution:
@@ -14393,7 +14383,7 @@ packages:
       {
         integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==
       }
-    dev: false
+    dev: true
 
   /sort-package-json@2.4.1:
     resolution:
@@ -14408,7 +14398,7 @@ packages:
       globby: 13.1.4
       is-plain-obj: 4.1.0
       sort-object-keys: 1.1.3
-    dev: false
+    dev: true
 
   /source-list-map@2.0.1:
     resolution:
@@ -14972,7 +14962,7 @@ packages:
     dependencies:
       '@pkgr/utils': 2.3.1
       tslib: 2.5.0
-    dev: false
+    dev: true
 
   /tailwind-merge@1.11.0:
     resolution:
@@ -15172,7 +15162,7 @@ packages:
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
-    dev: false
+    dev: true
 
   /title-case@3.0.3:
     resolution:
@@ -16136,7 +16126,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: false
 
   /word-wrap@1.2.3:
     resolution:
