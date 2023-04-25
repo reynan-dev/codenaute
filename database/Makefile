@@ -1,18 +1,18 @@
 start-quiet: ## Starting database (detached)
 	@echo "Initializating database - Docker compose v1"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose-up -d --build postgres adminer redis postgres-test || true
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose-up -d --build postgres adminer redis postgres-test || true
 	@echo "Initializating database - Docker compose v2"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build postgres adminer redis postgres-test
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build database-dev redis database-test
 
 start-debug: ## Starting database in debug mode
 	@echo "Initializating database in debug mode - Docker compose v1"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build postgres adminer redis postgres-test || true
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build database-dev redis database-test || true
 	@echo "Initializating database in debug mode - Docker compose v2"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build postgres adminer redis postgres-test
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build postgres adminer redis postgres-test
 
 stop: ## Stoping database
 	@echo "Stoping database - Docker compose v1"
-	docker-compose stop postgres adminer redis postgres-test || true
+	docker-compose stop postgres redis postgres-test || true
 	@echo "Stoping database - Docker compose v2"
 	docker compose stop postgres adminer redis postgres-test
 

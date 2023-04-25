@@ -1,15 +1,16 @@
+import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
 export class getAllFilesByProjectIdArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 }
 
 @ArgsType()
 export class getFileProjectByIdArgs {
 	@Field()
-	fileId: string;
+	fileId: UUID;
 }
 
 @ArgsType()
@@ -21,7 +22,7 @@ export class createFileProjectArgs {
 	content: string;
 
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field({ defaultValue: false, nullable: true })
 	isHidden: boolean;
@@ -30,7 +31,7 @@ export class createFileProjectArgs {
 @ArgsType()
 export class updateFileProjectPathArgs {
 	@Field()
-	fileId: string;
+	fileId: UUID;
 
 	@Field()
 	path: string;
@@ -39,7 +40,7 @@ export class updateFileProjectPathArgs {
 @ArgsType()
 export class updateFileProjectCodeArgs {
 	@Field()
-	fileId: string;
+	fileId: UUID;
 
 	@Field()
 	content: string;
@@ -48,7 +49,7 @@ export class updateFileProjectCodeArgs {
 @ArgsType()
 export class updateFileProjectHiddenArgs {
 	@Field()
-	fileId: string;
+	fileId: UUID;
 
 	@Field()
 	isHidden: boolean;
@@ -57,5 +58,5 @@ export class updateFileProjectHiddenArgs {
 @ArgsType()
 export class deleteFileProjectArgs {
 	@Field()
-	fileId: string;
+	fileId: UUID;
 }
