@@ -39,7 +39,7 @@ jobs:
           context: ./${{ env.SERVICE_NAME }}
           file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
 
   workflow:
     needs: build-and-push
@@ -47,7 +47,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: 'reynandev/codenaute:server'
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:
