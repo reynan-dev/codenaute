@@ -1,0 +1,37 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Codebase CI
+
+on:
+  pull_request:
+    types: [ready_for_review, opened, reopened, synchronize]
+    paths:
+      - '.github/workflows/codebase.yml'
+      - '.'
+
+env:
+  SERVICE_NAME: 'root'
+  NODEJS_VERSION: '16.17.1'
+  PNPM_VERSION: '7.30.1'
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Install pnpm globally
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run prettier formatting
+        run: npx prettier --write
