@@ -11,7 +11,7 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-	for (const entity of Database.entityMetadatas()) {
+	for (const entity of Database.entities()) {
 		const repository = Database.repository(entity.name);
 		await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
 	}

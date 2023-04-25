@@ -65,7 +65,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				<div className='relative h-16 w-full rounded-xl'>
 					<div
 						className={twMerge(
-							'absolute top-0 left-0 h-16 w-full rounded-xl',
+							'absolute left-0 top-0 h-16 w-full rounded-xl',
 							isFocus && 'outline-3 outline outline-primary blur-sm',
 							isFocus && browser === 'safari' && 'outline-0',
 							isFocus && error && 'outline-danger'
@@ -73,7 +73,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					/>
 					<div
 						className={twMerge(
-							'absolute top-0 left-0 flex h-16 w-full items-center justify-between overflow-hidden',
+							'absolute left-0 top-0 flex h-16 w-full items-center justify-between overflow-hidden',
 							'rounded-xl border border-dark-500 bg-dark-800 placeholder-primary',
 							isFocus && 'border-primary outline outline-1 outline-primary',
 							isFocus && browser === 'safari' && 'outline-0',
@@ -88,7 +88,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 									ref={ref}
 									placeholder=' '
 									className={twJoin(
-										'peer block w-full  pl-5 pb-2.5 pt-4',
+										'peer block w-full  pb-2.5 pl-5 pt-4',
 										'detect-autofill',
 										'bg-transparent text-sm',
 										'focus:outline-none'
@@ -107,7 +107,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 								<label
 									htmlFor='floating_outlined'
 									className={twMerge(
-										'absolute top-2.5 left-1 z-10 scale-75 px-2 ',
+										'absolute left-1 top-2.5 z-10 scale-75 px-2 ',
 										'text-md pointer-events-none text-dark-300',
 										'origin-[0] -translate-y-4 transform duration-300',
 										'peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100',

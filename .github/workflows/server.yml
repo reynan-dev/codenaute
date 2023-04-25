@@ -39,7 +39,7 @@ jobs:
           context: ./${{ env.SERVICE_NAME }}
           file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:${{ env.SERVICE_NAME }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
 
   workflow:
     needs: build-and-push
@@ -50,6 +50,7 @@ jobs:
     container:
       image: 'reynandev/codenaute:server'
       env:
+        NODE_ENV: test
         DB_TEST_HOST: ${{ secrets.DB_TEST_HOST }}
         DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
         DB_TEST_DATABASE: ${{ secrets.DB_TEST_DATABASE }}
@@ -61,14 +62,14 @@ jobs:
         - ${{ github.workspace }}:/app
 
     services:
-      postgres-test:
-        image: 'postgres:15.1-alpine'
+      database-test:
+        image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         ports:
-          - 2345:5432
+          - ${{ secrets.DB_TEST_PORT }}:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:

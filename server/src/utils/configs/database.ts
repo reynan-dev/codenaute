@@ -63,7 +63,7 @@ export abstract class Database {
 	private static readonly username = this._DB_USER();
 	private static readonly password = this._DB_PASSWORD();
 	private static readonly database = this._DB_NAME();
-	private static readonly entities = [
+	private static readonly models = [
 		`${__dirname}/../../**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
 	private static readonly migrations = [
@@ -82,13 +82,13 @@ export abstract class Database {
 		username: this.username,
 		password: this.password,
 		database: this.database,
-		entities: this.entities,
+		entities: this.models,
 		migrations: this.migrations,
 		logging: this.logging,
 		synchronize: this.synchronize
 	});
 
-	static entityMetadatas() {
+	static entities() {
 		return this._dataSource.entityMetadatas;
 	}
 

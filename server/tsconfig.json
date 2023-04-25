@@ -8,7 +8,7 @@
 		/* Modules */
 		"module": "CommonJS",
 		"rootDir": "./src",
-		"moduleResolution": "node",
+		"moduleResolution": "node16",
 
 		/* Emit */
 		"outDir": "./dist",
@@ -28,5 +28,5 @@
 		"baseUrl": "src"
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist"]
+	"exclude": ["node_modules"]
 }

@@ -27,7 +27,7 @@ export const DeleteAccountForm = ({
 			}}
 			className={twJoin(
 				'flex w-full flex-col items-center justify-between space-y-5',
-				'lg:flex-row lg:items-start lg:space-y-0 lg:space-x-5'
+				'lg:flex-row lg:items-start lg:space-x-5 lg:space-y-0'
 			)}
 		>
 			<Input
@@ -44,10 +44,10 @@ export const DeleteAccountForm = ({
 				type='submit'
 				disabled={isContainingEmptyValue([state.deleteAccountPassword])}
 				className={twJoin(
-					'mt-8 ml-5',
+					'ml-5 mt-8',
 					'border-danger bg-danger',
 					'hover:border-danger-100 hover:bg-danger-100',
-					'lg:mt-2.5 lg:mb-0'
+					'lg:mb-0 lg:mt-2.5'
 				)}
 				isLoading={isLoading}
 			>

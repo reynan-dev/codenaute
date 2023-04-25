@@ -21,6 +21,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
+import { Member } from 'models/Member';
 
 @Resolver(Project)
 export class ProjectResolver {
@@ -39,14 +40,14 @@ export class ProjectResolver {
 	@Query(() => Project)
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByOwner(context.user?.id as UUID);
+		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
 	@Authorized()
 	@Query(() => Project)
 	async getAllProjectsByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByEditorId(context.user?.id as UUID);
+		return this.ProjectServices.findAllByEditorId(context.user?.id as UUID);
 	}
 
 	@Authorized()
@@ -55,7 +56,7 @@ export class ProjectResolver {
 		@Args() { memberId }: getAllProjectsByMemberArgs
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByFavorites(memberId);
+		return this.ProjectServices.findAllByFavorites(memberId);
 	}
 
 	@Authorized()
@@ -64,7 +65,7 @@ export class ProjectResolver {
 		@Args() { templateId }: getAllProjectsByTemplateArgs
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByTemplate(templateId);
+		return this.ProjectServices.findAllByTemplate(templateId);
 	}
 
 	@Authorized()
@@ -73,7 +74,7 @@ export class ProjectResolver {
 		@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findByLanguage(languageId);
+		return this.ProjectServices.findAllByProgrammingLanguage(languageId);
 	}
 
 	@Authorized()
@@ -115,16 +116,20 @@ export class ProjectResolver {
 		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		return this.ProjectServices.addToFavorite(context.user?.id as UUID, projectId);
+		const member = await this.MemberServices.findById(context.user?.id as UUID);
+
+		return this.ProjectServices.addToFavorite(member, projectId);
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
 	async shareProjects(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
 		const members = new Array();
-		membersId.map((id) => {
-			const member = this.MemberServices.findById(id);
+		membersId.map(async (id) => {
+			const member = (await this.MemberServices.findById(id)) as Member;
 			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+			const project = await this.ProjectServices.findById(projectId);
+			if (project.editors.includes(...members)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 			members.push(member);
 		});
 
