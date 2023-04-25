@@ -1,4 +1,4 @@
-name: Start the deployment in production environment
+name: PROD - Start deploy
 
 on:
   push:

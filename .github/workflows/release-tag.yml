@@ -1,4 +1,4 @@
-name: Push new tag and a relase about the new version
+name: TAG - Push new tag and a relase
 
 on:
   pull_request:
