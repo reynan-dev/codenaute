@@ -12,3 +12,7 @@ coverage
 
 # Ignore test coverage reports:
 **/coverage/**
+
+# Ignore pnpm lock files:
+./pnpm-lock.yml
+**/pnpm-lock.yml
