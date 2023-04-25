@@ -36,8 +36,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./server/Dockerfile
+          context: ./${{ env.SERVICE_NAME }}
+          file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
 
@@ -50,9 +50,8 @@ jobs:
     container:
       image: 'reynandev/codenaute:server'
       env:
-        NODE_ENV: test
-        DB_TEST_PORT: 5432
-        DB_TEST_HOST: postgres-test
+        DB_TEST_HOST: ${{ secrets.DB_TEST_HOST }}
+        DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
         DB_TEST_DATABASE: ${{ secrets.DB_TEST_DATABASE }}
         DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
         DB_TEST_PASSWORD: ${{ secrets.DB_TEST_PASSWORD }}
@@ -69,7 +68,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         ports:
-          - 5432:5432
+          - ${{ secrets.DB_TEST_PORT }}:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:

@@ -19,7 +19,7 @@ specifiers:
   nodemon: ^2.0.22
   pg: ^8.10.0
   reflect-metadata: ^0.1.13
-  ts-jest: ^29.0.5
+  ts-jest: ^29.1.0
   ts-node: ^10.9.1
   type-graphql: ^1.1.1
   typeorm: ^0.3.12
@@ -1537,7 +1537,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001481
-      electron-to-chromium: 1.4.369
+      electron-to-chromium: 1.4.371
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11_browserslist@4.21.5
     dev: true
@@ -1848,8 +1848,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
-  /electron-to-chromium/1.4.369:
-    resolution: {integrity: sha512-LfxbHXdA/S+qyoTEA4EbhxGjrxx7WK2h6yb5K2v0UCOufUKX+VZaHbl3svlzZfv9sGseym/g3Ne4DpsgRULmqg==}
+  /electron-to-chromium/1.4.371:
+    resolution: {integrity: sha512-jlBzY4tFcJaiUjzhRTCWAqRvTO/fWzjA3Bls0mykzGZ7zvcMP7h05W6UcgzfT9Ca1SW2xyKDOFRyI0pQeRNZGw==}
     dev: true
 
   /emittery/0.13.1:
