@@ -30,11 +30,11 @@ jobs:
       - name: Install pnpm globally
         run: npm install -g pnpm
 
+      - name: Install prettier
+        run: pnpm install prettier
+
       - name: Install prettier plugins
         run: pnpm install prettier-plugin-packagejson && pnpm install prettier-plugin-tailwindcss
 
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.3
-        with:
-          # This part is also where you can pass other options, for example:
-          prettier_options: --write **/*.{js,md}
+      - name: Format codebase with prettier
+        run: npx prettier --write .
