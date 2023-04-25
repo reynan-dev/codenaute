@@ -14,5 +14,5 @@ coverage
 **/coverage/**
 
 # Ignore pnpm lock files:
-./pnpm-lock.yml
-**/pnpm-lock.yml
+./pnpm-lock.yaml
+**/pnpm-lock.yaml
