@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Install tailwindcss on client for prettier tailwindcss plugin
-        run: pnpm install tailwindcss
+        run: pnpm add -D tailwindcss
         working-directory: ./client
 
       - name: Run prettier check
