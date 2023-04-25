@@ -9,9 +9,13 @@ describe('Validate a Member email integration test', () => {
 				username: 'username',
 				email: 'email',
 				password: 'password'
-			}
+			};
 
-			const member = await MemberService.signUp(memberData.username, memberData.email, memberData.password);
+			const member = await MemberService.signUp(
+				memberData.username,
+				memberData.email,
+				memberData.password
+			);
 
 			await MemberService.validEmail(member.email);
 

@@ -17,7 +17,6 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
-
 @Resolver(Member)
 export class MemberResolver {
 	MemberServices: MemberServices = new MemberServices();

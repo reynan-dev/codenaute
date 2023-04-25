@@ -5,7 +5,6 @@ import { BaseServices } from 'services/base/BaseServices';
 import { SessionServices } from 'services/SessionServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
-
 export class MemberServices extends BaseServices {
 	SessionServices: SessionServices = new SessionServices();
 

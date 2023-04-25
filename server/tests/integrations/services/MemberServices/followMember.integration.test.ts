@@ -88,5 +88,4 @@ describe('Follow Member integration test', () => {
 			expect(followedMember.followers[0].id).toEqual(owner.id);
 		});
 	});
-
 });
