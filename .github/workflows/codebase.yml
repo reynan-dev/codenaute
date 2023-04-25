@@ -32,3 +32,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Run prettier formatting
+        run: npx prettier --write
