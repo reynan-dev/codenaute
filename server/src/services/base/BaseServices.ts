@@ -1,5 +1,5 @@
 import { ObjectLiteral } from 'typeorm';
-import { Database } from 'db';
+import { Database } from 'utils/configs/database';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 export abstract class BaseServices {
