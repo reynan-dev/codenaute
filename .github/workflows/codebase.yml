@@ -33,13 +33,5 @@ jobs:
       - name: Install dependencies on root
         run: pnpm install
 
-      - name: Install dependencies on client
-        run: pnpm install --fix-lockfile
-        working-directory: ./client
-
-      - name: Install dependencies on server
-        run: pnpm install --fix-lockfile
-        working-directory: ./server
-
       - name: Run prettier check
         run: npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
