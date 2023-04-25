@@ -5,11 +5,16 @@ import {
 	DeleteAccountMutationVariables
 } from 'graphql/__generated__/graphql';
 
-export const useDeleteAccount = () => {
+export const useDeleteAccount = (onDeleteAccountSuccess: () => Promise<void>) => {
 	const [deleteAccount, { loading }] = useMutation<
 		DeleteAccountMutation,
 		DeleteAccountMutationVariables
-	>(DELETE_ACCOUNT_MUTATION);
+	>(DELETE_ACCOUNT_MUTATION,
+		{
+			onCompleted: async () => {
+				await onDeleteAccountSuccess();
+			},
+		});
 
 	return { loading, deleteAccount };
 };

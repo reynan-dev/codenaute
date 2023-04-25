@@ -22,6 +22,6 @@ export class SessionServices extends BaseServices {
 		const session = await this.findByToken(token);
 		if (!session) throw Error(ErrorMessages.SESSION_NOT_FOUND_ERROR_MESSAGE);
 
-		return await this.repository.remove(session);
+		return Boolean(await this.repository.remove(session));
 	}
 }

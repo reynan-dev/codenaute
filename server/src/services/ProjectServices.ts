@@ -1,8 +1,7 @@
+import { UUID } from 'utils/types/Uuid';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-
 import { Project } from 'models/Project';
 import { Member } from 'models/Member';
-
 import { BaseServices } from 'services/base/BaseServices';
 import { MemberServices } from 'services/MemberServices';
 
@@ -20,42 +19,42 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async findAllByOwner(memberId: string): Promise<Project[]> {
+	async findAllByOwner(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findAllByEditorId(memberId: string): Promise<Project[]> {
+	async findAllByEditorId(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { editors: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findAllByFavorites(memberId: string): Promise<Project[]> {
+	async findAllByFavorites(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { favoritedBy: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findAllByTemplate(templateId: string): Promise<Project[]> {
+	async findAllByTemplate(templateId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { template: { id: templateId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findAllByProgrammingLanguage(programmingLanguageId: string): Promise<Project[]> {
+	async findAllByProgrammingLanguage(programmingLanguageId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { programmingLanguage: { id: programmingLanguageId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async addToFavorite(member: Member, projectId: string): Promise<Project> {
+	async addToFavorite(member: Member, projectId: UUID): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -67,8 +66,8 @@ export class ProjectServices extends BaseServices {
 		return this.repository.save(project);
 	}
 
-	async share(projectId: string, members: Member[]): Promise<Project> {
-		const project = await this.findById(projectId);
+	async share(memberId: UUID, members: Member[]): Promise<Project> {
+		const project = await this.findById(memberId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 

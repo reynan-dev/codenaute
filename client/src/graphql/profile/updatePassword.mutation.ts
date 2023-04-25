@@ -6,7 +6,7 @@ export const UPDATE_PASSWORD_MUTATION = gql`
 		$confirmedNewPassword: String!
 		$oldPassword: String!
 	) {
-		updatePassword(
+		updateMemberPassword(
 			newPassword: $newPassword
 			confirmedNewPassword: $confirmedNewPassword
 			oldPassword: $oldPassword

@@ -1,8 +1,7 @@
+import { UUID } from 'utils/types/Uuid';
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
-
 import { Project } from 'models/Project';
 import { ProjectServices } from 'services/ProjectServices';
-
 import { GlobalContext } from 'utils/types/GlobalContext';
 import {
 	createProjectArgs,
@@ -18,7 +17,6 @@ import {
 	updateProjectIsTemplateArgs,
 	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
-
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { FileProjectServices } from 'services/FileProjectServices';
@@ -42,14 +40,14 @@ export class ProjectResolver {
 	@Query(() => Project)
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByOwner(context.user?.id as string);
+		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
 	@Authorized()
 	@Query(() => Project)
 	async getAllProjectsByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByEditorId(context.user?.id as string);
+		return this.ProjectServices.findAllByEditorId(context.user?.id as UUID);
 	}
 
 	@Authorized()
@@ -91,7 +89,7 @@ export class ProjectResolver {
 		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		const member = await this.MemberServices.findById(context.user?.id as string);
+		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
 		const language = await this.LanguageServices.findById(languageId);
 
@@ -118,12 +116,7 @@ export class ProjectResolver {
 		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		const member = await this.MemberServices.findById(context.user?.id as string);
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (!member) throw new Error(ErrorMessages.MEMBER_NOT_FOUND);
-
-		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
 		return this.ProjectServices.addToFavorite(member, projectId);
 	}
@@ -156,11 +149,13 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async updateProjectsActiveFile(
-		@Args() { projectId, activeFile }: updateProjectActiveFileArgs
+		@Args() { projectId, activeFileId }: updateProjectActiveFileArgs
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		const activeFile = await this.FileProjectServices.findById(activeFileId);
 
 		return this.ProjectServices.update(project.id, { activeFile });
 	}

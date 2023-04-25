@@ -1,8 +1,8 @@
+import { compareSync } from 'bcryptjs';
+import { UUID } from 'utils/types/Uuid';
 import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
-
 import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
-
 import {
 	DeleteMemberAccountArgs,
 	SignInArgs,
@@ -13,12 +13,10 @@ import {
 	UpdateMemberUsernameArgs,
 	FollowMemberArgs
 } from 'resolvers/args/MemberArgs';
-
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
-import { compareSync } from 'bcryptjs';
 
 @Resolver(Member)
 export class MemberResolver {
@@ -96,7 +94,7 @@ export class MemberResolver {
 
 		if (username_registered) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await this.MemberServices.updateUsername(context.user?.id as string, username);
+		return await this.MemberServices.updateUsername(context.user?.id as UUID, username);
 	}
 
 	@Authorized()
@@ -109,7 +107,7 @@ export class MemberResolver {
 
 		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
 
-		return await this.MemberServices.updateEmail(context.user?.id as string, email);
+		return await this.MemberServices.updateEmail(context.user?.id as UUID, email);
 	}
 
 	@Authorized()
@@ -118,7 +116,7 @@ export class MemberResolver {
 		@Args() { newPassword, confirmedNewPassword, oldPassword }: UpdateMemberPasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const user = (await this.MemberServices.findById(context.user?.id as string)) as Member;
+		const user = (await this.MemberServices.findById(context.user?.id as UUID)) as Member;
 
 		if (!compareSync(oldPassword, user.hashedPassword))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
