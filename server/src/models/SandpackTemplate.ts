@@ -14,7 +14,7 @@ export class SandpackTemplate extends BaseModel {
 	@Index({ unique: true })
 	slug: string;
 
-	@Field(() => [Project], { nullable: true })
-	@OneToMany(() => Project, (project) => project.id, { eager: true })
+	@Field(() => [Project], { nullable: true, defaultValue: [] })
+	@OneToMany(() => Project, (project) => project.id, { nullable: true })
 	projects: Project[];
 }

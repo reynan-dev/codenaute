@@ -2,7 +2,6 @@ import { DataSource, LoggerOptions } from 'typeorm';
 import { Environment } from 'utils/enums/Environment';
 
 export abstract class Database {
-
 	private static _DB_PORT(): number | undefined {
 		switch (process.env.NODE_ENV) {
 			case Environment.IS_TEST:
@@ -64,11 +63,13 @@ export abstract class Database {
 	private static readonly username = this._DB_USER();
 	private static readonly password = this._DB_PASSWORD();
 	private static readonly database = this._DB_NAME();
-	private static readonly entities = [
-		`${__dirname}/**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
+	private static readonly models = [
+		`${__dirname}/../../**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
 	private static readonly migrations = [
-		`${__dirname}/**/migrations/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
+		`${__dirname}/../../**/migrations/*.${
+			process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'
+		}`
 	];
 	private static readonly logging: LoggerOptions | undefined =
 		process.env.NODE_ENV === Environment.IS_PRODUCTION ? ['error'] : ['query', 'error'];
@@ -81,13 +82,13 @@ export abstract class Database {
 		username: this.username,
 		password: this.password,
 		database: this.database,
-		entities: this.entities,
+		entities: this.models,
 		migrations: this.migrations,
 		logging: this.logging,
 		synchronize: this.synchronize
 	});
 
-	static entityMetadatas() {
+	static entities() {
 		return this._dataSource.entityMetadatas;
 	}
 
@@ -102,20 +103,22 @@ export abstract class Database {
 	static async start() {
 		try {
 			await this.initialize();
-			if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info('🎉 Successfully connected to database');
+			if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
+				console.info('🎉 Successfully connected to database');
 		} catch (error) {
-			console.log('😞 Database connection error');
-			console.log(error);
+			console.error('😞 Database connection error');
+			console.error(error);
 		}
 	}
 
 	static async stop() {
 		try {
 			await this.destroy();
-			if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info('💀 Successfully disconnected to database');
+			if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
+				console.info('💀 Successfully disconnected to database');
 		} catch (error) {
-			console.log('😞 Database disconnection error');
-			console.log(error);
+			console.error('😞 Database disconnection error');
+			console.error(error);
 		}
 	}
 

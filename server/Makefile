@@ -1,4 +1,4 @@
-CONTAINER_NAME = server-codenaute
+CONTAINER_NAME = server-dev-codenaute
 
 # If the first argument is "run"...
 ifeq (exec,$(firstword $(MAKECMDGOALS)))

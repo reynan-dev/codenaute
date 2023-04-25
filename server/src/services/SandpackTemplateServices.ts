@@ -7,6 +7,6 @@ export class SandpackTemplateServices extends BaseServices {
 	}
 
 	async findBySlug(slug: string): Promise<SandpackTemplate> {
-		return this.repository.findOne({ slug });
+		return this.findOneBy({ slug });
 	}
 }

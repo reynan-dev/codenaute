@@ -1,4 +1,5 @@
 import { Matches } from 'class-validator';
+import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
@@ -8,25 +9,31 @@ const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 @ArgsType()
 export class getProjectByIdArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
+}
+
+@ArgsType()
+export class getProjectsByNameArgs {
+	@Field()
+	projectName: string;
 }
 
 @ArgsType()
 export class getAllProjectsByMemberArgs {
 	@Field()
-	memberId: string;
+	memberId: UUID;
 }
 
 @ArgsType()
 export class getAllProjectsByTemplateArgs {
 	@Field()
-	templateId: string;
+	templateId: UUID;
 }
 
 @ArgsType()
 export class getAllProjectsByProgrammingLanguageArgs {
 	@Field()
-	languageId: string;
+	languageId: UUID;
 }
 
 @ArgsType()
@@ -36,16 +43,16 @@ export class createProjectArgs {
 	name: string;
 
 	@Field()
-	memberId: string;
+	memberId: UUID;
 
 	@Field()
-	languageId: string;
+	languageId: UUID;
 
 	@Field({ nullable: true })
-	templateId: string;
+	templateId: UUID;
 
 	@Field({ nullable: true })
-	activeFileId: string;
+	activeFileId: UUID;
 
 	@Field()
 	isTemplate: boolean;
@@ -57,22 +64,22 @@ export class createProjectArgs {
 @ArgsType()
 export class favoriteProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 }
 
 @ArgsType()
 export class shareProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field(() => [String])
-	membersId: string[];
+	membersId: UUID[];
 }
 
 @ArgsType()
 export class updateProjectNameArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
@@ -82,16 +89,16 @@ export class updateProjectNameArgs {
 @ArgsType()
 export class updateProjectActiveFileArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
-	activeFile: string;
+	activeFileId: UUID;
 }
 
 @ArgsType()
 export class updateProjectIsTemplateArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	isTemplate: boolean;
@@ -100,7 +107,7 @@ export class updateProjectIsTemplateArgs {
 @ArgsType()
 export class updateProjectIsPublic {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	isPublic: boolean;
@@ -109,5 +116,5 @@ export class updateProjectIsPublic {
 @ArgsType()
 export class deleteProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 }
