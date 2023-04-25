@@ -33,6 +33,8 @@ jobs:
       - name: Install dependencies on root
         run: pnpm install
 
+      # @WORKAROUND : install tailwindcss related dependencies at the root allow us to
+      # use prettier tailwind plugin without installing all client dependencies in ci
       - name: Install tailwindcss for prettier tailwindcss plugin
         run: pnpm install -D tailwindcss postcss autoprefixer
 
