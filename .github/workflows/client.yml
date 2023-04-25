@@ -6,9 +6,9 @@ name: Client CI
 on:
   pull_request:
     types: [ready_for_review, opened, reopened, synchronize]
-    # paths:
-    #   - '.github/workflows/client.yml'
-    #   - 'client/**'
+    paths:
+      - '.github/workflows/client.yml'
+      - 'client/**'
 
 env:
   SERVICE_NAME: 'client'
@@ -39,7 +39,7 @@ jobs:
           context: ./${{ env.SERVICE_NAME }}
           file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:${{ env.SERVICE_NAME }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
 
   workflow:
     needs: build-and-push
@@ -47,7 +47,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: 'reynandev/codenaute:${{ env.SERVICE_NAME }}'
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:

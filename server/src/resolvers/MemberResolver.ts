@@ -17,7 +17,6 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
 
-
 @Resolver(Member)
 export class MemberResolver {
 	MemberServices: MemberServices = new MemberServices();
@@ -47,7 +46,7 @@ export class MemberResolver {
 
 		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
 
-		return await this.MemberServices.findOneById(newMember.id);
+		return await this.MemberServices.findById(newMember.id);
 	}
 
 	@Authorized()
@@ -59,7 +58,7 @@ export class MemberResolver {
 	@Authorized()
 	@Mutation(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
-		return await this.MemberServices.findOneById(memberId);
+		return await this.MemberServices.findById(memberId);
 	}
 	@Authorized()
 	@Query(() => [Member])
@@ -79,7 +78,9 @@ export class MemberResolver {
 		@Args() { memberId }: FollowMemberArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		return await this.MemberServices.followMember(context.user?.id as UUID, memberId);
+		if (context.user?.id === memberId) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
+
+		return await this.MemberServices.followMember(context.user?.id as string, memberId);
 	}
 
 	@Authorized()
@@ -123,12 +124,11 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Boolean)
-	deleteAccount(
+	@Mutation(() => Member)
+	async deleteMemberAccount(
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
-	): Promise<boolean> {
-		if (!context.user) throw Error("You're not authenticated");
-		return this.MemberServices.deleteAccount(context.user?.id as UUID, password);
+	): Promise<Boolean> {
+		return this.MemberServices.deleteAccount(context.user?.id as string, password);
 	}
 }

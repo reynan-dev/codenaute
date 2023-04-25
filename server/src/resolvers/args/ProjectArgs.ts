@@ -13,6 +13,12 @@ export class getProjectByIdArgs {
 }
 
 @ArgsType()
+export class getProjectsByNameArgs {
+	@Field()
+	projectName: string;
+}
+
+@ArgsType()
 export class getAllProjectsByMemberArgs {
 	@Field()
 	memberId: UUID;
