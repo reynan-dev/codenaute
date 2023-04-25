@@ -1,6 +1,6 @@
 import { ObjectLiteral } from 'typeorm';
-import { Database } from 'db';
-import { UUID } from 'utils/types/Uuid';
+import { Database } from 'utils/configs/database';
+
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 export abstract class BaseServices {
