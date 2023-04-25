@@ -34,7 +34,7 @@ export const UpdatePasswordForm = ({
 			}}
 			className={twJoin(
 				'flex w-full flex-col items-center space-y-5',
-				'lg:flex-row lg:space-y-0 lg:space-x-5'
+				'lg:flex-row lg:space-x-5 lg:space-y-0'
 			)}
 		>
 			<div className='flex w-full flex-col space-y-5'>
@@ -46,7 +46,7 @@ export const UpdatePasswordForm = ({
 						state.setOldPassword(event.target.value);
 					}}
 				/>
-				<div className={twJoin('flex flex-col space-y-5', 'lg:flex-row lg:space-y-0 lg:space-x-5')}>
+				<div className={twJoin('flex flex-col space-y-5', 'lg:flex-row lg:space-x-5 lg:space-y-0')}>
 					<Input
 						label='New password'
 						type='password'
@@ -76,7 +76,7 @@ export const UpdatePasswordForm = ({
 					state.oldPassword,
 					state.confirmedNewPassword
 				])}
-				className='mt-8 ml-5 lg:my-0'
+				className='ml-5 mt-8 lg:my-0'
 				isLoading={isLoading}
 			>
 				<span className='flex items-center space-x-3'>

@@ -57,7 +57,6 @@ export const AccountContainer = () => {
 		setDeleteAccountPassword
 	};
 
-
 	const onDeleteAccountSuccess = async () => {
 		try {
 			await refetchProfile();
@@ -70,7 +69,8 @@ export const AccountContainer = () => {
 	const { updateEmail, loading: isUpdateEmailLoading } = useUpdateEmail();
 	const { updateUsername, loading: isUpdateUsernameLoading } = useUpdateUsername();
 	const { updatePassword, loading: isUpdatePasswordLoading } = useUpdatePassword();
-	const { deleteAccount, loading: isDeleteAccountLoading } = useDeleteAccount(onDeleteAccountSuccess);
+	const { deleteAccount, loading: isDeleteAccountLoading } =
+		useDeleteAccount(onDeleteAccountSuccess);
 
 	const navigate = useNavigate();
 

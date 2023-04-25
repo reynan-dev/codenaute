@@ -6,10 +6,10 @@ interface SignOutButtonProps {
 	handleSignOut: () => Promise<void>;
 }
 
-export const SignOutButton = ({handleSignOut}: SignOutButtonProps) => {
+export const SignOutButton = ({ handleSignOut }: SignOutButtonProps) => {
 	return (
 		<Button designType='text' onClick={() => handleSignOut()} className='flex'>
-			<FiLogOut className='mt-1 mr-2' /> Sign out
+			<FiLogOut className='mr-2 mt-1' /> Sign out
 		</Button>
 	);
 };
