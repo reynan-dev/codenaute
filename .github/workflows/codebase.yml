@@ -27,6 +27,12 @@ jobs:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
 
+      - name: Install pnpm globally
+        run: npm install -g pnpm
+
+      - name: Install prettier plugins
+        run: pnpm install prettier-plugin-packagejson prettier-plugin-tailwindcss
+
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
         with:
