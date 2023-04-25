@@ -33,9 +33,8 @@ jobs:
       - name: Install dependencies on root
         run: pnpm install
 
-      - name: Install tailwindcss on client for prettier tailwindcss plugin
-        run: npm install -D tailwindcss
-        working-directory: ./client
+      - name: Install tailwindcss for prettier tailwindcss plugin
+        run: install -D tailwindcss postcss autoprefixer concurrently
 
       - name: Run prettier check
         run: npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
