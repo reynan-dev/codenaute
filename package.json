@@ -6,7 +6,7 @@
 		"**/*": "prettier --write --ignore-unknown"
 	},
 	"dependencies": {
-		"pnpm": "^8.0.0"
+		"pnpm": "^8.3.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.5.1",
