@@ -106,8 +106,8 @@ export abstract class Database {
 			if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
 				console.info('🎉 Successfully connected to database');
 		} catch (error) {
-			console.log('😞 Database connection error');
-			console.log(error);
+			console.error('😞 Database connection error');
+			console.error(error);
 		}
 	}
 
@@ -117,8 +117,8 @@ export abstract class Database {
 			if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
 				console.info('💀 Successfully disconnected to database');
 		} catch (error) {
-			console.log('😞 Database disconnection error');
-			console.log(error);
+			console.error('😞 Database disconnection error');
+			console.error(error);
 		}
 	}
 
