@@ -34,4 +34,4 @@ jobs:
         run: pnpm install
 
       - name: Run prettier formatting
-        run: npx prettier --write
+        run: npx prettier --write .
