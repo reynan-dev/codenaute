@@ -41,5 +41,5 @@ jobs:
         run: pnpm install --fix-lockfile
         working-directory: ./server
 
-      - name: Run prettier formatting
+      - name: Run prettier check
         run: npx prettier --check .
