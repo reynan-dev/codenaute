@@ -10,14 +10,14 @@ export interface HomePageProps {
 
 export const HomePage = ({ isAuthenticated, profileData, signOutButton }: HomePageProps) => {
 	return (
-		<div className='flex py-3 px-5'>
+		<div className='flex px-5 py-3'>
 			{isAuthenticated ? (
 				<>
 					<p>
 						Hello <span className='font-bold text-primary'>{profileData?.profile.username}</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 					</p>
-					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
+					<Link to={ACCOUNT_PATH}>ACCOUNTT</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					{signOutButton}
 				</>

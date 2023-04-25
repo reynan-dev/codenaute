@@ -1,19 +1,37 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres-codenaute
+  database-dev:
+    container_name: database-dev-codenaute
     image: postgres:14.6-alpine
     restart: always
     env_file:
-      - ./database/.env.database
+      - ./database/.env.database.dev
     expose:
       - 5432
     volumes:
-      - database-content:/var/lib/postgresql/data
+      - database-dev:/var/lib/postgresql/data
+
+  database-test:
+    container_name: database-test-codenaute
+    image: postgres:14.6-alpine
+    restart: always
+    env_file:
+      - ./database/.env.database.test
+    expose:
+      - 2345
+    volumes:
+      - database-test:/var/lib/postgresql/data
+    command: -p 2345
+
+  redis:
+    container_name: redis-dev--codenaute
+    image: redis:alpine
+    expose:
+      - 6379
 
   adminer:
-    container_name: adminer-codenaute
+    container_name: adminer-dev--codenaute
     image: adminer
     ports:
       - 8080:8080
@@ -21,24 +39,21 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
 
-  redis:
-    container_name: redis-codenaute
-    image: redis:alpine
-    expose:
-      - 6379
-
   server:
-    container_name: server-codenaute
+    container_name: server-dev-codenaute
     build:
       context: ./server
       dockerfile: Dockerfile
+      target: ${NODE_ENV}
     env_file:
       - ./server/.env.server
+    environment:
+      - NODE_ENV=${NODE_ENV}
     restart: always
     ports:
       - 5000:5000
     depends_on:
-      - postgres
+      - database-dev
       - redis
       - adminer
     volumes:
@@ -46,10 +61,11 @@ services:
       - /app/node_modules
 
   client:
-    container_name: client-codenaute
+    container_name: client-dev-codenaute
     build:
       context: ./client
       dockerfile: Dockerfile
+      target: ${NODE_ENV}
     env_file:
       - ./client/.env.client
     restart: always
@@ -59,22 +75,10 @@ services:
       - ./client:/app
       - /app/node_modules
 
-  postgres-test:
-    container_name: db-test-codenaute
-    image: postgres:14.6-alpine
-    restart: always
-    env_file:
-      - ./database/.env.test
-    expose:
-      - 2345
-    volumes:
-      - database-test:/var/lib/postgresql/data
-    command: -p 2345
-
 networks:
   default:
     driver: bridge
 
 volumes:
-  database-content:
+  database-dev:
   database-test:

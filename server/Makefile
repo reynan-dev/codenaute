@@ -1,4 +1,4 @@
-CONTAINER_NAME = server-codenaute
+CONTAINER_NAME = server-dev-codenaute
 
 # If the first argument is "run"...
 ifeq (exec,$(firstword $(MAKECMDGOALS)))
@@ -27,12 +27,16 @@ ci:
 	pnpm ci
 
 start-debug: ## Starting server container in debug mode
-	@echo "Starting server in debug mode"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server
+	@echo "Starting server in debug mode - Docker compose v1"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server || true
+	@echo "Starting server in debug mode - Docker compose v2"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build server
 
 start-quiet: ## Starting server container in mode quiet
-	@echo "Starting server in quiet mode"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server
+	@echo "Starting server in quiet mode - Docker compose v1"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build server || true
+	@echo "Starting server in quiet mode - Docker compose v2"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build server
 
 .PHONY: exec
 exec : ## Running server container

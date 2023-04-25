@@ -36,8 +36,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./client/Dockerfile
+          context: ./${{ env.SERVICE_NAME }}
+          file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
 
@@ -74,8 +74,4 @@ jobs:
 
       - name: Run Tests
         run: pnpm test
-        working-directory: ./${{ env.SERVICE_NAME }}
-
-      - name: Run Prettier Formatting
-        run: npx prettier --write .
         working-directory: ./${{ env.SERVICE_NAME }}

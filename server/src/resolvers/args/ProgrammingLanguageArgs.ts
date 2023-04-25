@@ -1,9 +1,10 @@
+import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
 export class getProgrammingLanguageByIdArgs {
 	@Field()
-	languageId: string;
+	languageId: UUID;
 }
 
 @ArgsType()
@@ -18,7 +19,7 @@ export class createProgrammingLanguageArgs {
 @ArgsType()
 export class updateProgrammingLanguageArgs {
 	@Field()
-	languageId: string;
+	languageId: UUID;
 
 	@Field()
 	name: string;
@@ -30,5 +31,5 @@ export class updateProgrammingLanguageArgs {
 @ArgsType()
 export class deleteProgrammingLanguageArgs {
 	@Field()
-	languageId: string;
+	languageId: UUID;
 }

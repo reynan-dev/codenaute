@@ -1,4 +1,4 @@
-import Container from 'components/Container';
+import Container from 'components/container';
 import { FiTrash2, FiUser } from 'react-icons/fi';
 import { MdPassword } from 'react-icons/md';
 
@@ -17,7 +17,7 @@ export const AccountPage = ({
 	deleteAccountForm
 }: AccountPageProps) => {
 	return (
-		<Container className='flex items-start lg:h-full lg:items-center justify-center'>
+		<Container className='flex items-start justify-center lg:h-full lg:items-center'>
 			<div
 				className={twJoin(
 					'flex w-full flex-col',

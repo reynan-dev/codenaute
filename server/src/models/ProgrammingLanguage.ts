@@ -19,7 +19,7 @@ export class ProgrammingLanguage extends BaseModel {
 	@IsString()
 	version: string;
 
-	@Field(() => Project)
-	@OneToMany(() => Project, (project) => project.programmingLanguage)
-	projects: Project;
+	@Field(() => [Project], { nullable: true })
+	@OneToMany(() => Project, (project) => project.programmingLanguage, { nullable: true })
+	projects: Project[];
 }
