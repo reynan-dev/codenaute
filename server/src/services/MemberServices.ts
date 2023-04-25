@@ -37,7 +37,7 @@ export class MemberServices extends BaseServices {
 		return await this.SessionServices.delete(token);
 	}
 
-	async findBySessionToken(token: string): Promise<Member | null> {
+	async findOneBySessionToken(token: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { sessions: { token } },
 			relations: [
@@ -77,15 +77,12 @@ export class MemberServices extends BaseServices {
 
 		if (!member || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
 
-		if (member.id === memberToFollow.id)
-			throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
-
 		if (member.following.includes(memberToFollow))
 			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
 
 		member.following.push(memberToFollow);
 
-		return await this.repository.save(member);
+		return this.repository.save(member);
 	}
 
 	async updateUsername(memberId: UUID, username: string) {

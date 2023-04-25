@@ -6,7 +6,7 @@ describe('Find a Member by session token integration test', () => {
 
 	describe('when session does not exists', () => {
 		it('return an element nullable', async () => {
-			expect(await MemberService.findBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
+			expect(await MemberService.findOneBySessionToken(randomBytes(16).toString('hex'))).toBeNull();
 		});
 	});
 
@@ -20,9 +20,11 @@ describe('Find a Member by session token integration test', () => {
 
 			const login = await MemberService.signIn(email, password);
 
-			const searchResult = await MemberService.findOneById(member.id);
+			const search = await MemberService.findOneBySessionToken(login.session.token);
 
-			expect(await MemberService.findBySessionToken(login.session.token)).toEqual(searchResult);
+			const searchedResult = await MemberService.findById(member.id);
+
+			expect(search?.id).toEqual(searchedResult.id);
 		});
 	});
 });

@@ -39,7 +39,7 @@ jobs:
           context: ./${{ env.SERVICE_NAME }}
           file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:${{ env.SERVICE_NAME }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client
 
   workflow:
     needs: build-and-push

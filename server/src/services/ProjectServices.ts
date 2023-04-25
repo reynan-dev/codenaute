@@ -19,49 +19,49 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async findByOwner(memberId: UUID): Promise<Project[]> {
+	async findAllByOwner(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByEditorId(memberId: UUID): Promise<Project[]> {
+	async findAllByEditorId(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { editors: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByFavorites(memberId: UUID): Promise<Project[]> {
+	async findAllByFavorites(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { favoritedBy: { id: memberId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByTemplate(templateId: UUID): Promise<Project[]> {
+	async findAllByTemplate(templateId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { template: { id: templateId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async findByLanguage(programmingLanguageId: UUID): Promise<Project[]> {
+	async findAllByProgrammingLanguage(programmingLanguageId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { programmingLanguage: { id: programmingLanguageId } },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}
 
-	async addToFavorite(memberId: UUID, projectId: UUID): Promise<Project> {
+	async addToFavorite(member: Member, projectId: UUID): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		const member = await this.MemberServices.findById(memberId);
+		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
-		project.favoritedBy = [...project.members, ...member];
+		project.favoritedBy.push(member);
 
 		return this.repository.save(project);
 	}
@@ -71,7 +71,7 @@ export class ProjectServices extends BaseServices {
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		project.members = [...project.members, ...members];
+		project.editors = [...members];
 
 		return this.repository.save(project);
 	}

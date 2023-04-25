@@ -35,7 +35,7 @@ export abstract class Server {
 		return async (context: GlobalContext): Promise<GlobalContext> => {
 			const token = Cookie.getSessionToken(context);
 
-			const user = !token ? null : await this.MemberService.findBySessionToken(token);
+			const user = !token ? null : await this.MemberService.findOneBySessionToken(token);
 
 			return { res: context.res, req: context.req, user };
 		};
