@@ -1,4 +1,4 @@
-import Container from 'components/Container';
+import Container from 'components/container';
 import { FiTrash2, FiUser } from 'react-icons/fi';
 import { MdPassword } from 'react-icons/md';
 

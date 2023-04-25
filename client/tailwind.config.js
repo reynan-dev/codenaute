@@ -54,6 +54,6 @@ module.exports = {
 	plugins: [
 		require('tailwindcss'),
 		require('autoprefixer'),
-		plugin(require('./src/styles/plugins/colorVarsExtractor'))
+		plugin(require('./src/styles/plugins/color-vars-extractor'))
 	]
 };
