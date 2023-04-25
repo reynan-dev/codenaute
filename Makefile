@@ -41,11 +41,11 @@ prettier: ## Starting checking with prettier
 
 prettier-fix: ## Fixing with prettier
 	@echo "Format code with prettier"
-	npx prettier --write .
+	npx prettier --ignore-path .prettierignore --config .prettierrc.json --write .
 
 prettier-check: ## Fixing with prettier
 	@echo "Check code with prettier"
-	npx prettier --check .
+	npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
 
 ci:
 	@echo "------- SERVER : CI CHECK"
