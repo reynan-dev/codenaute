@@ -36,7 +36,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./client
           file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:client

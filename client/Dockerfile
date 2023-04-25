@@ -13,7 +13,6 @@ FROM dependencies AS build
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-ENV NODE_PATH=build/
 RUN pnpm build
 
 FROM dependencies AS development
