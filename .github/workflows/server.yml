@@ -64,6 +64,7 @@ jobs:
       postgres-test:
         image: 'postgres:14.6-alpine'
         env:
+          NODE_ENV: ${{ NODE_ENV }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
