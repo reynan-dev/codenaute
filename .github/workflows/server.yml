@@ -48,7 +48,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: 'reynandev/codenaute:${{ env.SERVICE_NAME }}'
+      image: 'reynandev/codenaute:server'
       env:
         DB_TEST_HOST: ${{ secrets.DB_TEST_HOST }}
         DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
@@ -68,7 +68,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         ports:
-          - ${{ secrets.DB_TEST_PORT }}:5432
+          - 2345:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:

@@ -47,7 +47,7 @@ jobs:
     if: github.event.pull_request.draft == false
 
     container:
-      image: 'reynandev/codenaute:${{ env.SERVICE_NAME }}'
+      image: 'reynandev/codenaute:client'
       env:
         NODE_ENV: test
       ports:
