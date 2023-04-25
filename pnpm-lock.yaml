@@ -25,8 +25,8 @@ devDependencies:
     specifier: ^2.4.3
     version: 2.4.3(prettier@2.8.7)
   prettier-plugin-tailwindcss:
-    specifier: ^0.2.5
-    version: 0.2.5(prettier@2.8.7)
+    specifier: 0.2.7
+    version: 0.2.7(prettier@2.8.7)
 
 packages:
   /@babel/code-frame@7.21.4:
@@ -2039,10 +2039,10 @@ packages:
       synckit: 0.8.5
     dev: true
 
-  /prettier-plugin-tailwindcss@0.2.5(prettier@2.8.7):
+  /prettier-plugin-tailwindcss@0.2.7(prettier@2.8.7):
     resolution:
       {
-        integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==
+        integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==
       }
     engines: { node: '>=12.17.0' }
     peerDependencies:

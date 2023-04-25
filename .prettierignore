@@ -12,10 +12,3 @@ coverage
 
 # Ignore test coverage reports:
 **/coverage/**
-
-# ## Client and server have their own prettier config
-# # Ignore client:
-# **/client
-
-# # Ignore server:
-# **/server
