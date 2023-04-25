@@ -1,15 +1,15 @@
-import ConditionalRoute from "components/conditionnal-route";
-import CrossDeviceBackground from "components/cross-device-background";
-import { HOME_PATH, SIGN_UP_PATH, SIGN_IN_PATH, ACCOUNT_PATH, CODE_PATH } from "constants/paths";
-import { Account } from "pages/account";
-import { Code } from "pages/code";
-import { Home } from "pages/home";
-import { SignIn } from "pages/sign-in";
-import { SignUp } from "pages/sign-up";
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
-import 'styles/toastify.css'
+import ConditionalRoute from 'components/conditionnal-route';
+import CrossDeviceBackground from 'components/cross-device-background';
+import { HOME_PATH, SIGN_UP_PATH, SIGN_IN_PATH, ACCOUNT_PATH, CODE_PATH } from 'constants/paths';
+import { Account } from 'pages/account';
+import { Code } from 'pages/code';
+import { Home } from 'pages/home';
+import { SignIn } from 'pages/sign-in';
+import { SignUp } from 'pages/sign-up';
+import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'styles/toastify.css';
 
 const App = () => {
 	return (

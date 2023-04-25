@@ -28,7 +28,6 @@ export const HomeContainer = () => {
 
 	const navigate = useNavigate();
 
-
 	const handleSignOut = async () => {
 		try {
 			await signOut();

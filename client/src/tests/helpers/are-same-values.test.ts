@@ -1,4 +1,4 @@
-import { areSameValues } from "helpers/are-same-values";
+import { areSameValues } from 'helpers/are-same-values';
 
 describe('areSameValues()', () => {
 	describe('When all values in the two objects ARE strictly equals', () => {

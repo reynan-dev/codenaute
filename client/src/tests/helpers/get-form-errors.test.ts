@@ -1,5 +1,10 @@
-import { USERNAME_MUST_BE_LONG_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, PASSWORD_FORMAT_ERROR_MESSAGE, CONFIRMED_PASSWORD_ERROR_MESSAGE } from "constants/error-messages";
-import { getFormErrors } from "helpers/get-form-errors";
+import {
+	USERNAME_MUST_BE_LONG_ERROR_MESSAGE,
+	INVALID_EMAIL_ERROR_MESSAGE,
+	PASSWORD_FORMAT_ERROR_MESSAGE,
+	CONFIRMED_PASSWORD_ERROR_MESSAGE
+} from 'constants/error-messages';
+import { getFormErrors } from 'helpers/get-form-errors';
 
 describe('getFormErrors()', () => {
 	describe('When all fields match all validations', () => {

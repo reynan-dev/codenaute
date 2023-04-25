@@ -1,6 +1,6 @@
-import Button from "components/button";
-import Input from "components/input";
-import { ErrorMessages } from "pages/sign-up/sign-up.container";
+import Button from 'components/button';
+import Input from 'components/input';
+import { ErrorMessages } from 'pages/sign-up/sign-up.container';
 
 interface SignUpFormProps {
 	isLoading: boolean;

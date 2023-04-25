@@ -1,4 +1,4 @@
-import { isContainingEmptyValue } from "helpers/is-containing-empty-value";
+import { isContainingEmptyValue } from 'helpers/is-containing-empty-value';
 
 describe('isContainingEmptyValue()', () => {
 	describe('When all array values are neither undefined, nor null, nor empty string', () => {

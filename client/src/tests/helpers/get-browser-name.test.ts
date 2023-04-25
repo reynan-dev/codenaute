@@ -1,5 +1,5 @@
-import { USER_AGENTS } from "constants/user-agents";
-import getBrowserName from "helpers/get-browser-name";
+import { USER_AGENTS } from 'constants/user-agents';
+import getBrowserName from 'helpers/get-browser-name';
 
 let originalUserAgent: jest.SpyInstance<string, [], any>;
 
