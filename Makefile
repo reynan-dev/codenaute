@@ -40,24 +40,12 @@ prettier: ## Starting checking with prettier
 	npx prettier --check .
 
 prettier-fix: ## Fixing with prettier
-	@echo "------- ROOT : PRETTIER WRITE"
-	npx prettier --ignore-path .prettierignore --config .prettierrc.json --write .
-
-	@echo "------- CLIENT : PRETTIER WRITE"
-	npx prettier --ignore-path ./client/.prettierignore --config ./client/.prettierrc.json --write ./client
-
-	@echo "------- SERVER : PRETTIER WRITE"
-	npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --write ./server
+	@echo "Format code with prettier"
+	npx prettier --write .
 
 prettier-check: ## Fixing with prettier
-	@echo "------- ROOT : PRETTIER CHECK"
-	npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
-
-	@echo "------- CLIENT : PRETTIER CHECK"
-	npx prettier --ignore-path ./client/.prettierignore --config ./client/.prettierrc.json --check ./client
-
-	@echo "------- SERVER : PRETTIER CHECK"
-	npx prettier --ignore-path ./server/.prettierignore --config ./server/.prettierrc.json --check ./server
+	@echo "Check code with prettier"
+	npx prettier --check .
 
 ci:
 	@echo "------- SERVER : CI CHECK"

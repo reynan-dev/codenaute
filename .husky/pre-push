@@ -2,4 +2,3 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 sh $(dirname $0)/branch-naming
-npx lint-staged
