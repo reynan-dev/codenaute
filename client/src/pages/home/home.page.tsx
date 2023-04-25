@@ -17,7 +17,7 @@ export const HomePage = ({ isAuthenticated, profileData, signOutButton }: HomePa
 						Hello <span className='font-bold text-primary'>{profileData?.profile.username}</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 					</p>
-					<Link to={ACCOUNT_PATH}>ACCOUNT</Link>
+					<Link to={ACCOUNT_PATH}>ACCOUNTT</Link>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					{signOutButton}
 				</>
