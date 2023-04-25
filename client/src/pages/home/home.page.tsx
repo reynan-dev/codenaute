@@ -10,7 +10,8 @@ export interface HomePageProps {
 
 export const HomePage = ({ isAuthenticated, profileData, signOutButton }: HomePageProps) => {
 	return (
-		<div className='flex py-3 px-5'>
+		<div className='flex px-5 py-3'>
+			prout
 			{isAuthenticated ? (
 				<>
 					<p>
