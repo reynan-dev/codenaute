@@ -30,8 +30,16 @@ jobs:
       - name: Install pnpm globally
         run: npm install -g pnpm
 
-      - name: Install dependencies
+      - name: Install dependencies on root
         run: pnpm install
+
+      - name: Install dependencies on client
+        run: pnpm install --fix-lockfile
+        working-directory: ./client
+
+      - name: Install dependencies on server
+        run: pnpm install --fix-lockfile
+        working-directory: ./server
 
       - name: Run prettier formatting
         run: npx prettier --write .
