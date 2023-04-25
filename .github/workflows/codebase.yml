@@ -30,11 +30,5 @@ jobs:
       - name: Install pnpm globally
         run: npm install -g pnpm
 
-      - name: Install prettier
-        run: pnpm install prettier
-
-      - name: Install prettier plugins
-        run: pnpm install prettier-plugin-packagejson && pnpm install prettier-plugin-tailwindcss
-
-      - name: Format codebase with prettier
-        run: npx prettier --write .
+      - name: Install dependencies
+        run: pnpm install
