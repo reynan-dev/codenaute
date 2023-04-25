@@ -8,19 +8,32 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
-FROM base AS build
+FROM dependencies AS build
 
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 ENV NODE_PATH=dist/
+RUN pnpm build
+
+FROM build AS development
+
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=dependencies /app/node_modules ./node_modules
 CMD pnpm start:watch
 
-# FROM base AS deploy
+FROM dependencies AS test
 
-# RUN pnpm prune --prod
-# WORKDIR /app
-# COPY --from=build /app/dist ./dist
-# COPY --from=build /app/node_modules ./node_modules
+WORKDIR /app
+COPY --from=dependencies /app/node_modules ./node_modules
+CMD pnpm test:watch
 
-# CMD ["node", "dist/index.js"]
+FROM build AS production
+# TODO: remove all dev dependencies and files, like src folder.
+WORKDIR /app
+RUN pnpm prune --prod
+COPY --from=build /app/dist ./dist
+COPY --from=dependencies /app/node_modules ./node_modules
+
+CMD ["node", "dist/index.js"]
