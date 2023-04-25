@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Install tailwindcss for prettier tailwindcss plugin
-        run: install -D tailwindcss postcss autoprefixer concurrently
+        run: pnpm install -D tailwindcss postcss autoprefixer
 
       - name: Run prettier check
         run: npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
