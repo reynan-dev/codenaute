@@ -6,9 +6,6 @@ name: Codebase CI
 on:
   pull_request:
     types: [ready_for_review, opened, reopened, synchronize]
-    paths:
-      - '.github/workflows/codebase.yml'
-      - '.'
 
 env:
   SERVICE_NAME: 'root'

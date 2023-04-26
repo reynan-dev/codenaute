@@ -52,6 +52,9 @@ export abstract class Server {
 	}
 
 	static async start() {
+		if (process.env.GRAPHQL_PORT == null)
+			return console.error('❌ No environment variable has been set for GRAPHQL_PORT');
+
 		await Database.start();
 
 		const { url } = await ((await this._build()) as ApolloServer).listen(process.env.GRAPHQL_PORT);
