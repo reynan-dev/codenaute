@@ -1,5 +1,4 @@
 {
-	"extends": "expo/tsconfig.base",
 	"compilerOptions": {
 		"strict": true,
 
@@ -8,5 +7,6 @@
 
 		/* Source Maps */
 		"baseUrl": "src"
-	}
+	},
+	"extends": "expo/tsconfig.base"
 }
