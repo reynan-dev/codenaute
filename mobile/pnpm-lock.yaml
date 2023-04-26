@@ -96,6 +96,9 @@ devDependencies:
   '@types/jest':
     specifier: ^29.4.0
     version: 29.4.0
+  '@types/node':
+    specifier: ^18.16.1
+    version: 18.16.1
   '@types/react':
     specifier: ~18.0.24
     version: 18.0.38
