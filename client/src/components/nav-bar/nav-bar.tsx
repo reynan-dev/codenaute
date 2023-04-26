@@ -1,6 +1,6 @@
-import NavBarLogoSvg from 'components/Svgs/NavBarLogoSvg';
 import BurgerButton from 'components/burger-button';
-import { useWindowSize } from 'hooks/useWindowsSize';
+import NavBarLogoSvg from 'components/svgs/nav-bar-logo';
+import { useWindowSize } from 'hooks/use-window-size';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
