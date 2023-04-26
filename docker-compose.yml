@@ -75,6 +75,25 @@ services:
       - ./client:/app
       - /app/node_modules
 
+  mobile:
+    container_name: mobile-dev-codenaute
+    build:
+      context: ./mobile
+      dockerfile: Dockerfile
+      target: ${NODE_ENV}
+    env_file:
+      - ./mobile/.env.mobile
+    restart: always
+    ports:
+      - 4000:4000
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002
+      - 19006:19006
+    volumes:
+      - ./mobile:/app
+      - /app/node_modules
+
 networks:
   default:
     driver: bridge
