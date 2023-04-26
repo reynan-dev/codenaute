@@ -1,0 +1,12 @@
+{
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"strict": true,
+
+		/* Completeness */
+		"skipLibCheck": true,
+
+		/* Source Maps */
+		"baseUrl": "src"
+	}
+}
