@@ -12,10 +12,8 @@ import { usePushNotifications } from 'push-notifications';
 import * as Notifications from 'expo-notifications';
 import { View, Text } from 'components/Themed';
 
-const GRAPHQL_API_URL = Constants?.expoConfig?.extra?.GRAPHQL_API_URL;
-
 const client = new ApolloClient({
-	uri: GRAPHQL_API_URL,
+	uri: process.env.GRAPHQL_API_URL,
 	cache: new InMemoryCache()
 });
 
