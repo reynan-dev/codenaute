@@ -8,6 +8,7 @@ import {
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
+import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 // import { isBooleanObject } from 'util/types';
 const files: File[] = [
@@ -62,7 +63,7 @@ const ArrayToObject = (files: File[]) => {
 export const CodePage = () => {
 	return (
 		<SandpackProvider
-			theme={'dark'}
+			theme={sandpackCustomTheme}
 			style={{ height: '100%' }}
 			files={ArrayToObject(files)}
 			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
@@ -70,7 +71,9 @@ export const CodePage = () => {
 			<SandpackLayout
 				style={{
 					width: '100%',
-					height: '100%'
+					height: '100%',
+					borderRadius: '0',
+					border: 'none'
 				}}
 			>
 				<SandpackFileExplorer
