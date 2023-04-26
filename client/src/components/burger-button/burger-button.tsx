@@ -2,13 +2,12 @@ import { twMerge } from 'tailwind-merge';
 
 interface BurgerButtonProps {
 	onClick: () => void;
-  isOpen: boolean
+	isOpen: boolean;
 }
 
 export const BurgerButton = ({ onClick, isOpen }: BurgerButtonProps) => {
-	const genericHamburgerLine = 'h-[3px] w-8 my-1 rounded-full bg-primary transition ease transform duration-300';
-
-
+	const genericHamburgerLine =
+		'h-[3px] w-8 my-1 rounded-full bg-primary transition ease transform duration-300';
 
 	return (
 		<button

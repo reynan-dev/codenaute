@@ -1,5 +1,5 @@
-import BurgerButton from 'components/BurgerButton';
 import NavBarLogoSvg from 'components/Svgs/NavBarLogoSvg';
+import BurgerButton from 'components/burger-button';
 import { useWindowSize } from 'hooks/useWindowsSize';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
@@ -51,7 +51,6 @@ export const NavBar = ({ className }: NavBarProps) => {
 			)
 	};
 
-
 	const shouldShowMobileMenu = () => width !== undefined && width <= TAILWIND_MD_BREAKPOINT;
 
 	return (
@@ -59,7 +58,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 			<div
 				className={twMerge(
 					'flex items-center justify-center',
-					'h-16 w-full py-2 px-4',
+					'h-16 w-full px-4 py-2',
 					'bg-dark',
 					'md:h-full md:w-14 md:flex-col md:justify-start',
 					className
