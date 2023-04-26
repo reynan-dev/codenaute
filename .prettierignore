@@ -2,6 +2,7 @@
 build
 coverage
 
+**/.pnpm-store/**
 **/volumes/**
 **/build/**
 **/dist/**
