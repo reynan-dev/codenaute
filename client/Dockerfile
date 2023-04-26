@@ -36,4 +36,4 @@ COPY --from=build /app/build ./build
 COPY --from=build /app/node_modules ./node_modules
 RUN npm i -g serve
 
-CMD npx serve build
+CMD npx serve build --single
