@@ -80,7 +80,7 @@ jobs:
     needs: workflow
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
-    environment: production
+    environment: deploy
 
     steps:
       - name: Checkout Codebase
