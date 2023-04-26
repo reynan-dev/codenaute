@@ -56,7 +56,7 @@ const App = () => {
 						<Route
 							path={CODE_PATH}
 							element={
-								<ConditionalRoute type='private'>
+								<ConditionalRoute type='unauth'>
 									<Code />
 								</ConditionalRoute>
 							}

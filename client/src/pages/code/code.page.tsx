@@ -1,24 +1,23 @@
-// import { findBreakingChanges } from 'graphql';
-
 import {
-	SandpackCodeEditor,
 	SandpackConsole,
+	SandpackFile,
 	SandpackFileExplorer,
 	SandpackLayout,
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
+import { MonacoEditor } from 'pages/code/components/monaco-editor';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
-// import { isBooleanObject } from 'util/types';
-const files: File[] = [
-	{
-		name: 'index.ts',
-		code: "console.log('haha')"
-	},
-	{
-		name: 'package.json',
-		code: `{
+export type FilesTree = {
+	[key: string]: { name: string; code: string; programmingLanguage: string }[];
+};
+
+const filesTree: FilesTree = {
+	root: [
+		{
+			name: 'package.json',
+			code: `{
 		"dependencies": {
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
@@ -30,31 +29,51 @@ const files: File[] = [
 		"typescript": "^4.0.0",
 		"jest": "^27.0.0"
 		},
-		"main": "/index.tsx"
-		}`
-	}
-];
+		"main": "index.tsx"
+		}`,
+			programmingLanguage: 'json'
+		}
+	],
+	src: [
+		{
+			name: 'src/index.ts',
+			code: "console.log('haha')\nconsole.error('prout')",
+			programmingLanguage: 'typescript'
+		}
+	]
+};
 
 const dependencies = JSON.parse(
-	files.filter((e) => e.name === 'package.json')[0].code
+	filesTree.root.filter((e) => e.name === 'package.json')[0].code
 ).dependencies;
 
 const devDependencies = JSON.parse(
-	files.filter((e) => e.name === 'package.json')[0].code
+	filesTree.root.filter((e) => e.name === 'package.json')[0].code
 ).devDependencies;
 
-interface File {
-	[k: string]: string;
+const MapFilesForSandpack = (filesTree: FilesTree) => {
+	let filesObject: Record<string, string | SandpackFile> = {};
 
-	name: string;
-	code: string;
-}
+	Object.values(filesTree).map((directory) => {
+		return directory.map((e) => {
+			return e.name && (filesObject[e.name] = `${e.code}`);
+		});
+	});
 
-const ArrayToObject = (files: File[]) => {
-	let filesObject: File = { name: '', code: '' };
+	return filesObject;
+};
 
-	files.map((e) => {
-		return (filesObject[e.name] = `${e.code}`);
+const MapFilesForMonacoEditor = (filesTree: FilesTree) => {
+	let filesObject: Record<string, { code: string | SandpackFile; programmingLanguage: string }> =
+		{};
+
+	Object.values(filesTree).map((directory) => {
+		return directory.map((e) => {
+			return (
+				e.name &&
+				(filesObject[e.name] = { code: `${e.code}`, programmingLanguage: e.programmingLanguage })
+			);
+		});
 	});
 
 	return filesObject;
@@ -65,7 +84,8 @@ export const CodePage = () => {
 		<SandpackProvider
 			theme={sandpackCustomTheme}
 			style={{ height: '100%' }}
-			files={ArrayToObject(files)}
+			// template='react-ts'
+			files={MapFilesForSandpack(filesTree)}
 			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
 			<SandpackLayout
@@ -76,24 +96,16 @@ export const CodePage = () => {
 					border: 'none'
 				}}
 			>
-				<SandpackFileExplorer
-					style={{
-						width: '10%',
-						height: '100%'
-					}}
-				/>
-				<SandpackCodeEditor
-					showTabs={true}
-					showLineNumbers={true}
-					showInlineErrors={true}
-					wrapContent={true}
-					closableTabs
-					showRunButton={true}
-					style={{
-						width: '100%',
-						height: '100%'
-					}}
-				/>
+				<div className='h-100 flex flex-col'>
+					<p>Actions buttons</p>
+					<SandpackFileExplorer
+						style={{
+							// width: '10%',
+							height: '100%'
+						}}
+					/>
+				</div>
+				<MonacoEditor files={MapFilesForMonacoEditor(filesTree)} />
 				<SandpackPreview
 					showNavigator
 					showOpenInCodeSandbox={false}
@@ -109,7 +121,6 @@ export const CodePage = () => {
 					}}
 				/>
 			</SandpackLayout>
-			{/* <CustomSandpack /> */}
 		</SandpackProvider>
 	);
 };
