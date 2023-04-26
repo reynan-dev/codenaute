@@ -8,6 +8,7 @@
 	"main": "index.js",
 	"scripts": {
 		"android": "expo start --android",
+		"build": "eas build -p android --profile preview",
 		"gql-codegen": "graphql-codegen --config codegen.ts",
 		"ios": "expo start --ios",
 		"start": "expo start",
@@ -54,6 +55,7 @@
 		"@testing-library/jest-native": "^5.4.1",
 		"@testing-library/react-native": "^11.5.1",
 		"@types/jest": "^29.4.0",
+		"@types/node": "^18.16.1",
 		"@types/react": "~18.0.24",
 		"@types/react-native": "~0.70.6",
 		"@types/react-test-renderer": "^18.0.0",
