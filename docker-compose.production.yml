@@ -28,8 +28,6 @@ services:
     expose:
       - 5000
     depends_on:
-      - postgres
-      - redis
       - adminer
 
   client:
