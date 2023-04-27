@@ -28,7 +28,7 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 CMD pnpm test
 
-FROM build AS production
+FROM dependencies AS production
 # TODO: remove all dev dependencies and files, like src folder.
 WORKDIR /app
 RUN pnpm prune --prod
