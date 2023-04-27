@@ -10,11 +10,11 @@ RUN pnpm install
 
 FROM dependencies AS build
 
-# WORKDIR /app
-# COPY . .
-# COPY --from=dependencies /app/node_modules ./node_modules
-# ENV NODE_PATH=dist/
-# RUN pnpm build
+WORKDIR /app
+COPY . .
+COPY --from=dependencies /app/node_modules ./node_modules
+ENV NODE_PATH=dist/
+RUN pnpm build
 
 FROM dependencies AS development
 
@@ -32,7 +32,7 @@ FROM dependencies AS production
 # TODO: remove all dev dependencies and files, like src folder.
 WORKDIR /app
 RUN pnpm prune --prod
-# COPY --from=build /app/build ./build
+COPY --from=build /app/build ./build
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm i -g serve
 
