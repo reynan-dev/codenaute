@@ -31,6 +31,7 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.10",
+		"@codemirror/autocomplete": "^6.5.1",
 		"@codesandbox/sandpack-react": "^2.6.1",
 		"@codesandbox/sandpack-themes": "^2.0.21",
 		"@monaco-editor/react": "^4.5.0",
