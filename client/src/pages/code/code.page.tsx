@@ -36,7 +36,6 @@ export const CodePage = ({
 		<SandpackProvider
 			theme={sandpackCustomTheme}
 			style={{ height: '100%' }}
-			// template='react-ts'
 			files={mappedFilesForSandpack}
 			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
