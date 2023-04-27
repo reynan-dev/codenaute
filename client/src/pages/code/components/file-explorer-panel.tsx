@@ -1,13 +1,5 @@
-import {
-	SandpackFile,
-	SandpackFileExplorer,
-	useActiveCode,
-	useSandpack
-} from '@codesandbox/sandpack-react';
-import { Editor, useMonaco } from '@monaco-editor/react';
-import { useEffect } from 'react';
+import { SandpackFileExplorer } from '@codesandbox/sandpack-react';
 import { FiFilePlus, FiFolderPlus } from 'react-icons/fi';
-import COLORS from 'styles/colors';
 
 interface FileExplorerPanelProps {
 	className?: string;
@@ -23,7 +15,7 @@ export const FileExplorerPanel = ({ className }: FileExplorerPanelProps) => {
 					<FiFolderPlus size={16} className='text-dark-300' />
 				</div>
 			</div>
-			<div className='h-full border border-l-0 border-r-dark-700 border-t-dark-700'>
+			<div className='h-full border border-b-0 border-l-0 border-r-dark-700 border-t-dark-700'>
 				<SandpackFileExplorer
 					style={{
 						height: '100%'

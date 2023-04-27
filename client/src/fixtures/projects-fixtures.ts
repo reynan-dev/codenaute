@@ -6,6 +6,16 @@ export interface File {
 
 export type Files = File[];
 
+export interface Project {
+	id: string;
+	name: string;
+	sandpackTemplate: {
+		id: string;
+		name: string;
+	};
+	files: Files;
+}
+
 export const filesFixtures: Files = [
 	{
 		name: '/package.json',
@@ -32,12 +42,12 @@ export const filesFixtures: Files = [
 	}
 ];
 
-export const projectFixtures = {
-	id: 'id',
-	name: 'name',
+export const projectFixtures: Project = {
+	id: '0000',
+	name: 'projectName',
 	sandpackTemplate: {
-		id: 'id',
-		name: 'name'
+		id: '0000',
+		name: 'react-ts'
 	},
 	files: filesFixtures
 };

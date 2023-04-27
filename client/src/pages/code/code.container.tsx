@@ -1,6 +1,8 @@
 import { SandpackFile } from '@codesandbox/sandpack-react/types';
 import { Files, filesFixtures, projectFixtures } from 'fixtures/projects-fixtures';
 import { CodePage } from './code.page';
+import { useContext } from 'react';
+import ProjectContext from 'context/project.context';
 
 export type Dependencies = Record<string, string>;
 
@@ -37,6 +39,8 @@ const mapFilesForMonacoEditor = (files: Files) => {
 };
 
 export const CodeContainer = () => {
+	const { projectData, setProjectData } = useContext(ProjectContext);
+
 	return (
 		<CodePage
 			mappedFilesForSandpack={mapFilesForSandpack(projectFixtures.files)}

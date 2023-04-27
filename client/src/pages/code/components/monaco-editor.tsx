@@ -1,6 +1,5 @@
 import { SandpackFile, useActiveCode, useSandpack } from '@codesandbox/sandpack-react';
-import { EditorProps } from '@monaco-editor/react';
-import { Editor, Monaco, useMonaco } from '@monaco-editor/react';
+import { Editor, useMonaco } from '@monaco-editor/react';
 import { useEffect } from 'react';
 import COLORS from 'styles/colors';
 

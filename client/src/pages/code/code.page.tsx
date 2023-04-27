@@ -1,9 +1,6 @@
-import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 import {
-	SandpackCodeEditor,
 	SandpackConsole,
 	SandpackFile,
-	SandpackFileExplorer,
 	SandpackLayout,
 	SandpackPreview,
 	SandpackProvider
@@ -11,7 +8,6 @@ import {
 import { Dependencies } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { MonacoEditor } from 'pages/code/components/monaco-editor';
-import { FiFilePlus, FiFolderPlus } from 'react-icons/fi';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 interface CodePageProps {
