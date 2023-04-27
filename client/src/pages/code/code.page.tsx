@@ -5,6 +5,7 @@ import {
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
+import { Project } from 'fixtures/projects-fixtures';
 import { Dependencies } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { MonacoEditor } from 'pages/code/components/monaco-editor';
@@ -21,13 +22,15 @@ interface CodePageProps {
 			programmingLanguage: string;
 		}
 	>;
+	setProjectData: React.Dispatch<React.SetStateAction<Project | null>>;
 }
 
 export const CodePage = ({
 	dependencies,
 	devDependencies,
 	mappedFilesForSandpack,
-	mappedFilesForMonacoEditor
+	mappedFilesForMonacoEditor,
+	setProjectData
 }: CodePageProps) => {
 	return (
 		<SandpackProvider
@@ -46,7 +49,10 @@ export const CodePage = ({
 				}}
 			>
 				<div className='flex h-full w-full'>
-					<FileExplorerPanel className='h-100 flex w-2/12 min-w-56 flex-col' />
+					<FileExplorerPanel
+						setProjectData={setProjectData}
+						className='h-100 flex w-2/12 min-w-56 flex-col'
+					/>
 
 					<MonacoEditor files={mappedFilesForMonacoEditor} className='h-full flex-1 bg-dark-900' />
 

@@ -1,18 +1,21 @@
 import { SandpackFile } from '@codesandbox/sandpack-react/types';
-import { Files, filesFixtures, projectFixtures } from 'fixtures/projects-fixtures';
-import { CodePage } from './code.page';
-import { useContext } from 'react';
+import Loader from 'components/svgs/loader';
 import ProjectContext from 'context/project.context';
+import { Files, Project, projectFixtures } from 'fixtures/projects-fixtures';
+import { useContext } from 'react';
+import { CodePage } from './code.page';
 
 export type Dependencies = Record<string, string>;
 
-const dependencies: Dependencies = JSON.parse(
-	filesFixtures.filter((e) => e.name === '/package.json')[0].code
-).dependencies;
+const getDependenciesFromJson = (projectData: Project): Dependencies => {
+	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
+		.dependencies;
+};
 
-const devDependencies: Dependencies = JSON.parse(
-	filesFixtures.filter((e) => e.name === '/package.json')[0].code
-).devDependencies;
+const getDevDependenciesFromJson = (projectData: Project): Dependencies => {
+	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
+		.devDependencies;
+};
 
 const mapFilesForSandpack = (files: Files) => {
 	let filesObject: Record<string, string | SandpackFile> = {};
@@ -42,11 +45,18 @@ export const CodeContainer = () => {
 	const { projectData, setProjectData } = useContext(ProjectContext);
 
 	return (
-		<CodePage
-			mappedFilesForSandpack={mapFilesForSandpack(projectFixtures.files)}
-			mappedFilesForMonacoEditor={mapFilesForMonacoEditor(projectFixtures.files)}
-			dependencies={dependencies}
-			devDependencies={devDependencies}
-		/>
+		<>
+			{projectData === null ? (
+				<Loader />
+			) : (
+				<CodePage
+					mappedFilesForSandpack={mapFilesForSandpack(projectFixtures.files)}
+					mappedFilesForMonacoEditor={mapFilesForMonacoEditor(projectFixtures.files)}
+					dependencies={getDependenciesFromJson(projectData)}
+					devDependencies={getDevDependenciesFromJson(projectData)}
+					setProjectData={setProjectData}
+				/>
+			)}
+		</>
 	);
 };
