@@ -1,4 +1,5 @@
 import { SandpackFileExplorer } from '@codesandbox/sandpack-react';
+import Input from 'components/input';
 import Modal from 'components/modal';
 import { Project } from 'fixtures/projects-fixtures';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ interface FileExplorerPanelProps {
 
 export const FileExplorerPanel = ({ className, setProjectData }: FileExplorerPanelProps) => {
 	const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
+	const [newFile, setNewFile] = useState('');
 
 	const handleNewFileModalClose = () => {
 		setIsNewFileModalOpen(false);
@@ -37,7 +39,19 @@ export const FileExplorerPanel = ({ className, setProjectData }: FileExplorerPan
 				</div>
 			</div>
 			<Modal isOpen={isNewFileModalOpen} onClose={handleNewFileModalClose}>
-				prout
+				<div className='flex flex-col items-center justify-center space-y-5'>
+					<h4>Créer fichier</h4>
+					<Input
+						label='Nom du fichier'
+						autoComplete='off'
+						type='text'
+						value={newFile}
+						onChange={(event) => {
+							setNewFile(event.target.value);
+						}}
+						// error={state.formErrorMessages?.confirmedPassword}
+					/>
+				</div>
 			</Modal>
 		</>
 	);

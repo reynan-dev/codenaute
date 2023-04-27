@@ -38,7 +38,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 								className='absolute inset-0 bg-dark-500 transition-all duration-300 ease-in-out'
 							/>
 						</div>
-						<div className='z-50 rounded-lg bg-white p-6'>{children}</div>
+						<div className='z-50 w-80 rounded-lg bg-dark-900 p-6 shadow-lg'>{children}</div>
 					</div>
 				</div>
 			)}
