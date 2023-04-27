@@ -8,6 +8,8 @@
 		"ci": "pnpm build && pnpm test",
 		"migration:generate": "typeorm-ts-node-esm migration:generate ./src/migrations/default -d ./src/db.ts",
 		"migration:run": "typeorm-ts-node-esm migration:run -d ./src/db.ts",
+		"seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+		"seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
 		"start": "node dist/index.js",
 		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
@@ -28,11 +30,13 @@
 		"reflect-metadata": "^0.1.13",
 		"ts-node": "^10.9.1",
 		"type-graphql": "^1.1.1",
-		"typeorm": "^0.3.12"
+		"typeorm": "^0.3.12",
+		"typeorm-seeding": "^1.6.1"
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",
 		"@types/cookie": "^0.5.1",
+		"@types/faker": "^6.6.9",
 		"@types/jest": "^29.5.0",
 		"@types/node": "^18.15.10",
 		"@types/uuid": "^9.0.1",
