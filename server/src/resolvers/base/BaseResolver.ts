@@ -3,9 +3,8 @@ import { Resolver, Query } from 'type-graphql';
 
 @Resolver()
 export class BaseResolver {
-
-    @Query(() => BaseModel)
+	@Query(() => BaseModel)
 	async HelloWorld() {
-		return "Hello World"
+		return 'Hello World';
 	}
 }

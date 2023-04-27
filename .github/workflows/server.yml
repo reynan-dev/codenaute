@@ -93,10 +93,6 @@ jobs:
         run: pnpm test:ci
         working-directory: ./${{env.SERVICE_NAME}}
 
-      - name: Run Prettier Formatting
-        run: npx prettier --write .
-        working-directory: ./${{env.SERVICE_NAME}}
-
   add_assignees:
     runs-on: ubuntu-latest
     steps:

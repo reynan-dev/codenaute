@@ -13,11 +13,11 @@
 	body {
 		@apply text-white;
 		@apply font-archivo;
-		@apply lg:h-full;
+		@apply md:h-full;
 	}
 
 	#root {
-		@apply lg:h-full;
+		@apply md:h-full;
 	}
 
 	h1 {

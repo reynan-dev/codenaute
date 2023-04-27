@@ -1,0 +1,39 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Codebase CI
+
+on:
+  pull_request:
+    types: [ready_for_review, opened, reopened, synchronize]
+
+env:
+  SERVICE_NAME: 'root'
+  NODEJS_VERSION: '16.17.1'
+  PNPM_VERSION: '7.30.1'
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Install pnpm globally
+        run: npm install -g pnpm
+
+      - name: Install dependencies on root
+        run: pnpm install
+
+      # @WORKAROUND : install tailwindcss related dependencies at the root allow us to
+      # use prettier tailwind plugin without installing all client dependencies in ci
+      - name: Install tailwindcss for prettier tailwindcss plugin
+        run: pnpm install -D tailwindcss postcss autoprefixer
+
+      - name: Run prettier check
+        run: npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .

@@ -11,7 +11,7 @@ It is highly recommended to be working with VSCode, an IDE that does not need to
 To use this repository, you need to have the following tools installed:
 
 - [Node.js](https://nodejs.org/en/) (v16.17.1)
-- [pnpm](https://pnpm.io/installation) (v8.0.0)
+- [pnpm](https://pnpm.io/installation) (v8.3.1)
 - [Makefile](https://perso.univ-lyon1.fr/jean-claude.iehl/Public/educ/Makefile.html)
 - [Docker](https://docs.docker.com/get-docker/) (v20.10.8)
 - [Docker Compose](https://docs.docker.com/compose/install/) (v1.29.2)
