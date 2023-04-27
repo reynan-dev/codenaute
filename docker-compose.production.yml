@@ -18,6 +18,12 @@ services:
       target: ${NODE_ENV}
     environment:
       - NODE_ENV=${NODE_ENV}
+      - DB_PROD_PORT=${DB_PROD_PORT}
+      - DB_PROD_HOST=${DB_PROD_HOST}
+      - DB_PROD_USER=${DB_PROD_USER}
+      - DB_PROD_PASSWORD=${DB_PROD_PASSWORD}
+      - DB_PROD_DATABASE=${DB_PROD_DATABASE}
+      - GRAPHQL_PORT=${GRAPHQL_PORT}
     restart: always
     expose:
       - 5000
