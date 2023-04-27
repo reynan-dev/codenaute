@@ -41,8 +41,8 @@ services:
     ports:
       - ${GATEWAY_PORT}:80
     depends_on:
-      - server-prod-codenaute
-      - client-prod-codenaute
+      - server
+      - client
     volumes:
       - ./gateway/nginx.conf:/etc/nginx/nginx.conf
     restart: always
