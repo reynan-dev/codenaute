@@ -1,10 +1,11 @@
 import { USER_AGENTS } from 'constants/user-agents';
 import getBrowserName from 'helpers/get-browser-name';
+import { vi } from 'vitest';
 
-let originalUserAgent: jest.SpyInstance<string, [], any>;
+let originalUserAgent: any;
 
 beforeEach(() => {
-	originalUserAgent = jest.spyOn(window.navigator, 'userAgent', 'get');
+	originalUserAgent = vi.spyOn(window.navigator, 'userAgent', 'get');
 });
 
 describe('getBrowserName', () => {
