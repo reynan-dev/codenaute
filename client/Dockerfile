@@ -34,6 +34,6 @@ WORKDIR /app
 RUN pnpm prune --prod
 COPY --from=build /app/build ./build
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm i -g serve
+# RUN npm i -g serve
 
-CMD npx serve build --single
+CMD pnpm serve
