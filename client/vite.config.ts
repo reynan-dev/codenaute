@@ -9,7 +9,7 @@ export default defineConfig({
 	plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
 	build: {
 		cssMinify: true,
-		outDir: 'build'
+		outDir: 'dist'
 	},
 	server: {
 		// open: true,

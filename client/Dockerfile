@@ -33,6 +33,7 @@ FROM dependencies AS production
 WORKDIR /app
 RUN pnpm prune --prod
 COPY --from=build /app/build ./build
+COPY --from=build /app/dist ./dist
 COPY --from=dependencies /app/node_modules ./node_modules
 # RUN npm i -g serve
 
