@@ -56,7 +56,7 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
+	@Query(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
 		return await this.MemberServices.findById(memberId);
 	}

@@ -111,7 +111,7 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Mutation(() => Project)
 	async favoriteProject(
 		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
