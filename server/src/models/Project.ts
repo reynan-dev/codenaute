@@ -1,3 +1,4 @@
+import { IsBoolean, IsDate, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import {
 	Column,
@@ -6,16 +7,13 @@ import {
 	JoinColumn,
 	ManyToMany,
 	ManyToOne,
-	OneToMany,
-	OneToOne
+	OneToMany
 } from 'typeorm';
-import { IsBoolean, IsDate, IsString } from 'class-validator';
 
-import { BaseModel } from 'models/base/BaseModel';
-import { ProgrammingLanguage } from 'models/ProgrammingLanguage';
 import { FileProject } from 'models/FileProject';
-import { SandpackTemplate } from 'models/SandpackTemplate';
 import { Member } from 'models/Member';
+import { SandpackTemplate } from 'models/SandpackTemplate';
+import { BaseModel } from 'models/base/BaseModel';
 
 @Entity()
 @ObjectType()
@@ -46,20 +44,9 @@ export class Project extends BaseModel {
 	})
 	files: FileProject[];
 
-	@Field(() => ProgrammingLanguage)
-	@ManyToOne(() => ProgrammingLanguage, (programmingLanguage) => programmingLanguage.projects, {
-		eager: true
-	})
-	programmingLanguage: ProgrammingLanguage;
-
 	@Field(() => SandpackTemplate, { nullable: true })
 	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true, nullable: true })
 	template: SandpackTemplate;
-
-	@Field(() => FileProject, { nullable: true })
-	@OneToOne(() => FileProject, (file) => file.id, { eager: true, nullable: true })
-	@JoinColumn()
-	activeFile: FileProject;
 
 	@Column('boolean', { default: false })
 	@Field()

@@ -1,14 +1,25 @@
+import { hashSync } from 'bcryptjs';
 import { Member } from 'models/Member';
-import { Factory, Seeder } from 'typeorm-seeding';
+import { DataSource } from 'typeorm';
+import { Database } from 'utils/configs/database';
 
-const memberFixtures = {
-	username: 'admin',
-	email: 'admin@codenaute.com',
-	password: 'Admin1234!'
-};
-
-export default class CreateMember implements Seeder {
-	public async run(factory: Factory): Promise<any> {
-		await factory(Member)().create();
+const memberFixtures: Partial<Member>[] = [
+	{
+		username: 'admin',
+		email: 'admin@codenaute.com',
+		hashedPassword: hashSync('Admin1234!', 10)
+	},
+	{
+		username: 'member',
+		email: 'member@member.com',
+		hashedPassword: hashSync('Member1234!', 10)
 	}
-}
+];
+
+export const createMultipleMembers = async () => {
+	const seeds = async (dataSource: DataSource) => {
+		await dataSource.createQueryBuilder().insert().into(Member).values(memberFixtures).execute();
+	};
+
+	await Database.seed(seeds);
+};

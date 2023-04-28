@@ -6,10 +6,9 @@
 	"scripts": {
 		"build": "tsc",
 		"ci": "pnpm build && pnpm test",
+		"codenaute": "node ./dist/commands/codenaute-cli.js",
 		"migration:generate": "typeorm-ts-node-esm migration:generate ./src/migrations/default -d ./src/db.ts",
 		"migration:run": "typeorm-ts-node-esm migration:run -d ./src/db.ts",
-		"seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-		"seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
 		"start": "node dist/index.js",
 		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
@@ -22,6 +21,7 @@
 		"apollo-server-express": "3.11.1",
 		"bcryptjs": "^2.4.3",
 		"class-validator": "0.14.0",
+		"commander": "^10.0.1",
 		"cookie": "^0.5.0",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
@@ -30,8 +30,7 @@
 		"reflect-metadata": "^0.1.13",
 		"ts-node": "^10.9.1",
 		"type-graphql": "^1.1.1",
-		"typeorm": "^0.3.12",
-		"typeorm-seeding": "^1.6.1"
+		"typeorm": "^0.3.12"
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",

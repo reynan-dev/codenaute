@@ -28,12 +28,12 @@ ci:
 
 seed:
 	@echo "------- GENERATING SEEDS"
-	docker exec $(CONTAINER_NAME) pnpm seed:run
+	docker exec $(CONTAINER_NAME) pnpm codenaute seed
 
 start-debug: ## Starting server container in debug mode
 	@echo "Starting server in debug mode - Docker compose v1"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build server || true
-	@echo "Starting server in debug mode - Docker compose v2
+	@echo "Starting server in debug mode - Docker compose v2"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build server
 
 start-quiet: ## Starting server container in mode quiet

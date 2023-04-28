@@ -4,6 +4,7 @@ import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 import { BaseModel } from 'models/base/BaseModel';
 import { Project } from 'models/Project';
+import { FileProject } from 'models/FileProject';
 
 @Entity()
 @ObjectType()
@@ -19,7 +20,7 @@ export class ProgrammingLanguage extends BaseModel {
 	@IsString()
 	version: string;
 
-	@Field(() => [Project], { nullable: true })
-	@OneToMany(() => Project, (project) => project.programmingLanguage, { nullable: true })
-	projects: Project[];
+	@Field(() => [FileProject], { nullable: true })
+	@OneToMany(() => FileProject, (file) => file.programmingLanguage, { nullable: true })
+	files: FileProject[];
 }

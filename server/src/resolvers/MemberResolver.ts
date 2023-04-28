@@ -56,11 +56,12 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
+	@Query(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
 		return await this.MemberServices.findById(memberId);
 	}
-	@Authorized()
+
+	// @Authorized()
 	@Query(() => [Member])
 	async getAllMembers(): Promise<Member[]> {
 		return await this.MemberServices.find();
