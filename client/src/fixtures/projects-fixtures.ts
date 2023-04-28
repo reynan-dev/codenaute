@@ -37,7 +37,7 @@ export const filesFixtures: Files = [
 	},
 	{
 		name: '/src/index.ts',
-		code: "console.log('haha')\nconsole.error('prout')",
+		code: "console.log('haha')",
 		programmingLanguage: 'typescript'
 	}
 ];
