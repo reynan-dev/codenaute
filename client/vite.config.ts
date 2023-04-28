@@ -8,11 +8,13 @@ import svgrPlugin from 'vite-plugin-svgr';
 export default defineConfig({
 	plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
 	build: {
+		cssMinify: true,
 		outDir: 'build'
 	},
 	server: {
-		open: true,
-		port: 3000
+		// open: true,
+		port: 3000,
+		strictPort: true
 	},
 	test: {
 		globals: true,
@@ -21,5 +23,11 @@ export default defineConfig({
 			reporter: ['text', 'html'],
 			exclude: ['node_modules/', 'src/setupTests.ts']
 		}
-	}
+	},
+	preview: {
+		host: 'localhost',
+		port: 3000,
+		strictPort: true
+	},
+	base: './'
 });
