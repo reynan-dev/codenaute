@@ -88,7 +88,7 @@ export abstract class Database {
 		synchronize: this.synchronize
 	});
 
-	private static entities() {
+	static entities() {
 		return this._dataSource.entityMetadatas;
 	}
 
@@ -96,7 +96,7 @@ export abstract class Database {
 		return await this._dataSource.initialize();
 	}
 
-	static async destroy() {
+	private static async destroy() {
 		return await this._dataSource.destroy();
 	}
 
