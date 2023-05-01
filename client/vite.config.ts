@@ -3,16 +3,25 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
+import commonjs from '@rollup/plugin-commonjs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
 	build: {
+		target: 'ESNext',
 		cssMinify: true,
-		outDir: 'dist'
+		outDir: 'dist',
+		minify: 'esbuild',
+		rollupOptions: {
+			input: 'src/index.tsx',
+			output: {
+				format: 'es'
+			},
+			plugins: [commonjs()]
+		}
 	},
 	server: {
-		// open: true,
 		port: 3000,
 		strictPort: true
 	},
