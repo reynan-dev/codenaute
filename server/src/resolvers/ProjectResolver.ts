@@ -86,25 +86,25 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async createProjects(
-		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createProjectArgs,
+		@Args() { name, isTemplate, isPublic }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
-		const language = await this.LanguageServices.findById(languageId);
+		// const language = await this.LanguageServices.findById(languageId);
 
-		if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
+		// if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
 
-		const template = await this.ProjectServices.findById(templateId);
+		// const template = await this.ProjectServices.findById(templateId);
 
-		const file = await this.FileProjectServices.findById(activeFileId);
+		// const file = await this.FileProjectServices.findById(activeFileId);
 
 		return this.ProjectServices.create({
 			name: name,
 			owner: member,
-			programmingLanguage: language,
-			template: template,
-			activeFile: file,
+			// programmingLanguage: language,
+			// template: template,
+			// activeFile: file,
 			isTemplate: isTemplate,
 			isPublic: isPublic
 		});

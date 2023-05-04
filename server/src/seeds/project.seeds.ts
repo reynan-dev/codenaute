@@ -1,25 +1,29 @@
-import { hashSync } from 'bcryptjs';
 import { Member } from 'models/Member';
 import { Project } from 'models/Project';
+import { MemberResolver } from 'resolvers/MemberResolver';
+import { createProjectArgs } from 'resolvers/args/ProjectArgs';
+import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource } from 'typeorm';
 import { Database } from 'utils/configs/database';
 
-const memberFixtures: Partial<Member>[] = [
-	{
-		username: 'admin',
-		email: 'admin@codenaute.com',
-		hashedPassword: hashSync('Admin1234!', 10)
-	},
-	{
-		username: 'member',
-		email: 'member@member.com',
-		hashedPassword: hashSync('Member1234!', 10)
-	}
-];
+export const generateProjectFixture: (member: Member) => createProjectArgs = (member: Member) => {
+	return {
+		name: 'Admin project',
+		memberId: member.id,
+		isTemplate: false,
+		isPublic: false
+	};
+};
 
-export const createMultipleMembers = async () => {
+export const createProjects = async () => {
 	const seeds = async (dataSource: DataSource) => {
-		await dataSource.createQueryBuilder().insert().into(Project).values(memberFixtures).execute();
+		const _MemberResolver = new MemberResolver();
+		const member = await _MemberResolver.getMemberByEmail({ email: memberFixtures[0].email });
+
+		if (!member) return console.error('Provided fixture member does not exist');
+
+		const projectFixture = generateProjectFixture(member);
+		await dataSource.createQueryBuilder().insert().into(Project).values(projectFixture).execute();
 	};
 
 	await Database.seed(seeds);

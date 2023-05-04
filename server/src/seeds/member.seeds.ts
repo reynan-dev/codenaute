@@ -3,7 +3,13 @@ import { Member } from 'models/Member';
 import { DataSource } from 'typeorm';
 import { Database } from 'utils/configs/database';
 
-const memberFixtures: Partial<Member>[] = [
+interface MemberFixtures {
+	username: Member['username'];
+	email: Member['email'];
+	hashedPassword: string;
+}
+
+export const memberFixtures: MemberFixtures[] = [
 	{
 		username: 'admin',
 		email: 'admin@codenaute.com',

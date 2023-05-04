@@ -15,11 +15,6 @@ export class ProgrammingLanguage extends BaseModel {
 	@Index({ unique: true })
 	name: string;
 
-	@Column('varchar', { length: 15 })
-	@Field()
-	@IsString()
-	version: string;
-
 	@Field(() => [FileProject], { nullable: true })
 	@OneToMany(() => FileProject, (file) => file.programmingLanguage, { nullable: true })
 	files: FileProject[];
