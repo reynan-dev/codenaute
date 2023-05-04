@@ -77,11 +77,11 @@ export const NavBar = ({ className }: NavBarProps) => {
 						<FiUser size={18} className={style.renderDesktopMenuIconStyle('/account')} />
 					</Link>
 
-					<Link to='#'>
+					<Link to='/code'>
 						<FiCode size={18} className={style.renderDesktopMenuIconStyle('/code-editor')} />
 					</Link>
 
-					<Link to='#'>
+					<Link to='/'>
 						<FiSearch size={16} className={style.renderDesktopMenuIconStyle('/explore')} />
 					</Link>
 				</div>
@@ -98,11 +98,11 @@ export const NavBar = ({ className }: NavBarProps) => {
 							<FiUser size={22} className={style.mobileMenuIcons} />
 							<li>Account</li>
 						</Link>
-						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+						<Link to='/code' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 							<FiCode size={22} className={style.mobileMenuIcons} />
 							<li>New code</li>
 						</Link>
-						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+						<Link to='/' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 							<FiSearch size={20} className={style.mobileMenuIcons} />
 							<li>Explore</li>
 						</Link>
