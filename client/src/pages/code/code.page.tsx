@@ -73,19 +73,23 @@ export const CodePage = ({
 						</div>
 
 						<div className='flex h-full flex-1 flex-col'>
-							<SandpackPreview
-								className=''
-								showNavigator
-								showOpenInCodeSandbox={false}
-								style={{
-									height: '100%'
-								}}
-							/>
-							<SandpackConsole
-								style={{
-									height: '100%'
-								}}
-							/>
+							<div className='h-1/2'>
+								<SandpackPreview
+									className=''
+									showNavigator
+									showOpenInCodeSandbox={false}
+									style={{
+										height: '100%'
+									}}
+								/>
+							</div>
+							<div className='h-1/2'>
+								<SandpackConsole
+									style={{
+										height: '100%'
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</SandpackLayout>

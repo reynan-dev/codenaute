@@ -11,8 +11,8 @@ export const sandpackCustomTheme: SandpackTheme = {
 		disabled: COLORS.DARK[500],
 		hover: COLORS.PRIMARY[200],
 		accent: COLORS.PRIMARY[200],
-		error: COLORS.DANGER.DEFAULT,
-		errorSurface: COLORS.DANGER[100]
+		error: COLORS.DANGER.DEFAULT
+		// errorSurface: COLORS.DANGER[100]
 	},
 	syntax: {
 		plain: COLORS.WHITE.DEFAULT,

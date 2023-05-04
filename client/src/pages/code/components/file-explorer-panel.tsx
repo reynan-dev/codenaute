@@ -24,7 +24,7 @@ export const FileExplorerPanel = ({ className, setProjectData }: FileExplorerPan
 	return (
 		<>
 			<div className={className}>
-				<div className='flex justify-between border border-y-0 border-l-0 border-r-dark-700 border-t-dark-700 bg-dark-900 p-2'>
+				<div className='flex h-10 justify-between border border-y-0 border-l-0 border-r-dark-700 border-t-dark-700 bg-dark-900 p-2'>
 					<h3 className='text-sm font-normal text-dark-300'>Files</h3>
 					<div className='flex items-center justify-end space-x-2'>
 						<button onClick={() => setIsNewFileModalOpen(true)}>
