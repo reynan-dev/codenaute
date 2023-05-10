@@ -2,7 +2,6 @@ import { FileProject } from 'models/FileProject';
 import { Member } from 'models/Member';
 import { Project } from 'models/Project';
 import { MemberResolver } from 'resolvers/MemberResolver';
-import { createFileProjectArgs } from 'resolvers/args/FileProjectArgs';
 import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
