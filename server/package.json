@@ -35,7 +35,6 @@
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",
 		"@types/cookie": "^0.5.1",
-		"@types/faker": "^6.6.9",
 		"@types/jest": "^29.5.0",
 		"@types/node": "^18.15.10",
 		"@types/uuid": "^9.0.1",

@@ -54,9 +54,6 @@ devDependencies:
   '@types/cookie':
     specifier: ^0.5.1
     version: 0.5.1
-  '@types/faker':
-    specifier: ^6.6.9
-    version: 6.6.9
   '@types/jest':
     specifier: ^29.5.0
     version: 29.5.0
@@ -1082,13 +1079,6 @@ packages:
       '@types/serve-static': 1.15.1
     dev: false
 
-  /@types/faker@6.6.9:
-    resolution: {integrity: sha512-Y9YYm5L//8ooiiknO++4Gr539zzdI0j3aXnOBjo1Vk+kTvffY10GuE2wn78AFPECwZ5MYGTjiDVw1naLLdDimw==}
-    deprecated: This is a stub types definition. faker provides its own type definitions, so you do not need this installed.
-    dependencies:
-      faker: 4.1.0
-    dev: true
-
   /@types/glob@7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -2018,10 +2008,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
-
-  /faker@4.1.0:
-    resolution: {integrity: sha512-ILKg69P6y/D8/wSmDXw35Ly0re8QzQ8pMfBCflsGiZG2ZjMUNLYNexA6lz5pkmJlepVdsiDFUxYAzPQ9/+iGLA==}
-    dev: true
 
   /fast-json-stable-stringify@2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
