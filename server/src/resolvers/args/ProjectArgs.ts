@@ -45,15 +45,6 @@ export class createProjectArgs {
 	@Field()
 	memberId: UUID;
 
-	// @Field()
-	// languageId: UUID;
-
-	// @Field({ nullable: true })
-	// templateId: UUID;
-
-	// @Field({ nullable: true })
-	// activeFileId: UUID;
-
 	@Field()
 	isTemplate: boolean;
 

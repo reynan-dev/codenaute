@@ -44,10 +44,6 @@ export class Project extends BaseModel {
 	})
 	files: FileProject[];
 
-	// @Field(() => SandpackTemplate, { nullable: true })
-	// @ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true, nullable: true })
-	// template: SandpackTemplate;
-
 	@Column('boolean', { default: false })
 	@Field()
 	@IsBoolean()

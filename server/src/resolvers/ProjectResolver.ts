@@ -91,20 +91,9 @@ export class ProjectResolver {
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
-		// const language = await this.LanguageServices.findById(languageId);
-
-		// if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
-
-		// const template = await this.ProjectServices.findById(templateId);
-
-		// const file = await this.FileProjectServices.findById(activeFileId);
-
 		return this.ProjectServices.create({
 			name: name,
 			owner: member,
-			// programmingLanguage: language,
-			// template: template,
-			// activeFile: file,
 			isTemplate: isTemplate,
 			isPublic: isPublic
 		});
