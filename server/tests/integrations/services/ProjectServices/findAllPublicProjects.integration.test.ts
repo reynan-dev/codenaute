@@ -1,11 +1,9 @@
 import { MemberServices } from 'services/MemberServices';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { ProjectServices } from 'services/ProjectServices';
 
 describe('Find All Public Projects', () => {
 	const ProjectService = new ProjectServices();
 	const MemberService = new MemberServices();
-	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
 	const ownerData = {
 		username: 'data',
@@ -25,10 +23,6 @@ describe('Find All Public Projects', () => {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: 'version'
-				}),
 				isPublic: true
 			};
 

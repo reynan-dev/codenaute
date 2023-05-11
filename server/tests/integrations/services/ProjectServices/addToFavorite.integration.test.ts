@@ -1,5 +1,4 @@
 import { MemberServices } from 'services/MemberServices';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { v4 as uuid } from 'uuid';
@@ -7,7 +6,6 @@ import { v4 as uuid } from 'uuid';
 describe('Add to Favorite', () => {
 	const ProjectService = new ProjectServices();
 	const MemberService = new MemberServices();
-	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
 	const ownerData = {
 		username: 'data',
@@ -46,11 +44,7 @@ describe('Add to Favorite', () => {
 			const data = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: 'version'
-				})
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password)
 			};
 
 			const project = await ProjectService.create(data);
