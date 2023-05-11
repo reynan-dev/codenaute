@@ -6,6 +6,7 @@ import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
 import { Database } from 'utils/configs/database';
+import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 export const generateProjectFixture: (member: Member) => createProjectArgs = (member: Member) => {
@@ -24,13 +25,15 @@ export const generateFileFixtures = (project: Project) => {
 			path: '/index.ts',
 			content: "import { BLACK } from './color.ts'\n\nconsole.log(BLACK)",
 			projectId: project.id,
-			isHidden: false
+			isHidden: false,
+			programmingLanguage: ProgrammingLanguages.TYPESCRIPT
 		},
 		{
 			path: '/constants/color.ts',
 			content: "export const BLACK = 'black'",
 			projectId: project.id,
-			isHidden: false
+			isHidden: false,
+			programmingLanguage: ProgrammingLanguages.TYPESCRIPT
 		}
 	];
 };
