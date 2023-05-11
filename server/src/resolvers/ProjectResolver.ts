@@ -61,24 +61,6 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getAllProjectsByTemplate(
-		@Args() { templateId }: getAllProjectsByTemplateArgs
-	): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByTemplate(templateId);
-	}
-
-	@Authorized()
-	@Query(() => Project)
-	async getAllProjectsByProgrammingLanguage(
-		@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs
-	): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByProgrammingLanguage(languageId);
-	}
-
-	@Authorized()
-	@Query(() => Project)
 	async getProjectsById(@Args() { projectId }: getProjectByIdArgs): Promise<Project> {
 		return this.ProjectServices.findById(projectId);
 	}
