@@ -43,7 +43,7 @@ export class ProjectServices extends BaseServices {
 
 	async findAllByTemplate(template: SandpackTemplates): Promise<Project[]> {
 		return this.repository.find({
-			where: { template: template },
+			where: { sandpackTemplate: template },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}

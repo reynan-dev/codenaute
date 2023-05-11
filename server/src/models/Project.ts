@@ -36,10 +36,6 @@ export class Project extends BaseModel {
 	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true, nullable: true })
 	favoritedBy: Member[];
 
-	// @Field(() => SandpackTemplate, { nullable: true })
-	// @ManyToOne(() => SandpackTemplate, (sandPackTemplate) => sandPackTemplate.id, { eager: true, nullable: true })
-	// sandPackTemplate: SandpackTemplate;
-
 	@Column({
 		type: 'enum',
 		enum: SandpackTemplates,
