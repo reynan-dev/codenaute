@@ -12,8 +12,8 @@ import {
 
 import { FileProject } from 'models/FileProject';
 import { Member } from 'models/Member';
-import { SandpackTemplate } from 'models/SandpackTemplate';
 import { BaseModel } from 'models/base/BaseModel';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 @Entity()
 @ObjectType()
@@ -35,6 +35,17 @@ export class Project extends BaseModel {
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
 	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true, nullable: true })
 	favoritedBy: Member[];
+
+	// @Field(() => SandpackTemplate, { nullable: true })
+	// @ManyToOne(() => SandpackTemplate, (sandPackTemplate) => sandPackTemplate.id, { eager: true, nullable: true })
+	// sandPackTemplate: SandpackTemplate;
+
+	@Column({
+		type: 'enum',
+		enum: SandpackTemplates,
+		nullable: true
+	})
+	sandpackTemplate: SandpackTemplates;
 
 	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
 	@OneToMany(() => FileProject, (file) => file.project, {

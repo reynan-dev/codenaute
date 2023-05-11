@@ -1,5 +1,6 @@
 import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
+import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 
 @ArgsType()
 export class getAllFilesByProjectIdArgs {
@@ -26,6 +27,9 @@ export class createFileProjectArgs {
 
 	@Field({ defaultValue: false, nullable: true })
 	isHidden: boolean;
+
+	@Field({ nullable: true })
+	programmingLanguage: ProgrammingLanguages;
 }
 
 @ArgsType()
