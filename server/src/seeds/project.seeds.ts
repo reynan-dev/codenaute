@@ -6,13 +6,15 @@ import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
 import { Database } from 'utils/configs/database';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 export const generateProjectFixture: (member: Member) => createProjectArgs = (member: Member) => {
 	return {
 		name: 'Admin project',
 		memberId: member.id,
 		isTemplate: false,
-		isPublic: false
+		isPublic: false,
+		sandpackTemplate: SandpackTemplates.VANILLA_TS
 	};
 };
 
