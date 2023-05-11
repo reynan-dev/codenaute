@@ -24,7 +24,7 @@ describe('Find All Projects By Template', () => {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				template: SandpackTemplates.REACT_TS
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
 			const project = await ProjectService.create(projectData);
