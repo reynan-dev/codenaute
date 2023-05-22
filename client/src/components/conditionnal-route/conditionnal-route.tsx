@@ -13,8 +13,6 @@ export const ConditionalRoute = ({ children, type }: ConditionalRouteProps) => {
 
 	const { isAuthenticated, isLoading } = useContext(AuthContext);
 
-	console.log({ isAuthenticated });
-
 	if (isLoading)
 		return (
 			<div className='h-full w-full'>

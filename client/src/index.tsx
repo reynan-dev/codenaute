@@ -6,6 +6,7 @@ import App from 'app';
 import reportWebVitals from 'reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { AuthProvider } from 'context/auth.context';
+import { ProjectProvider } from 'context/project.context';
 
 const client = new ApolloClient({
 	uri: '/',
@@ -18,7 +19,9 @@ root.render(
 		<ApolloProvider client={client}>
 			<BrowserRouter>
 				<AuthProvider>
-					<App />
+					<ProjectProvider>
+						<App />
+					</ProjectProvider>
 				</AuthProvider>
 			</BrowserRouter>
 		</ApolloProvider>
