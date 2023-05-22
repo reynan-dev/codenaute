@@ -7,7 +7,7 @@ import {
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
 import { Project } from 'fixtures/projects-fixtures';
-import { Dependencies } from 'pages/code/code.container';
+import { Dependencies, SandpackTemplate } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { SandpackContainer } from 'pages/code/sandpack.container';
 import { useState } from 'react';
@@ -25,6 +25,7 @@ interface CodePageProps {
 		}
 	>;
 	setProjectData: React.Dispatch<React.SetStateAction<Project | null>>;
+	template: SandpackTemplate | undefined;
 }
 
 export const CodePage = ({
@@ -32,18 +33,21 @@ export const CodePage = ({
 	devDependencies,
 	mappedFilesForSandpack,
 	mappedFilesForMonacoEditor,
-	setProjectData
+	setProjectData,
+	template
 }: CodePageProps) => {
 	const [currentFiles, setCurrentFiles] = useState<Record<string, string | SandpackFile> | null>(
 		null
 	);
+
+	console.log({ template });
 
 	return (
 		<SandpackProvider
 			theme={sandpackCustomTheme}
 			style={{ height: '100%' }}
 			// files={mappedFilesForSandpack}
-			template='react-ts'
+			template={template}
 			// customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
 			<SandpackContainer setCurrentFiles={setCurrentFiles}>
