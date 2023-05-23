@@ -1,5 +1,6 @@
 import {
 	SandpackCodeEditor,
+	SandpackCodeEditor,
 	SandpackConsole,
 	SandpackFile,
 	SandpackLayout,
@@ -9,6 +10,8 @@ import {
 import { Project } from 'fixtures/projects-fixtures';
 import { Dependencies, SandpackTemplate } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
+import { SandpackContainer } from 'pages/code/sandpack.container';
+import { useState } from 'react';
 import { SandpackContainer } from 'pages/code/sandpack.container';
 import { useState } from 'react';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
@@ -39,8 +42,6 @@ export const CodePage = ({
 	const [currentFiles, setCurrentFiles] = useState<Record<string, string | SandpackFile> | null>(
 		null
 	);
-
-	console.log({ template });
 
 	return (
 		<SandpackProvider
