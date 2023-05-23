@@ -11,9 +11,9 @@ export const CreateProjectPage = ({}: CreateProjectProps) => {
 
 	return (
 		<Container className='flex items-center justify-center'>
-			<div className='rounded-lg bg-dark p-5'>
+			<div className='space-y-5 rounded-lg bg-dark p-14'>
 				<h3 className='mb-10'>Create a project</h3>
-				<div className='grid grid-cols-3 gap-4'>
+				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3'>
 					{sandpackTemplates.map((template) => (
 						<Link
 							to={`/code?template=${template}`}
