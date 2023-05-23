@@ -4,6 +4,7 @@ import Input from 'components/input';
 import Modal from 'components/modal';
 import { useState } from 'react';
 import { FiFilePlus, FiFolderPlus } from 'react-icons/fi';
+import { twJoin } from 'tailwind-merge';
 
 interface FileExplorerPanelProps {
 	className?: string;
@@ -22,7 +23,17 @@ export const FileExplorerPanel = ({ className }: FileExplorerPanelProps) => {
 	return (
 		<>
 			<div className={className}>
-				<div className='flex h-10 justify-between border border-y-0 border-l-0 border-r-dark-700 border-t-dark-700 bg-dark-900 p-2'>
+				<div
+					className={twJoin(
+						'flex items-center justify-between',
+						'h-10',
+						'px-3.5 py-2',
+						'bg-dark-900',
+						'border border-y-0 border-l-0',
+						'border-r-dark-700 border-t-dark-700'
+					)}
+				>
+					{' '}
 					<h3 className='text-sm font-normal text-dark-300'>Files</h3>
 					<div className='flex items-center justify-end space-x-2'>
 						<button onClick={() => setIsNewFileModalOpen(true)}>

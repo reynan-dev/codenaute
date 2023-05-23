@@ -8,6 +8,7 @@ import {
 } from '@codesandbox/sandpack-react';
 import { Dependencies, SandpackTemplate } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
+import { ProjectPanel } from 'pages/code/components/project-panel';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 interface CodePageProps {
@@ -29,7 +30,10 @@ export const CodePage = ({ template }: CodePageProps) => {
 				}}
 			>
 				<div className='flex h-full w-full'>
-					<FileExplorerPanel className='h-100 flex w-2/12 min-w-56 flex-col' />
+					<div className='h-100 flex w-2/12 min-w-56 flex-col'>
+						<ProjectPanel className='h-100 w-100 flex flex-col' />
+						<FileExplorerPanel className='h-100 w-100 flex flex-1 flex-col' />
+					</div>
 
 					<div className='h-full flex-1 bg-dark-900'>
 						<SandpackCodeEditor
