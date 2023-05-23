@@ -1,11 +1,9 @@
 import { MemberServices } from 'services/MemberServices';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { ProjectServices } from 'services/ProjectServices';
 
 describe('Find All Projects By Favorite Id', () => {
 	const ProjectService = new ProjectServices();
 	const MemberService = new MemberServices();
-	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
 	const ownerData = {
 		username: 'data',
@@ -42,10 +40,6 @@ describe('Find All Projects By Favorite Id', () => {
 			const data = {
 				name: 'project_test',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: '3.10'
-				}),
 				favoritedBy: [favoringUser]
 			};
 

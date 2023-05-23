@@ -36,8 +36,13 @@ export const filesFixtures: Files = [
 		programmingLanguage: 'json'
 	},
 	{
-		name: '/src/index.ts',
-		code: "console.log('haha')\nconsole.error('prout')",
+		name: '/src/index.tsx',
+		code: "console.log('haha')",
+		programmingLanguage: 'typescript'
+	},
+	{
+		name: '/src/const.ts',
+		code: "export const COLOR = 'black'",
 		programmingLanguage: 'typescript'
 	}
 ];

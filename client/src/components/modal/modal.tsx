@@ -1,6 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { twMerge } from 'tailwind-merge';
 
 interface ModalProps {
 	isOpen: boolean;

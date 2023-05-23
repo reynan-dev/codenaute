@@ -37,7 +37,7 @@ export class FileProjectResolver {
 	@Authorized()
 	@Mutation(() => FileProject)
 	async createFileProject(
-		@Args() { path, content, projectId, isHidden }: createFileProjectArgs
+		@Args() { path, content, projectId, isHidden, programmingLanguage }: createFileProjectArgs
 	): Promise<FileProject> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -47,7 +47,8 @@ export class FileProjectResolver {
 			path: path,
 			content: content,
 			project: project,
-			isHidden: isHidden
+			isHidden: isHidden,
+			programmingLanguage: programmingLanguage
 		});
 	}
 

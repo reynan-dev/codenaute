@@ -1,32 +1,29 @@
-import { UUID } from 'utils/types/Uuid';
-import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
+import { Member } from 'models/Member';
 import { Project } from 'models/Project';
-import { ProjectServices } from 'services/ProjectServices';
-import { GlobalContext } from 'utils/types/GlobalContext';
 import {
 	createProjectArgs,
 	deleteProjectArgs,
 	favoriteProjectArgs,
-	getAllProjectsByProgrammingLanguageArgs,
+	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
 	getProjectByIdArgs,
-	getAllProjectsByMemberArgs,
 	shareProjectArgs,
 	updateProjectActiveFileArgs,
 	updateProjectIsPublic,
 	updateProjectIsTemplateArgs,
 	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
-import { ErrorMessages } from 'utils/enums/ErrorMessages';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
-import { Member } from 'models/Member';
+import { ProjectServices } from 'services/ProjectServices';
+import { Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { GlobalContext } from 'utils/types/GlobalContext';
+import { UUID } from 'utils/types/Uuid';
 
 @Resolver(Project)
 export class ProjectResolver {
 	ProjectServices: ProjectServices = new ProjectServices();
-	LanguageServices: ProgrammingLanguageServices = new ProgrammingLanguageServices();
 	FileProjectServices: FileProjectServices = new FileProjectServices();
 	MemberServices: MemberServices = new MemberServices();
 	@Authorized()
@@ -62,19 +59,10 @@ export class ProjectResolver {
 	@Authorized()
 	@Query(() => Project)
 	async getAllProjectsByTemplate(
-		@Args() { templateId }: getAllProjectsByTemplateArgs
+		@Args() { template }: getAllProjectsByTemplateArgs
 	): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByTemplate(templateId);
-	}
-
-	@Authorized()
-	@Query(() => Project)
-	async getAllProjectsByProgrammingLanguage(
-		@Args() { languageId }: getAllProjectsByProgrammingLanguageArgs
-	): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByProgrammingLanguage(languageId);
+		return this.ProjectServices.findAllByTemplate(template);
 	}
 
 	@Authorized()
@@ -86,27 +74,17 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async createProjects(
-		@Args() { name, languageId, templateId, activeFileId, isTemplate, isPublic }: createProjectArgs,
+		@Args() { name, isTemplate, isPublic, sandpackTemplate }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
-		const language = await this.LanguageServices.findById(languageId);
-
-		if (!language) throw Error(ErrorMessages.LANGUAGE_NOT_FOUND);
-
-		const template = await this.ProjectServices.findById(templateId);
-
-		const file = await this.FileProjectServices.findById(activeFileId);
-
 		return this.ProjectServices.create({
 			name: name,
 			owner: member,
-			programmingLanguage: language,
-			template: template,
-			activeFile: file,
 			isTemplate: isTemplate,
-			isPublic: isPublic
+			isPublic: isPublic,
+			sandpackTemplate: sandpackTemplate
 		});
 	}
 

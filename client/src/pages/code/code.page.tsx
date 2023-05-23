@@ -1,4 +1,5 @@
 import {
+	SandpackCodeEditor,
 	SandpackConsole,
 	SandpackFile,
 	SandpackLayout,
@@ -8,7 +9,8 @@ import {
 import { Project } from 'fixtures/projects-fixtures';
 import { Dependencies } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
-import { MonacoEditor } from 'pages/code/components/monaco-editor';
+import { SandpackContainer } from 'pages/code/sandpack.container';
+import { useState } from 'react';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 interface CodePageProps {
@@ -32,46 +34,66 @@ export const CodePage = ({
 	mappedFilesForMonacoEditor,
 	setProjectData
 }: CodePageProps) => {
+	const [currentFiles, setCurrentFiles] = useState<Record<string, string | SandpackFile> | null>(
+		null
+	);
+
 	return (
 		<SandpackProvider
 			theme={sandpackCustomTheme}
 			style={{ height: '100%' }}
-			files={mappedFilesForSandpack}
-			customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
+			// files={mappedFilesForSandpack}
+			template='react-ts'
+			// customSetup={{ dependencies: dependencies, devDependencies: devDependencies }}
 		>
-			<SandpackLayout
-				style={{
-					width: '100%',
-					height: '100%',
-					borderRadius: '0',
-					border: 'none'
-				}}
-			>
-				<div className='flex h-full w-full'>
-					<FileExplorerPanel
-						setProjectData={setProjectData}
-						className='h-100 flex w-2/12 min-w-56 flex-col'
-					/>
-
-					<MonacoEditor files={mappedFilesForMonacoEditor} className='h-full flex-1 bg-dark-900' />
-
-					<div className='flex h-full flex-1 flex-col'>
-						<SandpackPreview
-							className=''
-							showNavigator
-							showOpenInCodeSandbox={false}
-							style={{
-								height: '100%'
-							}}
+			<SandpackContainer setCurrentFiles={setCurrentFiles}>
+				<SandpackLayout
+					style={{
+						width: '100%',
+						height: '100%',
+						borderRadius: '0',
+						border: 'none'
+					}}
+				>
+					<div className='flex h-full w-full'>
+						<FileExplorerPanel
+							setProjectData={setProjectData}
+							className='h-100 flex w-2/12 min-w-56 flex-col'
 						/>
-						<SandpackConsole
-							style={{
-								height: '100%'
-							}}
-						/>
+
+						<div className='h-full flex-1 bg-dark-900'>
+							<SandpackCodeEditor
+								style={{
+									width: '100%',
+									height: '100%',
+									borderRadius: '0',
+									border: 'none'
+								}}
+							/>
+						</div>
+
+						<div className='flex h-full flex-1 flex-col'>
+							<div className='h-1/2'>
+								<SandpackPreview
+									className=''
+									showNavigator
+									showOpenInCodeSandbox={false}
+									style={{
+										height: '100%'
+									}}
+								/>
+							</div>
+							<div className='h-1/2'>
+								<SandpackConsole
+									style={{
+										height: '100%'
+									}}
+								/>
+							</div>
+						</div>
 					</div>
-				</div>
-			</SandpackLayout>
+				</SandpackLayout>
+			</SandpackContainer>
 		</SandpackProvider>
 	);
 };

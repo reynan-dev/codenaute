@@ -1,11 +1,9 @@
 import { MemberServices } from 'services/MemberServices';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { ProjectServices } from 'services/ProjectServices';
 
 describe('Find Projects By Owner', () => {
 	const ProjectService = new ProjectServices();
 	const MemberService = new MemberServices();
-	const ProgrammingLanguageService = new ProgrammingLanguageServices();
 
 	const ownerData = {
 		username: 'data',
@@ -35,11 +33,7 @@ describe('Find Projects By Owner', () => {
 
 			const projectData = {
 				name: 'project_test',
-				owner: ownerMember,
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: 'version'
-				})
+				owner: ownerMember
 			};
 
 			const project = await ProjectService.create(projectData);
