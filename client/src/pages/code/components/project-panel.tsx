@@ -1,3 +1,4 @@
+import { FaExclamationCircle, FaSave } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
 interface ProjectPanelProps {
@@ -12,22 +13,29 @@ export const ProjectPanel = ({ className }: ProjectPanelProps) => {
 					className={twJoin(
 						'flex items-center',
 						'h-14',
-						'space-x-4 px-3.5 py-4',
+						'space-x-3.5 px-3.5 py-4',
 						'bg-dark-900',
 						'border border-l-0 border-t-0',
 						'border-b-dark-700 border-r-dark-700'
 					)}
 				>
 					<h3 className='text-sm font-normal text-dark-300'>Project</h3>
-					<input
+					<div
 						className={twJoin(
 							'flex items-center justify-start ',
-							'px-3',
+							'pl-2',
 							'h-full w-full',
-							'rounded-full bg-dark-700',
-							'focus:border focus:border-primary focus:outline-none'
+							'rounded-md bg-dark-700',
+							'focus-within:outline focus-within:outline-1 focus-within:outline-primary'
 						)}
-					></input>
+					>
+						<FaExclamationCircle size={16} className='text-danger' />
+						<input
+							className='peer h-full w-full rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
+							placeholder='project-001'
+						/>
+					</div>
+					<FaSave size={24} className='text-dark-300' />
 				</div>
 			</div>
 		</>
