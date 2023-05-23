@@ -30,31 +30,15 @@ const mapFilesForSandpack = (files: Files) => {
 	return filesObject;
 };
 
-const mapFilesForMonacoEditor = (files: Files) => {
-	let filesObject: Record<string, { code: string | SandpackFile; programmingLanguage: string }> =
-		{};
-
-	files.map((e) => {
-		return (
-			e.name &&
-			(filesObject[e.name] = { code: `${e.code}`, programmingLanguage: e.programmingLanguage })
-		);
-	});
-
-	return filesObject;
-};
-
 export const CodeContainer = () => {
-	const { projectData, setProjectData } = useContext(ProjectContext);
+	const { projectData } = useContext(ProjectContext);
 	const templateParam = useGetQueryParam('template');
 
-	const checkedTemplateParam = (_templateParam: string | null) => {
+	const getCheckedTemplateParam = (_templateParam: string | null) => {
 		const validSandpackTemplates = Object.values(SandpackTemplates);
 
 		if (!_templateParam) return undefined;
 		if (!validSandpackTemplates.some((validTemplate) => validTemplate !== _templateParam)) {
-			console.log('prout');
-			console.log();
 			return undefined;
 		}
 
@@ -68,11 +52,9 @@ export const CodeContainer = () => {
 			) : (
 				<CodePage
 					mappedFilesForSandpack={mapFilesForSandpack(projectFixtures.files)}
-					mappedFilesForMonacoEditor={mapFilesForMonacoEditor(projectFixtures.files)}
 					dependencies={getDependenciesFromJson(projectData)}
 					devDependencies={getDevDependenciesFromJson(projectData)}
-					setProjectData={setProjectData}
-					template={checkedTemplateParam(templateParam)}
+					template={getCheckedTemplateParam(templateParam)}
 				/>
 			)}
 		</>

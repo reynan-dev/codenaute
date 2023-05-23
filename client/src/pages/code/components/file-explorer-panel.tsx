@@ -2,16 +2,14 @@ import { SandpackFileExplorer, useSandpack } from '@codesandbox/sandpack-react';
 import Button from 'components/button';
 import Input from 'components/input';
 import Modal from 'components/modal';
-import { Project } from 'fixtures/projects-fixtures';
 import { useState } from 'react';
 import { FiFilePlus, FiFolderPlus } from 'react-icons/fi';
 
 interface FileExplorerPanelProps {
 	className?: string;
-	setProjectData: React.Dispatch<React.SetStateAction<Project | null>>;
 }
 
-export const FileExplorerPanel = ({ className, setProjectData }: FileExplorerPanelProps) => {
+export const FileExplorerPanel = ({ className }: FileExplorerPanelProps) => {
 	const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
 	const [newFile, setNewFile] = useState('');
 
