@@ -4,8 +4,10 @@ import { useGetQueryParam } from 'hooks/use-get-query-param';
 import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
 import { useContext, useState } from 'react';
 import { CodePage } from './code.page';
+import { SandpackTemplates } from 'enums/sandpack-templates';
 
 export type Dependencies = Record<string, string>;
+export type SandpackTemplate = (typeof SandpackTemplates)[keyof typeof SandpackTemplates];
 
 // const getDependenciesFromJson = (projectData: Project): Dependencies => {
 // 	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
