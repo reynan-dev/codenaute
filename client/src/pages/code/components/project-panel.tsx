@@ -1,7 +1,8 @@
 import { useSandpack } from '@codesandbox/sandpack-react';
 import { ProjectState } from 'pages/code/code.container';
 import { SandpackTemplate, useSaveProjectService } from 'pages/code/code.service';
-import { FaExclamationCircle, FaSave } from 'react-icons/fa';
+import { BiLoaderAlt } from 'react-icons/bi';
+import { FaCheckCircle, FaExclamationCircle, FaSave } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
 interface ProjectPanelProps {
@@ -12,7 +13,7 @@ interface ProjectPanelProps {
 
 export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) => {
 	const { sandpack } = useSandpack();
-	const { saveProject } = useSaveProjectService(
+	const { saveProject, saveProjectLoading } = useSaveProjectService(
 		{
 			name: state.projectName,
 			files: JSON.stringify(sandpack.files),
@@ -20,6 +21,18 @@ export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) 
 		},
 		state.setIsProjectSaved
 	);
+
+	const renderSavingSatusIcon = () => {
+		if (saveProjectLoading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
+
+		if (!state.isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
+
+		return (
+			<>
+				<FaCheckCircle size={16} className='text-success' />
+			</>
+		);
+	};
 
 	return (
 		<>
@@ -44,7 +57,7 @@ export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) 
 							'focus-within:outline focus-within:outline-1 focus-within:outline-primary'
 						)}
 					>
-						<FaExclamationCircle size={16} className='text-danger' />
+						{renderSavingSatusIcon()}
 						<input
 							className='peer h-full w-full rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
 							placeholder='project-001'
