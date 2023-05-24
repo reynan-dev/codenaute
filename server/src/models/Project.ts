@@ -1,16 +1,7 @@
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import {
-	Column,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToMany,
-	ManyToOne,
-	OneToMany
-} from 'typeorm';
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
-import { FileProject } from 'models/FileProject';
 import { Member } from 'models/Member';
 import { BaseModel } from 'models/base/BaseModel';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
@@ -43,13 +34,18 @@ export class Project extends BaseModel {
 	})
 	sandpackTemplate: SandpackTemplates;
 
-	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
-	@OneToMany(() => FileProject, (file) => file.project, {
-		eager: true,
-		nullable: true,
-		cascade: true
-	})
-	files: FileProject[];
+	// @Field(() => [FileProject], { nullable: true, defaultValue: [] })
+	// @OneToMany(() => FileProject, (file) => file.project, {
+	// 	eager: true,
+	// 	nullable: true,
+	// 	cascade: true
+	// })
+	// files: FileProject[];
+
+	@Column({ nullable: true })
+	@Field()
+	@IsString()
+	files: string;
 
 	@Column('boolean', { default: false })
 	@Field()

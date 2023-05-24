@@ -1,4 +1,3 @@
-import { FileProject } from 'models/FileProject';
 import { Member } from 'models/Member';
 import { Project } from 'models/Project';
 import { MemberResolver } from 'resolvers/MemberResolver';
@@ -6,13 +5,12 @@ import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
 import { Database } from 'utils/configs/database';
-import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
-export const fileFixtures = {
+export const fileFixtures = JSON.stringify({
 	'/index.ts': "import { BLACK } from './color.ts'\n\nconsole.log(BLACK)",
 	'/constants/color.ts': "export const BLACK = 'black'"
-};
+});
 
 export const generateProjectFixture: (member: Member) => createProjectArgs = (member: Member) => {
 	return {

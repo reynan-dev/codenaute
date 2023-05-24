@@ -5,6 +5,7 @@ import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+import { SandpackFiles } from 'utils/types/Sandpack';
 
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
@@ -49,6 +50,31 @@ export class createProjectArgs {
 
 	@Field()
 	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
+}
+
+@ArgsType()
+export class updateProjectArgs {
+	@Field()
+	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	name: string;
+
+	@Field()
+	projectId: UUID;
+
+	@Field()
+	isTemplate: boolean;
+
+	@Field()
+	isPublic: boolean;
+
+	@Field()
+	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
 }
 
 @ArgsType()
