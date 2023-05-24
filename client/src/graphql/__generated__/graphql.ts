@@ -41,17 +41,12 @@ export type Member = {
 export type Mutation = {
 	__typename?: 'Mutation';
 	createFileProject: FileProject;
-	createProgrammingLanguage: ProgrammingLanguage;
 	createProjects: Project;
-	createSandpackTemplate: SandpackTemplate;
-	deleteAccount: Scalars['Boolean'];
 	deleteFileProject: FileProject;
-	deleteProgrammingLanguage: ProgrammingLanguage;
+	deleteMemberAccount: Member;
 	deleteProjects: Project;
-	deleteSandpackTemplate: SandpackTemplate;
 	followMember: Member;
 	forgotPassword: RoutingToken;
-	getMemberById: Member;
 	resetPassword: Member;
 	shareProjects: Project;
 	signIn: Member;
@@ -63,12 +58,10 @@ export type Mutation = {
 	updateMemberEmail: Member;
 	updateMemberPassword: Member;
 	updateMemberUsername: Member;
-	updateProgrammingLanguage: ProgrammingLanguage;
 	updateProjectsActiveFile: Project;
 	updateProjectsIsPublic: Project;
 	updateProjectsIsTemplate: Project;
 	updateProjectsName: Project;
-	updateSandpackTemplate: SandpackTemplate;
 	validEmail: RoutingToken;
 };
 
@@ -76,30 +69,16 @@ export type MutationCreateFileProjectArgs = {
 	content: Scalars['String'];
 	isHidden?: InputMaybe<Scalars['Boolean']>;
 	path: Scalars['String'];
+	programmingLanguage?: InputMaybe<Scalars['String']>;
 	projectId: Scalars['String'];
 };
 
-export type MutationCreateProgrammingLanguageArgs = {
-	name: Scalars['String'];
-	version: Scalars['String'];
-};
-
 export type MutationCreateProjectsArgs = {
-	activeFileId?: InputMaybe<Scalars['String']>;
 	isPublic: Scalars['Boolean'];
 	isTemplate: Scalars['Boolean'];
-	languageId: Scalars['String'];
 	memberId: Scalars['String'];
 	name: Scalars['String'];
-	templateId?: InputMaybe<Scalars['String']>;
-};
-
-export type MutationCreateSandpackTemplateArgs = {
-	slug: Scalars['String'];
-};
-
-export type MutationDeleteAccountArgs = {
-	password: Scalars['String'];
+	sandpackTemplate: Scalars['String'];
 };
 
 export type MutationDeleteFileProjectArgs = {
@@ -107,16 +86,12 @@ export type MutationDeleteFileProjectArgs = {
 	fileId: Scalars['String'];
 };
 
-export type MutationDeleteProgrammingLanguageArgs = {
-	languageId: Scalars['String'];
+export type MutationDeleteMemberAccountArgs = {
+	password: Scalars['String'];
 };
 
 export type MutationDeleteProjectsArgs = {
 	projectId: Scalars['String'];
-};
-
-export type MutationDeleteSandpackTemplateArgs = {
-	sandpackTemplateId: Scalars['String'];
 };
 
 export type MutationFollowMemberArgs = {
@@ -125,10 +100,6 @@ export type MutationFollowMemberArgs = {
 
 export type MutationForgotPasswordArgs = {
 	email: Scalars['String'];
-};
-
-export type MutationGetMemberByIdArgs = {
-	memberId: Scalars['String'];
 };
 
 export type MutationResetPasswordArgs = {
@@ -183,14 +154,8 @@ export type MutationUpdateMemberUsernameArgs = {
 	username: Scalars['String'];
 };
 
-export type MutationUpdateProgrammingLanguageArgs = {
-	languageId: Scalars['String'];
-	name: Scalars['String'];
-	version: Scalars['String'];
-};
-
 export type MutationUpdateProjectsActiveFileArgs = {
-	activeFile: Scalars['String'];
+	activeFileId: Scalars['String'];
 	projectId: Scalars['String'];
 };
 
@@ -209,28 +174,13 @@ export type MutationUpdateProjectsNameArgs = {
 	projectId: Scalars['String'];
 };
 
-export type MutationUpdateSandpackTemplateArgs = {
-	sandpackTemplateId: Scalars['String'];
-	slug: Scalars['String'];
-};
-
 export type MutationValidEmailArgs = {
-	id: Scalars['String'];
 	token: Scalars['String'];
-};
-
-export type ProgrammingLanguage = {
-	__typename?: 'ProgrammingLanguage';
-	id: Scalars['ID'];
-	name: Scalars['String'];
-	projects: Project;
-	version: Scalars['String'];
 };
 
 export type Project = {
 	__typename?: 'Project';
-	activeFile?: Maybe<FileProject>;
-	editors: Array<Member>;
+	editors?: Maybe<Array<Member>>;
 	favoritedBy?: Maybe<Array<Member>>;
 	files?: Maybe<Array<FileProject>>;
 	id: Scalars['ID'];
@@ -238,8 +188,6 @@ export type Project = {
 	isTemplate: Scalars['Boolean'];
 	name: Scalars['String'];
 	owner: Member;
-	programmingLanguage: ProgrammingLanguage;
-	template?: Maybe<SandpackTemplate>;
 };
 
 export type Query = {
@@ -248,17 +196,14 @@ export type Query = {
 	getAllFavoritedProjectsByMember: Project;
 	getAllFilesProjectByProjectId: FileProject;
 	getAllMembers: Array<Member>;
-	getAllProgrammingLanguages: ProgrammingLanguage;
 	getAllProjectsByEditor: Project;
 	getAllProjectsByOwner: Project;
-	getAllProjectsByProgrammingLanguage: Project;
 	getAllProjectsByTemplate: Project;
 	getAllProjectsPublicProjects: Project;
-	getAllSandpackTemplates: SandpackTemplate;
 	getFileProjectById: FileProject;
-	getProgrammingLanguageById: ProgrammingLanguage;
+	getMemberByEmail: Member;
+	getMemberById: Member;
 	getProjectsById: Project;
-	getSandpackTemplateById: SandpackTemplate;
 	profile: Member;
 };
 
@@ -274,41 +219,30 @@ export type QueryGetAllFilesProjectByProjectIdArgs = {
 	projectId: Scalars['String'];
 };
 
-export type QueryGetAllProjectsByProgrammingLanguageArgs = {
-	languageId: Scalars['String'];
-};
-
 export type QueryGetAllProjectsByTemplateArgs = {
-	templateId: Scalars['String'];
+	template: Scalars['String'];
 };
 
 export type QueryGetFileProjectByIdArgs = {
 	fileId: Scalars['String'];
 };
 
-export type QueryGetProgrammingLanguageByIdArgs = {
-	languageId: Scalars['String'];
+export type QueryGetMemberByEmailArgs = {
+	email: Scalars['String'];
+};
+
+export type QueryGetMemberByIdArgs = {
+	memberId: Scalars['String'];
 };
 
 export type QueryGetProjectsByIdArgs = {
 	projectId: Scalars['String'];
 };
 
-export type QueryGetSandpackTemplateByIdArgs = {
-	sandpackTemplateId: Scalars['String'];
-};
-
 export type RoutingToken = {
 	__typename?: 'RoutingToken';
 	createdAt: Scalars['DateTime'];
 	email: Scalars['String'];
-};
-
-export type SandpackTemplate = {
-	__typename?: 'SandpackTemplate';
-	id: Scalars['ID'];
-	projects?: Maybe<Array<Project>>;
-	slug: Scalars['String'];
 };
 
 export type Session = {
@@ -321,7 +255,10 @@ export type DeleteAccountMutationVariables = Exact<{
 	password: Scalars['String'];
 }>;
 
-export type DeleteAccountMutation = { __typename?: 'Mutation'; deleteAccount: boolean };
+export type DeleteAccountMutation = {
+	__typename?: 'Mutation';
+	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
+};
 
 export type ProfileQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -407,14 +344,22 @@ export const DeleteAccountDocument = {
 				selections: [
 					{
 						kind: 'Field',
-						name: { kind: 'Name', value: 'deleteAccount' },
+						name: { kind: 'Name', value: 'deleteMemberAccount' },
 						arguments: [
 							{
 								kind: 'Argument',
 								name: { kind: 'Name', value: 'password' },
 								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
 							}
-						]
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
+							]
+						}
 					}
 				]
 			}
