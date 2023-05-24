@@ -28,11 +28,7 @@ export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) 
 
 		if (!isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
 
-		return (
-			<>
-				<FaCheckCircle size={16} className='text-success' />
-			</>
-		);
+		return <FaCheckCircle size={16} className='text-success' />;
 	};
 
 	return (
