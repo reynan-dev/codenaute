@@ -3,11 +3,8 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import { useProfile } from 'api/profile/use-profile';
-
-export type ProfileData = ProfileQuery | null;
-
 export interface AuthContextProps {
-	profile: ProfileData;
+	profile: ProfileQuery | null;
 	isLoading: boolean;
 	refetch:
 		| ((
@@ -27,7 +24,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [profile, setProfile] = useState<ProfileData>(null);
+	const [profile, setProfile] = useState<ProfileQuery | null>(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const { loading, refetch, data, error } = useProfile(setIsAuthenticated);

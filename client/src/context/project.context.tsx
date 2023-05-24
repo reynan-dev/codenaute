@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { useProject } from 'api/project/use-project';
 import { Project } from 'fixtures/projects-fixtures';
+import { useCreateProject } from 'api/project/use-project';
 
 export interface ProjectContextProps {
 	projectData: Project | null;
@@ -15,7 +15,7 @@ export const ProjectContext = createContext<ProjectContextProps>({
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [projectData, setProjectData] = useState<Project | null>(null);
 
-	useProject(setProjectData);
+	useCreateProject(setProjectData);
 
 	return (
 		<ProjectContext.Provider value={{ projectData, setProjectData }}>

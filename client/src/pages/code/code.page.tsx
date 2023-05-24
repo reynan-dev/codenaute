@@ -6,7 +6,8 @@ import {
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
-import { Dependencies, SandpackTemplate } from 'pages/code/code.container';
+import { Dependencies, ProjectState } from 'pages/code/code.container';
+import { SandpackTemplate } from 'pages/code/code.service';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { ProjectPanel } from 'pages/code/components/project-panel';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
@@ -16,9 +17,10 @@ interface CodePageProps {
 	devDependencies: Dependencies;
 	mappedFilesForSandpack: Record<string, string | SandpackFile>;
 	template: SandpackTemplate | undefined;
+	state: ProjectState;
 }
 
-export const CodePage = ({ template }: CodePageProps) => {
+export const CodePage = ({ template, state }: CodePageProps) => {
 	return (
 		<SandpackProvider theme={sandpackCustomTheme} style={{ height: '100%' }} template={template}>
 			<SandpackLayout
@@ -31,7 +33,7 @@ export const CodePage = ({ template }: CodePageProps) => {
 			>
 				<div className='flex h-full w-full'>
 					<div className='h-100 flex w-2/12 min-w-56 flex-col'>
-						<ProjectPanel className='h-100 w-100 flex flex-col' />
+						<ProjectPanel className='h-100 w-100 flex flex-col' template={template} state={state} />
 						<FileExplorerPanel className='h-100 w-100 flex flex-1 flex-col' />
 					</div>
 

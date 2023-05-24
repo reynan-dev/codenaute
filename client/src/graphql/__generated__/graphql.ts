@@ -58,7 +58,7 @@ export type MutationCreateProjectArgs = {
 	isTemplate: Scalars['Boolean'];
 	memberId: Scalars['String'];
 	name: Scalars['String'];
-	sandpackTemplate: Scalars['String'];
+	sandpackTemplate?: InputMaybe<Scalars['String']>;
 };
 
 export type MutationDeleteMemberAccountArgs = {

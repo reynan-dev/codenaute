@@ -1,11 +1,26 @@
+import { useSandpack } from '@codesandbox/sandpack-react';
+import { ProjectState } from 'pages/code/code.container';
+import { SandpackTemplate, useSaveProjectService } from 'pages/code/code.service';
 import { FaExclamationCircle, FaSave } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
 interface ProjectPanelProps {
 	className?: string;
+	template: SandpackTemplate | undefined;
+	state: ProjectState;
 }
 
-export const ProjectPanel = ({ className }: ProjectPanelProps) => {
+export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) => {
+	const { sandpack } = useSandpack();
+	const { saveProject } = useSaveProjectService(
+		{
+			name: state.projectName,
+			files: JSON.stringify(sandpack.files),
+			sandpackTemplate: template ?? ''
+		},
+		state.setIsProjectSaved
+	);
+
 	return (
 		<>
 			<div className={className}>
@@ -33,9 +48,19 @@ export const ProjectPanel = ({ className }: ProjectPanelProps) => {
 						<input
 							className='peer h-full w-full rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
 							placeholder='project-001'
+							value={state.projectName}
+							onChange={(event) => {
+								state.setProjectName(event.target.value);
+							}}
 						/>
 					</div>
-					<FaSave size={24} className='text-dark-300' />
+					<button
+						onClick={() => {
+							saveProject();
+						}}
+					>
+						<FaSave size={16} className='text-dark-300' />
+					</button>
 				</div>
 			</div>
 		</>
