@@ -1,6 +1,8 @@
 import { useSandpack } from '@codesandbox/sandpack-react';
+import ProjectContext from 'context/project.context';
 import { ProjectState } from 'pages/code/code.container';
 import { SandpackTemplate, useSaveProjectService } from 'pages/code/code.service';
+import { useContext } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { FaCheckCircle, FaExclamationCircle, FaSave } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
@@ -13,19 +15,18 @@ interface ProjectPanelProps {
 
 export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) => {
 	const { sandpack } = useSandpack();
-	const { saveProject, saveProjectLoading } = useSaveProjectService(
-		{
-			name: state.projectName,
-			files: JSON.stringify(sandpack.files),
-			sandpackTemplate: template ?? ''
-		},
-		state.setIsProjectSaved
-	);
+	const { isProjectSaved } = useContext(ProjectContext);
+
+	const { saveProject, saveProjectLoading } = useSaveProjectService({
+		name: state.projectName,
+		files: sandpack.files,
+		sandpackTemplate: template ?? ''
+	});
 
 	const renderSavingSatusIcon = () => {
 		if (saveProjectLoading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
 
-		if (!state.isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
+		if (!isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
 
 		return (
 			<>

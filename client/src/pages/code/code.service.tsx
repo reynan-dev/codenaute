@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useCreateProject } from 'api/project/use-project';
+import { SandpackFiles } from '@codesandbox/sandpack-react/types';
 import AuthContext from 'context/auth.context';
 import ProjectContext from 'context/project.context';
 import { SandpackTemplates } from 'enums/sandpack-templates';
@@ -16,21 +16,17 @@ export type SandpackTemplate = (typeof SandpackTemplates)[keyof typeof SandpackT
 
 interface SaveProjectServiceArgs {
 	name: string;
-	files: string;
+	files: SandpackFiles;
 	sandpackTemplate: string;
 }
 
-export const useSaveProjectService = (
-	project: SaveProjectServiceArgs,
-	setIsProjectSaved: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-	const { setProjectData } = useContext(ProjectContext);
-	const { createProject, loading: saveProjectLoading } = useCreateProject(setProjectData);
-	// const [createProject, { loading }] = useMutation<
-	//     CreateProjectMutation,
-	//     CreateProjectMutationVariables
-	// >(CREATE_PROJECT_MUTATION);
+export const useSaveProjectService = (project: SaveProjectServiceArgs) => {
+	const [createProject, { loading: saveProjectLoading }] = useMutation<
+		CreateProjectMutation,
+		CreateProjectMutationVariables
+	>(CREATE_PROJECT_MUTATION);
 	const { profile } = useContext(AuthContext);
+	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
 
 	const saveProject = async () => {
 		if (!profile)
@@ -56,10 +52,17 @@ export const useSaveProjectService = (
 					isTemplate: false,
 					isPublic: false,
 					sandpackTemplate: project.sandpackTemplate,
-					files: project.files
+					files: JSON.stringify(project.files)
 				}
 			});
-			setIsProjectSaved(true);
+			setLastSavedProjectData({
+				name: project.name,
+				files: project.files
+			});
+			setCurrentProjectData({
+				name: project.name,
+				files: project.files
+			});
 		} catch (error) {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}
