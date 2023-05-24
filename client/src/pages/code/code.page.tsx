@@ -37,13 +37,11 @@ export const CodePage = ({ template, state }: CodePageProps) => {
 							<FileExplorerPanel className='h-100 w-100 flex flex-1 flex-col' />
 						</div>
 
-						<div className='h-full flex-1 bg-dark-900'>
+						<div className='h-full flex-1 border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark-900'>
 							<SandpackCodeEditor
 								style={{
 									width: '100%',
-									height: '100%',
-									borderRadius: '0',
-									border: 'none'
+									height: '100%'
 								}}
 							/>
 						</div>
