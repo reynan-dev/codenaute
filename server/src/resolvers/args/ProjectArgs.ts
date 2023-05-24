@@ -7,7 +7,7 @@ import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 import { SandpackFiles } from 'utils/types/Sandpack';
 
-const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
+const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
 
 @ArgsType()
 export class getProjectByIdArgs {
@@ -36,7 +36,7 @@ export class getAllProjectsByTemplateArgs {
 @ArgsType()
 export class createProjectArgs {
 	@Field()
-	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	@Matches(nameRegExp, { message: ErrorMessages.INVALID_PROJECT_NAME })
 	name: string;
 
 	@Field()
