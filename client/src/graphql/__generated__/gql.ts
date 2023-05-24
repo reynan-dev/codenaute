@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-	'\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid,\n\t\t\temail,\n\t\t\tusername\n\t\t}\n\t}\n':
+	'\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t\tusername\n\t\t}\n\t}\n':
 		types.DeleteAccountDocument,
 	'\n\tquery Profile {\n\t\tprofile {\n\t\t\tid\n\t\t\tusername\n\t\t\temail\n\t\t}\n\t}\n':
 		types.ProfileDocument,
@@ -23,6 +23,10 @@ const documents = {
 		types.UpdatePasswordDocument,
 	'\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateMemberUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n':
 		types.UpdateUsernameDocument,
+	'\n\tmutation CreateProject(\n\t\t$name: String!\n\t\t$memberId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tcreateProject(\n\t\t\tname: $name\n\t\t\tmemberId: $memberId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\tid\n\t\t\tname\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t\tfiles\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t}\n\t}\n':
+		types.CreateProjectDocument,
+	'\n\tmutation UpdateProject(\n\t\t$name: String!\n\t\t$projectId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tupdateProject(\n\t\t\tname: $name\n\t\t\tprojectId: $projectId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\towner {\n\t\t\t\tusername\n\t\t\t\tid\n\t\t\t}\n\t\t\tname\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t\tid\n\t\t\tfiles\n\t\t}\n\t}\n':
+		types.UpdateProjectDocument,
 	'\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
 		types.SignInDocument,
 	'\n\tmutation SignOut {\n\t\tsignOut\n\t}\n': types.SignOutDocument,
@@ -48,8 +52,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-	source: '\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid,\n\t\t\temail,\n\t\t\tusername\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid,\n\t\t\temail,\n\t\t\tusername\n\t\t}\n\t}\n'];
+	source: '\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t\tusername\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation DeleteAccount($password: String!) {\n\t\tdeleteMemberAccount(password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t\tusername\n\t\t}\n\t}\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -74,6 +78,18 @@ export function graphql(
 export function graphql(
 	source: '\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateMemberUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n'
 ): (typeof documents)['\n\tmutation UpdateUsername($username: String!) {\n\t\tupdateMemberUsername(username: $username) {\n\t\t\tusername\n\t\t\tid\n\t\t}\n\t}\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+	source: '\n\tmutation CreateProject(\n\t\t$name: String!\n\t\t$memberId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tcreateProject(\n\t\t\tname: $name\n\t\t\tmemberId: $memberId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\tid\n\t\t\tname\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t\tfiles\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation CreateProject(\n\t\t$name: String!\n\t\t$memberId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tcreateProject(\n\t\t\tname: $name\n\t\t\tmemberId: $memberId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\tid\n\t\t\tname\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t\tfiles\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t}\n\t}\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+	source: '\n\tmutation UpdateProject(\n\t\t$name: String!\n\t\t$projectId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tupdateProject(\n\t\t\tname: $name\n\t\t\tprojectId: $projectId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\towner {\n\t\t\t\tusername\n\t\t\t\tid\n\t\t\t}\n\t\t\tname\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t\tid\n\t\t\tfiles\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation UpdateProject(\n\t\t$name: String!\n\t\t$projectId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t) {\n\t\tupdateProject(\n\t\t\tname: $name\n\t\t\tprojectId: $projectId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t) {\n\t\t\towner {\n\t\t\t\tusername\n\t\t\t\tid\n\t\t\t}\n\t\t\tname\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t\tid\n\t\t\tfiles\n\t\t}\n\t}\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

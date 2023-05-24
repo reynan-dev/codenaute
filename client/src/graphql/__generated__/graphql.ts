@@ -16,14 +16,6 @@ export type Scalars = {
 	DateTime: any;
 };
 
-export type FileProject = {
-	__typename?: 'FileProject';
-	content: Scalars['String'];
-	id: Scalars['ID'];
-	isHidden: Scalars['Boolean'];
-	path: Scalars['String'];
-};
-
 export type Member = {
 	__typename?: 'Member';
 	email: Scalars['String'];
@@ -40,40 +32,28 @@ export type Member = {
 
 export type Mutation = {
 	__typename?: 'Mutation';
-	createFileProject: FileProject;
-	createProjects: Project;
-	deleteFileProject: FileProject;
+	createProject: Project;
 	deleteMemberAccount: Member;
-	deleteProjects: Project;
+	deleteProject: Project;
 	followMember: Member;
 	forgotPassword: RoutingToken;
 	resetPassword: Member;
-	shareProjects: Project;
+	shareProject: Project;
 	signIn: Member;
 	signOut: Scalars['Boolean'];
 	signUp: Member;
-	updateFileProjectCode: FileProject;
-	updateFileProjectHidden: FileProject;
-	updateFileProjectPath: FileProject;
 	updateMemberEmail: Member;
 	updateMemberPassword: Member;
 	updateMemberUsername: Member;
-	updateProjectsActiveFile: Project;
-	updateProjectsIsPublic: Project;
-	updateProjectsIsTemplate: Project;
-	updateProjectsName: Project;
+	updateProject: Project;
+	updateProjectIsPublic: Project;
+	updateProjectIsTemplate: Project;
+	updateProjectName: Project;
 	validEmail: RoutingToken;
 };
 
-export type MutationCreateFileProjectArgs = {
-	content: Scalars['String'];
-	isHidden?: InputMaybe<Scalars['Boolean']>;
-	path: Scalars['String'];
-	programmingLanguage?: InputMaybe<Scalars['String']>;
-	projectId: Scalars['String'];
-};
-
-export type MutationCreateProjectsArgs = {
+export type MutationCreateProjectArgs = {
+	files: Scalars['String'];
 	isPublic: Scalars['Boolean'];
 	isTemplate: Scalars['Boolean'];
 	memberId: Scalars['String'];
@@ -81,16 +61,11 @@ export type MutationCreateProjectsArgs = {
 	sandpackTemplate: Scalars['String'];
 };
 
-export type MutationDeleteFileProjectArgs = {
-	content: Scalars['String'];
-	fileId: Scalars['String'];
-};
-
 export type MutationDeleteMemberAccountArgs = {
 	password: Scalars['String'];
 };
 
-export type MutationDeleteProjectsArgs = {
+export type MutationDeleteProjectArgs = {
 	projectId: Scalars['String'];
 };
 
@@ -108,7 +83,7 @@ export type MutationResetPasswordArgs = {
 	token: Scalars['String'];
 };
 
-export type MutationShareProjectsArgs = {
+export type MutationShareProjectArgs = {
 	membersId: Array<Scalars['String']>;
 	projectId: Scalars['String'];
 };
@@ -125,21 +100,6 @@ export type MutationSignUpArgs = {
 	username: Scalars['String'];
 };
 
-export type MutationUpdateFileProjectCodeArgs = {
-	content: Scalars['String'];
-	fileId: Scalars['String'];
-};
-
-export type MutationUpdateFileProjectHiddenArgs = {
-	fileId: Scalars['String'];
-	isHidden: Scalars['Boolean'];
-};
-
-export type MutationUpdateFileProjectPathArgs = {
-	fileId: Scalars['String'];
-	path: Scalars['String'];
-};
-
 export type MutationUpdateMemberEmailArgs = {
 	email: Scalars['String'];
 };
@@ -154,22 +114,26 @@ export type MutationUpdateMemberUsernameArgs = {
 	username: Scalars['String'];
 };
 
-export type MutationUpdateProjectsActiveFileArgs = {
-	activeFileId: Scalars['String'];
+export type MutationUpdateProjectArgs = {
+	files: Scalars['String'];
+	isPublic: Scalars['Boolean'];
+	isTemplate: Scalars['Boolean'];
+	name: Scalars['String'];
 	projectId: Scalars['String'];
+	sandpackTemplate: Scalars['String'];
 };
 
-export type MutationUpdateProjectsIsPublicArgs = {
+export type MutationUpdateProjectIsPublicArgs = {
 	isPublic: Scalars['Boolean'];
 	projectId: Scalars['String'];
 };
 
-export type MutationUpdateProjectsIsTemplateArgs = {
+export type MutationUpdateProjectIsTemplateArgs = {
 	isTemplate: Scalars['Boolean'];
 	projectId: Scalars['String'];
 };
 
-export type MutationUpdateProjectsNameArgs = {
+export type MutationUpdateProjectNameArgs = {
 	name: Scalars['String'];
 	projectId: Scalars['String'];
 };
@@ -182,7 +146,7 @@ export type Project = {
 	__typename?: 'Project';
 	editors?: Maybe<Array<Member>>;
 	favoritedBy?: Maybe<Array<Member>>;
-	files?: Maybe<Array<FileProject>>;
+	files: Scalars['String'];
 	id: Scalars['ID'];
 	isPublic: Scalars['Boolean'];
 	isTemplate: Scalars['Boolean'];
@@ -194,16 +158,14 @@ export type Query = {
 	__typename?: 'Query';
 	favoriteProject: Project;
 	getAllFavoritedProjectsByMember: Project;
-	getAllFilesProjectByProjectId: FileProject;
 	getAllMembers: Array<Member>;
 	getAllProjectsByEditor: Project;
 	getAllProjectsByOwner: Project;
 	getAllProjectsByTemplate: Project;
 	getAllProjectsPublicProjects: Project;
-	getFileProjectById: FileProject;
 	getMemberByEmail: Member;
 	getMemberById: Member;
-	getProjectsById: Project;
+	getProjectById: Project;
 	profile: Member;
 };
 
@@ -215,16 +177,8 @@ export type QueryGetAllFavoritedProjectsByMemberArgs = {
 	memberId: Scalars['String'];
 };
 
-export type QueryGetAllFilesProjectByProjectIdArgs = {
-	projectId: Scalars['String'];
-};
-
 export type QueryGetAllProjectsByTemplateArgs = {
 	template: Scalars['String'];
-};
-
-export type QueryGetFileProjectByIdArgs = {
-	fileId: Scalars['String'];
 };
 
 export type QueryGetMemberByEmailArgs = {
@@ -235,7 +189,7 @@ export type QueryGetMemberByIdArgs = {
 	memberId: Scalars['String'];
 };
 
-export type QueryGetProjectsByIdArgs = {
+export type QueryGetProjectByIdArgs = {
 	projectId: Scalars['String'];
 };
 
@@ -294,6 +248,50 @@ export type UpdateUsernameMutationVariables = Exact<{
 export type UpdateUsernameMutation = {
 	__typename?: 'Mutation';
 	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
+};
+
+export type CreateProjectMutationVariables = Exact<{
+	name: Scalars['String'];
+	memberId: Scalars['String'];
+	isTemplate: Scalars['Boolean'];
+	isPublic: Scalars['Boolean'];
+	sandpackTemplate: Scalars['String'];
+	files: Scalars['String'];
+}>;
+
+export type CreateProjectMutation = {
+	__typename?: 'Mutation';
+	createProject: {
+		__typename?: 'Project';
+		id: string;
+		name: string;
+		files: string;
+		isTemplate: boolean;
+		isPublic: boolean;
+		owner: { __typename?: 'Member'; id: string };
+	};
+};
+
+export type UpdateProjectMutationVariables = Exact<{
+	name: Scalars['String'];
+	projectId: Scalars['String'];
+	isTemplate: Scalars['Boolean'];
+	isPublic: Scalars['Boolean'];
+	sandpackTemplate: Scalars['String'];
+	files: Scalars['String'];
+}>;
+
+export type UpdateProjectMutation = {
+	__typename?: 'Mutation';
+	updateProject: {
+		__typename?: 'Project';
+		name: string;
+		isTemplate: boolean;
+		isPublic: boolean;
+		id: string;
+		files: string;
+		owner: { __typename?: 'Member'; username: string; id: string };
+	};
 };
 
 export type SignInMutationVariables = Exact<{
@@ -548,6 +546,247 @@ export const UpdateUsernameDocument = {
 		}
 	]
 } as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
+export const CreateProjectDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'CreateProject' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'createProject' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'name' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'memberId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isPublic' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'sandpackTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'files' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<CreateProjectMutation, CreateProjectMutationVariables>;
+export const UpdateProjectDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdateProject' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateProject' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'name' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'projectId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isPublic' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'sandpackTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'files' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdateProjectMutation, UpdateProjectMutationVariables>;
 export const SignInDocument = {
 	kind: 'Document',
 	definitions: [
