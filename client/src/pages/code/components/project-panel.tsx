@@ -5,7 +5,7 @@ import { SandpackTemplate, useSaveProjectService } from 'pages/code/code.service
 import { useContext } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { FaCheckCircle, FaExclamationCircle, FaSave } from 'react-icons/fa';
-import { twJoin } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 interface ProjectPanelProps {
 	className?: string;
@@ -37,45 +37,45 @@ export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) 
 
 	return (
 		<>
-			<div className={className}>
+			<div
+				className={twMerge(
+					'flex items-center',
+					'h-16 w-full',
+					'space-x-3.5 px-3.5 py-4',
+					'bg-dark-900',
+					className
+				)}
+			>
 				<div
 					className={twJoin(
-						'flex items-center',
-						'h-14',
-						'space-x-3.5 px-3.5 py-4',
-						'bg-dark-900',
-						'border border-l-0 border-t-0',
-						'border-b-dark-700 border-r-dark-700'
+						'flex items-center justify-start ',
+						'pl-2',
+						'h-full w-fit',
+						'rounded-md bg-dark-700',
+						'focus-within:outline focus-within:outline-1 focus-within:outline-primary'
 					)}
 				>
-					<h3 className='text-sm font-normal text-dark-300'>Project</h3>
-					<div
-						className={twJoin(
-							'flex items-center justify-start ',
-							'pl-2',
-							'h-full w-full',
-							'rounded-md bg-dark-700',
-							'focus-within:outline focus-within:outline-1 focus-within:outline-primary'
-						)}
-					>
-						{renderSavingSatusIcon()}
-						<input
-							className='peer h-full w-full rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
-							placeholder='project-001'
-							value={state.projectName}
-							onChange={(event) => {
-								state.setProjectName(event.target.value);
-							}}
-						/>
-					</div>
+					{renderSavingSatusIcon()}
+					<input
+						className='peer h-full w-52 rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
+						placeholder='project-001'
+						value={state.projectName}
+						onChange={(event) => {
+							state.setProjectName(event.target.value);
+						}}
+					/>
+				</div>
+				{!isProjectSaved && (
 					<button
 						onClick={() => {
 							saveProject();
 						}}
+						className='flex h-full items-center justify-center space-x-2 rounded-md bg-dark-700 px-3.5 text-sm text-white'
 					>
-						<FaSave size={16} className='text-dark-300' />
+						<span className=''>Save project</span>
+						<FaSave size={16} className='mb-0.5' />
 					</button>
-				</div>
+				)}
 			</div>
 		</>
 	);
