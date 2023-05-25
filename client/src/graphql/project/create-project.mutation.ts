@@ -25,6 +25,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 			files
 			isTemplate
 			isPublic
+			sandpackTemplate
 		}
 	}
 `;

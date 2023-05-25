@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_PROJECT_MUTATION = gql`
+export const UPDATE_PROJECT_MUTATION = gql`
 	mutation UpdateProject(
 		$name: String!
 		$projectId: String!

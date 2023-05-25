@@ -1,7 +1,6 @@
-import { useSandpack } from '@codesandbox/sandpack-react';
 import ProjectContext from 'context/project.context';
 import { ProjectState } from 'pages/code/code.container';
-import { SandpackTemplate, useSaveProjectService } from 'pages/code/code.service';
+import { useSaveProjectService } from 'pages/code/code.service';
 import { useContext } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { FaCheckCircle, FaExclamationCircle, FaSave } from 'react-icons/fa';
@@ -9,19 +8,13 @@ import { twJoin, twMerge } from 'tailwind-merge';
 
 interface ProjectPanelProps {
 	className?: string;
-	template: SandpackTemplate | undefined;
 	state: ProjectState;
 }
 
-export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) => {
-	const { sandpack } = useSandpack();
+export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 	const { isProjectSaved } = useContext(ProjectContext);
 
-	const { saveProject, saveProjectLoading } = useSaveProjectService({
-		name: state.projectName,
-		files: sandpack.files,
-		sandpackTemplate: template ?? ''
-	});
+	const { saveProject, saveProjectLoading } = useSaveProjectService();
 
 	const renderSavingSatusIcon = () => {
 		if (saveProjectLoading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
@@ -64,7 +57,7 @@ export const ProjectPanel = ({ className, state, template }: ProjectPanelProps) 
 				{!isProjectSaved && (
 					<button
 						onClick={() => {
-							saveProject();
+							saveProject(state.currentProjectData);
 						}}
 						className='flex h-full items-center justify-center space-x-2 rounded-md bg-dark-700 px-3.5 text-sm text-white'
 					>

@@ -1,5 +1,4 @@
 import { SandpackFiles } from '@codesandbox/sandpack-react/index';
-
 export interface File {
 	name: string;
 	code: string;
@@ -7,16 +6,6 @@ export interface File {
 }
 
 export type Files = File[];
-
-export interface Project {
-	id: string;
-	name: string;
-	sandpackTemplate: {
-		id: string;
-		name: string;
-	};
-	files: SandpackFiles;
-}
 
 export const filesFixtures: SandpackFiles = {
 	'/package.json': {
@@ -41,14 +30,4 @@ export const filesFixtures: SandpackFiles = {
 	'/src/const.ts': {
 		code: "export const COLOR = 'black'"
 	}
-};
-
-export const projectFixtures: Project = {
-	id: '0000',
-	name: 'projectName',
-	sandpackTemplate: {
-		id: '0000',
-		name: 'react-ts'
-	},
-	files: filesFixtures
 };

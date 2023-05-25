@@ -5,6 +5,7 @@ import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne } f
 import { Member } from 'models/Member';
 import { BaseModel } from 'models/base/BaseModel';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+import { isEnumType } from 'graphql';
 
 @Entity()
 @ObjectType()
@@ -32,6 +33,7 @@ export class Project extends BaseModel {
 		enum: SandpackTemplates,
 		nullable: true
 	})
+	@Field()
 	sandpackTemplate: SandpackTemplates;
 
 	// @Field(() => [FileProject], { nullable: true, defaultValue: [] })

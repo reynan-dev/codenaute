@@ -6,11 +6,11 @@ import {
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
 import { ProjectState } from 'pages/code/code.container';
-import { SandpackTemplate } from 'pages/code/code.service';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { ProjectPanel } from 'pages/code/components/project-panel';
 import { SandpackContainer } from 'pages/code/components/sandpack.container';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
+import { SandpackTemplate } from 'types/sandpack';
 
 interface CodePageProps {
 	// dependencies: Dependencies;
@@ -22,7 +22,7 @@ interface CodePageProps {
 export const CodePage = ({ template, state }: CodePageProps) => {
 	return (
 		<SandpackProvider theme={sandpackCustomTheme} style={{ height: '100%' }} template={template}>
-			<SandpackContainer state={state}>
+			<SandpackContainer>
 				<SandpackLayout
 					style={{
 						width: '100%',
@@ -31,7 +31,7 @@ export const CodePage = ({ template, state }: CodePageProps) => {
 						border: 'none'
 					}}
 				>
-					<ProjectPanel className='w-full flex-1' template={template} state={state} />
+					<ProjectPanel className='w-full flex-1' state={state} />
 					<div className='flex h-full w-full'>
 						<div className='h-100 flex w-2/12 min-w-56 flex-col'>
 							<FileExplorerPanel className='h-100 w-100 flex flex-1 flex-col' />

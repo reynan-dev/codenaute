@@ -77,6 +77,14 @@ const App = () => {
 								</ConditionalRoute>
 							}
 						/>
+						<Route
+							path={`${CODE_PATH}/:projectId`}
+							element={
+								<ConditionalRoute type='private'>
+									<Code />
+								</ConditionalRoute>
+							}
+						/>
 					</Routes>
 					<ToastContainer theme='colored' />
 				</Main>

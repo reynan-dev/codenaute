@@ -1,8 +1,7 @@
-import { SandpackTemplates } from 'enums/sandpack-templates';
-import { SandpackTemplate } from 'pages/code/code.service';
+import { SandpackTemplate, SandpackTemplatesEnum } from 'types/sandpack';
 
 export const getCheckedTemplateParam = (_templateParam: string | null) => {
-	const validSandpackTemplates = Object.values(SandpackTemplates);
+	const validSandpackTemplates = Object.values(SandpackTemplatesEnum);
 
 	if (!_templateParam) return undefined;
 	if (!validSandpackTemplates.some((validTemplate) => validTemplate !== _templateParam)) {

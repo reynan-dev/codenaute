@@ -1,13 +1,10 @@
-import Loader from 'components/svgs/loader';
 import ProjectContext from 'context/project.context';
-import { useGetQueryParam } from 'hooks/use-get-query-param';
 import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CodePage } from './code.page';
-import { SandpackTemplates } from 'enums/sandpack-templates';
+import { ProjectContextData } from 'types/project';
 
 export type Dependencies = Record<string, string>;
-export type SandpackTemplate = (typeof SandpackTemplates)[keyof typeof SandpackTemplates];
 
 // const getDependenciesFromJson = (projectData: Project): Dependencies => {
 // 	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
@@ -22,30 +19,32 @@ export type SandpackTemplate = (typeof SandpackTemplates)[keyof typeof SandpackT
 export interface ProjectState {
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
+	currentProjectData: ProjectContextData | null;
 }
 
 export const CodeContainer = () => {
-	const { getProjectDataResult } = useContext(ProjectContext);
-	const [projectName, setProjectName] = useState('untitled');
-	const templateParam = useGetQueryParam('template');
+	// const { getProjectDataResult } = useContext(ProjectContext);
+	const { templateParam, projectName, setProjectName, currentProjectData } =
+		useContext(ProjectContext);
 
 	const state: ProjectState = {
 		projectName,
-		setProjectName
+		setProjectName,
+		currentProjectData
 	};
 
 	return (
-		<>
-			{getProjectDataResult === null ? (
-				<Loader />
-			) : (
-				<CodePage
-					// dependencies={getDependenciesFromJson(getProjectDataResult)}
-					// devDependencies={getDevDependenciesFromJson(getProjectDataResult)}
-					template={getCheckedTemplateParam(templateParam)}
-					state={state}
-				/>
-			)}
-		</>
+		// <>
+		// 	{getProjectDataResult === null ? (
+		// 		<Loader />
+		// 	) : (
+		<CodePage
+			// dependencies={getDependenciesFromJson(getProjectDataResult)}
+			// devDependencies={getDevDependenciesFromJson(getProjectDataResult)}
+			template={getCheckedTemplateParam(templateParam)}
+			state={state}
+		/>
+		// 	)}
+		// </>
 	);
 };

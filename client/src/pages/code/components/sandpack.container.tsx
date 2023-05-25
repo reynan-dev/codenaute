@@ -5,19 +5,15 @@ import { useContext, useEffect } from 'react';
 
 interface SandpackContainerProps {
 	children: JSX.Element;
-	state: ProjectState;
 }
 
-export const SandpackContainer = ({ state, children }: SandpackContainerProps) => {
+export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	const { sandpack } = useSandpack();
-	const { setCurrentProjectData } = useContext(ProjectContext);
+	const { setFiles } = useContext(ProjectContext);
 
 	useEffect(() => {
-		setCurrentProjectData({
-			name: state.projectName,
-			files: sandpack.files
-		});
-	}, [sandpack.files, setCurrentProjectData, state.projectName]);
+		setFiles(sandpack.files);
+	}, [sandpack.files, setFiles]);
 
 	return <>{children}</>;
 };
