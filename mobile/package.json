@@ -12,14 +12,10 @@
 		"gql-codegen": "graphql-codegen --config codegen.ts",
 		"ios": "expo start --ios",
 		"start": "expo start",
-		"test": "jest --watchAll",
+		"test": "jest --runInBand --verbose --coverage",
+		"test:ci": "jest --runInBand --verbose",
+		"test:watch": "jest --watchAll --runInBand --verbose --coverage",
 		"web": "expo start --web"
-	},
-	"jest": {
-		"preset": "@testing-library/react-native",
-		"setupFilesAfterEnv": [
-			"@testing-library/jest-native/extend-expect"
-		]
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.5",
