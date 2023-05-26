@@ -72,7 +72,7 @@ export class ProjectResolver {
 		const project = await this.ProjectServices.findById(projectId);
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
-		if (project.id !== member.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+		if (project.owner.id !== member.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
 		return project;
 	}
