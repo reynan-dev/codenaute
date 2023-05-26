@@ -11,7 +11,8 @@ import {
 import { GET_PROJECT_BY_ID_QUERY } from 'graphql/project/get-project-by-id.query';
 import { UPDATE_PROJECT_MUTATION } from 'graphql/project/update-project.mutation';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { useContext } from 'react';
+import useDebounce from 'hooks/use-debounce';
+import { useCallback, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { ProjectContextData, SetProjectContextData } from 'types/project';
 
@@ -104,36 +105,54 @@ export const useUpdateProjectService = () => {
 	const { profile } = useContext(AuthContext);
 	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
 
-	const updateProject = async (project: ProjectContextData | null) => {
-		if (!profile) {
-			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
-				autoClose: 10000
-			});
-		}
+	const updateProject = useCallback(
+		async (project: ProjectContextData | null) => {
+			if (!profile) {
+				return toast.error('An unexpected error has occurred. Please log in again and try again.', {
+					autoClose: 10000
+				});
+			}
 
-		if (project?.id === undefined) {
-			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
-				autoClose: 10000
-			});
-		}
+			if (project?.id === undefined) {
+				return toast.error('An unexpected error has occurred. Please log in again and try again.', {
+					autoClose: 10000
+				});
+			}
 
-		try {
-			await UpdateProjectMutation({
-				variables: {
-					name: project.name,
-					projectId: project.id,
-					isTemplate: false,
-					isPublic: false,
-					sandpackTemplate: project.sandpackTemplate ?? '',
-					files: JSON.stringify(project.files)
-				}
-			});
+			try {
+				await UpdateProjectMutation({
+					variables: {
+						name: project.name,
+						projectId: project.id,
+						isTemplate: false,
+						isPublic: false,
+						sandpackTemplate: project.sandpackTemplate ?? '',
+						files: JSON.stringify(project.files)
+					}
+				});
 
-			onSuccess({ setLastSavedProjectData, setCurrentProjectData }, project);
-		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
-		}
-	};
+				onSuccess({ setLastSavedProjectData, setCurrentProjectData }, project);
+			} catch (error) {
+				toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
+			}
+		},
+		[UpdateProjectMutation, profile, setCurrentProjectData, setLastSavedProjectData]
+	);
 
 	return { data, loading, updateProject };
+};
+
+export const useAutoSaveProject = () => {
+	const AUTO_SAVE_DELAY_MS = 1000;
+	const { currentProjectData, isProjectSaved } = useContext(ProjectContext);
+	const debouncedProject = useDebounce<ProjectContextData | null>(
+		currentProjectData,
+		AUTO_SAVE_DELAY_MS
+	);
+	const { updateProject } = useUpdateProjectService();
+
+	useEffect(() => {
+		if (!isProjectSaved && debouncedProject) updateProject(debouncedProject);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [debouncedProject, updateProject]);
 };

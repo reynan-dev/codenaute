@@ -1,10 +1,14 @@
-import ProjectContext from 'context/project.context';
-import { useContext } from 'react';
-import { CodePage } from './code.page';
-import { ProjectContextData } from 'types/project';
 import Loader from 'components/svgs/loader';
+import ProjectContext from 'context/project.context';
+import {
+	useAutoSaveProject,
+	useGetProjectService,
+	useUpdateProjectService
+} from 'pages/code/code.service';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetProjectService } from 'pages/code/code.service';
+import { ProjectContextData } from 'types/project';
+import { CodePage } from './code.page';
 
 export type Dependencies = Record<string, string>;
 export interface ProjectState {
@@ -23,6 +27,11 @@ export const CodeContainer = () => {
 	};
 
 	const { loading } = useGetProjectService(useParams().projectId ?? '');
+	const { updateProject } = useUpdateProjectService();
+
+	// const consoleLog = () => (console.log('prout'))
+
+	useAutoSaveProject();
 
 	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;
 };
