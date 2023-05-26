@@ -27,8 +27,8 @@ export abstract class BaseServices {
 		return await this.repository.findOneBy(filter);
 	}
 
-	async findById(id: UUID) {
-		return await this.repository.findOneBy({ id: id });
+	async findById(id: string) {
+		return this.repository.findOneBy({ id: id });
 	}
 
 	async create(data: ObjectLiteral) {

@@ -3,14 +3,11 @@ import { SandpackFiles } from '@codesandbox/sandpack-react/types';
 import AuthContext from 'context/auth.context';
 import ProjectContext from 'context/project.context';
 import {
-	CreateProjectMutation,
-	CreateProjectMutationVariables,
 	GetProjectByIdQuery,
 	GetProjectByIdQueryVariables,
 	UpdateProjectMutation,
 	UpdateProjectMutationVariables
 } from 'graphql/__generated__/graphql';
-import { CREATE_PROJECT_MUTATION } from 'graphql/project/create-project.mutation';
 import { GET_PROJECT_BY_ID_QUERY } from 'graphql/project/get-project-by-id.query';
 import { UPDATE_PROJECT_MUTATION } from 'graphql/project/update-project.mutation';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
@@ -53,8 +50,6 @@ interface onSuccessCallbacks {
 export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContextData) => {
 	const { setLastSavedProjectData, setCurrentProjectData } = callbacks;
 
-	console.log({ projectId: project.id });
-
 	setLastSavedProjectData({
 		id: project.id,
 		name: project.name,
@@ -70,7 +65,6 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 };
 
 export const mapProjectDataResponse = (data: ProjectDataResponse) => {
-	console.log(data.id);
 	return {
 		id: data.id,
 		name: data.name,
@@ -79,71 +73,26 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 	};
 };
 
-export const useGetProjectService = (projectId: string | undefined) => {
+export const useGetProjectService = (projectId: string) => {
 	const { setCurrentProjectData, setLastSavedProjectData } = useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
 		GetProjectByIdQuery,
 		GetProjectByIdQueryVariables
 	>(GET_PROJECT_BY_ID_QUERY, {
-		variables: { projectId: projectId ?? '' },
+		variables: { projectId: projectId },
 		onCompleted: (data) => {
 			onSuccess(
 				{ setLastSavedProjectData, setCurrentProjectData },
-				mapProjectDataResponse(data.getProjectById) ?? null
+				mapProjectDataResponse(data.getProjectById)
 			);
 		},
 		onError: (error) => {
-			console.error({ errorToCheck: error });
+			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}
 	});
 
 	return { loading, data, error, refetch };
-};
-
-export const useCreateProjectService = () => {
-	const [createProjectMutation, { data, loading }] = useMutation<
-		CreateProjectMutation,
-		CreateProjectMutationVariables
-	>(CREATE_PROJECT_MUTATION);
-
-	const { profile } = useContext(AuthContext);
-	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
-
-	const createProject = async (project: ProjectContextData) => {
-		console.log('CREATION');
-
-		if (!profile) {
-			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
-				autoClose: 10000
-			});
-		}
-
-		await createProjectMutation({
-			variables: {
-				name: project.name,
-				memberId: profile.profile.id,
-				isTemplate: false,
-				isPublic: false,
-				sandpackTemplate: project.sandpackTemplate ?? '',
-				files: JSON.stringify(project.files)
-			},
-			onCompleted(data) {
-				console.log({
-					ilYAunId: data ? mapProjectDataResponse(data.createProject).id : project.id
-				});
-				onSuccess(
-					{ setLastSavedProjectData, setCurrentProjectData },
-					data ? mapProjectDataResponse(data.createProject) : project
-				);
-			},
-			onError(error) {
-				toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
-			}
-		});
-	};
-
-	return { data, loading, createProject };
 };
 
 export const useUpdateProjectService = () => {
@@ -155,17 +104,14 @@ export const useUpdateProjectService = () => {
 	const { profile } = useContext(AuthContext);
 	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
 
-	const updateProject = async (project: ProjectContextData) => {
-		console.log('UPDATE');
-		console.log({ projectIdUpdate: project.id });
-
+	const updateProject = async (project: ProjectContextData | null) => {
 		if (!profile) {
 			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
 				autoClose: 10000
 			});
 		}
 
-		if (project.id === undefined) {
+		if (project?.id === undefined) {
 			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
 				autoClose: 10000
 			});
@@ -190,40 +136,4 @@ export const useUpdateProjectService = () => {
 	};
 
 	return { data, loading, updateProject };
-};
-
-export const useSaveProjectService = () => {
-	const { lastSavedProjectData } = useContext(ProjectContext);
-
-	const {
-		updateProject,
-		data: updateProjectData,
-		loading: updateProjectLoading
-	} = useUpdateProjectService();
-
-	const {
-		createProject,
-		data: createProjectData,
-		loading: createProjectLoading
-	} = useCreateProjectService();
-
-	const saveProjectLoading = createProjectLoading || updateProjectLoading ? true : false;
-
-	const saveProject = async (project: ProjectContextData | null) => {
-		if (!project) {
-			return toast.error('An unexpected error has occurred. Please log in again and try again.', {
-				autoClose: 10000
-			});
-		}
-
-		if (lastSavedProjectData === null) {
-			return await createProject(project);
-		}
-
-		return await updateProject(project);
-	};
-
-	const saveProjectData = updateProjectData ?? createProjectData;
-
-	return { saveProject, saveProjectLoading, saveProjectData };
 };

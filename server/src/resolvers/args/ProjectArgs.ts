@@ -1,6 +1,6 @@
-import { Matches } from 'class-validator';
+import { IsUUID, Matches } from 'class-validator';
 import { UUID } from 'utils/types/Uuid';
-import { ArgsType, Field } from 'type-graphql';
+import { ArgsType, Field, ID, Int } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
@@ -10,8 +10,9 @@ import { SandpackFiles } from 'utils/types/Sandpack';
 const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
 
 @ArgsType()
-export class getProjectByIdArgs {
-	@Field()
+export class GetProjectByIdArgs {
+	@Field(() => ID)
+	@IsUUID()
 	projectId: UUID;
 }
 

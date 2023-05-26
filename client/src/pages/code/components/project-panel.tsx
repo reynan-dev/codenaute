@@ -1,6 +1,6 @@
 import ProjectContext from 'context/project.context';
 import { ProjectState } from 'pages/code/code.container';
-import { useSaveProjectService } from 'pages/code/code.service';
+import { useUpdateProjectService } from 'pages/code/code.service';
 import { useContext } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { FaCheckCircle, FaExclamationCircle, FaSave } from 'react-icons/fa';
@@ -14,10 +14,10 @@ interface ProjectPanelProps {
 export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 	const { isProjectSaved } = useContext(ProjectContext);
 
-	const { saveProject, saveProjectLoading } = useSaveProjectService();
+	const { updateProject, loading } = useUpdateProjectService();
 
 	const renderSavingSatusIcon = () => {
-		if (saveProjectLoading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
+		if (loading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
 
 		if (!isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
 
@@ -57,7 +57,7 @@ export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 				{!isProjectSaved && (
 					<button
 						onClick={() => {
-							saveProject(state.currentProjectData);
+							updateProject(state.currentProjectData);
 						}}
 						className='flex h-full items-center justify-center space-x-2 rounded-md bg-dark-700 px-3.5 text-sm text-white'
 					>

@@ -6,7 +6,7 @@ import {
 	favoriteProjectArgs,
 	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
-	getProjectByIdArgs,
+	GetProjectByIdArgs,
 	shareProjectArgs,
 	updateProjectArgs,
 	updateProjectIsPublic,
@@ -15,7 +15,7 @@ import {
 } from 'resolvers/args/ProjectArgs';
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { UUID } from 'utils/types/Uuid';
@@ -63,9 +63,14 @@ export class ProjectResolver {
 		return this.ProjectServices.findAllByTemplate(template);
 	}
 
-	@Authorized()
+	// // @Authorized()
+	// @Query(() => Project)
+	// async getProjectById(@Args() { projectId }: GetProjectByIdArgs): Promise<void> {
+	// 	// return this.ProjectServices.findById(projectId);
+	// }
+
 	@Query(() => Project)
-	async getProjectById(@Args() { projectId }: getProjectByIdArgs): Promise<Project> {
+	async getProjectById(@Arg('projectId') projectId: string): Promise<Project> {
 		return this.ProjectServices.findById(projectId);
 	}
 
