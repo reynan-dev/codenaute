@@ -76,18 +76,23 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 export const useGetProjectService = (projectId: string) => {
 	const { setCurrentProjectData, setLastSavedProjectData } = useContext(ProjectContext);
 
+	console.log('prout');
+
 	const { loading, data, error, refetch } = useQuery<
 		GetProjectByIdQuery,
 		GetProjectByIdQueryVariables
 	>(GET_PROJECT_BY_ID_QUERY, {
 		variables: { projectId: projectId },
 		onCompleted: (data) => {
+			console.log({ data });
 			onSuccess(
 				{ setLastSavedProjectData, setCurrentProjectData },
 				mapProjectDataResponse(data.getProjectById)
 			);
 		},
 		onError: (error) => {
+			console.log({ error });
+
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 		}
 	});

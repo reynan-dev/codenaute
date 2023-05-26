@@ -63,15 +63,18 @@ export class ProjectResolver {
 		return this.ProjectServices.findAllByTemplate(template);
 	}
 
-	// // @Authorized()
-	// @Query(() => Project)
-	// async getProjectById(@Args() { projectId }: GetProjectByIdArgs): Promise<void> {
-	// 	// return this.ProjectServices.findById(projectId);
-	// }
-
+	@Authorized()
 	@Query(() => Project)
-	async getProjectById(@Arg('projectId') projectId: string): Promise<Project> {
-		return this.ProjectServices.findById(projectId);
+	async getProjectById(
+		@Arg('projectId') projectId: string,
+		@Ctx() context: GlobalContext
+	): Promise<Project> {
+		const project = await this.ProjectServices.findById(projectId);
+		const member = await this.MemberServices.findById(context.user?.id as UUID);
+
+		if (project.id !== member.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		return project;
 	}
 
 	@Authorized()
@@ -142,20 +145,6 @@ export class ProjectResolver {
 
 		return this.ProjectServices.update(project.id, { name });
 	}
-
-	// @Authorized()
-	// @Mutation(() => Project)
-	// async updateProjectActiveFile(
-	// 	@Args() { projectId, activeFileId }: updateProjectActiveFileArgs
-	// ): Promise<Project> {
-	// 	const project = await this.ProjectServices.findById(projectId);
-
-	// 	if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-	// 	const activeFile = await this.FileProjectServices.findById(activeFileId);
-
-	// 	return this.ProjectServices.update(project.id, { activeFile });
-	// }
 
 	@Authorized()
 	@Mutation(() => Project)

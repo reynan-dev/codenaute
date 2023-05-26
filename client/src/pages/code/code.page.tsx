@@ -5,11 +5,13 @@ import {
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
+import { ErrorLoading } from 'components/error/error-loading';
 import { ProjectState } from 'pages/code/code.container';
 import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
 import { ProjectPanel } from 'pages/code/components/project-panel';
 import { SandpackContainer } from 'pages/code/components/sandpack.container';
 import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
+import { FaExclamationCircle } from 'react-icons/fa';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 interface CodePageProps {
@@ -73,9 +75,10 @@ export const CodePage = ({ state }: CodePageProps) => {
 					</SandpackContainer>
 				</SandpackProvider>
 			) : (
-				<h1 className='flex h-full w-full items-center justify-center'>
-					Failed to load project, please try again
-				</h1>
+				<ErrorLoading
+					errorMessage='Failed to load project, please try again'
+					icon={<FaExclamationCircle size={24} />}
+				/>
 			)}
 		</>
 	);
