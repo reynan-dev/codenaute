@@ -119,22 +119,25 @@ export const useUpdateProjectService = () => {
 				});
 			}
 
-			try {
-				await UpdateProjectMutation({
-					variables: {
-						name: project.name,
-						projectId: project.id,
-						isTemplate: false,
-						isPublic: false,
-						sandpackTemplate: project.sandpackTemplate ?? '',
-						files: JSON.stringify(project.files)
-					}
-				});
-
-				onSuccess({ setLastSavedProjectData, setCurrentProjectData }, project);
-			} catch (error) {
-				toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
-			}
+			await UpdateProjectMutation({
+				variables: {
+					name: project.name,
+					projectId: project.id,
+					isTemplate: false,
+					isPublic: false,
+					sandpackTemplate: project.sandpackTemplate ?? '',
+					files: JSON.stringify(project.files)
+				},
+				onCompleted(data) {
+					onSuccess(
+						{ setLastSavedProjectData, setCurrentProjectData },
+						mapProjectDataResponse(data.updateProject)
+					);
+				},
+				onError(error) {
+					toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
+				}
+			});
 		},
 		[UpdateProjectMutation, profile, setCurrentProjectData, setLastSavedProjectData]
 	);

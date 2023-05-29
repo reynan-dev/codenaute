@@ -26,6 +26,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
 			isPublic
 			id
 			files
+			sandpackTemplate
 		}
 	}
 `;

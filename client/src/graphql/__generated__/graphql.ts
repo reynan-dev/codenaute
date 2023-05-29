@@ -323,6 +323,7 @@ export type UpdateProjectMutation = {
 		isPublic: boolean;
 		id: string;
 		files: string;
+		sandpackTemplate: string;
 		owner: { __typename?: 'Member'; username: string; id: string };
 	};
 };
@@ -906,7 +907,8 @@ export const UpdateProjectDocument = {
 								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'files' } }
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
 							]
 						}
 					}
