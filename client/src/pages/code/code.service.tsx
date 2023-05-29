@@ -152,10 +152,12 @@ export const useAutoSaveProject = () => {
 		currentProjectData,
 		AUTO_SAVE_DELAY_MS
 	);
-	const { updateProject } = useUpdateProjectService();
+	const { updateProject, loading: autoSaveLoading } = useUpdateProjectService();
 
 	useEffect(() => {
 		if (!isProjectSaved && debouncedProject) updateProject(debouncedProject);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedProject, updateProject]);
+
+	return { autoSaveLoading };
 };

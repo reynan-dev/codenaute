@@ -14,10 +14,11 @@ interface ProjectPanelProps {
 export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 	const { isProjectSaved } = useContext(ProjectContext);
 
-	const { updateProject, loading } = useUpdateProjectService();
+	const { updateProject, loading: updateProjectLoading } = useUpdateProjectService();
 
 	const renderSavingSatusIcon = () => {
-		if (loading) return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
+		if (updateProjectLoading || state.autoSaveLoading)
+			return <BiLoaderAlt size={16} className='animate-spin text-primary' />;
 
 		if (!isProjectSaved) return <FaExclamationCircle size={16} className='text-warning' />;
 

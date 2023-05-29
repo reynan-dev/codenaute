@@ -11,20 +11,20 @@ export interface ProjectState {
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
 	currentProjectData: ProjectContextData | null;
+	autoSaveLoading: boolean;
 }
 
 export const CodeContainer = () => {
 	const { projectName, setProjectName, currentProjectData } = useContext(ProjectContext);
+	const { loading } = useGetProjectService(useParams().projectId ?? '');
+	const { autoSaveLoading } = useAutoSaveProject();
 
 	const state: ProjectState = {
 		projectName,
 		setProjectName,
-		currentProjectData
+		currentProjectData,
+		autoSaveLoading
 	};
-
-	const { loading } = useGetProjectService(useParams().projectId ?? '');
-
-	useAutoSaveProject();
 
 	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;
 };
