@@ -2,11 +2,11 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HomePage } from './home.page';
-import { useSignOut } from 'api/sign-out/use-sign-out';
 import { SIGN_IN_PATH } from 'constants/paths';
-import AuthContext from 'context/auth.context';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { SignOutButton } from 'pages/home/components/sign-out-button';
+import { SignOutButton } from 'pages/home/_components/sign-out-button';
+import AuthContext from 'context/profile/auth.context';
+import { useSignOut } from 'pages/home/home.service';
 
 export const HomeContainer = () => {
 	const onSignOutSuccess = async () => {

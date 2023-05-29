@@ -1,21 +1,23 @@
-import { useDeleteAccount } from 'api/profile/use-delete-account';
-import { useUpdateEmail } from 'api/profile/use-update-email';
-import { useUpdatePassword } from 'api/profile/use-update-password';
-import { useUpdateUsername } from 'api/profile/use-update-username';
 import { SIGN_UP_PATH } from 'constants/paths';
-import AuthContext from 'context/auth.context';
 import { areSameValues } from 'helpers/are-same-values';
 import { getFormErrors } from 'helpers/get-form-errors';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import { isContainingEmptyValue } from 'helpers/is-containing-empty-value';
 import { AccountPage } from 'pages/account/account.page';
-import { DeleteAccountForm } from 'pages/account/components/delete-account-form';
-import { UpdateInformationsForm } from 'pages/account/components/update-informations-form';
-import { UpdatePasswordForm } from 'pages/account/components/update-password-form';
+import { DeleteAccountForm } from 'pages/account/_components/delete-account-form';
+import { UpdateInformationsForm } from 'pages/account/_components/update-informations-form';
+import { UpdatePasswordForm } from 'pages/account/_components/update-password-form';
 import { ErrorMessages } from 'pages/sign-up/sign-up.container';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AuthContext from 'context/profile/auth.context';
+import {
+	useUpdateEmail,
+	useUpdateUsername,
+	useUpdatePassword,
+	useDeleteAccount
+} from 'pages/account/account.service';
 
 export const AccountContainer = () => {
 	const { profile: profileData, refetch: refetchProfile } = useContext(AuthContext);

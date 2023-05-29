@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { SignInMutation, SignInMutationVariables } from 'graphql/__generated__/graphql';
-import { SIGN_IN_MUTATION } from 'graphql/sign-in/sign-in.mutation';
+import { SIGN_IN_MUTATION } from 'pages/sign-in/sign-in.repository';
 
 export const useSignIn = () => {
 	const [signIn, { loading }] = useMutation<SignInMutation, SignInMutationVariables>(

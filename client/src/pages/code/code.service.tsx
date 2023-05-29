@@ -1,17 +1,16 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { SandpackFiles } from '@codesandbox/sandpack-react/types';
-import AuthContext from 'context/auth.context';
-import ProjectContext from 'context/project.context';
+import AuthContext from 'context/profile/auth.context';
+import ProjectContext from 'context/project/project.context';
 import {
 	GetProjectByIdQuery,
 	GetProjectByIdQueryVariables,
 	UpdateProjectMutation,
 	UpdateProjectMutationVariables
 } from 'graphql/__generated__/graphql';
-import { GET_PROJECT_BY_ID_QUERY } from 'graphql/project/get-project-by-id.query';
-import { UPDATE_PROJECT_MUTATION } from 'graphql/project/update-project.mutation';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import useDebounce from 'hooks/use-debounce';
+import { GET_PROJECT_BY_ID_QUERY, UPDATE_PROJECT_MUTATION } from 'pages/code/code.repository';
 import { useCallback, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { ProjectContextData, SetProjectContextData } from 'types/project';

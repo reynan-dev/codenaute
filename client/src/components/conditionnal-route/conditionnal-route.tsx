@@ -1,5 +1,5 @@
 import Loader from 'components/svgs/loader';
-import AuthContext from 'context/auth.context';
+import AuthContext from 'context/profile/auth.context';
 import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 

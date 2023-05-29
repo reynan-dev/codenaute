@@ -7,12 +7,12 @@ import {
 } from '@codesandbox/sandpack-react';
 import { ErrorLoading } from 'components/error/error-loading';
 import { ProjectState } from 'pages/code/code.container';
-import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
-import { ProjectPanel } from 'pages/code/components/project-panel';
-import { SandpackContainer } from 'pages/code/components/sandpack.container';
-import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
+import { FileExplorerPanel } from 'pages/code/_components/file-explorer-panel';
+import { ProjectPanel } from 'pages/code/_components/project-panel';
+import { SandpackContainer } from 'pages/code/_components/sandpack.container';
 import { FaExclamationCircle } from 'react-icons/fa';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
+import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
 
 interface CodePageProps {
 	state: ProjectState;

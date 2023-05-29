@@ -1,9 +1,9 @@
-import { useSignUp } from 'api/sign-up/use-sign-up';
 import { SIGN_IN_PATH } from 'constants/paths';
 import { getFormErrors } from 'helpers/get-form-errors';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { SignUpForm } from 'pages/sign-up/components/sign-up-form';
+import { SignUpForm } from 'pages/sign-up/_components/sign-up-form';
 import { SignUpPage } from 'pages/sign-up/sign-up.page';
+import { useSignUp } from 'pages/sign-up/sign-up.service';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

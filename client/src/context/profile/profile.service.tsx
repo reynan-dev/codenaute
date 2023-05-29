@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { PROFILE } from 'graphql/profile/profile.query';
+import { PROFILE } from 'context/profile/profile.repository';
 import { ProfileQuery } from 'graphql/__generated__/graphql';
 
 export type ProfileData = ProfileQuery['profile'] | null;

@@ -1,9 +1,9 @@
-import { useSignIn } from 'api/sign-in/use-sign-in';
 import { HOME_PATH } from 'constants/paths';
-import AuthContext from 'context/auth.context';
+import AuthContext from 'context/profile/auth.context';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { SignInForm } from 'pages/sign-in/components/sign-in-form';
+import { SignInForm } from 'pages/sign-in/_components/sign-in-form';
 import { SignInPage } from 'pages/sign-in/sign-in.page';
+import { useSignIn } from 'pages/sign-in/sign-in.service';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
