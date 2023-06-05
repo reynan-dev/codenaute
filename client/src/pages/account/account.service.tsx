@@ -19,7 +19,7 @@ import {
 	UPDATE_EMAIL_MUTATION,
 	UPDATE_PASSWORD_MUTATION,
 	UPDATE_USERNAME_MUTATION
-} from 'pages/account/account.repository';
+} from 'pages/account/account.graphql';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

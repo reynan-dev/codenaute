@@ -10,7 +10,7 @@ import {
 } from 'graphql/__generated__/graphql';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import useDebounce from 'hooks/use-debounce';
-import { GET_PROJECT_BY_ID_QUERY, UPDATE_PROJECT_MUTATION } from 'pages/code/code.repository';
+import { GET_PROJECT_BY_ID_QUERY, UPDATE_PROJECT_MUTATION } from 'pages/code/code.graphql';
 import { useCallback, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { ProjectContextData, SetProjectContextData } from 'types/project';

@@ -7,7 +7,7 @@ import {
 } from 'graphql/__generated__/graphql';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import { mapProjectDataResponse, onSuccess } from 'pages/code/code.service';
-import { CREATE_PROJECT_MUTATION } from 'pages/create-project/create-project.repository';
+import { CREATE_PROJECT_MUTATION } from 'pages/create-project/create-project.graphql';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

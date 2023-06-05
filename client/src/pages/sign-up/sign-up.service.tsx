@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { SignUpMutation, SignUpMutationVariables } from 'graphql/__generated__/graphql';
-import { SIGN_UP_MUTATION } from 'pages/sign-up/sign-up.repository';
+import { SIGN_UP_MUTATION } from 'pages/sign-up/sign-up.graphql';
 
 export const useSignUp = () => {
 	const [signUp, { loading }] = useMutation<SignUpMutation, SignUpMutationVariables>(
