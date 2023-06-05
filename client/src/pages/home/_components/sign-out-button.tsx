@@ -2,12 +2,12 @@ import Button from 'components/button';
 import { FiLogOut } from 'react-icons/fi';
 
 interface SignOutButtonProps {
-	handleSignOut: () => Promise<void>;
+	signOut: () => Promise<void>;
 }
 
-export const SignOutButton = ({ handleSignOut }: SignOutButtonProps) => {
+export const SignOutButton = ({ signOut }: SignOutButtonProps) => {
 	return (
-		<Button designType='text' onClick={() => handleSignOut()} className='flex'>
+		<Button designType='text' onClick={() => signOut()} className='flex'>
 			<FiLogOut className='mr-2 mt-1' /> Sign out
 		</Button>
 	);
