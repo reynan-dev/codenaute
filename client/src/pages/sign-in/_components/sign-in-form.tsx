@@ -3,7 +3,7 @@ import Input from 'components/input';
 
 interface SignInFormProps {
 	isLoading: boolean;
-	handleForm: () => Promise<void>;
+	signIn: (email: string, password: string) => Promise<void>;
 	state: {
 		email: string;
 		setEmail: React.Dispatch<React.SetStateAction<string>>;
@@ -12,12 +12,12 @@ interface SignInFormProps {
 	};
 }
 
-export const SignInForm = ({ isLoading, handleForm, state }: SignInFormProps) => {
+export const SignInForm = ({ isLoading, signIn, state }: SignInFormProps) => {
 	return (
 		<form
 			onSubmit={async (event) => {
 				event.preventDefault();
-				handleForm();
+				signIn(state.email, state.password);
 			}}
 			className='full-center-col w-full space-y-8'
 		>
