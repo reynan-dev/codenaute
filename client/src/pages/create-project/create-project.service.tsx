@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import AuthContext from 'context/profile/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import ProjectContext from 'context/project/project.context';
 import {
 	CreateProjectMutation,

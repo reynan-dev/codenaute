@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { SandpackFiles } from '@codesandbox/sandpack-react/types';
-import AuthContext from 'context/profile/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import ProjectContext from 'context/project/project.context';
 import {
 	GetProjectByIdQuery,

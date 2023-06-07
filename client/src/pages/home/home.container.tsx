@@ -1,8 +1,8 @@
-import AuthContext from 'context/profile/auth.context';
 import { SignOutButton } from 'pages/home/_components/sign-out-button';
 import { useContext } from 'react';
 import { HomePage } from './home.page';
 import { useSignOut } from 'pages/home/home.service';
+import AuthContext from 'context/auth/auth.context';
 
 export const HomeContainer = () => {
 	const { profile: profileData, isAuthenticated } = useContext(AuthContext);

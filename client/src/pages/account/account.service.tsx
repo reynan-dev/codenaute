@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { SIGN_UP_PATH } from 'constants/paths';
-import AuthContext from 'context/profile/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import {
 	DeleteAccountMutation,
 	DeleteAccountMutationVariables,

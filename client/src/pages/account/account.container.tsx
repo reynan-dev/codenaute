@@ -1,4 +1,4 @@
-import AuthContext from 'context/profile/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import { getFormErrors } from 'helpers/get-form-errors';
 import { isContainingEmptyValue } from 'helpers/is-containing-empty-value';
 import { DeleteAccountForm } from 'pages/account/_components/delete-account-form';
@@ -91,7 +91,7 @@ export const AccountContainer = () => {
 	};
 
 	const handlePasswordForm = async () => {
-		if (!isContainingEmptyValue([newPassword, oldPassword, confirmedNewPassword])) {
+		if (isContainingEmptyValue([newPassword, oldPassword, confirmedNewPassword])) {
 			return toast.error('Please fill all relating password fields', { autoClose: 10000 });
 		}
 		const formErrors = getFormErrors({

@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { SIGN_IN_PATH } from 'constants/paths';
-import AuthContext from 'context/profile/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import { SignOutMutation, SignOutMutationVariables } from 'graphql/__generated__/graphql';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import { SIGN_OUT_MUTATION } from 'pages/home/home.graphql';
