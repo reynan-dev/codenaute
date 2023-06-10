@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { ProjectContextData } from 'types/project';
 import { CodePage } from './code.page';
 import ProjectContext from 'context/project/project.context';
+import { SandpackFiles } from '@codesandbox/sandpack-react/index';
 
 export type Dependencies = Record<string, string>;
 export interface ProjectState {
@@ -12,10 +13,11 @@ export interface ProjectState {
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
 	currentProjectData: ProjectContextData | null;
 	autoSaveLoading: boolean;
+	files: SandpackFiles | null;
 }
 
 export const CodeContainer = () => {
-	const { projectName, setProjectName, currentProjectData } = useContext(ProjectContext);
+	const { projectName, setProjectName, currentProjectData, files } = useContext(ProjectContext);
 	const { loading } = useGetProjectService(useParams().projectId ?? '');
 	const { autoSaveLoading } = useAutoSaveProject();
 
@@ -23,7 +25,8 @@ export const CodeContainer = () => {
 		projectName,
 		setProjectName,
 		currentProjectData,
-		autoSaveLoading
+		autoSaveLoading,
+		files
 	};
 
 	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;
