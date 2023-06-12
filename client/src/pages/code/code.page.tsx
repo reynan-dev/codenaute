@@ -47,6 +47,7 @@ export const CodePage = ({ state }: CodePageProps) => {
 
 								<div className='h-full flex-1 border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark-900'>
 									<SandpackCodeEditor
+										closableTabs={true}
 										style={{
 											width: '100%',
 											height: '100%'
