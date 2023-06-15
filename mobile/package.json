@@ -13,7 +13,7 @@
 		"ios": "expo start --ios",
 		"start": "expo start",
 		"test": "jest --runInBand --verbose --coverage",
-		"test:ci": "jest --runInBand --verbose",
+		"test:ci": "jest --runInBand --verbose --passWithNoTests --coverage",
 		"test:watch": "jest --watchAll --runInBand --verbose --coverage",
 		"web": "expo start --web"
 	},
