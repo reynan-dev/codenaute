@@ -76,22 +76,22 @@ jobs:
         run: pnpm test:ci
         working-directory: ./${{ env.SERVICE_NAME }}
 
-  build:
-    needs: workflow
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
-    environment: deploy
+  # build:
+  #   needs: workflow
+  #   runs-on: ubuntu-latest
+  #   if: github.event.pull_request.draft == false
+  #   environment: deploy
 
-    steps:
-      - name: Checkout Codebase
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout Codebase
+  #       uses: actions/checkout@v3
 
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+  #     - name: Setup EAS
+  #       uses: expo/expo-github-action@v8
+  #       with:
+  #         expo-version: latest
+  #         token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Build APK of application
-        run: pnpm build
-        working-directory: ./${{env.SERVICE_NAME}}
+  #     - name: Build APK of application
+  #       run: pnpm build
+  #       working-directory: ./${{env.SERVICE_NAME}}
