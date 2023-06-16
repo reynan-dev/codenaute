@@ -125,4 +125,15 @@ export abstract class Database {
 	static repository(entity: string) {
 		return this._dataSource.getRepository(entity);
 	}
+
+	static async seed(seeds: (dataSource: DataSource) => Promise<void>) {
+		try {
+			await this._dataSource.initialize();
+			await seeds(this._dataSource);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			await this._dataSource.destroy();
+		}
+	}
 }

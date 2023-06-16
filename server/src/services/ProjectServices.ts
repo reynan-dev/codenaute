@@ -4,6 +4,7 @@ import { Project } from 'models/Project';
 import { Member } from 'models/Member';
 import { BaseServices } from 'services/base/BaseServices';
 import { MemberServices } from 'services/MemberServices';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 export class ProjectServices extends BaseServices {
 	MemberServices: MemberServices = new MemberServices();
@@ -40,16 +41,9 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async findAllByTemplate(templateId: UUID): Promise<Project[]> {
+	async findAllByTemplate(template: SandpackTemplates): Promise<Project[]> {
 		return this.repository.find({
-			where: { template: { id: templateId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
-		});
-	}
-
-	async findAllByProgrammingLanguage(programmingLanguageId: UUID): Promise<Project[]> {
-		return this.repository.find({
-			where: { programmingLanguage: { id: programmingLanguageId } },
+			where: { sandpackTemplate: template },
 			relations: ['owner', 'editors', 'favoritedBy', 'files']
 		});
 	}

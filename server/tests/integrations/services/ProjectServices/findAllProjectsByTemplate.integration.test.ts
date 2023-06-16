@@ -1,13 +1,10 @@
 import { MemberServices } from 'services/MemberServices';
-import { ProgrammingLanguageServices } from 'services/ProgrammingLanguageServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { SandpackTemplateServices } from 'services/SandpackTemplateServices';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 describe('Find All Projects By Template', () => {
 	const ProjectService = new ProjectServices();
 	const MemberService = new MemberServices();
-	const ProgrammingLanguageService = new ProgrammingLanguageServices();
-	const SandpackTemplateService = new SandpackTemplateServices();
 
 	const ownerData = {
 		username: 'data',
@@ -17,30 +14,22 @@ describe('Find All Projects By Template', () => {
 
 	describe('when there are no projects', () => {
 		it('returns an empty array', async () => {
-			const template = await SandpackTemplateService.create({ slug: 'data' });
-
-			expect(await ProjectService.findAllByTemplate(template.id)).toEqual([]);
+			expect(await ProjectService.findAllByTemplate(SandpackTemplates.REACT_TS)).toEqual([]);
 		});
 	});
 
 	describe('when there are projects', () => {
 		it('returns an array of projects', async () => {
-			const template = await SandpackTemplateService.create({ slug: 'data' });
-
 			const projectData = {
 				name: 'data',
 				version: 'version',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				programmingLanguage: await ProgrammingLanguageService.create({
-					name: 'data',
-					version: '3.10'
-				}),
-				template: template
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
 			const project = await ProjectService.create(projectData);
 
-			const projectsFound = await ProjectService.findAllByTemplate(template.id);
+			const projectsFound = await ProjectService.findAllByTemplate(SandpackTemplates.REACT_TS);
 
 			expect(projectsFound).toHaveLength(1);
 			expect(projectsFound[0].id).toEqual(project.id);

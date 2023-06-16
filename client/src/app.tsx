@@ -2,9 +2,18 @@ import ConditionalRoute from 'components/conditionnal-route';
 import CrossDeviceBackground from 'components/cross-device-background';
 import Main from 'components/main';
 import NavBar from 'components/nav-bar';
-import { ACCOUNT_PATH, HOME_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from 'constants/paths';
+import {
+	ACCOUNT_PATH,
+	CODE_PATH,
+	CREATE_PROJECT_PATH,
+	HOME_PATH,
+	SIGN_IN_PATH,
+	SIGN_UP_PATH
+} from 'constants/paths';
 import AuthContext from 'context/auth.context';
 import { Account } from 'pages/account';
+import { Code } from 'pages/code';
+import { CreateProject } from 'pages/create-project';
 import { Home } from 'pages/home';
 import { SignIn } from 'pages/sign-in';
 import { SignUp } from 'pages/sign-up';
@@ -49,6 +58,22 @@ const App = () => {
 							element={
 								<ConditionalRoute type='private'>
 									<Account />
+								</ConditionalRoute>
+							}
+						/>
+						<Route
+							path={CREATE_PROJECT_PATH}
+							element={
+								<ConditionalRoute type='private'>
+									<CreateProject />
+								</ConditionalRoute>
+							}
+						/>
+						<Route
+							path={CODE_PATH}
+							element={
+								<ConditionalRoute type='private'>
+									<Code />
 								</ConditionalRoute>
 							}
 						/>

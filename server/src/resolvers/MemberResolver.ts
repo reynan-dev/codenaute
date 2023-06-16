@@ -11,7 +11,8 @@ import {
 	UpdateMemberEmailArgs,
 	UpdateMemberPasswordArgs,
 	UpdateMemberUsernameArgs,
-	FollowMemberArgs
+	FollowMemberArgs,
+	FindMemberByEmailArgs
 } from 'resolvers/args/MemberArgs';
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
@@ -56,10 +57,17 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
+	@Query(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
 		return await this.MemberServices.findById(memberId);
 	}
+
+	@Authorized()
+	@Query(() => Member)
+	async getMemberByEmail(@Args() { email }: FindMemberByEmailArgs): Promise<Member | null> {
+		return await this.MemberServices.findOneByEmail(email);
+	}
+
 	@Authorized()
 	@Query(() => [Member])
 	async getAllMembers(): Promise<Member[]> {

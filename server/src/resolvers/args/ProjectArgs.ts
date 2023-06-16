@@ -3,6 +3,8 @@ import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
+import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
@@ -27,13 +29,7 @@ export class getAllProjectsByMemberArgs {
 @ArgsType()
 export class getAllProjectsByTemplateArgs {
 	@Field()
-	templateId: UUID;
-}
-
-@ArgsType()
-export class getAllProjectsByProgrammingLanguageArgs {
-	@Field()
-	languageId: UUID;
+	template: SandpackTemplates;
 }
 
 @ArgsType()
@@ -46,19 +42,13 @@ export class createProjectArgs {
 	memberId: UUID;
 
 	@Field()
-	languageId: UUID;
-
-	@Field({ nullable: true })
-	templateId: UUID;
-
-	@Field({ nullable: true })
-	activeFileId: UUID;
-
-	@Field()
 	isTemplate: boolean;
 
 	@Field()
 	isPublic: boolean;
+
+	@Field()
+	sandpackTemplate: SandpackTemplates;
 }
 
 @ArgsType()

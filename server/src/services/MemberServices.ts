@@ -71,6 +71,23 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
+	async findOneByEmail(email: string): Promise<Member | null> {
+		const member = await this.repository.findOne({
+			where: { email: email },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
+
+		if (!member) return null;
+
+		return member;
+	}
+
 	async followMember(memberId: UUID, memberToFollowId: UUID) {
 		const member = (await this.findOneById(memberId)) as Member;
 		const memberToFollow = (await this.findOneById(memberToFollowId)) as Member;

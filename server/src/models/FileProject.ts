@@ -4,6 +4,7 @@ import { Column, DeleteDateColumn, Entity, ManyToOne } from 'typeorm';
 
 import { Project } from 'models/Project';
 import { BaseModel } from 'models/base/BaseModel';
+import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 
 @Entity()
 @ObjectType()
@@ -29,4 +30,11 @@ export class FileProject extends BaseModel {
 	@DeleteDateColumn()
 	@IsDate()
 	deletedAt: Date;
+
+	@Column({
+		type: 'enum',
+		enum: ProgrammingLanguages,
+		nullable: true
+	})
+	programmingLanguage: ProgrammingLanguages;
 }

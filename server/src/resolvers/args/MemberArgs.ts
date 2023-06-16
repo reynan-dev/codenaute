@@ -45,6 +45,12 @@ export class FindMemberByIdArgs {
 }
 
 @ArgsType()
+export class FindMemberByEmailArgs {
+	@Field()
+	email: string;
+}
+
+@ArgsType()
 export class FollowMemberArgs {
 	@Field()
 	memberId: UUID;

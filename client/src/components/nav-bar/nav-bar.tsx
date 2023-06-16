@@ -1,5 +1,6 @@
 import BurgerButton from 'components/burger-button';
 import NavBarLogoSvg from 'components/svgs/nav-bar-logo';
+import { ACCOUNT_PATH, CREATE_PROJECT_PATH, HOME_PATH } from 'constants/paths';
 import { useWindowSize } from 'hooks/use-window-size';
 import { useEffect, useState } from 'react';
 import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
@@ -73,15 +74,15 @@ export const NavBar = ({ className }: NavBarProps) => {
 				</div>
 
 				<div className='hidden flex-col items-center space-y-8 md:flex'>
-					<Link to='/account'>
+					<Link to={ACCOUNT_PATH}>
 						<FiUser size={18} className={style.renderDesktopMenuIconStyle('/account')} />
 					</Link>
 
-					<Link to='#'>
+					<Link to={CREATE_PROJECT_PATH}>
 						<FiCode size={18} className={style.renderDesktopMenuIconStyle('/code-editor')} />
 					</Link>
 
-					<Link to='#'>
+					<Link to={HOME_PATH}>
 						<FiSearch size={16} className={style.renderDesktopMenuIconStyle('/explore')} />
 					</Link>
 				</div>
@@ -94,15 +95,23 @@ export const NavBar = ({ className }: NavBarProps) => {
 					}`}
 				>
 					<ul className='flex flex-col'>
-						<Link to='/account' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+						<Link
+							to={ACCOUNT_PATH}
+							className={style.mobileMenuItemLink}
+							onClick={handleMenuItemClick}
+						>
 							<FiUser size={22} className={style.mobileMenuIcons} />
 							<li>Account</li>
 						</Link>
-						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+						<Link
+							to={CREATE_PROJECT_PATH}
+							className={style.mobileMenuItemLink}
+							onClick={handleMenuItemClick}
+						>
 							<FiCode size={22} className={style.mobileMenuIcons} />
 							<li>New code</li>
 						</Link>
-						<Link to='#' className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
+						<Link to={HOME_PATH} className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
 							<FiSearch size={20} className={style.mobileMenuIcons} />
 							<li>Explore</li>
 						</Link>
