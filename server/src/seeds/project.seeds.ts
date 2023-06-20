@@ -1,4 +1,3 @@
-import { FileProject } from 'models/FileProject';
 import { Member } from 'models/Member';
 import { Project } from 'models/Project';
 import { MemberResolver } from 'resolvers/MemberResolver';
@@ -6,8 +5,12 @@ import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
 import { Database } from 'utils/configs/database';
-import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+
+export const fileFixtures = JSON.stringify({
+	'/index.ts': "import { BLACK } from './color.ts'\n\nconsole.log(BLACK)",
+	'/constants/color.ts': "export const BLACK = 'black'"
+});
 
 export const generateProjectFixture: (member: Member) => createProjectArgs = (member: Member) => {
 	return {
@@ -15,27 +18,9 @@ export const generateProjectFixture: (member: Member) => createProjectArgs = (me
 		memberId: member.id,
 		isTemplate: false,
 		isPublic: false,
-		sandpackTemplate: SandpackTemplates.VANILLA_TS
+		sandpackTemplate: SandpackTemplates.VANILLA_TS,
+		files: fileFixtures
 	};
-};
-
-export const generateFileFixtures = (project: Project) => {
-	return [
-		{
-			path: '/index.ts',
-			content: "import { BLACK } from './color.ts'\n\nconsole.log(BLACK)",
-			projectId: project.id,
-			isHidden: false,
-			programmingLanguage: ProgrammingLanguages.TYPESCRIPT
-		},
-		{
-			path: '/constants/color.ts',
-			content: "export const BLACK = 'black'",
-			projectId: project.id,
-			isHidden: false,
-			programmingLanguage: ProgrammingLanguages.TYPESCRIPT
-		}
-	];
 };
 
 export const createProjects = async () => {
@@ -52,18 +37,6 @@ export const createProjects = async () => {
 			.into(Project)
 			.values(projectFixture)
 			.execute();
-
-		if (!project) return console.error('Project is needed to create files');
-
-		const fileFixtures = generateFileFixtures(project.identifiers[0].id);
-		const files: InsertResult = await dataSource
-			.createQueryBuilder()
-			.insert()
-			.into(FileProject)
-			.values(fileFixtures)
-			.execute();
-
-		console.log({ files });
 	};
 
 	await Database.seed(seeds);

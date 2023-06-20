@@ -16,55 +16,23 @@ export const Loader = ({
 		<div className='flex h-full w-full items-center justify-center'>
 			<div className='relative'>
 				<div className='absolute left-0 top-0 mx-auto w-32'>
-					{/* <svg
-						version='1.1'
-						id='L3'
-						xmlns='http://www.w3.org/2000/svg'
-						x='0px'
-						y='0px'
-						viewBox='0 0 100 100'
-						enable-background='new 0 0 0 0'
-					>
-						<linearGradient id='myGradient'>
-							<stop offset='0%' stop-color='gold' />
-							<stop offset='100%' stop-color='red' />
-						</linearGradient>
-
-						<circle
-							fill='none'
-							stroke='url(#myGradient)'
-							stroke-width='4'
-							cx='50'
-							cy='50'
-							r='44'
-							style={{ opacity: '0.5;' }}
-						></circle>
-
-					</svg> */}
-					<svg
-						// width={size}
-						// height={size}
-						viewBox='0 0 200 200'
-						color={color}
-						fill='none'
-						xmlns='http://www.w3.org/2000/svg'
-					>
+					<svg viewBox='0 0 200 200' color={color} fill='none' xmlns='http://www.w3.org/2000/svg'>
 						<defs>
 							<linearGradient id='spinner-secondHalf'>
-								<stop offset='0%' stop-opacity='0' stop-color='currentColor' />
-								<stop offset='100%' stop-opacity='0.5' stop-color='currentColor' />
+								<stop offset='0%' stopOpacity='0' stopColor='currentColor' />
+								<stop offset='100%' stopOpacity='0.5' stopColor='currentColor' />
 							</linearGradient>
 							<linearGradient id='spinner-firstHalf'>
-								<stop offset='0%' stop-opacity='1' stop-color='currentColor' />
-								<stop offset='100%' stop-opacity='0.5' stop-color='currentColor' />
+								<stop offset='0%' stopOpacity='1' stopColor='currentColor' />
+								<stop offset='100%' stopOpacity='0.5' stopColor='currentColor' />
 							</linearGradient>
 						</defs>
 
-						<g stroke-width='8'>
+						<g strokeWidth='8'>
 							<path stroke='url(#spinner-secondHalf)' d='M 4 100 A 96 96 0 0 1 196 100' />
 							<path stroke='url(#spinner-firstHalf)' d='M 196 100 A 96 96 0 0 1 4 100' />
 
-							<path stroke='currentColor' stroke-linecap='round' d='M 4 100 A 96 96 0 0 1 4 98' />
+							<path stroke='currentColor' strokeLinecap='round' d='M 4 100 A 96 96 0 0 1 4 98' />
 						</g>
 
 						<animateTransform

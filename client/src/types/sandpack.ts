@@ -1,4 +1,4 @@
-export enum SandpackTemplates {
+export enum SandpackTemplatesEnum {
 	STATIC = 'static',
 	ANGULAR = 'angular',
 	REACT = 'react',
@@ -21,3 +21,5 @@ export enum SandpackTemplates {
 	VITE_SVELTE_TS = 'vite-svelte-ts',
 	ASTRO = 'astro'
 }
+
+export type SandpackTemplate = (typeof SandpackTemplatesEnum)[keyof typeof SandpackTemplatesEnum];

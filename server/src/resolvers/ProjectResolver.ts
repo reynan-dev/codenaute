@@ -6,17 +6,16 @@ import {
 	favoriteProjectArgs,
 	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
-	getProjectByIdArgs,
+	GetProjectByIdArgs,
 	shareProjectArgs,
-	updateProjectActiveFileArgs,
+	updateProjectArgs,
 	updateProjectIsPublic,
 	updateProjectIsTemplateArgs,
 	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
-import { FileProjectServices } from 'services/FileProjectServices';
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { UUID } from 'utils/types/Uuid';
@@ -24,7 +23,6 @@ import { UUID } from 'utils/types/Uuid';
 @Resolver(Project)
 export class ProjectResolver {
 	ProjectServices: ProjectServices = new ProjectServices();
-	FileProjectServices: FileProjectServices = new FileProjectServices();
 	MemberServices: MemberServices = new MemberServices();
 	@Authorized()
 	@Query(() => Project)
@@ -67,14 +65,22 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Query(() => Project)
-	async getProjectsById(@Args() { projectId }: getProjectByIdArgs): Promise<Project> {
-		return this.ProjectServices.findById(projectId);
+	async getProjectById(
+		@Arg('projectId') projectId: string,
+		@Ctx() context: GlobalContext
+	): Promise<Project> {
+		const project = await this.ProjectServices.findById(projectId);
+		const member = await this.MemberServices.findById(context.user?.id as UUID);
+
+		if (project.owner.id !== member.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		return project;
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
-	async createProjects(
-		@Args() { name, isTemplate, isPublic, sandpackTemplate }: createProjectArgs,
+	async createProject(
+		@Args() { name, isTemplate, isPublic, sandpackTemplate, files }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
@@ -84,7 +90,23 @@ export class ProjectResolver {
 			owner: member,
 			isTemplate: isTemplate,
 			isPublic: isPublic,
-			sandpackTemplate: sandpackTemplate
+			sandpackTemplate: sandpackTemplate,
+			files: files
+		});
+	}
+
+	@Authorized()
+	@Mutation(() => Project)
+	async updateProject(
+		@Args() { name, isTemplate, isPublic, sandpackTemplate, files, projectId }: updateProjectArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Project> {
+		return this.ProjectServices.update(projectId, {
+			name: name,
+			isTemplate: isTemplate,
+			isPublic: isPublic,
+			sandpackTemplate: sandpackTemplate,
+			files: files
 		});
 	}
 
@@ -101,7 +123,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async shareProjects(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
+	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
 		const members = new Array();
 		membersId.map(async (id) => {
 			const member = (await this.MemberServices.findById(id)) as Member;
@@ -116,7 +138,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateProjectsName(@Args() { projectId, name }: updateProjectNameArgs): Promise<Project> {
+	async updateProjectName(@Args() { projectId, name }: updateProjectNameArgs): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
@@ -126,21 +148,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateProjectsActiveFile(
-		@Args() { projectId, activeFileId }: updateProjectActiveFileArgs
-	): Promise<Project> {
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		const activeFile = await this.FileProjectServices.findById(activeFileId);
-
-		return this.ProjectServices.update(project.id, { activeFile });
-	}
-
-	@Authorized()
-	@Mutation(() => Project)
-	async updateProjectsIsTemplate(
+	async updateProjectIsTemplate(
 		@Args() { projectId, isTemplate }: updateProjectIsTemplateArgs
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
@@ -152,7 +160,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async updateProjectsIsPublic(
+	async updateProjectIsPublic(
 		@Args() { projectId, isPublic }: updateProjectIsPublic
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
@@ -164,7 +172,7 @@ export class ProjectResolver {
 
 	@Authorized()
 	@Mutation(() => Project)
-	async deleteProjects(@Args() { projectId }: deleteProjectArgs): Promise<Project> {
+	async deleteProject(@Args() { projectId }: deleteProjectArgs): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
 		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);

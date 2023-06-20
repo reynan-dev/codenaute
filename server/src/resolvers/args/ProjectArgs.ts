@@ -1,16 +1,18 @@
-import { Matches } from 'class-validator';
+import { IsUUID, Matches } from 'class-validator';
 import { UUID } from 'utils/types/Uuid';
-import { ArgsType, Field } from 'type-graphql';
+import { ArgsType, Field, ID, Int } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+import { SandpackFiles } from 'utils/types/Sandpack';
 
-const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
+const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
 
 @ArgsType()
-export class getProjectByIdArgs {
-	@Field()
+export class GetProjectByIdArgs {
+	@Field(() => ID)
+	@IsUUID()
 	projectId: UUID;
 }
 
@@ -35,7 +37,7 @@ export class getAllProjectsByTemplateArgs {
 @ArgsType()
 export class createProjectArgs {
 	@Field()
-	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	@Matches(nameRegExp, { message: ErrorMessages.INVALID_PROJECT_NAME })
 	name: string;
 
 	@Field()
@@ -49,6 +51,31 @@ export class createProjectArgs {
 
 	@Field()
 	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
+}
+
+@ArgsType()
+export class updateProjectArgs {
+	@Field()
+	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	name: string;
+
+	@Field()
+	projectId: UUID;
+
+	@Field()
+	isTemplate: boolean;
+
+	@Field()
+	isPublic: boolean;
+
+	@Field()
+	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
 }
 
 @ArgsType()
