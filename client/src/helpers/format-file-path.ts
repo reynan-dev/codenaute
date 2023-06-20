@@ -1,31 +1,3 @@
-// interface Tree {
-// 	name: string;
-// 	children?: Tree[];
-// }
-
-// export const formatFilePath = (filePath: string): Tree => {
-// 	const segments = filePath.split('/').filter((segment) => segment !== '');
-
-// 	const root: Tree = {
-// 		name: '',
-// 		children: []
-// 	};
-
-// 	let currentNode = root;
-
-// 	segments.forEach((segment) => {
-// 		const newNode: Tree = {
-// 			name: segment,
-// 			children: []
-// 		};
-
-// 		currentNode.children?.push(newNode);
-// 		currentNode = newNode;
-// 	});
-
-// 	return root;
-// };
-
 export interface TreeNode {
 	name: string;
 	children?: TreeNode[];
