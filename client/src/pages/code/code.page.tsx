@@ -6,11 +6,11 @@ import {
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
 import { ErrorLoading } from 'components/error/error-loading';
+import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
+import { FileExplorerPanel } from 'pages/code/_components/file-explorer-panel';
+import { ProjectPanel } from 'pages/code/_components/project-panel';
+import { SandpackContainer } from 'pages/code/_components/sandpack.container';
 import { ProjectState } from 'pages/code/code.container';
-import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
-import { ProjectPanel } from 'pages/code/components/project-panel';
-import { SandpackContainer } from 'pages/code/components/sandpack.container';
-import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
 import { FaExclamationCircle } from 'react-icons/fa';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 

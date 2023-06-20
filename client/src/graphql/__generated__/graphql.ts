@@ -206,15 +206,6 @@ export type Session = {
 	member: Member;
 };
 
-export type DeleteAccountMutationVariables = Exact<{
-	password: Scalars['String'];
-}>;
-
-export type DeleteAccountMutation = {
-	__typename?: 'Mutation';
-	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
-};
-
 export type ProfileQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProfileQuery = {
@@ -222,33 +213,13 @@ export type ProfileQuery = {
 	profile: { __typename?: 'Member'; id: string; username: string; email: string };
 };
 
-export type UpdateEmailMutationVariables = Exact<{
-	email: Scalars['String'];
+export type DeleteAccountMutationVariables = Exact<{
+	password: Scalars['String'];
 }>;
 
-export type UpdateEmailMutation = {
+export type DeleteAccountMutation = {
 	__typename?: 'Mutation';
-	updateMemberEmail: { __typename?: 'Member'; email: string; id: string };
-};
-
-export type UpdatePasswordMutationVariables = Exact<{
-	newPassword: Scalars['String'];
-	confirmedNewPassword: Scalars['String'];
-	oldPassword: Scalars['String'];
-}>;
-
-export type UpdatePasswordMutation = {
-	__typename?: 'Mutation';
-	updateMemberPassword: { __typename?: 'Member'; id: string; email: string };
-};
-
-export type UpdateUsernameMutationVariables = Exact<{
-	username: Scalars['String'];
-}>;
-
-export type UpdateUsernameMutation = {
-	__typename?: 'Mutation';
-	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
+	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
 };
 
 export type CreateProjectMutationVariables = Exact<{
@@ -328,6 +299,39 @@ export type UpdateProjectMutation = {
 	};
 };
 
+export type UpdateEmailMutationVariables = Exact<{
+	email: Scalars['String'];
+}>;
+
+export type UpdateEmailMutation = {
+	__typename?: 'Mutation';
+	updateMemberEmail: { __typename?: 'Member'; email: string; id: string };
+};
+
+export type UpdatePasswordMutationVariables = Exact<{
+	newPassword: Scalars['String'];
+	confirmedNewPassword: Scalars['String'];
+	oldPassword: Scalars['String'];
+}>;
+
+export type UpdatePasswordMutation = {
+	__typename?: 'Mutation';
+	updateMemberPassword: { __typename?: 'Member'; id: string; email: string };
+};
+
+export type UpdateUsernameMutationVariables = Exact<{
+	username: Scalars['String'];
+}>;
+
+export type UpdateUsernameMutation = {
+	__typename?: 'Mutation';
+	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
+};
+
+export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
+
+export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
+
 export type SignInMutationVariables = Exact<{
 	email: Scalars['String'];
 	password: Scalars['String'];
@@ -337,10 +341,6 @@ export type SignInMutation = {
 	__typename?: 'Mutation';
 	signIn: { __typename?: 'Member'; id: string; email: string };
 };
-
-export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
-
-export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
 
 export type SignUpMutationVariables = Exact<{
 	username: Scalars['String'];
@@ -354,6 +354,33 @@ export type SignUpMutation = {
 	signUp: { __typename?: 'Member'; id: string; email: string };
 };
 
+export const ProfileDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'Profile' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'profile' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
 export const DeleteAccountDocument = {
 	kind: 'Document',
 	definitions: [
@@ -398,188 +425,6 @@ export const DeleteAccountDocument = {
 		}
 	]
 } as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
-export const ProfileDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'query',
-			name: { kind: 'Name', value: 'Profile' },
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'profile' },
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
-export const UpdateEmailDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'UpdateEmail' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'email' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'updateMemberEmail' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'email' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'email' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<UpdateEmailMutation, UpdateEmailMutationVariables>;
-export const UpdatePasswordDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'UpdatePassword' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'confirmedNewPassword' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'updateMemberPassword' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'newPassword' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'confirmedNewPassword' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'confirmedNewPassword' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'oldPassword' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
-export const UpdateUsernameDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'UpdateUsername' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'username' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'updateMemberUsername' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'username' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'username' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
 export const CreateProjectDocument = {
 	kind: 'Document',
 	definitions: [
@@ -917,6 +762,175 @@ export const UpdateProjectDocument = {
 		}
 	]
 } as unknown as DocumentNode<UpdateProjectMutation, UpdateProjectMutationVariables>;
+export const UpdateEmailDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdateEmail' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'email' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateMemberEmail' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'email' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'email' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdateEmailMutation, UpdateEmailMutationVariables>;
+export const UpdatePasswordDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdatePassword' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'confirmedNewPassword' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateMemberPassword' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'newPassword' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'newPassword' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'confirmedNewPassword' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'confirmedNewPassword' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'oldPassword' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'oldPassword' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
+export const UpdateUsernameDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdateUsername' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'username' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateMemberUsername' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'username' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'username' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
+export const SignOutDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'SignOut' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [{ kind: 'Field', name: { kind: 'Name', value: 'signOut' } }]
+			}
+		}
+	]
+} as unknown as DocumentNode<SignOutMutation, SignOutMutationVariables>;
 export const SignInDocument = {
 	kind: 'Document',
 	definitions: [
@@ -973,20 +987,6 @@ export const SignInDocument = {
 		}
 	]
 } as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
-export const SignOutDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'SignOut' },
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [{ kind: 'Field', name: { kind: 'Name', value: 'signOut' } }]
-			}
-		}
-	]
-} as unknown as DocumentNode<SignOutMutation, SignOutMutationVariables>;
 export const SignUpDocument = {
 	kind: 'Document',
 	definitions: [

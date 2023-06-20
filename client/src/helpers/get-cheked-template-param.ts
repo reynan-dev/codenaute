@@ -1,4 +1,4 @@
-import { SandpackTemplate, SandpackTemplatesEnum } from 'types/sandpack';
+import { SandpackTemplatesEnum, SandpackTemplate } from 'types/sandpack';
 
 export const getCheckedTemplateParam = (_templateParam: string | null) => {
 	const validSandpackTemplates = Object.values(SandpackTemplatesEnum);

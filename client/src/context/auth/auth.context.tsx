@@ -1,8 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-
 import { ProfileQuery } from 'graphql/__generated__/graphql';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
-import { useProfile } from 'api/profile/use-profile';
+import { useProfile } from 'context/auth/profile.service';
 export interface AuthContextProps {
 	profile: ProfileQuery | null;
 	isLoading: boolean;

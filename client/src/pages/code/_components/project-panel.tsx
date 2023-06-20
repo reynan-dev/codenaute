@@ -1,4 +1,4 @@
-import ProjectContext from 'context/project.context';
+import ProjectContext from 'context/project/project.context';
 import { ProjectState } from 'pages/code/code.container';
 import { useUpdateProjectService } from 'pages/code/code.service';
 import { useContext } from 'react';

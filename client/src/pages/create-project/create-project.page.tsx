@@ -1,6 +1,6 @@
 import Container from 'components/container';
-import { getCheckedTemplateParam } from 'pages/code/helpers/getCheckedTemplateParam';
-import { ChooseTemplateLink } from 'pages/create-project/components/choose-template-link';
+import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
+import { ChooseTemplateLink } from 'pages/create-project/_components/choose-template-link';
 import { SandpackTemplatesEnum } from 'types/sandpack';
 
 export const CreateProjectPage = () => {

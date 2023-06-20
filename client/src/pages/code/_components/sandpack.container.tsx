@@ -1,5 +1,5 @@
 import { useSandpack } from '@codesandbox/sandpack-react';
-import ProjectContext from 'context/project.context';
+import ProjectContext from 'context/project/project.context';
 import { useContext, useEffect } from 'react';
 
 interface SandpackContainerProps {

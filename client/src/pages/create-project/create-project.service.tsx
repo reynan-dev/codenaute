@@ -1,13 +1,13 @@
 import { useMutation } from '@apollo/client';
-import AuthContext from 'context/auth.context';
-import ProjectContext from 'context/project.context';
+import AuthContext from 'context/auth/auth.context';
+import ProjectContext from 'context/project/project.context';
 import {
 	CreateProjectMutation,
 	CreateProjectMutationVariables
 } from 'graphql/__generated__/graphql';
-import { CREATE_PROJECT_MUTATION } from 'graphql/project/create-project.mutation';
 import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { onSuccess, mapProjectDataResponse } from 'pages/code/code.service';
+import { mapProjectDataResponse, onSuccess } from 'pages/code/code.service';
+import { CREATE_PROJECT_MUTATION } from 'pages/create-project/create-project.graphql';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
