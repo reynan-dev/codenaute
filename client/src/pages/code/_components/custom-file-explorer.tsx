@@ -2,7 +2,7 @@ import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import React, { useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 interface CustomFileExplorerProps {
 	className?: string;
@@ -36,9 +36,13 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 		};
 
 		return (
-			<React.Fragment key={node.name}>
+			<div key={node.name}>
 				<button
-					className='flex items-center py-1 hover:text-primary-200'
+					className={twJoin(
+						'flex items-center',
+						'w-full px-3 py-1',
+						'hover:bg-dark-600 hover:text-primary-200 hover:outline hover:outline-primary'
+					)}
 					onClick={(event) => handleFileClick(node, event)}
 				>
 					{node.children && node.children.length > 0 ? (
@@ -57,19 +61,19 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 					node.children &&
 					node.children.map((child) => (
 						<button
-							className='ml-4'
+							className='w-full pl-4 hover:bg-dark-600 hover:outline hover:outline-primary'
 							key={child.name}
 							onClick={(event) => handleFileClick(node, event)}
 						>
 							{renderNode(child)}
 						</button>
 					))}
-			</React.Fragment>
+			</div>
 		);
 	};
 
 	return (
-		<div className={twMerge('bg-dark-900 px-3 py-3 text-dark-300', className)}>
+		<div className={twMerge('bg-dark-900 py-2 text-dark-300', className)}>
 			{filesTree.children && filesTree.children.map(renderNode)}
 		</div>
 	);

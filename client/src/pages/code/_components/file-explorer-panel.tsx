@@ -45,11 +45,6 @@ export const FileExplorerPanel = ({ className, files }: FileExplorerPanelProps) 
 					</div>
 				</div>
 				<div className='h-full border border-b-0 border-l-0 border-r-dark-700 border-t-dark-700'>
-					{/* <SandpackFileExplorer
-						style={{
-							height: '100%'
-						}}
-					/> */}
 					<CustomFileExplorer className='h-full' files={files} />
 				</div>
 			</div>
@@ -63,7 +58,6 @@ export const FileExplorerPanel = ({ className, files }: FileExplorerPanelProps) 
 						onChange={(event) => {
 							setNewFile(event.target.value);
 						}}
-						// error={state.formErrorMessages?.confirmedPassword}
 					/>
 					<Button
 						size='small'
