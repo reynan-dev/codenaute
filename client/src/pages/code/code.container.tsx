@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { ProjectContextData } from 'types/project';
 import { CodePage } from './code.page';
 import ProjectContext from 'context/project/project.context';
+import { SandpackFiles } from '@codesandbox/sandpack-react/index';
 
 export type Dependencies = Record<string, string>;
 export interface ProjectState {
