@@ -213,35 +213,6 @@ export type ProfileQuery = {
 	profile: { __typename?: 'Member'; id: string; username: string; email: string };
 };
 
-export type UpdateEmailMutationVariables = Exact<{
-	email: Scalars['String'];
-}>;
-
-export type UpdateEmailMutation = {
-	__typename?: 'Mutation';
-	updateMemberEmail: { __typename?: 'Member'; email: string; id: string };
-};
-
-export type UpdatePasswordMutationVariables = Exact<{
-	newPassword: Scalars['String'];
-	confirmedNewPassword: Scalars['String'];
-	oldPassword: Scalars['String'];
-}>;
-
-export type UpdatePasswordMutation = {
-	__typename?: 'Mutation';
-	updateMemberPassword: { __typename?: 'Member'; id: string; email: string };
-};
-
-export type UpdateUsernameMutationVariables = Exact<{
-	username: Scalars['String'];
-}>;
-
-export type UpdateUsernameMutation = {
-	__typename?: 'Mutation';
-	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
-};
-
 export type DeleteAccountMutationVariables = Exact<{
 	password: Scalars['String'];
 }>;
@@ -251,26 +222,26 @@ export type DeleteAccountMutation = {
 	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
 };
 
-export type UpdateProjectMutationVariables = Exact<{
+export type CreateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
-	projectId: Scalars['String'];
+	memberId: Scalars['String'];
 	isTemplate: Scalars['Boolean'];
 	isPublic: Scalars['Boolean'];
 	sandpackTemplate: Scalars['String'];
 	files: Scalars['String'];
 }>;
 
-export type UpdateProjectMutation = {
+export type CreateProjectMutation = {
 	__typename?: 'Mutation';
-	updateProject: {
+	createProject: {
 		__typename?: 'Project';
+		id: string;
 		name: string;
+		files: string;
 		isTemplate: boolean;
 		isPublic: boolean;
-		id: string;
-		files: string;
 		sandpackTemplate: string;
-		owner: { __typename?: 'Member'; username: string; id: string };
+		owner: { __typename?: 'Member'; id: string };
 	};
 };
 
@@ -305,27 +276,56 @@ export type GetProjectByIdQuery = {
 	};
 };
 
-export type CreateProjectMutationVariables = Exact<{
+export type UpdateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
-	memberId: Scalars['String'];
+	projectId: Scalars['String'];
 	isTemplate: Scalars['Boolean'];
 	isPublic: Scalars['Boolean'];
 	sandpackTemplate: Scalars['String'];
 	files: Scalars['String'];
 }>;
 
-export type CreateProjectMutation = {
+export type UpdateProjectMutation = {
 	__typename?: 'Mutation';
-	createProject: {
+	updateProject: {
 		__typename?: 'Project';
-		id: string;
 		name: string;
-		files: string;
 		isTemplate: boolean;
 		isPublic: boolean;
+		id: string;
+		files: string;
 		sandpackTemplate: string;
-		owner: { __typename?: 'Member'; id: string };
+		owner: { __typename?: 'Member'; username: string; id: string };
 	};
+};
+
+export type UpdateEmailMutationVariables = Exact<{
+	email: Scalars['String'];
+}>;
+
+export type UpdateEmailMutation = {
+	__typename?: 'Mutation';
+	updateMemberEmail: { __typename?: 'Member'; email: string; id: string };
+};
+
+export type UpdatePasswordMutationVariables = Exact<{
+	newPassword: Scalars['String'];
+	confirmedNewPassword: Scalars['String'];
+	oldPassword: Scalars['String'];
+}>;
+
+export type UpdatePasswordMutation = {
+	__typename?: 'Mutation';
+	updateMemberPassword: { __typename?: 'Member'; id: string; email: string };
+};
+
+export type UpdateUsernameMutationVariables = Exact<{
+	username: Scalars['String'];
+}>;
+
+export type UpdateUsernameMutation = {
+	__typename?: 'Mutation';
+	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
 };
 
 export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
@@ -381,6 +381,387 @@ export const ProfileDocument = {
 		}
 	]
 } as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
+export const DeleteAccountDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'DeleteAccount' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'deleteMemberAccount' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'password' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
+export const CreateProjectDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'CreateProject' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'createProject' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'name' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'memberId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isPublic' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'sandpackTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'files' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<CreateProjectMutation, CreateProjectMutationVariables>;
+export const GetProjectByIdDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'GetProjectById' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'getProjectById' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'projectId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'sessions' },
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'member' },
+															selectionSet: {
+																kind: 'SelectionSet',
+																selections: [
+																	{
+																		kind: 'Field',
+																		name: { kind: 'Name', value: 'sessions' },
+																		selectionSet: {
+																			kind: 'SelectionSet',
+																			selections: [
+																				{
+																					kind: 'Field',
+																					name: { kind: 'Name', value: 'member' },
+																					selectionSet: {
+																						kind: 'SelectionSet',
+																						selections: [
+																							{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+																						]
+																					}
+																				}
+																			]
+																		}
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<GetProjectByIdQuery, GetProjectByIdQueryVariables>;
+export const UpdateProjectDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdateProject' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateProject' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'name' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'projectId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isPublic' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'sandpackTemplate' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'files' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdateProjectMutation, UpdateProjectMutationVariables>;
 export const UpdateEmailDocument = {
 	kind: 'Document',
 	definitions: [
@@ -536,387 +917,6 @@ export const UpdateUsernameDocument = {
 		}
 	]
 } as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
-export const DeleteAccountDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'DeleteAccount' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'deleteMemberAccount' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'password' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
-export const UpdateProjectDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'UpdateProject' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'updateProject' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'name' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'projectId' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'isTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'isPublic' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'sandpackTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'files' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'owner' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
-											{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
-										]
-									}
-								},
-								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<UpdateProjectMutation, UpdateProjectMutationVariables>;
-export const GetProjectByIdDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'query',
-			name: { kind: 'Name', value: 'GetProjectById' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'getProjectById' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'projectId' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'owner' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'sessions' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'member' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'sessions' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'member' },
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
-																						]
-																					}
-																				}
-																			]
-																		}
-																	}
-																]
-															}
-														}
-													]
-												}
-											}
-										]
-									}
-								},
-								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<GetProjectByIdQuery, GetProjectByIdQueryVariables>;
-export const CreateProjectDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'CreateProject' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'files' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'createProject' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'name' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'name' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'memberId' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'memberId' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'isTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'isPublic' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'sandpackTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'sandpackTemplate' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'files' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'owner' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }]
-									}
-								},
-								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<CreateProjectMutation, CreateProjectMutationVariables>;
 export const SignOutDocument = {
 	kind: 'Document',
 	definitions: [
