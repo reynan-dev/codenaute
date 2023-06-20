@@ -36,14 +36,6 @@ export class Project extends BaseModel {
 	@Field()
 	sandpackTemplate: SandpackTemplates;
 
-	// @Field(() => [FileProject], { nullable: true, defaultValue: [] })
-	// @OneToMany(() => FileProject, (file) => file.project, {
-	// 	eager: true,
-	// 	nullable: true,
-	// 	cascade: true
-	// })
-	// files: FileProject[];
-
 	@Column({ nullable: true })
 	@Field()
 	@IsString()
