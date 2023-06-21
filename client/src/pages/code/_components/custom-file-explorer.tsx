@@ -16,9 +16,20 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const filePaths = files !== null ? Object.keys(files) : [];
 	const filesTree = buildProjectTree(filePaths);
 
-	const style = { icons: 'mr-2' };
+	const style = {
+		icons: 'mr-2'
+		// explorerElement: 'hover:outline hover:outline-1 hover:-outline-offset-1 hover:outline-primary'
+	};
 
-	const renderNode = (node: TreeNode) => {
+	const isChild = (child: TreeNode, parent: TreeNode): boolean => {
+		if (!parent.children) {
+			return false;
+		}
+
+		return parent.children.some((node) => node === child || isChild(child, node));
+	};
+
+	const renderNode = (node: TreeNode, parent?: TreeNode) => {
 		const isExpanded = expandedNodes.includes(node.path);
 
 		const toggleNode = (node: TreeNode) => {
@@ -35,38 +46,39 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			sandpack.openFile(node.path);
 		};
 
+		const isChildNode = parent ? isChild(node, parent) : false;
+
 		return (
 			<div key={node.name}>
 				<button
-					className={twJoin(
+					className={twMerge(
 						'flex items-center',
 						'w-full px-3 py-1',
-						'hover:bg-dark-600 hover:text-primary-200 hover:outline hover:outline-primary'
+						'hover:bg-dark-600 hover:text-primary-200',
+						'hover:outline hover:outline-1 hover:-outline-offset-1 hover:outline-primary'
 					)}
 					onClick={(event) => handleFileClick(node, event)}
 				>
-					{node.children && node.children.length > 0 ? (
-						isExpanded ? (
-							<AiFillFolderOpen className={style.icons} />
+					<div className={twJoin('flex items-center', isChildNode ? 'pl-4' : '')}>
+						{node.children && node.children.length > 0 ? (
+							isExpanded ? (
+								<AiFillFolderOpen className={style.icons} />
+							) : (
+								<AiFillFolder className={style.icons} />
+							)
 						) : (
-							<AiFillFolder className={style.icons} />
-						)
-					) : (
-						<AiOutlineFile className={style.icons} />
-					)}
-					<span>{node.name}</span>
+							<AiOutlineFile className={style.icons} />
+						)}
+						<span className=''>{node.name}</span>
+					</div>
 				</button>
 
 				{isExpanded &&
 					node.children &&
 					node.children.map((child) => (
-						<button
-							className='w-full pl-4 hover:bg-dark-600 hover:outline hover:outline-primary'
-							key={child.name}
-							onClick={(event) => handleFileClick(node, event)}
-						>
-							{renderNode(child)}
-						</button>
+						<div key={child.name} onClick={(event) => handleFileClick(child, event)}>
+							{renderNode(child, node)}
+						</div>
 					))}
 			</div>
 		);
@@ -74,7 +86,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 	return (
 		<div className={twMerge('bg-dark-900 py-2 text-dark-300', className)}>
-			{filesTree.children && filesTree.children.map(renderNode)}
+			{Array.isArray(filesTree.children) && filesTree.children.map((node) => renderNode(node))}
 		</div>
 	);
 };
