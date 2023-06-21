@@ -55,7 +55,9 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 						'flex items-center',
 						'w-full px-3 py-1',
 						'hover:bg-dark-600 hover:text-primary-200',
-						'hover:outline hover:outline-1 hover:-outline-offset-1 hover:outline-primary'
+						sandpack.activeFile === node.path
+							? 'bg-dark-600 text-primary-200 outline outline-1 -outline-offset-1 outline-primary'
+							: ''
 					)}
 					onClick={(event) => handleFileClick(node, event)}
 				>
