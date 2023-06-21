@@ -18,7 +18,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ position, onClose, onA
 
 	return (
 		<div
-			className='fixed z-50 w-36 rounded-sm bg-dark-800 text-white shadow-md shadow-dark-900'
+			className='fixed z-50 w-36 rounded-sm bg-dark-800 text-white shadow-md'
 			style={{ left: x, top: y }}
 		>
 			<ul className='py-2'>
