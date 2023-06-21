@@ -26,6 +26,7 @@ export const CodePage = ({ state }: CodePageProps) => {
 				<SandpackProvider
 					theme={sandpackCustomTheme}
 					style={{ height: '100%' }}
+					// files={state.files ?? undefined}
 					template={getCheckedTemplateParam(state.currentProjectData.sandpackTemplate ?? '')}
 				>
 					<SandpackContainer>
@@ -42,6 +43,7 @@ export const CodePage = ({ state }: CodePageProps) => {
 								<div className='h-100 flex w-2/12 min-w-56 flex-col'>
 									<FileExplorerPanel
 										files={state.files}
+										setFiles={state.setFiles}
 										className='h-100 w-100 flex flex-1 flex-col'
 									/>
 								</div>

@@ -1,6 +1,7 @@
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import { ContextMenu } from 'pages/code/_components/context-menu';
+import { renameFile } from 'pages/code/_helpers/rename-file';
 import React, { useEffect, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
 import { twJoin, twMerge } from 'tailwind-merge';
@@ -8,22 +9,22 @@ import { twJoin, twMerge } from 'tailwind-merge';
 interface CustomFileExplorerProps {
 	className?: string;
 	files: SandpackFiles | null;
+	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
 }
 
-export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps) => {
-	const { sandpack } = useSandpack();
-	const [expandedNodes, setExpandedNodes] = useState<string[]>([]);
-	const [contextMenuPosition, setContextMenuPosition] = useState<null | { x: number; y: number }>(
-		null
-	);
-	const [selectedNode, setSelectedNode] = useState<string | null>(null);
+type Position = { x: number; y: number };
 
-	const filePaths = files !== null ? Object.keys(files) : [];
-	const filesTree = buildProjectTree(filePaths);
+export const CustomFileExplorer = ({ className, files, setFiles }: CustomFileExplorerProps) => {
+	const { sandpack } = useSandpack();
+	const [filesTree, setFilesTree] = useState<TreeNode | null>(null);
+	const [expandedNodes, setExpandedNodes] = useState<string[]>([]);
+	const [contextMenuPosition, setContextMenuPosition] = useState<null | Position>(null);
+	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
+	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
+	const [newFileName, setNewFileName] = useState<string | null>(null);
 
 	const style = {
 		icons: 'mr-2'
-		// explorerElement: 'hover:outline hover:outline-1 hover:-outline-offset-1 hover:outline-primary'
 	};
 
 	const isChild = (child: TreeNode, parent: TreeNode): boolean => {
@@ -51,6 +52,35 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 		};
 	}, []);
 
+	useEffect(() => {
+		if (files !== null) setFilesTree(buildProjectTree(files));
+	}, [files]);
+
+	const handleRenameStart = (selectedNode: TreeNode, event: React.MouseEvent) => {
+		event.stopPropagation();
+		setRenamingNode(selectedNode);
+	};
+
+	const handleRenameCancel = () => {
+		setRenamingNode(null);
+	};
+
+	const handleRenameSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
+
+		if (renamingNode !== null && files !== null && newFileName !== null && selectedNode !== null) {
+			renameFile(newFileName, selectedNode, sandpack);
+			setRenamingNode(null);
+		}
+	};
+
+	const onAction = (action: string, node: TreeNode, event: React.MouseEvent) => {
+		if (action === 'rename' && selectedNode !== null) {
+			console.log(node);
+			handleRenameStart(selectedNode, event);
+		}
+	};
+
 	const renderNode = (node: TreeNode, parent?: TreeNode) => {
 		const isExpanded = expandedNodes.includes(node.path);
 		const isChildNode = parent ? isChild(node, parent) : false;
@@ -65,47 +95,92 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 		const handleFileClick = (node: TreeNode, event: React.MouseEvent) => {
 			event.stopPropagation();
-			setSelectedNode(node.path);
+			setSelectedNode(node);
 			if (node.children !== undefined && node.children.length > 0) return toggleNode(node);
 			sandpack.openFile(node.path);
 		};
 
 		const handleContextMenu = (event: React.MouseEvent, node: TreeNode) => {
 			event.preventDefault();
-			setSelectedNode(node.path);
+			setSelectedNode(node);
 			setContextMenuPosition({ x: event.clientX, y: event.clientY });
-			// Faire d'autres traitements nécessaires pour le menu contextuel en fonction du nœud
+		};
+
+		const handleOnFocus = (event: React.FocusEvent<HTMLInputElement, Element>) => {
+			event.currentTarget.select();
+			setNewFileName(node.name);
 		};
 
 		return (
 			<div key={node.name}>
-				<button
-					className={twMerge(
-						'flex items-center',
-						'w-full px-3 py-1',
-						'hover:bg-dark-600 hover:text-primary-200',
-						// sandpack.activeFile === node.path
-						// 	? 'bg-dark-600 text-primary-200 outline outline-1 -outline-offset-1 outline-primary'
-						// 	: '',
-						node.path === selectedNode ? 'outline outline-1 -outline-offset-1 outline-primary' : '',
-						sandpack.activeFile === node.path ? 'bg-dark-600' : ''
-					)}
-					onClick={(event) => handleFileClick(node, event)}
-					onContextMenu={(event) => handleContextMenu(event, node)}
-				>
-					<div className={twJoin('flex items-center', isChildNode ? 'pl-4' : '')}>
-						{node.children && node.children.length > 0 ? (
-							isExpanded ? (
-								<AiFillFolderOpen className={style.icons} />
-							) : (
-								<AiFillFolder className={style.icons} />
-							)
-						) : (
-							<AiOutlineFile className={style.icons} />
+				{renamingNode?.path === node.path ? (
+					<form onSubmit={handleRenameSubmit}>
+						<div
+							className={twMerge(
+								'flex items-center',
+								'w-full',
+								'hover:bg-dark-700 hover:text-primary-200',
+								isChildNode ? 'pl-4' : ''
+							)}
+						>
+							<div className='ml-3'>
+								{node.children && node.children.length > 0 ? (
+									isExpanded ? (
+										<AiFillFolderOpen className={style.icons} />
+									) : (
+										<AiFillFolder className={style.icons} />
+									)
+								) : (
+									<AiOutlineFile className={style.icons} />
+								)}
+							</div>
+							<input
+								type='text'
+								id='node-input'
+								value={newFileName ?? ''}
+								onChange={(event) => setNewFileName(event.target.value)}
+								onFocus={(event) => handleOnFocus(event)}
+								onBlur={handleRenameCancel}
+								autoFocus
+								className={twJoin(
+									'flex items-center',
+									'w-full px-3 py-1',
+									node.path === selectedNode?.path
+										? 'outline outline-1 -outline-offset-1 outline-primary'
+										: '',
+									sandpack.activeFile === node.path ? 'bg-dark-700' : ''
+								)}
+							/>
+						</div>
+					</form>
+				) : (
+					<button
+						className={twMerge(
+							'flex items-center',
+							'w-full px-3 py-1',
+							'hover:bg-dark-700 hover:text-primary-200',
+							node.path === selectedNode?.path
+								? 'outline outline-1 -outline-offset-1 outline-primary'
+								: '',
+							sandpack.activeFile === node.path ? 'bg-dark-700' : ''
 						)}
-						<span className=''>{node.name}</span>
-					</div>
-				</button>
+						onClick={(event) => handleFileClick(node, event)}
+						onContextMenu={(event) => handleContextMenu(event, node)}
+					>
+						<div className={twJoin('flex items-center', isChildNode ? 'pl-4' : '')}>
+							{node.children && node.children.length > 0 ? (
+								isExpanded ? (
+									<AiFillFolderOpen className={style.icons} />
+								) : (
+									<AiFillFolder className={style.icons} />
+								)
+							) : (
+								<AiOutlineFile className={style.icons} />
+							)}
+							<span>{node.name}</span>
+						</div>
+					</button>
+				)}
 
 				{isExpanded &&
 					node.children &&
@@ -114,21 +189,22 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 							{renderNode(child, node)}
 						</div>
 					))}
+
+				{contextMenuPosition && (
+					<ContextMenu
+						position={contextMenuPosition}
+						onClose={() => setContextMenuPosition(null)}
+						onAction={onAction}
+						node={node}
+					/>
+				)}
 			</div>
 		);
 	};
 
 	return (
 		<div className={twMerge('bg-dark-900 py-2 text-dark-300', className)}>
-			{Array.isArray(filesTree.children) && filesTree.children.map((node) => renderNode(node))}
-			{/* Afficher le menu contextuel si la position est définie */}
-			{contextMenuPosition && (
-				<ContextMenu
-					position={contextMenuPosition}
-					onClose={() => setContextMenuPosition(null)}
-					onAction={() => console.log('prout')}
-				/>
-			)}
+			{Array.isArray(filesTree?.children) && filesTree?.children.map((node) => renderNode(node))}
 		</div>
 	);
 };

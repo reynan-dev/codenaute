@@ -10,9 +10,10 @@ import { twJoin } from 'tailwind-merge';
 interface FileExplorerPanelProps {
 	className?: string;
 	files: SandpackFiles | null;
+	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
 }
 
-export const FileExplorerPanel = ({ className, files }: FileExplorerPanelProps) => {
+export const FileExplorerPanel = ({ className, files, setFiles }: FileExplorerPanelProps) => {
 	const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
 	const [newFile, setNewFile] = useState('');
 
@@ -44,7 +45,7 @@ export const FileExplorerPanel = ({ className, files }: FileExplorerPanelProps) 
 					</div>
 				</div>
 				<div className='h-full border border-b-0 border-l-0 border-r-dark-700 border-t-dark-700'>
-					<CustomFileExplorer className='h-full' files={files} />
+					<CustomFileExplorer className='h-full' files={files} setFiles={setFiles} />
 				</div>
 			</div>
 			<Modal isOpen={isNewFileModalOpen} onClose={handleNewFileModalClose}>

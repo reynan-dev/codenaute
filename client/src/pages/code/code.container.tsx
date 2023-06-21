@@ -14,10 +14,12 @@ export interface ProjectState {
 	currentProjectData: ProjectContextData | null;
 	autoSaveLoading: boolean;
 	files: SandpackFiles | null;
+	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
 }
 
 export const CodeContainer = () => {
-	const { projectName, setProjectName, currentProjectData, files } = useContext(ProjectContext);
+	const { projectName, setProjectName, currentProjectData, files, setFiles } =
+		useContext(ProjectContext);
 	const { loading } = useGetProjectService(useParams().projectId ?? '');
 	const { autoSaveLoading } = useAutoSaveProject();
 
@@ -26,7 +28,8 @@ export const CodeContainer = () => {
 		setProjectName,
 		currentProjectData,
 		autoSaveLoading,
-		files
+		files,
+		setFiles
 	};
 
 	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;
