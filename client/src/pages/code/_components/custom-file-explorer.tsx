@@ -16,6 +16,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [contextMenuPosition, setContextMenuPosition] = useState<null | { x: number; y: number }>(
 		null
 	);
+	const [selectedNode, setSelectedNode] = useState<string | null>(null);
 
 	const filePaths = files !== null ? Object.keys(files) : [];
 	const filesTree = buildProjectTree(filePaths);
@@ -40,6 +41,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	useEffect(() => {
 		const handleDocumentClick = () => {
 			closeContextMenu();
+			setSelectedNode(null);
 		};
 
 		document.addEventListener('click', handleDocumentClick);
@@ -51,6 +53,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 	const renderNode = (node: TreeNode, parent?: TreeNode) => {
 		const isExpanded = expandedNodes.includes(node.path);
+		const isChildNode = parent ? isChild(node, parent) : false;
 
 		const toggleNode = (node: TreeNode) => {
 			if (isExpanded) {
@@ -62,14 +65,14 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 		const handleFileClick = (node: TreeNode, event: React.MouseEvent) => {
 			event.stopPropagation();
+			setSelectedNode(node.path);
 			if (node.children !== undefined && node.children.length > 0) return toggleNode(node);
 			sandpack.openFile(node.path);
 		};
 
-		const isChildNode = parent ? isChild(node, parent) : false;
-
 		const handleContextMenu = (event: React.MouseEvent, node: TreeNode) => {
 			event.preventDefault();
+			setSelectedNode(node.path);
 			setContextMenuPosition({ x: event.clientX, y: event.clientY });
 			// Faire d'autres traitements nécessaires pour le menu contextuel en fonction du nœud
 		};
@@ -81,9 +84,11 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 						'flex items-center',
 						'w-full px-3 py-1',
 						'hover:bg-dark-600 hover:text-primary-200',
-						sandpack.activeFile === node.path
-							? 'bg-dark-600 text-primary-200 outline outline-1 -outline-offset-1 outline-primary'
-							: ''
+						// sandpack.activeFile === node.path
+						// 	? 'bg-dark-600 text-primary-200 outline outline-1 -outline-offset-1 outline-primary'
+						// 	: '',
+						node.path === selectedNode ? 'outline outline-1 -outline-offset-1 outline-primary' : '',
+						sandpack.activeFile === node.path ? 'bg-dark-600' : ''
 					)}
 					onClick={(event) => handleFileClick(node, event)}
 					onContextMenu={(event) => handleContextMenu(event, node)}
