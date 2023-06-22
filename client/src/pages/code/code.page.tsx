@@ -20,14 +20,16 @@ interface CodePageProps {
 }
 
 export const CodePage = ({ state }: CodePageProps) => {
+	// console.log(state.currentProjectData?.files);
+
 	return (
 		<>
-			{state.currentProjectData ? (
+			{state.currentProjectData !== null ? (
 				<SandpackProvider
 					theme={sandpackCustomTheme}
 					style={{ height: '100%' }}
-					// files={state.files ?? undefined}
-					template={getCheckedTemplateParam(state.currentProjectData.sandpackTemplate ?? '')}
+					files={state.currentProjectData.files}
+					// template={getCheckedTemplateParam(state.currentProjectData.sandpackTemplate ?? '')}
 				>
 					<SandpackContainer>
 						<SandpackLayout
@@ -42,8 +44,7 @@ export const CodePage = ({ state }: CodePageProps) => {
 							<div className='flex h-full w-full'>
 								<div className='h-100 flex w-2/12 min-w-56 flex-col'>
 									<FileExplorerPanel
-										files={state.files}
-										setFiles={state.setFiles}
+										files={state.currentProjectData.files}
 										className='h-100 w-100 flex flex-1 flex-col'
 									/>
 								</div>

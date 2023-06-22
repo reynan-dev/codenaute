@@ -9,12 +9,11 @@ import { twJoin, twMerge } from 'tailwind-merge';
 interface CustomFileExplorerProps {
 	className?: string;
 	files: SandpackFiles | null;
-	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
 }
 
 type Position = { x: number; y: number };
 
-export const CustomFileExplorer = ({ className, files, setFiles }: CustomFileExplorerProps) => {
+export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps) => {
 	const { sandpack } = useSandpack();
 	const [filesTree, setFilesTree] = useState<TreeNode | null>(null);
 	const [expandedNodes, setExpandedNodes] = useState<string[]>([]);

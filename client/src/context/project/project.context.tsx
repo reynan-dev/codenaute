@@ -1,4 +1,5 @@
 import { SandpackFiles } from '@codesandbox/sandpack-react/types';
+import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import { ProjectContextData, SetProjectContextData } from 'types/project';
 
@@ -36,11 +37,14 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [projectName, setProjectName] = useState('untitled');
 
 	useEffect(() => {
-		const hasFilesChanged =
-			JSON.stringify(currentProjectData?.files) !== JSON.stringify(lastSavedProjectData?.files);
-		const hasProjectNameChanged = currentProjectData?.name !== lastSavedProjectData?.name;
+		if (lastSavedProjectData?.files !== undefined && currentProjectData?.files !== undefined) {
+			const hasProjectNameChanged = currentProjectData?.name !== lastSavedProjectData?.name;
 
-		setIsProjectSaved(!hasFilesChanged && !hasProjectNameChanged);
+			setIsProjectSaved(
+				!hasSandpackFilesChanged(lastSavedProjectData?.files, currentProjectData?.files) &&
+					!hasProjectNameChanged
+			);
+		}
 	}, [currentProjectData, lastSavedProjectData]);
 
 	useEffect(() => {

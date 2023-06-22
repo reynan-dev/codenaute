@@ -1,6 +1,8 @@
-import { useSandpack } from '@codesandbox/sandpack-react';
+import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import ProjectContext from 'context/project/project.context';
-import { useContext, useEffect } from 'react';
+import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
+import { useContext, useEffect, useRef } from 'react';
+import { ProjectContextData } from 'types/project';
 
 interface SandpackContainerProps {
 	children: JSX.Element;
@@ -8,11 +10,35 @@ interface SandpackContainerProps {
 
 export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	const { sandpack } = useSandpack();
-	const { setFiles } = useContext(ProjectContext);
+	const { setCurrentProjectData, currentProjectData } = useContext(ProjectContext);
+
+	const previousFilesRef = useRef<SandpackFiles | null>(
+		currentProjectData !== null ? currentProjectData.files : null
+	);
 
 	useEffect(() => {
-		setFiles(sandpack.files);
-	}, [sandpack.files, setFiles]);
+		console.log({ previous: previousFilesRef.current, current: sandpack.files });
+		if (previousFilesRef.current !== null) {
+			console.log(hasSandpackFilesChanged(previousFilesRef.current, sandpack.files));
+		}
+		if (
+			previousFilesRef.current !== null &&
+			hasSandpackFilesChanged(previousFilesRef.current, sandpack.files)
+		) {
+			previousFilesRef.current = sandpack.files;
+			console.log('prout');
+
+			setCurrentProjectData(
+				(previousState) =>
+					({
+						id: previousState?.id,
+						name: previousState?.name,
+						sandpackTemplate: previousState?.sandpackTemplate,
+						files: sandpack.files
+					} as ProjectContextData)
+			);
+		}
+	}, [sandpack.files, setCurrentProjectData]);
 
 	return <>{children}</>;
 };
