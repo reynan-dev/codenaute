@@ -1,11 +1,10 @@
-import { IsBoolean, IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsString, IsEnum } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
 import { Member } from 'models/Member';
 import { BaseModel } from 'models/base/BaseModel';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
-import { isEnumType } from 'graphql';
 
 @Entity()
 @ObjectType()
@@ -34,17 +33,13 @@ export class Project extends BaseModel {
 		nullable: true
 	})
 	@Field()
+	@IsEnum(SandpackTemplates)
 	sandpackTemplate: SandpackTemplates;
 
 	@Column({ nullable: true })
 	@Field()
 	@IsString()
 	files: string;
-
-	@Column('boolean', { default: false })
-	@Field()
-	@IsBoolean()
-	isTemplate: boolean;
 
 	@Column('boolean', { default: false })
 	@Field()
