@@ -71,6 +71,23 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
+	async findOneBySessionToken(token: string): Promise<Member | null> {
+		const member = await this.repository.findOne({
+			where: { sessions: { token } },
+			relations: [
+				'ownedProjects',
+				'projectsInvitedOn',
+				'favoritedProjects',
+				'followers',
+				'following'
+			]
+		});
+
+		if (!member) return null;
+
+		return member;
+	}
+
 	async followMember(member: Member, memberToFollow: Member) {
 		member.following.push(memberToFollow);
 
