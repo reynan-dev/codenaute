@@ -18,21 +18,6 @@ describe('Add to Favorite', () => {
 		email: 'favorite@gmail.com',
 		password: 'data'
 	};
-
-	describe('when there are no project', () => {
-		it('throw a Project Not Found error', async () => {
-			const favoringMember = await MemberService.signUp(
-				favoringData.username,
-				favoringData.email,
-				favoringData.password
-			);
-
-			expect(() => ProjectService.addToFavorite(favoringMember, uuid())).rejects.toThrowError(
-				ErrorMessages.PROJECT_NOT_FOUND
-			);
-		});
-	});
-
 	describe('when there are project and favorite', () => {
 		it('returns an array of members', async () => {
 			const favoringUser = await MemberService.signUp(
@@ -49,7 +34,7 @@ describe('Add to Favorite', () => {
 
 			const project = await ProjectService.create(data);
 
-			const favoritedProject = await ProjectService.addToFavorite(favoringUser, project.id);
+			const favoritedProject = await ProjectService.addToFavorite(favoringUser, project);
 
 			expect(favoritedProject.favoritedBy).toHaveLength(1);
 			expect(favoritedProject.favoritedBy[0].id).toEqual(favoringUser.id);

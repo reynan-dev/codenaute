@@ -19,20 +19,6 @@ describe('Find All Projects By Editor Id', () => {
 		password: 'data'
 	};
 
-	describe('when there are no project or member', () => {
-		it('throw a Project Not Found error', async () => {
-			const shareToUser = await MemberService.signUp(
-				shareToData.username,
-				shareToData.email,
-				shareToData.password
-			);
-
-			expect(() => ProjectService.share(uuid(), [shareToUser])).rejects.toThrowError(
-				ErrorMessages.PROJECT_NOT_FOUND
-			);
-		});
-	});
-
 	describe('when there are project and member', () => {
 		it('returns an array of public projects', async () => {
 			const shareUser = await MemberService.signUp(
@@ -48,7 +34,7 @@ describe('Find All Projects By Editor Id', () => {
 
 			const project = await ProjectService.create(projectData);
 
-			const sharedProject = await ProjectService.share(project.id, [shareUser]);
+			const sharedProject = await ProjectService.share(project, [shareUser]);
 
 			expect(sharedProject.editors).toHaveLength(1);
 			expect(sharedProject.editors[0].id).toEqual(shareUser.id);
