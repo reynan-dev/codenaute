@@ -1,8 +1,9 @@
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
+import ProjectContext from 'context/project/project.context';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import { ContextMenu } from 'pages/code/_components/context-menu';
 import { renameFile } from 'pages/code/_helpers/rename-file';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
 import { twJoin, twMerge } from 'tailwind-merge';
 
@@ -21,6 +22,9 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
+	const { setActiveFile } = useContext(ProjectContext);
+
+	sandpack.setActiveFile('App.tsx');
 
 	const style = {
 		icons: 'mr-2'
@@ -100,6 +104,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			setSelectedNode(node);
 			if (node.children !== undefined && node.children.length > 0) return toggleNode(node);
 			sandpack.openFile(node.path);
+			setActiveFile(node.path);
 		};
 
 		const handleContextMenu = (event: React.MouseEvent, node: TreeNode) => {

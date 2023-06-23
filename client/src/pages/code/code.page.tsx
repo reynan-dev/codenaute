@@ -20,8 +20,6 @@ interface CodePageProps {
 }
 
 export const CodePage = ({ state }: CodePageProps) => {
-	// console.log(state.currentProjectData?.files);
-
 	const template = getCheckedTemplateParam(state.currentProjectData?.sandpackTemplate ?? '');
 
 	return (
@@ -29,14 +27,26 @@ export const CodePage = ({ state }: CodePageProps) => {
 			{state.currentProjectData?.files !== undefined && template !== undefined ? (
 				<SandpackProvider
 					theme={sandpackCustomTheme}
-					style={{ height: '100%' }}
-					files={{ '/prout.tsx': '' }}
-					options={{
-						// visibleFiles: findFilesWithCodeContainingHelloWorld(state.currentProjectData.files),
-						initMode: 'lazy'
-						// fileResolver
+					customSetup={{
+						dependencies: {
+							react: '^18.0.0',
+							'react-dom': '^18.0.0',
+							'react-scripts': '^4.0.0'
+						},
+						devDependencies: {
+							'@types/react': '^18.0.0',
+							'@types/react-dom': '^18.0.0',
+							typescript: '^4.0.0'
+						},
+						environment: 'create-react-app-typescript'
 					}}
+					style={{ height: '100%' }}
+					files={state.currentProjectData?.files}
 					// template={template}
+					options={{
+						// visibleFiles: ['App.tsx'],
+						activeFile: state.activeFile
+					}}
 				>
 					<SandpackContainer>
 						<SandpackLayout

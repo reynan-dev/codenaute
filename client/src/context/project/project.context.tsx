@@ -12,6 +12,8 @@ export interface ProjectContextProps {
 	setIsProjectSaved: React.Dispatch<React.SetStateAction<boolean>>;
 	files: SandpackFiles | null;
 	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
+	activeFile: string;
+	setActiveFile: React.Dispatch<React.SetStateAction<string>>;
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -26,7 +28,9 @@ export const ProjectContext = createContext<ProjectContextProps>({
 	files: null,
 	setFiles: () => null,
 	projectName: 'untitled',
-	setProjectName: () => 'untitled'
+	setProjectName: () => 'untitled',
+	activeFile: 'App.tsx',
+	setActiveFile: () => 'App.tsx'
 });
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
@@ -34,6 +38,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
 	const [isProjectSaved, setIsProjectSaved] = useState(false);
 	const [files, setFiles] = useState<SandpackFiles | null>(null);
+	const [activeFile, setActiveFile] = useState('App.tsx');
 	const [projectName, setProjectName] = useState('untitled');
 
 	useEffect(() => {
@@ -79,7 +84,9 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 				files,
 				setFiles,
 				projectName,
-				setProjectName
+				setProjectName,
+				activeFile,
+				setActiveFile
 			}}
 		>
 			{children}
