@@ -13,8 +13,8 @@ export class ProjectServices extends BaseServices {
 		super(Project);
 	}
 
-	async addToFavorite(member: Member, project: Project): Promise<Project> {
-		project.favoritedBy.push(member);
+	async addToFavorite(members: Member[], project: Project): Promise<Project> {
+		project.favoritedBy = [...members];
 
 		return this.repository.save(project);
 	}

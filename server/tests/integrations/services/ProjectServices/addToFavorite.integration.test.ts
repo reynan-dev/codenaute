@@ -32,7 +32,7 @@ describe('Add to Favorite', () => {
 
 			const project = await ProjectService.create(data);
 
-			const favoritedProject = await ProjectService.addToFavorite(favoringUser, project);
+			const favoritedProject = await ProjectService.addToFavorite([favoringUser], project);
 
 			expect(favoritedProject.favoritedBy).toHaveLength(1);
 			expect(favoritedProject.favoritedBy[0].id).toEqual(favoringUser.id);

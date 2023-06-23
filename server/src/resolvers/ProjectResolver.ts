@@ -63,7 +63,7 @@ export class ProjectResolver {
 		if (project.favoritedBy.includes(context.user))
 			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
-		return this.ProjectServices.addToFavorite(context.user as Member, project);
+		return this.ProjectServices.addToFavorite([context.user as Member], project);
 	}
 
 	@Authorized()
