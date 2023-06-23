@@ -48,23 +48,13 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async addToFavorite(member: Member, projectId: UUID): Promise<Project> {
-		const project = await this.findById(projectId);
-
-		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
-
+	async addToFavorite(member: Member, project: Project): Promise<Project> {
 		project.favoritedBy.push(member);
 
 		return this.repository.save(project);
 	}
 
-	async share(memberId: UUID, members: Member[]): Promise<Project> {
-		const project = await this.findById(memberId);
-
-		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
-
+	async share(project: Project, members: Member[]): Promise<Project> {
 		project.editors = [...members];
 
 		return this.repository.save(project);
