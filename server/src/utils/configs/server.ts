@@ -16,7 +16,7 @@ export abstract class Server {
 	private static readonly cache: 'bounded' | undefined = 'bounded';
 	private static readonly plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
 
-	static resolvers: NonEmptyArray<Function> | NonEmptyArray<string> = [BaseResolver];
+	private static resolvers: NonEmptyArray<Function> | NonEmptyArray<string> = [BaseResolver];
 
 	public static includeResolvers(resolvers: NonEmptyArray<Function> | NonEmptyArray<string>) {
 		this.resolvers = [...resolvers];
@@ -51,7 +51,7 @@ export abstract class Server {
 		});
 	}
 
-	static async start() {
+	public static async start() {
 		if (process.env.GRAPHQL_PORT == null)
 			return console.error('❌ No environment variable has been set for GRAPHQL_PORT');
 
