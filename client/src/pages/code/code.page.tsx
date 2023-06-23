@@ -1,11 +1,14 @@
 import {
 	SandpackCodeEditor,
 	SandpackConsole,
+	SandpackFiles,
 	SandpackLayout,
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
 import { ErrorLoading } from 'components/error/error-loading';
+import { checkSandboxEnvironment } from 'helpers/check-sandbox-environment';
+import { buildProjectTree } from 'helpers/format-file-path';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
 import { FileExplorerPanel } from 'pages/code/_components/file-explorer-panel';
 import { ProjectPanel } from 'pages/code/_components/project-panel';
@@ -20,7 +23,37 @@ interface CodePageProps {
 }
 
 export const CodePage = ({ state }: CodePageProps) => {
+	const checkedEnvironment = checkSandboxEnvironment(state.currentProjectData?.environment);
 	const template = getCheckedTemplateParam(state.currentProjectData?.sandpackTemplate ?? '');
+
+	function getCodeFromSandpackFiles(files: SandpackFiles, filePath: string): string | undefined {
+		const file = files[filePath];
+		if (file && typeof file === 'object' && 'code' in file) {
+			return file.code;
+		}
+		return undefined;
+	}
+
+	const filePaths =
+		state.files !== null
+			? Object.entries(state.files).map(([path, file]) => {
+					if (typeof file === 'string') {
+						return { path, code: file };
+					} else {
+						return { path, code: file.code };
+					}
+			  })
+			: [];
+
+	console.log({ filePaths });
+
+	const packageJsonCode = filePaths.filter((file) => file.path === '/package.json');
+	console.log({ packageJsonCode });
+
+	// const dependencies = JSON.parse(packageJsonCode ?? '').dependencies;
+	// const devDependencies = JSON.parse(packageJsonCode ?? '').devDependencies;
+
+	// console.log({ dependencies, devDependencies });
 
 	return (
 		<>
@@ -38,7 +71,7 @@ export const CodePage = ({ state }: CodePageProps) => {
 							'@types/react-dom': '^18.0.0',
 							typescript: '^4.0.0'
 						},
-						environment: 'create-react-app-typescript'
+						environment: checkedEnvironment
 					}}
 					style={{ height: '100%' }}
 					files={state.currentProjectData?.files}

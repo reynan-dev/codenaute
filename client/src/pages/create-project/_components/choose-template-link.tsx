@@ -162,6 +162,7 @@ export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
 		return await createProject({
 			name: 'untitled',
 			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
+			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
 			sandpackTemplate
 		});
 	};

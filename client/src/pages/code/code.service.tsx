@@ -40,6 +40,7 @@ interface ProjectDataResponse {
 		}> | null;
 	};
 	sandpackTemplate: string;
+	environment: string;
 }
 
 interface onSuccessCallbacks {
@@ -54,13 +55,15 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		id: project.id,
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
-		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files
+		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
+		environment: project.environment
 	});
 	setCurrentProjectData({
 		id: project.id,
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
-		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files
+		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
+		environment: project.environment
 	});
 };
 
@@ -69,7 +72,8 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		id: data.id,
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
-		files: JSON.parse(data.files) as SandpackFiles
+		files: JSON.parse(data.files) as SandpackFiles,
+		environment: data.environment
 	};
 };
 
@@ -125,7 +129,8 @@ export const useUpdateProjectService = () => {
 					isTemplate: false,
 					isPublic: false,
 					sandpackTemplate: project.sandpackTemplate ?? '',
-					files: JSON.stringify(project.files)
+					files: JSON.stringify(project.files),
+					environment: project.environment
 				},
 				onCompleted(data) {
 					onSuccess(
@@ -152,6 +157,8 @@ export const useAutoSaveProject = () => {
 		AUTO_SAVE_DELAY_MS
 	);
 	const { updateProject, loading: autoSaveLoading } = useUpdateProjectService();
+
+	console.log(debouncedProject);
 
 	useEffect(() => {
 		if (!isProjectSaved && debouncedProject) updateProject(debouncedProject);

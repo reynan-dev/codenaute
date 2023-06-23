@@ -54,6 +54,9 @@ export class createProjectArgs {
 
 	@Field()
 	files: string;
+
+	@Field()
+	environment: string;
 }
 
 @ArgsType()
@@ -76,6 +79,9 @@ export class updateProjectArgs {
 
 	@Field()
 	files: string;
+
+	@Field()
+	environment: string;
 }
 
 @ArgsType()

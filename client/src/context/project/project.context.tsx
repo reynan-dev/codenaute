@@ -66,7 +66,8 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 						id: lastSavedProjectData?.id,
 						sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
 						name: projectName,
-						files: previousState?.files
+						files: previousState?.files,
+						environment: previousState?.environment
 					} as ProjectContextData)
 			);
 		}
