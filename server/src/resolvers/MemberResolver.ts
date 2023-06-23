@@ -37,17 +37,18 @@ export class MemberResolver {
 	async signUp(
 		@Args() { username, email, password, confirmedPassword }: SignUpArgs
 	): Promise<Member | null> {
-		const existingEmail = (await this.MemberServices.findOneBy({ email })) as Member;
-		const existingUsername = (await this.MemberServices.findOneBy({ username })) as Member;
-		if (existingEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
-		if (existingUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
+		const checkEmail = (await this.MemberServices.findOneBy({ email })) as Member;
+		if (checkEmail) throw Error(ErrorMessages.EMAIL_ALREADY_REGISTERED_ERROR_MESSAGE);
+
+		const checkUsername = (await this.MemberServices.findOneBy({ username })) as Member;
+		if (checkUsername) throw Error(ErrorMessages.USERNAME_ALREADY_REGISTERED_ERROR_MESSAGE);
 
 		if (confirmedPassword !== password)
 			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
 
-		const newMember = (await this.MemberServices.signUp(username, email, password)) as Member;
+		const member = (await this.MemberServices.signUp(username, email, password)) as Member;
 
-		return await this.MemberServices.findById(newMember.id);
+		return await this.MemberServices.findById(member.id);
 	}
 
 	@Authorized()
@@ -59,7 +60,7 @@ export class MemberResolver {
 	@Authorized()
 	@Query(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
-		return await this.MemberServices.findById(memberId);
+		return await this.MemberServices.findOneById(memberId);
 	}
 
 	@Authorized()
@@ -88,7 +89,14 @@ export class MemberResolver {
 	): Promise<Member> {
 		if (context.user?.id === memberId) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
 
-		return await this.MemberServices.followMember(context.user?.id as string, memberId);
+		const memberToFollow = (await this.MemberServices.findOneById(memberId)) as Member;
+
+		if (!context.user || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+
+		if (context.user.following.includes(memberToFollow))
+			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
+
+		return await this.MemberServices.followMember(context.user as Member, memberToFollow);
 	}
 
 	@Authorized()
@@ -123,12 +131,13 @@ export class MemberResolver {
 		@Args() { newPassword, confirmedNewPassword, oldPassword }: UpdateMemberPasswordArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Member> {
-		const user = (await this.MemberServices.findById(context.user?.id as UUID)) as Member;
-
-		if (!compareSync(oldPassword, user.hashedPassword))
+		if (!compareSync(oldPassword, context.user?.hashedPassword as string))
 			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
 
-		return this.MemberServices.updatePassword(user.email, newPassword, confirmedNewPassword);
+		if (newPassword !== confirmedNewPassword)
+			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
+
+		return this.MemberServices.updatePassword(context.user as Member, newPassword);
 	}
 
 	@Authorized()
@@ -137,6 +146,9 @@ export class MemberResolver {
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Boolean> {
-		return this.MemberServices.deleteAccount(context.user?.id as string, password);
+		if (!compareSync(password, context.user?.hashedPassword as string))
+			throw Error(ErrorMessages.INVALID_PASSWORD_ERROR_MESSAGE);
+
+		return this.MemberServices.deleteAccount(context.user as Member);
 	}
 }
