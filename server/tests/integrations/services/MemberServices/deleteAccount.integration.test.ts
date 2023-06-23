@@ -1,5 +1,4 @@
 import { MemberServices } from 'services/MemberServices';
-import { ErrorMessages } from 'utils/enums/ErrorMessages';
 
 describe('Delete a Member account integration test', () => {
 	const MemberService = new MemberServices();

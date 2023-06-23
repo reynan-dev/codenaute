@@ -1,7 +1,5 @@
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
-import { ErrorMessages } from 'utils/enums/ErrorMessages';
-import { v4 as uuid } from 'uuid';
 
 describe('Find All Projects By Editor Id', () => {
 	const ProjectService = new ProjectServices();
