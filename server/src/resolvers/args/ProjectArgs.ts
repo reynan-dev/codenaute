@@ -10,7 +10,7 @@ import { SandpackFiles } from 'utils/types/Sandpack';
 const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
 
 @ArgsType()
-export class GetProjectByIdArgs {
+export class getProjectByIdArgs {
 	@Field(() => ID)
 	@IsUUID()
 	projectId: UUID;
