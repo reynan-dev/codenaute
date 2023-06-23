@@ -35,11 +35,12 @@ export class RoutingTokenResolver {
 
 		if (!routingToken) throw Error(ErrorMessages.INVALID_TOKEN_ERROR_MESSAGE);
 
-		return await this.MemberServices.updatePassword(
-			routingToken.email,
-			newPassword,
-			confirmPassword
-		);
+		const member = (await this.MemberServices.findOneByEmail(routingToken.email)) as Member;
+
+		if (newPassword !== confirmPassword)
+			throw Error(ErrorMessages.PASSWORDS_DO_NOT_MATCH_ERROR_MESSAGE);
+
+		return await this.MemberServices.updatePassword(member, newPassword);
 	}
 
 	@Mutation(() => RoutingToken)
