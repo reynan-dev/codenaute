@@ -6,7 +6,7 @@ import {
 	favoriteProjectArgs,
 	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
-	GetProjectByIdArgs,
+	getProjectByIdArgs,
 	shareProjectArgs,
 	updateProjectArgs,
 	updateProjectIsPublic,
@@ -66,13 +66,12 @@ export class ProjectResolver {
 	@Authorized()
 	@Query(() => Project)
 	async getProjectById(
-		@Arg('projectId') projectId: string,
+		@Args() { projectId }: getProjectByIdArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
-		const member = await this.MemberServices.findById(context.user?.id as UUID);
 
-		if (project.owner.id !== member.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+		if (project.owner.id !== context.user?.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
 		return project;
 	}
@@ -116,24 +115,36 @@ export class ProjectResolver {
 		@Args() { projectId }: favoriteProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
-		const member = await this.MemberServices.findById(context.user?.id as UUID);
+		const project = await this.ProjectServices.findById(projectId);
 
-		return this.ProjectServices.addToFavorite(member, projectId);
+		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		if (project.favoritedBy.includes(context.user))
+			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+
+		return this.ProjectServices.addToFavorite(context.user as Member, project);
 	}
 
 	@Authorized()
 	@Mutation(() => Project)
 	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
 		const members = new Array();
+
 		membersId.map(async (id) => {
 			const member = (await this.MemberServices.findById(id)) as Member;
 			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
+
 			const project = await this.ProjectServices.findById(projectId);
 			if (project.editors.includes(...members)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
+
 			members.push(member);
 		});
 
-		return this.ProjectServices.share(projectId, members);
+		const project = await this.ProjectServices.findById(projectId);
+
+		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		return this.ProjectServices.share(project, members);
 	}
 
 	@Authorized()
