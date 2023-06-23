@@ -22,14 +22,21 @@ interface CodePageProps {
 export const CodePage = ({ state }: CodePageProps) => {
 	// console.log(state.currentProjectData?.files);
 
+	const template = getCheckedTemplateParam(state.currentProjectData?.sandpackTemplate ?? '');
+
 	return (
 		<>
-			{state.currentProjectData !== null ? (
+			{state.currentProjectData?.files !== undefined && template !== undefined ? (
 				<SandpackProvider
 					theme={sandpackCustomTheme}
 					style={{ height: '100%' }}
-					files={state.currentProjectData.files}
-					// template={getCheckedTemplateParam(state.currentProjectData.sandpackTemplate ?? '')}
+					files={{ '/prout.tsx': '' }}
+					options={{
+						// visibleFiles: findFilesWithCodeContainingHelloWorld(state.currentProjectData.files),
+						initMode: 'lazy'
+						// fileResolver
+					}}
+					// template={template}
 				>
 					<SandpackContainer>
 						<SandpackLayout

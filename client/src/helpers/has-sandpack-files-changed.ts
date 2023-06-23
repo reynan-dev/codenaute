@@ -1,6 +1,8 @@
 import { SandpackFile, SandpackFiles } from '@codesandbox/sandpack-react/index';
 
 export function hasSandpackFilesChanged(obj1: SandpackFiles, obj2: SandpackFiles): boolean {
+	// if (obj1 === null) return false;
+
 	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
 

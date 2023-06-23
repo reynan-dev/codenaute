@@ -48,14 +48,22 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	}, [currentProjectData, lastSavedProjectData]);
 
 	useEffect(() => {
-		if (files) {
-			const project = {
-				id: lastSavedProjectData?.id,
-				sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
-				name: projectName,
-				files
-			};
-			setCurrentProjectData(project);
+		if (lastSavedProjectData?.files) {
+			// const project = {
+			// 	id: lastSavedProjectData?.id,
+			// 	sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
+			// 	name: projectName,
+			// 	files: currentProjectData?.files
+			// };
+			setCurrentProjectData(
+				(previousState) =>
+					({
+						id: lastSavedProjectData?.id,
+						sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
+						name: projectName,
+						files: previousState?.files
+					} as ProjectContextData)
+			);
 		}
 	}, [files, projectName, lastSavedProjectData]);
 

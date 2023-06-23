@@ -78,6 +78,9 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			console.log(node);
 			handleRenameStart(selectedNode, event);
 		}
+		if (action === 'delete' && selectedNode !== null) {
+			sandpack.deleteFile(selectedNode.path);
+		}
 	};
 
 	const renderNode = (node: TreeNode, parent?: TreeNode) => {
