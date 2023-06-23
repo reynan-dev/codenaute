@@ -13,18 +13,10 @@ export class ProjectServices extends BaseServices {
 		super(Project);
 	}
 
-	async findAllPublic(): Promise<Project[]> {
-		return this.repository.find({
-			where: { isPublic: true },
-			relations: ['owner', 'editors', 'favoritedBy']
-		});
-	}
+	async addToFavorite(member: Member, project: Project): Promise<Project> {
+		project.favoritedBy.push(member);
 
-	async findAllByOwner(memberId: UUID): Promise<Project[]> {
-		return this.repository.find({
-			where: { owner: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy']
-		});
+		return this.repository.save(project);
 	}
 
 	async findAllByEditorId(memberId: UUID): Promise<Project[]> {
@@ -41,6 +33,13 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
+	async findAllByOwner(memberId: UUID): Promise<Project[]> {
+		return this.repository.find({
+			where: { owner: { id: memberId } },
+			relations: ['owner', 'editors', 'favoritedBy']
+		});
+	}
+
 	async findAllByTemplate(template: SandpackTemplates): Promise<Project[]> {
 		return this.repository.find({
 			where: { sandpackTemplate: template },
@@ -48,10 +47,11 @@ export class ProjectServices extends BaseServices {
 		});
 	}
 
-	async addToFavorite(member: Member, project: Project): Promise<Project> {
-		project.favoritedBy.push(member);
-
-		return this.repository.save(project);
+	async findAllPublic(): Promise<Project[]> {
+		return this.repository.find({
+			where: { isPublic: true },
+			relations: ['owner', 'editors', 'favoritedBy']
+		});
 	}
 
 	async share(project: Project, members: Member[]): Promise<Project> {

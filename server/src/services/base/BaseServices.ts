@@ -12,6 +12,20 @@ export abstract class BaseServices {
 		this.repository = Database.repository(entity);
 	}
 
+	async create(data: ObjectLiteral) {
+		let created = await this.repository.create(data);
+
+		return await this.repository.save(created);
+	}
+
+	async delete(id: UUID) {
+		let obj = await this.findById(id);
+
+		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);
+
+		return await this.repository.remove(obj);
+	}
+
 	async find() {
 		return await this.repository.find();
 	}
@@ -22,20 +36,14 @@ export abstract class BaseServices {
 		return await this.repository.findBy(filter);
 	}
 
-	async findOneBy(filter: ObjectLiteral = {}) {
-		if (Object.keys(filter).length === 0) return await this.find();
-
-		return await this.repository.findOneBy(filter);
-	}
-
 	async findById(id: string) {
 		return this.repository.findOneBy({ id: id });
 	}
 
-	async create(data: ObjectLiteral) {
-		let created = await this.repository.create(data);
+	async findOneBy(filter: ObjectLiteral = {}) {
+		if (Object.keys(filter).length === 0) return await this.find();
 
-		return await this.repository.save(created);
+		return await this.repository.findOneBy(filter);
 	}
 
 	async update(id: UUID, data: ObjectLiteral) {
@@ -48,13 +56,5 @@ export abstract class BaseServices {
 		let updated = this.repository.merge(obj, data);
 
 		return await this.repository.save(updated);
-	}
-
-	async delete(id: UUID) {
-		let obj = await this.findById(id);
-
-		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);
-
-		return await this.repository.remove(obj);
 	}
 }

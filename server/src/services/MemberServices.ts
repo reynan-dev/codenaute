@@ -12,34 +12,15 @@ export class MemberServices extends BaseServices {
 		super(Member);
 	}
 
-	async signIn(email: string, password: string) {
-		const user = (await this.findOneBy({ email })) as Member;
+	async deleteAccount(member: Member) {
+		await this.delete(member.id);
 
-		if (!user || !compareSync(password, user.hashedPassword))
-			throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
-
-		const session = await this.SessionServices.create(user);
-
-		return { user, session };
+		return true;
 	}
 
-	async signUp(username: string, email: string, password: string): Promise<Member> {
-		const hashedPassword = hashSync(password, 10);
-
-		return await this.create({
-			username: username,
-			email: email,
-			hashedPassword: hashedPassword
-		});
-	}
-
-	async signOut(token: string) {
-		return await this.SessionServices.delete(token);
-	}
-
-	async findOneById(memberId: UUID): Promise<Member | null> {
+	async findOneByEmail(email: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
-			where: { id: memberId },
+			where: { email: email },
 			relations: [
 				'ownedProjects',
 				'projectsInvitedOn',
@@ -54,9 +35,9 @@ export class MemberServices extends BaseServices {
 		return member;
 	}
 
-	async findOneByEmail(email: string): Promise<Member | null> {
+	async findOneById(memberId: UUID): Promise<Member | null> {
 		const member = await this.repository.findOne({
-			where: { email: email },
+			where: { id: memberId },
 			relations: [
 				'ownedProjects',
 				'projectsInvitedOn',
@@ -94,18 +75,33 @@ export class MemberServices extends BaseServices {
 		return this.repository.save(member);
 	}
 
-	async updateUsername(memberId: UUID, username: string) {
-		return await this.update(memberId, { username });
+	async signIn(email: string, password: string) {
+		const user = (await this.findOneBy({ email })) as Member;
+
+		if (!user || !compareSync(password, user.hashedPassword))
+			throw Error(ErrorMessages.INVALID_CREDENTIALS_ERROR_MESSAGE);
+
+		const session = await this.SessionServices.create(user);
+
+		return { user, session };
+	}
+
+	async signOut(token: string) {
+		return await this.SessionServices.delete(token);
+	}
+
+	async signUp(username: string, email: string, password: string): Promise<Member> {
+		const hashedPassword = hashSync(password, 10);
+
+		return await this.create({
+			username: username,
+			email: email,
+			hashedPassword: hashedPassword
+		});
 	}
 
 	async updateEmail(memberId: UUID, email: string) {
 		return await this.update(memberId, { email, isValidEmail: false });
-	}
-
-	async validEmail(email: string) {
-		const member = await this.findOneBy({ email });
-
-		return await this.update(member.id, { isValidEmail: true });
 	}
 
 	async updatePassword(user: Member, password: string) {
@@ -114,9 +110,13 @@ export class MemberServices extends BaseServices {
 		return await this.update(user.id, { hashedPassword });
 	}
 
-	async deleteAccount(member: Member) {
-		await this.delete(member.id);
+	async updateUsername(memberId: UUID, username: string) {
+		return await this.update(memberId, { username });
+	}
 
-		return true;
+	async validEmail(email: string) {
+		const member = await this.findOneBy({ email });
+
+		return await this.update(member.id, { isValidEmail: true });
 	}
 }

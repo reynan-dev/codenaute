@@ -9,6 +9,42 @@ const emailRegExp = new RegExp(Validations.EMAIL_REGEX);
 const usernameRegExp = new RegExp(Validations.USERNAME_REGEX);
 
 @ArgsType()
+export class DeleteMemberAccountArgs {
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	password: string;
+}
+
+@ArgsType()
+export class FindMemberByEmailArgs {
+	@Field()
+	email: string;
+}
+
+@ArgsType()
+export class FindMemberByIdArgs {
+	@Field()
+	memberId: UUID;
+}
+
+@ArgsType()
+export class FollowMemberArgs {
+	@Field()
+	memberId: UUID;
+}
+
+@ArgsType()
+export class SignInArgs {
+	@Field()
+	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
+	email: string;
+
+	@Field()
+	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
+	password: string;
+}
+
+@ArgsType()
 export class SignUpArgs {
 	@Field()
 	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
@@ -25,42 +61,6 @@ export class SignUpArgs {
 	@Field()
 	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
 	confirmedPassword: string;
-}
-
-@ArgsType()
-export class SignInArgs {
-	@Field()
-	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
-	email: string;
-
-	@Field()
-	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	password: string;
-}
-
-@ArgsType()
-export class FindMemberByIdArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
-export class FindMemberByEmailArgs {
-	@Field()
-	email: string;
-}
-
-@ArgsType()
-export class FollowMemberArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
-export class UpdateMemberUsernameArgs {
-	@Field()
-	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
-	username: string;
 }
 
 @ArgsType()
@@ -86,8 +86,8 @@ export class UpdateMemberPasswordArgs {
 }
 
 @ArgsType()
-export class DeleteMemberAccountArgs {
+export class UpdateMemberUsernameArgs {
 	@Field()
-	@Matches(passwordRegExp, { message: ErrorMessages.PASSWORD_FORMAT_ERROR_MESSAGE })
-	password: string;
+	@Matches(usernameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	username: string;
 }

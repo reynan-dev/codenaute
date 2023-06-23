@@ -12,8 +12,9 @@ import {
 
 @Resolver(RoutingToken)
 export class RoutingTokenResolver {
-	MemberServices: MemberServices = new MemberServices();
-	RoutingTokenServices: RoutingTokenServices = new RoutingTokenServices();
+	private MemberServices: MemberServices = new MemberServices();
+	private RoutingTokenServices: RoutingTokenServices = new RoutingTokenServices();
+
 	@Mutation(() => RoutingToken)
 	async forgotPassword(@Args() { email }: ForgotPasswordArgs): Promise<void> {
 		const user = (await this.MemberServices.findOneBy({ email })) as Member;
