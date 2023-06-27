@@ -44,7 +44,6 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 					!hasProjectNameChanged
 			);
 		}
-		console.log('prout');
 	}, [currentProjectData, lastSavedProjectData]);
 
 	useEffect(() => {
