@@ -1,4 +1,3 @@
-import { SandpackFiles } from '@codesandbox/sandpack-react/types';
 import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import { ProjectContextData, SetProjectContextData } from 'types/project';
@@ -10,8 +9,6 @@ export interface ProjectContextProps {
 	setCurrentProjectData: SetProjectContextData;
 	isProjectSaved: boolean;
 	setIsProjectSaved: React.Dispatch<React.SetStateAction<boolean>>;
-	files: SandpackFiles | null;
-	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
 	activeFile: string;
 	setActiveFile: React.Dispatch<React.SetStateAction<string>>;
 	projectName: string;
@@ -25,8 +22,6 @@ export const ProjectContext = createContext<ProjectContextProps>({
 	setCurrentProjectData: () => null,
 	isProjectSaved: false,
 	setIsProjectSaved: () => null,
-	files: null,
-	setFiles: () => null,
 	projectName: 'untitled',
 	setProjectName: () => 'untitled',
 	activeFile: 'App.tsx',
@@ -37,7 +32,6 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [lastSavedProjectData, setLastSavedProjectData] = useState<ProjectContextData | null>(null);
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
 	const [isProjectSaved, setIsProjectSaved] = useState(false);
-	const [files, setFiles] = useState<SandpackFiles | null>(null);
 	const [activeFile, setActiveFile] = useState('App.tsx');
 	const [projectName, setProjectName] = useState('untitled');
 
@@ -50,28 +44,21 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 					!hasProjectNameChanged
 			);
 		}
+		console.log('prout');
 	}, [currentProjectData, lastSavedProjectData]);
 
 	useEffect(() => {
-		if (lastSavedProjectData?.files) {
-			// const project = {
-			// 	id: lastSavedProjectData?.id,
-			// 	sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
-			// 	name: projectName,
-			// 	files: currentProjectData?.files
-			// };
-			setCurrentProjectData(
-				(previousState) =>
-					({
-						id: lastSavedProjectData?.id,
-						sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
-						name: projectName,
-						files: previousState?.files,
-						environment: previousState?.environment
-					} as ProjectContextData)
-			);
-		}
-	}, [files, projectName, lastSavedProjectData]);
+		setCurrentProjectData(
+			(previousState) =>
+				({
+					id: previousState?.id,
+					sandpackTemplate: previousState?.sandpackTemplate,
+					name: projectName,
+					files: previousState?.files,
+					environment: previousState?.environment
+				} as ProjectContextData)
+		);
+	}, [projectName]);
 
 	return (
 		<ProjectContext.Provider
@@ -82,8 +69,6 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 				setCurrentProjectData,
 				isProjectSaved,
 				setIsProjectSaved,
-				files,
-				setFiles,
 				projectName,
 				setProjectName,
 				activeFile,
