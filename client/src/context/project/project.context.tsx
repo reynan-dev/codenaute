@@ -9,8 +9,8 @@ export interface ProjectContextProps {
 	setCurrentProjectData: SetProjectContextData;
 	isProjectSaved: boolean;
 	setIsProjectSaved: React.Dispatch<React.SetStateAction<boolean>>;
-	activeFile: string;
-	setActiveFile: React.Dispatch<React.SetStateAction<string>>;
+	activeFile: string | null;
+	setActiveFile: React.Dispatch<React.SetStateAction<string | null>>;
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -24,15 +24,15 @@ export const ProjectContext = createContext<ProjectContextProps>({
 	setIsProjectSaved: () => null,
 	projectName: 'untitled',
 	setProjectName: () => 'untitled',
-	activeFile: 'App.tsx',
-	setActiveFile: () => 'App.tsx'
+	activeFile: null,
+	setActiveFile: () => null
 });
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [lastSavedProjectData, setLastSavedProjectData] = useState<ProjectContextData | null>(null);
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
 	const [isProjectSaved, setIsProjectSaved] = useState(false);
-	const [activeFile, setActiveFile] = useState('App.tsx');
+	const [activeFile, setActiveFile] = useState<string | null>(null);
 	const [projectName, setProjectName] = useState('untitled');
 
 	useEffect(() => {

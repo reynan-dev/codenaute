@@ -41,6 +41,7 @@ interface ProjectDataResponse {
 	};
 	sandpackTemplate: string;
 	environment: string;
+	main: string;
 }
 
 interface onSuccessCallbacks {
@@ -56,14 +57,16 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
-		environment: project.environment
+		environment: project.environment,
+		main: project.main
 	});
 	setCurrentProjectData({
 		id: project.id,
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
-		environment: project.environment
+		environment: project.environment,
+		main: project.main
 	});
 };
 
@@ -73,12 +76,14 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
-		environment: data.environment
+		environment: data.environment,
+		main: data.main
 	};
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData } = useContext(ProjectContext);
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile } =
+		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
 		GetProjectByIdQuery,
@@ -90,6 +95,7 @@ export const useGetProjectService = (projectId: string) => {
 				{ setLastSavedProjectData, setCurrentProjectData },
 				mapProjectDataResponse(data.getProjectById)
 			);
+			setActiveFile(data.getProjectById.main);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
@@ -130,7 +136,8 @@ export const useUpdateProjectService = () => {
 					isPublic: false,
 					sandpackTemplate: project.sandpackTemplate ?? '',
 					files: JSON.stringify(project.files),
-					environment: project.environment
+					environment: project.environment,
+					main: project.main
 				},
 				onCompleted(data) {
 					onSuccess(

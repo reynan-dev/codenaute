@@ -12,7 +12,7 @@ export interface ProjectState {
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
 	currentProjectData: ProjectContextData | null;
 	autoSaveLoading: boolean;
-	activeFile: string;
+	activeFile: string | null;
 }
 
 export const CodeContainer = () => {

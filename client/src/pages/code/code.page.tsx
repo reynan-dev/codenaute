@@ -28,18 +28,19 @@ export const CodePage = ({ state }: CodePageProps) => {
 
 	return (
 		<>
-			{state.currentProjectData?.files !== undefined && template !== undefined ? (
+			{state.currentProjectData?.files !== undefined &&
+			template !== undefined &&
+			state.activeFile !== null ? (
 				<SandpackProvider
 					theme={sandpackCustomTheme}
 					customSetup={{
-						dependencies,
-						devDependencies,
+						dependencies: dependencies ?? undefined,
+						devDependencies: devDependencies ?? undefined,
 						environment
 					}}
 					style={{ height: '100%' }}
 					files={state.currentProjectData?.files}
 					options={{
-						// visibleFiles: ['App.tsx'],
 						activeFile: state.activeFile
 					}}
 				>

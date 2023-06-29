@@ -21,7 +21,8 @@ export const generateProjectFixture: (member: Member) => createProjectArgs = (me
 		isPublic: false,
 		sandpackTemplate: SandpackTemplates.VANILLA_TS,
 		files: fileFixtures,
-		environment: 'create-react-app-typescript'
+		environment: 'create-react-app-typescript',
+		main: '/App.tsx'
 	};
 };
 

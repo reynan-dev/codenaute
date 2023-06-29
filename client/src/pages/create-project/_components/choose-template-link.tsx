@@ -159,10 +159,13 @@ export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
 	const handleOnClick = async () => {
 		if (sandpackTemplate === undefined) return console.error('ERROR');
 
+		console.log(SANDBOX_TEMPLATES[sandpackTemplate].main);
+
 		return await createProject({
 			name: 'untitled',
 			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
 			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
+			main: SANDBOX_TEMPLATES[sandpackTemplate].main,
 			sandpackTemplate
 		});
 	};

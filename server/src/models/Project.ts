@@ -46,6 +46,11 @@ export class Project extends BaseModel {
 	@IsString()
 	environment: string;
 
+	@Column()
+	@Field()
+	@IsString()
+	main: string;
+
 	@Column('boolean', { default: false })
 	@Field()
 	@IsBoolean()

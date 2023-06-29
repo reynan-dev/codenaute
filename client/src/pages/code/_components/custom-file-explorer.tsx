@@ -22,9 +22,9 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
-	const { setActiveFile, activeFile } = useContext(ProjectContext);
+	const { setActiveFile } = useContext(ProjectContext);
 
-	sandpack.setActiveFile(activeFile);
+	// sandpack.setActiveFile(activeFile);
 
 	const style = {
 		icons: 'mr-2'

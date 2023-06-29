@@ -38,7 +38,8 @@ export const useCreateProjectService = () => {
 				isPublic: false,
 				sandpackTemplate: project.sandpackTemplate ?? '',
 				files: JSON.stringify(project.files),
-				environment: project.environment
+				environment: project.environment,
+				main: project.main
 			},
 			onCompleted(data) {
 				onSuccess(
