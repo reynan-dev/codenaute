@@ -22,7 +22,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
-	const { setActiveFile, setVisibleFiles } = useContext(ProjectContext);
+	const { setActiveFile, setVisibleFiles, visibleFiles } = useContext(ProjectContext);
 
 	// sandpack.setActiveFile(activeFile);
 
@@ -105,7 +105,8 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			if (node.children !== undefined && node.children.length > 0) return toggleNode(node);
 			sandpack.openFile(node.path);
 			setActiveFile(node.path);
-			setVisibleFiles((previousState) => [...previousState, node.path]);
+			if (!visibleFiles.includes(node.path))
+				setVisibleFiles((previousState) => [...previousState, node.path]);
 		};
 
 		const handleContextMenu = (event: React.MouseEvent, node: TreeNode) => {
@@ -192,8 +193,8 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 				{isExpanded &&
 					node.children &&
-					node.children.map((child) => (
-						<div key={child.name} onClick={(event) => handleFileClick(child, event)}>
+					node.children.map((child, index) => (
+						<div key={index} onClick={(event) => handleFileClick(child, event)}>
 							{renderNode(child, node)}
 						</div>
 					))}
