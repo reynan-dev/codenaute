@@ -34,14 +34,15 @@ export const CodePage = ({ state }: CodePageProps) => {
 				<SandpackProvider
 					theme={sandpackCustomTheme}
 					customSetup={{
-						dependencies: dependencies ?? undefined,
-						devDependencies: devDependencies ?? undefined,
+						dependencies: dependencies,
+						devDependencies: devDependencies,
 						environment
 					}}
 					style={{ height: '100%' }}
 					files={state.currentProjectData?.files}
 					options={{
-						activeFile: state.activeFile
+						activeFile: state.activeFile,
+						visibleFiles: state.visibleFiles
 					}}
 				>
 					<SandpackContainer>

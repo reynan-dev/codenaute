@@ -13,6 +13,8 @@ export interface ProjectContextProps {
 	setActiveFile: React.Dispatch<React.SetStateAction<string | null>>;
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
+	visibleFiles: string[];
+	setVisibleFiles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const ProjectContext = createContext<ProjectContextProps>({
@@ -25,7 +27,9 @@ export const ProjectContext = createContext<ProjectContextProps>({
 	projectName: 'untitled',
 	setProjectName: () => 'untitled',
 	activeFile: null,
-	setActiveFile: () => null
+	setActiveFile: () => null,
+	visibleFiles: [],
+	setVisibleFiles: () => []
 });
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
@@ -33,6 +37,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
 	const [isProjectSaved, setIsProjectSaved] = useState(false);
 	const [activeFile, setActiveFile] = useState<string | null>(null);
+	const [visibleFiles, setVisibleFiles] = useState<string[]>([]);
 	const [projectName, setProjectName] = useState('untitled');
 
 	useEffect(() => {
@@ -71,7 +76,9 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 				projectName,
 				setProjectName,
 				activeFile,
-				setActiveFile
+				setActiveFile,
+				visibleFiles,
+				setVisibleFiles
 			}}
 		>
 			{children}

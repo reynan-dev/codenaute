@@ -10,7 +10,13 @@ interface SandpackContainerProps {
 
 export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	const { sandpack } = useSandpack();
-	const { setCurrentProjectData, currentProjectData, setActiveFile } = useContext(ProjectContext);
+	const {
+		setCurrentProjectData,
+		currentProjectData,
+		setActiveFile,
+		setVisibleFiles,
+		visibleFiles
+	} = useContext(ProjectContext);
 
 	const previousFilesRef = useRef<SandpackFiles | null>(
 		currentProjectData !== null ? currentProjectData.files : null
@@ -19,6 +25,12 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	useEffect(() => {
 		setActiveFile(sandpack.activeFile);
 	}, [sandpack.activeFile, setActiveFile]);
+
+	useEffect(() => {
+		if (sandpack.visibleFiles.length !== visibleFiles.length) {
+			setVisibleFiles(sandpack.visibleFiles);
+		}
+	}, [sandpack.visibleFiles, setVisibleFiles, visibleFiles.length]);
 
 	useEffect(() => {
 		if (

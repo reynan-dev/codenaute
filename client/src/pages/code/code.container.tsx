@@ -13,10 +13,11 @@ export interface ProjectState {
 	currentProjectData: ProjectContextData | null;
 	autoSaveLoading: boolean;
 	activeFile: string | null;
+	visibleFiles: string[];
 }
 
 export const CodeContainer = () => {
-	const { projectName, setProjectName, currentProjectData, activeFile } =
+	const { projectName, setProjectName, currentProjectData, activeFile, visibleFiles } =
 		useContext(ProjectContext);
 	const { loading } = useGetProjectService(useParams().projectId ?? '');
 	const { autoSaveLoading } = useAutoSaveProject();
@@ -26,7 +27,8 @@ export const CodeContainer = () => {
 		setProjectName,
 		currentProjectData,
 		autoSaveLoading,
-		activeFile
+		activeFile,
+		visibleFiles
 	};
 
 	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;

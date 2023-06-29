@@ -82,7 +82,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile } =
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile, setVisibleFiles } =
 		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
@@ -96,6 +96,7 @@ export const useGetProjectService = (projectId: string) => {
 				mapProjectDataResponse(data.getProjectById)
 			);
 			setActiveFile(data.getProjectById.main);
+			setVisibleFiles([data.getProjectById.main]);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
