@@ -51,7 +51,7 @@ services:
       - NODE_ENV=${NODE_ENV}
     restart: always
     ports:
-      - 5000:5000
+      - 5050:5000
     depends_on:
       - database-dev
       - redis
