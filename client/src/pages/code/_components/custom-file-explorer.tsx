@@ -182,6 +182,9 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 							sandpack.activeFile === node.path ? 'bg-dark-700' : ''
 						)}
 						onClick={(event) => handleFileClick(node, event)}
+						onMouseDown={(event) => {
+							if (event.button === 2) handleContextMenu(event, node);
+						}}
 						onContextMenu={(event) => handleContextMenu(event, node)}
 					>
 						<div className={twJoin('flex items-center', isChildNode ? 'pl-4' : '')}>
