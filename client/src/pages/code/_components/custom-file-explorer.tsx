@@ -46,6 +46,10 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			closeContextMenu();
 		};
 
+		const preventContextMenu = (event: MouseEvent) => {
+			event.preventDefault();
+		};
+
 		document.addEventListener('click', function (event) {
 			if (
 				filesElementRef.current !== null &&
@@ -55,8 +59,18 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			}
 		});
 
+		document.addEventListener('contextmenu', function (event) {
+			if (
+				filesElementRef.current !== null &&
+				filesElementRef.current.contains(event.target as Node)
+			) {
+				preventContextMenu(event);
+			}
+		});
+
 		return () => {
 			document.removeEventListener('click', handleDocumentClick);
+			document.removeEventListener('contextmenu', preventContextMenu);
 		};
 	}, [filesElementRef]);
 
