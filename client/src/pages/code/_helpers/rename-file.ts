@@ -5,6 +5,9 @@ export const renameFile = (newName: string, oldNode: TreeNode, sandpack: Sandpac
 	const parentPath = oldNode.path.split('/').slice(0, -1).join('/');
 	const code = oldNode.code;
 
-	sandpack.addFile(`${parentPath}/${newName}`, code);
+	sandpack.closeFile(oldNode.path);
 	sandpack.deleteFile(oldNode.path);
+
+	sandpack.addFile(`${parentPath}/${newName}`, code);
+	sandpack.openFile(`${parentPath}/${newName}`);
 };

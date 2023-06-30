@@ -3,7 +3,7 @@ import ProjectContext from 'context/project/project.context';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import { ContextMenu } from 'pages/code/_components/context-menu';
 import { renameFile } from 'pages/code/_helpers/rename-file';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
 import { twJoin, twMerge } from 'tailwind-merge';
 
@@ -23,8 +23,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
 	const { setActiveFile, setVisibleFiles, visibleFiles } = useContext(ProjectContext);
-
-	// sandpack.setActiveFile(activeFile);
+	const filesElementRef = useRef<HTMLDivElement | null>(null);
 
 	const style = {
 		icons: 'mr-2'
@@ -45,19 +44,29 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	useEffect(() => {
 		const handleDocumentClick = () => {
 			closeContextMenu();
-			setSelectedNode(null);
 		};
 
-		document.addEventListener('click', handleDocumentClick);
+		document.addEventListener('click', function (event) {
+			if (
+				filesElementRef.current !== null &&
+				filesElementRef.current.contains(event.target as Node)
+			) {
+				handleDocumentClick();
+			}
+		});
 
 		return () => {
 			document.removeEventListener('click', handleDocumentClick);
 		};
-	}, []);
+	}, [filesElementRef]);
 
 	useEffect(() => {
 		if (files !== null) setFilesTree(buildProjectTree(files));
 	}, [files]);
+
+	useEffect(() => {
+		console.log({ selectedNode });
+	}, [selectedNode]);
 
 	const handleRenameStart = (selectedNode: TreeNode, event: React.MouseEvent) => {
 		event.stopPropagation();
@@ -71,7 +80,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const handleRenameSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 
-		if (renamingNode !== null && files !== null && newFileName !== null && selectedNode !== null) {
+		if (newFileName !== null && selectedNode !== null) {
 			renameFile(newFileName, selectedNode, sandpack);
 			setRenamingNode(null);
 		}
@@ -79,7 +88,6 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 
 	const onAction = (action: string, node: TreeNode, event: React.MouseEvent) => {
 		if (action === 'rename' && selectedNode !== null) {
-			console.log(node);
 			handleRenameStart(selectedNode, event);
 		}
 		if (action === 'delete' && selectedNode !== null) {
@@ -212,7 +220,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	};
 
 	return (
-		<div className={twMerge('bg-dark-900 py-2 text-dark-300', className)}>
+		<div ref={filesElementRef} className={twMerge('bg-dark-900 py-2 text-dark-300', className)}>
 			{Array.isArray(filesTree?.children) && filesTree?.children.map((node) => renderNode(node))}
 		</div>
 	);
