@@ -113,7 +113,14 @@ export const useUpdateProjectService = () => {
 	>(UPDATE_PROJECT_MUTATION);
 
 	const { profile } = useContext(AuthContext);
-	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
+	const {
+		setLastSavedProjectData,
+		setCurrentProjectData,
+		visibleFiles,
+		setVisibleFiles,
+		setActiveFile,
+		activeFile
+	} = useContext(ProjectContext);
 
 	const updateProject = useCallback(
 		async (project: ProjectContextData | null) => {
@@ -145,13 +152,24 @@ export const useUpdateProjectService = () => {
 						{ setLastSavedProjectData, setCurrentProjectData },
 						mapProjectDataResponse(data.updateProject)
 					);
+					setVisibleFiles(visibleFiles);
+					setActiveFile(activeFile);
 				},
 				onError(error) {
 					toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 				}
 			});
 		},
-		[UpdateProjectMutation, profile, setCurrentProjectData, setLastSavedProjectData]
+		[
+			UpdateProjectMutation,
+			activeFile,
+			profile,
+			setActiveFile,
+			setCurrentProjectData,
+			setLastSavedProjectData,
+			setVisibleFiles,
+			visibleFiles
+		]
 	);
 
 	return { data, loading, updateProject };
