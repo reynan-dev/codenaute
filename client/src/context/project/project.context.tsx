@@ -35,7 +35,7 @@ export const ProjectContext = createContext<ProjectContextProps>({
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [lastSavedProjectData, setLastSavedProjectData] = useState<ProjectContextData | null>(null);
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
-	const [isProjectSaved, setIsProjectSaved] = useState(false);
+	const [isProjectSaved, setIsProjectSaved] = useState(true);
 	const [activeFile, setActiveFile] = useState<string | null>(null);
 	const [visibleFiles, setVisibleFiles] = useState<string[]>([]);
 	const [projectName, setProjectName] = useState('untitled');
