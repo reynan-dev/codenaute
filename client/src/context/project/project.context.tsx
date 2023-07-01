@@ -55,11 +55,8 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 		setCurrentProjectData(
 			(previousState) =>
 				({
-					id: previousState?.id,
-					sandpackTemplate: previousState?.sandpackTemplate,
-					name: projectName,
-					files: previousState?.files,
-					environment: previousState?.environment
+					...previousState,
+					name: projectName
 				} as ProjectContextData)
 		);
 	}, [projectName]);
