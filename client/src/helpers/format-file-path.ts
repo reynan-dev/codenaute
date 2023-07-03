@@ -7,7 +7,7 @@ export interface TreeNode {
 	code: string;
 }
 
-export function buildProjectTree(files: SandpackFiles): TreeNode {
+export const buildProjectTree = (files: SandpackFiles): TreeNode => {
 	const filePaths =
 		files !== null
 			? Object.entries(files).map(([path, file]) => {
@@ -55,4 +55,4 @@ export function buildProjectTree(files: SandpackFiles): TreeNode {
 	});
 
 	return root;
-}
+};
