@@ -1,8 +1,8 @@
 import { SandboxEnvironment } from '@codesandbox/sandpack-react/index';
 
-export function checkSandboxEnvironment(
+export const checkSandboxEnvironment = (
 	environment: string | undefined
-): SandboxEnvironment | undefined {
+): SandboxEnvironment | undefined => {
 	const validTypes: SandboxEnvironment[] = [
 		'angular-cli',
 		'create-react-app',
@@ -20,4 +20,4 @@ export function checkSandboxEnvironment(
 	} else {
 		return undefined;
 	}
-}
+};
