@@ -47,7 +47,7 @@ export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 				>
 					{renderSavingSatusIcon()}
 					<input
-						className='peer h-full w-52 rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
+						className='h-full w-52 rounded-md bg-transparent px-2 py-3.5 focus:outline-none'
 						placeholder='project-001'
 						value={state.currentProjectData?.name}
 						onChange={(event) => {

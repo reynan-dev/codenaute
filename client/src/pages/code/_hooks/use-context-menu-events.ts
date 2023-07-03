@@ -15,7 +15,7 @@ export const useContextMenuEvents = (
 			event.preventDefault();
 		};
 
-		document.addEventListener('contextmenu', function (event) {
+		document.addEventListener('contextmenu', (event) => {
 			if (
 				filesElementRef.current !== null &&
 				filesElementRef.current.contains(event.target as Node)
@@ -24,7 +24,7 @@ export const useContextMenuEvents = (
 			}
 		});
 
-		document.addEventListener('click', function (event) {
+		document.addEventListener('click', (event) => {
 			if (
 				filesElementRef.current !== null &&
 				filesElementRef.current.contains(event.target as Node)

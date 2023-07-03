@@ -1,17 +1,13 @@
 import { SandpackFile, SandpackFiles } from '@codesandbox/sandpack-react/index';
 
-export function hasSandpackFilesChanged(obj1: SandpackFiles, obj2: SandpackFiles): boolean {
-	// if (obj1 === null) return false;
-
+export const hasSandpackFilesChanged = (obj1: SandpackFiles, obj2: SandpackFiles): boolean => {
 	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
 
-	// Vérifier si les ensembles de clés sont différents
 	if (keys1.length !== keys2.length || !keys1.every((key) => keys2.includes(key))) {
 		return true;
 	}
 
-	// Vérifier si les valeurs des propriétés sont différentes pour chaque clé
 	for (const key of keys1) {
 		const value1 = obj1[key];
 		const value2 = obj2[key];
@@ -22,9 +18,12 @@ export function hasSandpackFilesChanged(obj1: SandpackFiles, obj2: SandpackFiles
 	}
 
 	return false;
-}
+};
 
-function isSandpackFileEqual(file1: string | SandpackFile, file2: string | SandpackFile): boolean {
+const isSandpackFileEqual = (
+	file1: string | SandpackFile,
+	file2: string | SandpackFile
+): boolean => {
 	if (typeof file1 !== typeof file2) {
 		return false;
 	}
@@ -45,4 +44,4 @@ function isSandpackFileEqual(file1: string | SandpackFile, file2: string | Sandp
 		(sandpackFile1.readOnly === sandpackFile2.readOnly ||
 			(sandpackFile1.readOnly === undefined && sandpackFile2.readOnly === undefined))
 	);
-}
+};
