@@ -2,7 +2,9 @@ import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import ProjectContext from 'context/project/project.context';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import { ContextMenu } from 'pages/code/_components/context-menu';
+import { isChildNode } from 'pages/code/_helpers/is-child-node';
 import { renameFile } from 'pages/code/_helpers/rename-file';
+import { Position, useContextMenuEvents } from 'pages/code/_hooks/use-context-menu-events';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
 import { twJoin, twMerge } from 'tailwind-merge';
@@ -12,106 +14,52 @@ interface CustomFileExplorerProps {
 	files: SandpackFiles | null;
 }
 
-type Position = { x: number; y: number };
-
 export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps) => {
-	const { sandpack } = useSandpack();
 	const [filesTree, setFilesTree] = useState<TreeNode | null>(null);
 	const [expandedNodes, setExpandedNodes] = useState<string[]>([]);
 	const [contextMenuPosition, setContextMenuPosition] = useState<null | Position>(null);
 	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
-	const { setActiveFile, setVisibleFiles, visibleFiles } = useContext(ProjectContext);
+	const { sandpack } = useSandpack();
 	const filesElementRef = useRef<HTMLDivElement | null>(null);
+	const { setActiveFile, setVisibleFiles, visibleFiles } = useContext(ProjectContext);
 
-	const style = {
-		icons: 'mr-2'
-	};
-
-	const isChild = (child: TreeNode, parent: TreeNode): boolean => {
-		if (!parent.children) {
-			return false;
-		}
-
-		return parent.children.some((node) => node === child || isChild(child, node));
-	};
-
-	const closeContextMenu = () => {
-		setContextMenuPosition(null);
-	};
-
-	useEffect(() => {
-		const handleDocumentClick = () => {
-			closeContextMenu();
-		};
-
-		const preventContextMenu = (event: MouseEvent) => {
-			event.preventDefault();
-		};
-
-		document.addEventListener('click', function (event) {
-			if (
-				filesElementRef.current !== null &&
-				filesElementRef.current.contains(event.target as Node)
-			) {
-				handleDocumentClick();
-			}
-		});
-
-		document.addEventListener('contextmenu', function (event) {
-			if (
-				filesElementRef.current !== null &&
-				filesElementRef.current.contains(event.target as Node)
-			) {
-				preventContextMenu(event);
-			}
-		});
-
-		return () => {
-			document.removeEventListener('click', handleDocumentClick);
-			document.removeEventListener('contextmenu', preventContextMenu);
-		};
-	}, [filesElementRef]);
+	useContextMenuEvents(filesElementRef, setContextMenuPosition);
 
 	useEffect(() => {
 		if (files !== null) setFilesTree(buildProjectTree(files));
 	}, [files]);
 
-	useEffect(() => {
-		console.log({ selectedNode });
-	}, [selectedNode]);
-
-	const handleRenameStart = (selectedNode: TreeNode, event: React.MouseEvent) => {
-		event.stopPropagation();
-		setRenamingNode(selectedNode);
-	};
-
-	const handleRenameCancel = () => {
-		setRenamingNode(null);
-	};
-
-	const handleRenameSubmit = (event: React.FormEvent) => {
-		event.preventDefault();
-
-		if (newFileName !== null && selectedNode !== null) {
-			renameFile(newFileName, selectedNode, sandpack);
-			setRenamingNode(null);
-		}
-	};
-
-	const onAction = (action: string, node: TreeNode, event: React.MouseEvent) => {
-		if (action === 'rename' && selectedNode !== null) {
-			handleRenameStart(selectedNode, event);
-		}
-		if (action === 'delete' && selectedNode !== null) {
-			sandpack.deleteFile(selectedNode.path);
-		}
-	};
-
 	const renderNode = (node: TreeNode, parent?: TreeNode) => {
 		const isExpanded = expandedNodes.includes(node.path);
-		const isChildNode = parent ? isChild(node, parent) : false;
+
+		const handleRenameStart = (selectedNode: TreeNode, event: React.MouseEvent) => {
+			event.stopPropagation();
+			setRenamingNode(selectedNode);
+		};
+
+		const handleRenameCancel = () => {
+			setRenamingNode(null);
+		};
+
+		const handleRenameSubmit = (event: React.FormEvent) => {
+			event.preventDefault();
+
+			if (newFileName !== null && selectedNode !== null) {
+				renameFile(newFileName, selectedNode, sandpack);
+				setRenamingNode(null);
+			}
+		};
+
+		const onContextMenuAction = (action: string, node: TreeNode, event: React.MouseEvent) => {
+			if (action === 'rename' && selectedNode !== null) {
+				handleRenameStart(selectedNode, event);
+			}
+			if (action === 'delete' && selectedNode !== null) {
+				sandpack.deleteFile(selectedNode.path);
+			}
+		};
 
 		const toggleNode = (node: TreeNode) => {
 			if (isExpanded) {
@@ -142,6 +90,10 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			setNewFileName(node.name);
 		};
 
+		const style = {
+			icons: 'mr-2'
+		};
+
 		return (
 			<div key={node.name}>
 				{renamingNode?.path === node.path ? (
@@ -151,7 +103,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 								'flex items-center',
 								'w-full',
 								'hover:bg-dark-700 hover:text-primary-200',
-								isChildNode ? 'pl-4' : ''
+								isChildNode(node, parent) ? 'pl-4' : ''
 							)}
 						>
 							<div className='ml-3'>
@@ -201,7 +153,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 						}}
 						onContextMenu={(event) => handleContextMenu(event, node)}
 					>
-						<div className={twJoin('flex items-center', isChildNode ? 'pl-4' : '')}>
+						<div className={twJoin('flex items-center', isChildNode(node, parent) ? 'pl-4' : '')}>
 							{node.children && node.children.length > 0 ? (
 								isExpanded ? (
 									<AiFillFolderOpen className={style.icons} />
@@ -228,7 +180,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 					<ContextMenu
 						position={contextMenuPosition}
 						onClose={() => setContextMenuPosition(null)}
-						onAction={onAction}
+						onAction={onContextMenuAction}
 						node={node}
 					/>
 				)}
