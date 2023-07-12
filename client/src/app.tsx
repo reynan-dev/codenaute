@@ -7,6 +7,7 @@ import {
 	CODE_PATH,
 	CREATE_PROJECT_PATH,
 	HOME_PATH,
+	MY_PROJECTS_PATH,
 	SIGN_IN_PATH,
 	SIGN_UP_PATH
 } from 'constants/paths';
@@ -15,6 +16,7 @@ import { Account } from 'pages/account';
 import { Code } from 'pages/code';
 import { CreateProject } from 'pages/create-project';
 import { Home } from 'pages/home';
+import { MyProjects } from 'pages/my-projects';
 import { SignIn } from 'pages/sign-in';
 import { SignUp } from 'pages/sign-up';
 import { useContext } from 'react';
@@ -82,6 +84,14 @@ const App = () => {
 							element={
 								<ConditionalRoute type='private'>
 									<Code />
+								</ConditionalRoute>
+							}
+						/>
+						<Route
+							path={`${MY_PROJECTS_PATH}`}
+							element={
+								<ConditionalRoute type='private'>
+									<MyProjects />
 								</ConditionalRoute>
 							}
 						/>
