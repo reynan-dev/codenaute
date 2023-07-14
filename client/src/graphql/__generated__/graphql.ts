@@ -348,6 +348,20 @@ export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
 
+export type ExampleQueryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ExampleQueryQuery = {
+	__typename?: 'Query';
+	getAllProjectsByOwner: {
+		__typename?: 'Project';
+		name: string;
+		sandpackTemplate: string;
+		files: string;
+		main: string;
+		owner: { __typename?: 'Member'; id: string; email: string; username: string };
+	};
+};
+
 export type SignInMutationVariables = Exact<{
 	email: Scalars['String'];
 	password: Scalars['String'];
@@ -1005,6 +1019,46 @@ export const SignOutDocument = {
 		}
 	]
 } as unknown as DocumentNode<SignOutMutation, SignOutMutationVariables>;
+export const ExampleQueryDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'ExampleQuery' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'getAllProjectsByOwner' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'main' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<ExampleQueryQuery, ExampleQueryQueryVariables>;
 export const SignInDocument = {
 	kind: 'Document',
 	definitions: [
