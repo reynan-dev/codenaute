@@ -171,7 +171,7 @@ export type Query = {
 	getAllFavoritedProjectsByMember: Project;
 	getAllMembers: Array<Member>;
 	getAllProjectsByEditor: Project;
-	getAllProjectsByOwner: Project;
+	getAllProjectsByOwner: Array<Project>;
 	getAllProjectsByTemplate: Project;
 	getAllProjectsPublicProjects: Project;
 	getMemberByEmail: Member;
@@ -348,18 +348,19 @@ export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
 
-export type ExampleQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type GetAllProjectsByOwnerQueryVariables = Exact<{ [key: string]: never }>;
 
-export type ExampleQueryQuery = {
+export type GetAllProjectsByOwnerQuery = {
 	__typename?: 'Query';
-	getAllProjectsByOwner: {
+	getAllProjectsByOwner: Array<{
 		__typename?: 'Project';
-		name: string;
-		sandpackTemplate: string;
 		files: string;
 		main: string;
-		owner: { __typename?: 'Member'; id: string; email: string; username: string };
-	};
+		sandpackTemplate: string;
+		name: string;
+		id: string;
+		owner: { __typename?: 'Member'; email: string; id: string; username: string };
+	}>;
 };
 
 export type SignInMutationVariables = Exact<{
@@ -1019,13 +1020,13 @@ export const SignOutDocument = {
 		}
 	]
 } as unknown as DocumentNode<SignOutMutation, SignOutMutationVariables>;
-export const ExampleQueryDocument = {
+export const GetAllProjectsByOwnerDocument = {
 	kind: 'Document',
 	definitions: [
 		{
 			kind: 'OperationDefinition',
 			operation: 'query',
-			name: { kind: 'Name', value: 'ExampleQuery' },
+			name: { kind: 'Name', value: 'GetAllProjectsByOwner' },
 			selectionSet: {
 				kind: 'SelectionSet',
 				selections: [
@@ -1035,22 +1036,23 @@ export const ExampleQueryDocument = {
 						selectionSet: {
 							kind: 'SelectionSet',
 							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } },
 								{
 									kind: 'Field',
 									name: { kind: 'Name', value: 'owner' },
 									selectionSet: {
 										kind: 'SelectionSet',
 										selections: [
-											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
 										]
 									}
 								},
 								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'main' } }
+								{ kind: 'Field', name: { kind: 'Name', value: 'main' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
 							]
 						}
 					}
@@ -1058,7 +1060,7 @@ export const ExampleQueryDocument = {
 			}
 		}
 	]
-} as unknown as DocumentNode<ExampleQueryQuery, ExampleQueryQueryVariables>;
+} as unknown as DocumentNode<GetAllProjectsByOwnerQuery, GetAllProjectsByOwnerQueryVariables>;
 export const SignInDocument = {
 	kind: 'Document',
 	definitions: [

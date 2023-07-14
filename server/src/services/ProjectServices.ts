@@ -23,9 +23,27 @@ export class ProjectServices extends BaseServices {
 	async findAllByOwner(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy']
+			relations: ['owner']
 		});
 	}
+
+	// async getWilders(
+	// 	pageSize: number,
+	// 	pageNumber: number
+	//   ): Promise<PageOfWilders> {
+	// 	const [wilders, totalCount] = await this.repository.findAndCount({
+	// 	  take: pageSize,
+	// 	  skip: (pageNumber - 1) * pageSize,
+	// 	  order: { firstName: "ASC" },
+	// 	});
+
+	// 	const numberOfRemainingItems = totalCount - pageSize * pageNumber;
+	// 	return {
+	// 	  totalCount,
+	// 	  nextPageNumber: numberOfRemainingItems > 0 ? pageNumber + 1 : null,
+	// 	  wilders,
+	// 	};
+	//   }
 
 	async findAllByEditorId(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({

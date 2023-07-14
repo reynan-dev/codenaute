@@ -1,17 +1,18 @@
 import { gql } from '@apollo/client';
 
-export const UPDATE_PROJECT_MUTATION = gql`
-	query ExampleQuery {
+export const GET_ALL_PROJECTS_BY_OWNER = gql`
+	query GetAllProjectsByOwner {
 		getAllProjectsByOwner {
-			name
-			sandpackTemplate
 			owner {
-				id
 				email
+				id
 				username
 			}
 			files
 			main
+			sandpackTemplate
+			name
+			id
 		}
 	}
 `;

@@ -30,8 +30,8 @@ const documents = {
 	'\n\tmutation CreateProject(\n\t\t$name: String!\n\t\t$memberId: String!\n\t\t$isTemplate: Boolean!\n\t\t$isPublic: Boolean!\n\t\t$sandpackTemplate: String!\n\t\t$files: String!\n\t\t$environment: String!\n\t\t$main: String!\n\t) {\n\t\tcreateProject(\n\t\t\tname: $name\n\t\t\tmemberId: $memberId\n\t\t\tisTemplate: $isTemplate\n\t\t\tisPublic: $isPublic\n\t\t\tsandpackTemplate: $sandpackTemplate\n\t\t\tfiles: $files\n\t\t\tenvironment: $environment\n\t\t\tmain: $main\n\t\t) {\n\t\t\tid\n\t\t\tname\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t\tfiles\n\t\t\tenvironment\n\t\t\tmain\n\t\t\tisTemplate\n\t\t\tisPublic\n\t\t\tsandpackTemplate\n\t\t}\n\t}\n':
 		types.CreateProjectDocument,
 	'\n\tmutation SignOut {\n\t\tsignOut\n\t}\n': types.SignOutDocument,
-	'\n\tquery ExampleQuery {\n\t\tgetAllProjectsByOwner {\n\t\t\tname\n\t\t\tsandpackTemplate\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t}\n\t}\n':
-		types.ExampleQueryDocument,
+	'\n\tquery GetAllProjectsByOwner {\n\t\tgetAllProjectsByOwner {\n\t\t\towner {\n\t\t\t\temail\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t\tsandpackTemplate\n\t\t\tname\n\t\t\tid\n\t\t}\n\t}\n':
+		types.GetAllProjectsByOwnerDocument,
 	'\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
 		types.SignInDocument,
 	'\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
@@ -110,8 +110,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-	source: '\n\tquery ExampleQuery {\n\t\tgetAllProjectsByOwner {\n\t\t\tname\n\t\t\tsandpackTemplate\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tquery ExampleQuery {\n\t\tgetAllProjectsByOwner {\n\t\t\tname\n\t\t\tsandpackTemplate\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t}\n\t}\n'];
+	source: '\n\tquery GetAllProjectsByOwner {\n\t\tgetAllProjectsByOwner {\n\t\t\towner {\n\t\t\t\temail\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t\tsandpackTemplate\n\t\t\tname\n\t\t\tid\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tquery GetAllProjectsByOwner {\n\t\tgetAllProjectsByOwner {\n\t\t\towner {\n\t\t\t\temail\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t\tsandpackTemplate\n\t\t\tname\n\t\t\tid\n\t\t}\n\t}\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

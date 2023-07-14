@@ -32,10 +32,12 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
+
+		const projects = await this.ProjectServices.findAllByOwner(context.user?.id as UUID);
+		return projects;
 	}
 
 	@Authorized()
