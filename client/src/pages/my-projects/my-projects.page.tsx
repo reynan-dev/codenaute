@@ -36,17 +36,12 @@ export const MyProjectsPage = ({ projects }: MyProjectsPageProps) => {
 							>
 								<h4 className='text-primary'>{project.name}</h4>
 								<div className='flex gap-x-4'>
-									{/* <p>
-										{getLanguageNameFromExtension(
-											Object.keys(project.files).find(
-												(key) => project.files[key] === project.files[project.main]
-											) ?? ''
-										)}
-									</p> */}
 									{getTechnologiesFromSandpackTemplate(
 										project.sandpackTemplate as SandpackTemplate
 									)?.map((techno) => (
-										<p className='px-4 rounded-full bg-primary-100 text-black'>{techno}</p>
+										<p className='text-sm font-semibold px-4 rounded-full bg-primary-100 text-black'>
+											{techno}
+										</p>
 									))}
 								</div>
 								{code !== null ? (
