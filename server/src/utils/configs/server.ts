@@ -1,6 +1,6 @@
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageLocalDefault, Context } from 'apollo-server-core';
-import { AuthChecker, buildSchema, NonEmptyArray } from 'type-graphql';
+import { buildSchema, NonEmptyArray } from 'type-graphql';
 import { GraphQLSchema } from 'graphql/type/schema';
 
 import { BaseResolver } from 'resolvers/base/BaseResolver';
@@ -10,7 +10,12 @@ import { Cookie } from 'utils/methods/Cookie';
 import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
 
+import cors from 'cors';
+import express from 'express';
+
 export abstract class Server {
+	private static readonly app: express.Application = express();
+
 	private static readonly MemberService: MemberServices = new MemberServices();
 	private static readonly csrfPrevention: boolean = true;
 	private static readonly cache: 'bounded' | undefined = 'bounded';
@@ -29,6 +34,10 @@ export abstract class Server {
 				return Boolean(context.user);
 			}
 		});
+	}
+
+	private static _cors() {
+		this.app.use(cors());
 	}
 
 	private static _context() {
@@ -51,13 +60,25 @@ export abstract class Server {
 		});
 	}
 
+	private static async _apolloStart() {
+		const server = await this._build();
+
+		await server.start();
+
+		await server.applyMiddleware({ path: '/graphql', app: this.app });
+	}
+
 	static async start() {
 		if (process.env.PORT == null)
 			return console.error('❌ No environment variable has been set for PORT');
 
 		await Database.start();
 
-		const { url } = await ((await this._build()) as ApolloServer).listen(process.env.PORT);
+		this._cors();
+
+		await this._apolloStart();
+
+		const { url } = this.app.listen(process.env.PORT);
 
 		if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
 			console.info(`🚀 Server ready at ${url}`);
