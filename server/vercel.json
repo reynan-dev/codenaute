@@ -1,14 +1,9 @@
 {
 	"version": 2,
-	"env": {
-		"NODE_ENV": "production",
-		"NODE_PATH": "dist/"
-	},
 	"builds": [
 		{
 			"src": "src/index.ts",
-			"use": "@vercel/node",
-			"config": { "includeFiles": ["dist/**"] }
+			"use": "@vercel/node"
 		}
 	],
 	"routes": [
