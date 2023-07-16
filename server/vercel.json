@@ -4,9 +4,8 @@
 		{
 			"src": "src/index.ts",
 			"use": "@vercel/node",
-			"env": {
-				"NODE_ENV": "production",
-				"NODE_PATH": "dist/"
+			"config": {
+				"includeFiles": ["src/**/*", "dist/**/*", "node_modules/**/*"]
 			}
 		}
 	],
