@@ -174,7 +174,7 @@ export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
 			className={twJoin(
 				'flex',
 				'space-x-2 p-5',
-				'rounded-lg border text-lg',
+				'rounded-lg border border-dark-700 text-lg',
 				'transition duration-150 ease-in-out',
 				'hover:bg-dark-800'
 			)}

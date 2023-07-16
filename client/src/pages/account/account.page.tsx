@@ -21,7 +21,7 @@ export const AccountPage = ({
 			<div
 				className={twJoin(
 					'flex w-full flex-col',
-					'rounded-lg bg-dark',
+					'rounded-lg bg-dark border border-dark-700',
 					'sm:w-3/4',
 					'md:w-11/12',
 					'xl:w-4/6'
