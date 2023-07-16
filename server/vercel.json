@@ -3,11 +3,16 @@
 	"buildCommand": "npm run build",
 	"outputDirectory": "dist",
 	"devCommand": "npm run build",
-	"functions": {
-		"src/index.ts": {
-			"includeFiles": "src/**/*"
+	"installCommand": "pnpm install",
+	"builds": [
+		{
+			"src": "src/index.ts",
+			"use": "@vercel/node",
+			"config": {
+				"includeFiles": ["src/**/*", "dist/**/*"]
+			}
 		}
-	},
+	],
 	"routes": [
 		{
 			"src": "(.*)",
