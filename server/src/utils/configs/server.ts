@@ -53,7 +53,6 @@ export abstract class Server {
 	private static async _build(): Promise<ApolloServer> {
 		return new ApolloServer({
 			schema: await this._schema(),
-			playground: true,
 			introspection: true,
 			context: this._context(),
 			csrfPrevention: this.csrfPrevention,
@@ -67,7 +66,7 @@ export abstract class Server {
 
 		await server.start();
 
-		await server.applyMiddleware({ path: '/graphql', app: this.app });
+		server.applyMiddleware({ path: '/graphql', app: this.app });
 	}
 
 	static async start() {
@@ -80,7 +79,7 @@ export abstract class Server {
 
 		await this._apolloStart();
 
-		const { url } = this.app.listen(process.env.PORT);
+		this.app.listen(process.env.PORT);
 
 		if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info(`🚀 Server ready`);
 	}
