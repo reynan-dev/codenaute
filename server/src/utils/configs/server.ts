@@ -53,6 +53,8 @@ export abstract class Server {
 	private static async _build(): Promise<ApolloServer> {
 		return new ApolloServer({
 			schema: await this._schema(),
+			playground: true,
+			introspection: true,
 			context: this._context(),
 			csrfPrevention: this.csrfPrevention,
 			cache: this.cache,
@@ -80,7 +82,6 @@ export abstract class Server {
 
 		const { url } = this.app.listen(process.env.PORT);
 
-		if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
-			console.info(`🚀 Server ready at ${url}`);
+		if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info(`🚀 Server ready`);
 	}
 }
