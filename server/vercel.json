@@ -1,6 +1,8 @@
 {
 	"version": 2,
-	"buildCommand": "npm run build",
+	"buildCommand": "pnpm run build",
+	"outputDirectory": "dist",
+	"trailingSlash": false,
 	"builds": [
 		{
 			"src": "src/index.ts",
