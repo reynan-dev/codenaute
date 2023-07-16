@@ -57,7 +57,7 @@ export abstract class Server {
 
 		await Database.start();
 
-		const { url } = await ((await this._build()) as ApolloServer).listen(process.env.GRAPHQL_PORT);
+		const { url } = await ((await this._build()) as ApolloServer).listen(process.env.PORT);
 
 		if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
 			console.info(`🚀 Server ready at ${url}`);
