@@ -60,7 +60,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 				className={twMerge(
 					'flex items-center justify-center',
 					'h-16 w-full px-4 py-2',
-					'bg-dark',
+					'border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark',
 					'md:h-full md:w-14 md:flex-col md:justify-start',
 					className
 				)}

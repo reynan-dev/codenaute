@@ -1,62 +1,30 @@
-import { SandpackFile } from '@codesandbox/sandpack-react/types';
 import Loader from 'components/svgs/loader';
-import ProjectContext from 'context/project.context';
-import { SandpackTemplates } from 'enums/sandpack-templates';
-import { Files, Project, projectFixtures } from 'fixtures/projects-fixtures';
-import { useGetQueryParam } from 'hooks/use-get-query-param';
+import { useAutoSaveProject, useGetProjectService } from 'pages/code/code.service';
 import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { ProjectContextData } from 'types/project';
 import { CodePage } from './code.page';
+import ProjectContext from 'context/project/project.context';
 
 export type Dependencies = Record<string, string>;
-export type SandpackTemplate = (typeof SandpackTemplates)[keyof typeof SandpackTemplates];
-
-const getDependenciesFromJson = (projectData: Project): Dependencies => {
-	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
-		.dependencies;
-};
-
-const getDevDependenciesFromJson = (projectData: Project): Dependencies => {
-	return JSON.parse(projectData.files.filter((e) => e.name === '/package.json')[0].code)
-		.devDependencies;
-};
-
-const mapFilesForSandpack = (files: Files) => {
-	let filesObject: Record<string, string | SandpackFile> = {};
-
-	files.map((e) => {
-		return e.name && (filesObject[e.name] = `${e.code}`);
-	});
-
-	return filesObject;
-};
+export interface ProjectState {
+	projectName: string;
+	setProjectName: React.Dispatch<React.SetStateAction<string>>;
+	currentProjectData: ProjectContextData | null;
+	autoSaveLoading: boolean;
+}
 
 export const CodeContainer = () => {
-	const { projectData } = useContext(ProjectContext);
-	const templateParam = useGetQueryParam('template');
+	const { projectName, setProjectName, currentProjectData } = useContext(ProjectContext);
+	const { loading } = useGetProjectService(useParams().projectId ?? '');
+	const { autoSaveLoading } = useAutoSaveProject();
 
-	const getCheckedTemplateParam = (_templateParam: string | null) => {
-		const validSandpackTemplates = Object.values(SandpackTemplates);
-
-		if (!_templateParam) return undefined;
-		if (!validSandpackTemplates.some((validTemplate) => validTemplate !== _templateParam)) {
-			return undefined;
-		}
-
-		return _templateParam as SandpackTemplate;
+	const state: ProjectState = {
+		projectName,
+		setProjectName,
+		currentProjectData,
+		autoSaveLoading
 	};
 
-	return (
-		<>
-			{projectData === null ? (
-				<Loader />
-			) : (
-				<CodePage
-					mappedFilesForSandpack={mapFilesForSandpack(projectFixtures.files)}
-					dependencies={getDependenciesFromJson(projectData)}
-					devDependencies={getDevDependenciesFromJson(projectData)}
-					template={getCheckedTemplateParam(templateParam)}
-				/>
-			)}
-		</>
-	);
+	return <>{loading ? <Loader /> : <CodePage state={state} />}</>;
 };

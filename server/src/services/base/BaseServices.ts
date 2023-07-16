@@ -2,6 +2,7 @@ import { ObjectLiteral } from 'typeorm';
 import { Database } from 'utils/configs/database';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { GlobalContext } from 'utils/types/GlobalContext';
 import { UUID } from 'utils/types/Uuid';
 
 export abstract class BaseServices {
@@ -27,8 +28,8 @@ export abstract class BaseServices {
 		return await this.repository.findOneBy(filter);
 	}
 
-	async findById(id: UUID) {
-		return await this.repository.findOneBy({ id: id });
+	async findById(id: string) {
+		return this.repository.findOneBy({ id: id });
 	}
 
 	async create(data: ObjectLiteral) {

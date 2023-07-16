@@ -10,7 +10,7 @@ import {
 	SIGN_IN_PATH,
 	SIGN_UP_PATH
 } from 'constants/paths';
-import AuthContext from 'context/auth.context';
+import AuthContext from 'context/auth/auth.context';
 import { Account } from 'pages/account';
 import { Code } from 'pages/code';
 import { CreateProject } from 'pages/create-project';
@@ -71,6 +71,14 @@ const App = () => {
 						/>
 						<Route
 							path={CODE_PATH}
+							element={
+								<ConditionalRoute type='private'>
+									<Code />
+								</ConditionalRoute>
+							}
+						/>
+						<Route
+							path={`${CODE_PATH}/:projectId`}
 							element={
 								<ConditionalRoute type='private'>
 									<Code />

@@ -1,68 +1,85 @@
 import {
 	SandpackCodeEditor,
 	SandpackConsole,
-	SandpackFile,
 	SandpackLayout,
 	SandpackPreview,
 	SandpackProvider
 } from '@codesandbox/sandpack-react';
-import { Dependencies, SandpackTemplate } from 'pages/code/code.container';
-import { FileExplorerPanel } from 'pages/code/components/file-explorer-panel';
+import { ErrorLoading } from 'components/error/error-loading';
+import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
+import { FileExplorerPanel } from 'pages/code/_components/file-explorer-panel';
+import { ProjectPanel } from 'pages/code/_components/project-panel';
+import { SandpackContainer } from 'pages/code/_components/sandpack.container';
+import { ProjectState } from 'pages/code/code.container';
+import { FaExclamationCircle } from 'react-icons/fa';
 import { sandpackCustomTheme } from 'styles/sandpack-theme';
 
 interface CodePageProps {
-	dependencies: Dependencies;
-	devDependencies: Dependencies;
-	mappedFilesForSandpack: Record<string, string | SandpackFile>;
-	template: SandpackTemplate | undefined;
+	state: ProjectState;
 }
 
-export const CodePage = ({ template }: CodePageProps) => {
+export const CodePage = ({ state }: CodePageProps) => {
 	return (
-		<SandpackProvider theme={sandpackCustomTheme} style={{ height: '100%' }} template={template}>
-			<SandpackLayout
-				style={{
-					width: '100%',
-					height: '100%',
-					borderRadius: '0',
-					border: 'none'
-				}}
-			>
-				<div className='flex h-full w-full'>
-					<FileExplorerPanel className='h-100 flex w-2/12 min-w-56 flex-col' />
-
-					<div className='h-full flex-1 bg-dark-900'>
-						<SandpackCodeEditor
+		<>
+			{state.currentProjectData ? (
+				<SandpackProvider
+					theme={sandpackCustomTheme}
+					style={{ height: '100%' }}
+					template={getCheckedTemplateParam(state.currentProjectData.sandpackTemplate ?? '')}
+				>
+					<SandpackContainer>
+						<SandpackLayout
 							style={{
 								width: '100%',
 								height: '100%',
 								borderRadius: '0',
 								border: 'none'
 							}}
-						/>
-					</div>
+						>
+							<ProjectPanel className='w-full flex-1' state={state} />
+							<div className='flex h-full w-full'>
+								<div className='h-100 flex w-2/12 min-w-56 flex-col'>
+									<FileExplorerPanel className='h-100 w-100 flex flex-1 flex-col' />
+								</div>
 
-					<div className='flex h-full flex-1 flex-col'>
-						<div className='h-1/2'>
-							<SandpackPreview
-								className=''
-								showNavigator
-								showOpenInCodeSandbox={false}
-								style={{
-									height: '100%'
-								}}
-							/>
-						</div>
-						<div className='h-1/2'>
-							<SandpackConsole
-								style={{
-									height: '100%'
-								}}
-							/>
-						</div>
-					</div>
-				</div>
-			</SandpackLayout>
-		</SandpackProvider>
+								<div className='h-full flex-1 border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark-900'>
+									<SandpackCodeEditor
+										style={{
+											width: '100%',
+											height: '100%'
+										}}
+									/>
+								</div>
+
+								<div className='flex h-full flex-1 flex-col'>
+									<div className='h-1/2'>
+										<SandpackPreview
+											className=''
+											showNavigator
+											showOpenInCodeSandbox={false}
+											style={{
+												height: '100%'
+											}}
+										/>
+									</div>
+									<div className='h-1/2'>
+										<SandpackConsole
+											style={{
+												height: '100%'
+											}}
+										/>
+									</div>
+								</div>
+							</div>
+						</SandpackLayout>
+					</SandpackContainer>
+				</SandpackProvider>
+			) : (
+				<ErrorLoading
+					errorMessage='Failed to load project, please try again'
+					icon={<FaExclamationCircle size={24} />}
+				/>
+			)}
+		</>
 	);
 };
