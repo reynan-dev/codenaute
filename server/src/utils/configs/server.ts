@@ -52,8 +52,8 @@ export abstract class Server {
 	}
 
 	static async start() {
-		if (process.env.GRAPHQL_PORT == null)
-			return console.error('❌ No environment variable has been set for GRAPHQL_PORT');
+		if (process.env.PORT == null)
+			return console.error('❌ No environment variable has been set for PORT');
 
 		await Database.start();
 
