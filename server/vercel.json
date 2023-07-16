@@ -3,7 +3,6 @@
 	"buildCommand": "npm run build",
 	"outputDirectory": "dist",
 	"devCommand": "npm run build",
-	"startCommand": "npm run start",
 	"functions": {
 		"src/index.ts": {
 			"includeFiles": ["src/**/*", "dist/**/*"],
