@@ -1,14 +1,12 @@
 {
 	"version": 2,
-	"buildCommand": "pnpm run build",
-	"outputDirectory": "dist",
-	"trailingSlash": false,
 	"builds": [
 		{
 			"src": "src/index.ts",
 			"use": "@vercel/node",
 			"config": {
-				"includeFiles": ["src/**/*", "dist/**/*"]
+				"includeFiles": ["src/**/*", "dist/**/*"],
+				"command": "npm run build && npm run start"
 			}
 		}
 	],
