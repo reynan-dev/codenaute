@@ -5,7 +5,7 @@
 	"devCommand": "npm run build",
 	"functions": {
 		"src/index.ts": {
-			"includeFiles": ["src/**/*", "dist/**/*"],
+			"includeFiles": "src/**/*",
 			"runtime": "@vercel/node"
 		}
 	},
