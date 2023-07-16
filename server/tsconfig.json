@@ -4,26 +4,20 @@
 		"target": "ES2022",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-
 		/* Modules */
 		"module": "CommonJS",
 		"rootDir": "./src",
 		"moduleResolution": "node16",
-
 		/* Emit */
 		"outDir": "./dist",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-
 		/* Type Checking */
 		"strict": true,
 		"strictPropertyInitialization": false,
 		"typeRoots": ["node_modules/@types", "src/@types"],
-		"types": ["jest", "node", "bcryptjs", "cookie"],
-
 		/* Completeness */
 		"skipLibCheck": true,
-
 		/* Source Maps */
 		"baseUrl": "src"
 	},
