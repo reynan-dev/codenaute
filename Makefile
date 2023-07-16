@@ -29,17 +29,17 @@ start-database: ## Starting database in debug mode
 	cd database && make start-debug
 
 init-database: ## Inizializate database with migrations
-	@echo "Inizializate database with migrations"
+	@echo "Inizialize database with migrations"
 	cd server && make migration-run
 
 start-all: ## Starting everyservices in quiet mode.
-	@echo "Starting everyservices in quiet mode."
+	@echo "Starting every services in quiet mode."
 	cd database && make start-quiet
 	cd server && make start-quiet
 	cd client && make start-quiet
 
 stop-all: ## Stoping everyservices
-	@echo "Stoping everyservices"
+	@echo "Stoping every services"
 	cd client && make stop
 	cd server && make stop
 	cd database && make stop
