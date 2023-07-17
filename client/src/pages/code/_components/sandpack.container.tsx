@@ -45,7 +45,6 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				currentProjectData?.files !== undefined &&
 				Object.keys(sandpack.files).includes(currentProjectData?.main)
 			) {
-				console.log('dont change');
 				return setCurrentProjectData(
 					(previousState) =>
 						({

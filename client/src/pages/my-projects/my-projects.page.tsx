@@ -15,7 +15,7 @@ interface MyProjectsPageProps {
 
 export const MyProjectsPage = ({ projects }: MyProjectsPageProps) => {
 	return (
-		<Container className='flex items-center justify-center w-full'>
+		<Container className='flex items-center justify-center w-full xl:w-3/4 xl:mx-auto'>
 			<div className='space-y-5 p-1 md:p-8 lg:p-14 w-full'>
 				<h3 className='mb-10'>My projects</h3>
 				<div className='flex flex-col'>
@@ -48,23 +48,25 @@ export const MyProjectsPage = ({ projects }: MyProjectsPageProps) => {
 									))}
 								</div>
 								{code !== null ? (
-									<SyntaxHighlighter
-										style={atomDark}
-										customStyle={{
-											borderRadius: '0.5rem',
-											backgroundColor: COLORS.DARK[800],
-											border: 'none',
-											boxShadow: 'none'
-										}}
-										theme=''
-										language={
-											getLanguageNameFromExtension(
-												project.files[project.main].toString()
-											)?.toLocaleLowerCase() ?? 'javascript'
-										}
-									>
-										{code}
-									</SyntaxHighlighter>
+									<div className='text-sm md:text-base'>
+										<SyntaxHighlighter
+											style={atomDark}
+											customStyle={{
+												borderRadius: '0.5rem',
+												backgroundColor: COLORS.DARK[800],
+												border: 'none',
+												boxShadow: 'none'
+											}}
+											theme=''
+											language={
+												getLanguageNameFromExtension(
+													project.files[project.main].toString()
+												)?.toLocaleLowerCase() ?? 'javascript'
+											}
+										>
+											{code}
+										</SyntaxHighlighter>
+									</div>
 								) : (
 									<div className='rounded-lg border border-dark-800 flex justify-center items-center p-4'>
 										No file in this project yet.
