@@ -9,7 +9,7 @@ on:
 jobs:
   tag:
     runs-on: ubuntu-latest
-    if: ${{( github.event.pull_request.label != null }}
+    if: ${{ github.event.pull_request.labels != null }}
     steps:
       - uses: actions/checkout@v3
 
