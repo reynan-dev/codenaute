@@ -47,12 +47,13 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 					<ChooseTemplateLink
 						className={twMerge(
 							'w-fit grow flex justify-center py-2 h-fit border-dark-600 bg-dark-800 hover:bg-dark-900',
-							selectedTemplate === template ? 'bg-dark-900' : ''
+							selectedTemplate === template ? 'bg-dark-900 border-primary' : ''
 						)}
 						key={i}
 						sandpackTemplate={getCheckedTemplateParam(template)}
 						onClick={() => handleOnlick(template)}
 						isSelected={selectedTemplate === template}
+						setSelected={setSelectedTemplate}
 					/>
 				))}
 			</div>

@@ -22,13 +22,15 @@ interface TemplateLinkProps {
 	className?: string;
 	onClick: (sandpackTemplate: SandpackTemplate | undefined) => Promise<void | Id> | void;
 	isSelected?: boolean;
+	setSelected?: React.Dispatch<React.SetStateAction<SandpackTemplate | null>>;
 }
 
 export const ChooseTemplateLink = ({
 	sandpackTemplate,
 	className,
 	onClick,
-	isSelected
+	isSelected,
+	setSelected
 }: TemplateLinkProps) => {
 	const renderContent = (template: string | undefined) => {
 		if (Object.keys(SANDBOX_TEMPLATES).find((key) => key === template) === 'static')
@@ -160,13 +162,18 @@ export const ChooseTemplateLink = ({
 		return undefined;
 	};
 
+	const handleOnClick = () => {
+		if (isSelected && setSelected !== undefined) return setSelected(null);
+		onClick(sandpackTemplate);
+	};
+
 	const [linkContent] = useState(renderContent(sandpackTemplate));
 
 	if (linkContent === undefined) return null;
 
 	return (
 		<button
-			onClick={() => onClick(sandpackTemplate)}
+			onClick={() => handleOnClick()}
 			className={twJoin(
 				'flex items-center justify-between',
 				'p-5',
