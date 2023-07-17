@@ -58,7 +58,8 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 													borderRadius: '0.5rem',
 													backgroundColor: COLORS.DARK[800],
 													border: 'none',
-													boxShadow: 'none'
+													boxShadow: 'none',
+													marginBottom: 0
 												}}
 												theme=''
 												language={
@@ -71,7 +72,7 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 											</SyntaxHighlighter>
 										</div>
 									) : (
-										<div className='rounded-lg border border-dark-800 flex justify-center items-center p-4'>
+										<div className='rounded-lg border border-dark-800 flex justify-center items-center p-4 mt-2'>
 											No file in this project yet.
 										</div>
 									)}
