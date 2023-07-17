@@ -9,7 +9,7 @@ import { ProjectProvider } from 'context/project/project.context';
 import { AuthProvider } from 'context/auth/auth.context';
 
 const client = new ApolloClient({
-	uri: process.env.REACT_APP_SERVER_URL,
+	uri: process.env.REACT_APP_SERVER_URL || '/graphql',
 	cache: new InMemoryCache()
 });
 
