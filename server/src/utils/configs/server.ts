@@ -1,8 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginLandingPageLocalDefault, Context } from 'apollo-server-core';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { buildSchema, NonEmptyArray } from 'type-graphql';
 import { GraphQLSchema } from 'graphql/type/schema';
-
 import { BaseResolver } from 'resolvers/base/BaseResolver';
 import { MemberServices } from 'services/MemberServices';
 import { GlobalContext } from 'utils/types/GlobalContext';
@@ -66,6 +65,8 @@ export abstract class Server {
 
 		await server.start();
 
+		this._cors();
+
 		server.applyMiddleware({ path: '/graphql', app: this.app });
 	}
 
@@ -74,8 +75,6 @@ export abstract class Server {
 			return console.error('❌ No environment variable has been set for PORT');
 
 		await Database.start();
-
-		this._cors();
 
 		await this._apolloStart();
 
