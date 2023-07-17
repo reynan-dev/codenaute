@@ -8,8 +8,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { ProjectProvider } from 'context/project/project.context';
 import { AuthProvider } from 'context/auth/auth.context';
 
+console.log(process.env.REACT_APP_SERVER_URL);
+
 const client = new ApolloClient({
-	uri: process.env.SERVER_URL,
+	uri: process.env.REACT_APP_SERVER_URL,
 	cache: new InMemoryCache()
 });
 
