@@ -67,7 +67,7 @@ services:
       dockerfile: Dockerfile
       target: ${NODE_ENV}
     env_file:
-      - ./client/.env.client
+      - ./client/.env
     restart: always
     ports:
       - 3000:3000
