@@ -1,8 +1,8 @@
 import { SandpackFile } from '@codesandbox/sandpack-react/types';
-import Container from 'components/container';
 import { getLanguageNameFromExtension } from 'helpers/get-language-name-from-extension';
 import { getTechnologiesFromSandpackTemplate } from 'helpers/get-technologies-from-sandpack-template';
 import { FilterBar } from 'pages/my-projects/_components/filter-bar';
+import { ProjectsPageState } from 'pages/my-projects/my-projects.container';
 import { ProjectState } from 'pages/my-projects/my-projects.service';
 import { Link } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -12,14 +12,16 @@ import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
 interface MyProjectsPageProps {
 	filteredProjects: ProjectState[] | null;
-	onFilterProjects: (sandpackTemplate: SandpackTemplate | undefined) => void;
+	state: ProjectsPageState;
 }
 
-export const MyProjectsPage = ({ filteredProjects, onFilterProjects }: MyProjectsPageProps) => {
+export const MyProjectsPage = ({ filteredProjects, state }: MyProjectsPageProps) => {
 	return (
-		<Container className='flex items-start justify-center gap-y-5 gap-x-8 w-full'>
-			<FilterBar onFilterProjects={onFilterProjects} className='w-1/3' />
-			<div className='w-2/3 h-full'>
+		<div className='flex items-start justify-center gap-y-5 gap-x-8 w-full relative overflow-hidden'>
+			<div className='pl-4 py-8 lg:pl-12 lg:py-12 w-1/3'>
+				<FilterBar state={state} className='' />
+			</div>
+			<div className='w-2/3 h-full pr-4 py-8 lg:pr-12 lg:py-12 overflow-y-scroll'>
 				{/* <h3 className='mb-10'>My projects</h3> */}
 				<div className='flex flex-col gap-y-6 h-full'>
 					{filteredProjects !== null && filteredProjects.length !== 0 ? (
@@ -87,6 +89,6 @@ export const MyProjectsPage = ({ filteredProjects, onFilterProjects }: MyProject
 					)}
 				</div>
 			</div>
-		</Container>
+		</div>
 	);
 };

@@ -22,8 +22,6 @@ type Technologies = Record<string, Technology>;
 export const getTechnologiesFromSandpackTemplate = (
 	template: SandpackTemplate
 ): Technology[] | null => {
-	console.log({ template });
-
 	const technologies: Technologies = {
 		html: {
 			name: 'HTML',

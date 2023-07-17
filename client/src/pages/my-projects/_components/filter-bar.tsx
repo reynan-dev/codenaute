@@ -1,34 +1,62 @@
+import Input from 'components/input';
+import { stat } from 'fs';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
 import { ChooseTemplateLink } from 'pages/create-project/_components/choose-template-link';
-import { ProjectState } from 'pages/my-projects/my-projects.service';
+import { filterProjectsByTemplate } from 'pages/my-projects/helpers/filter-projects-by-template';
+import { searchProjects } from 'pages/my-projects/helpers/search-projects';
+import { ProjectsPageState } from 'pages/my-projects/my-projects.container';
+import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { SandpackTemplate, SandpackTemplatesEnum } from 'types/sandpack';
 
 interface FilterBarProps {
 	className?: string;
-	onFilterProjects: (sandpackTemplate: SandpackTemplate | undefined) => void;
+	state: ProjectsPageState;
 }
 
-export const FilterBar = ({ className, onFilterProjects }: FilterBarProps) => {
+export const FilterBar = ({ className, state }: FilterBarProps) => {
+	const [selectedTemplate, setSelectedTemplate] = useState<SandpackTemplate | null>(null);
+	const [inputSearch, setInputSearch] = useState<string>('');
 	const sandpackTemplates = Object.values(SandpackTemplatesEnum);
+
+	const handleOnlick = (template: SandpackTemplatesEnum) => {
+		if (state.projects === null) return;
+		state.setFilteredProjects(filterProjectsByTemplate(template, state.projects));
+		setSelectedTemplate(template);
+	};
+
+	const handleOnChange = (searchText: string) => {
+		console.log({ searchText });
+		setInputSearch(searchText);
+	};
+
+	useEffect(() => {
+		if (state.projects === null) return;
+		state.setFilteredProjects(searchProjects(state.projects, inputSearch));
+	}, [inputSearch, state, state.projects]);
 
 	return (
 		<div
 			className={twMerge(
-				'h-fit border border-dark-700 rounded-lg bg-dark p-4',
-				// 'grid gap-4 grid-cols-2',
-				'flex flex-wrap gap-4 items-start justify-around',
+				'h-fit border border-dark-700 rounded-lg bg-dark p-4 gap-y-8 flex flex-col',
 				className
 			)}
 		>
-			{sandpackTemplates.map((template, i) => (
-				<ChooseTemplateLink
-					className='w-fit grow flex justify-center py-2 h-fit'
-					key={i}
-					sandpackTemplate={getCheckedTemplateParam(template)}
-					onClick={() => onFilterProjects(template)}
-				/>
-			))}
+			<Input label='Search' onChange={(e) => handleOnChange(e.target.value)} />
+			<div className='flex flex-wrap gap-4 items-start justify-around'>
+				{sandpackTemplates.map((template, i) => (
+					<ChooseTemplateLink
+						className={twMerge(
+							'w-fit grow flex justify-center py-2 h-fit',
+							selectedTemplate === template ? 'bg-dark-800' : ''
+						)}
+						key={i}
+						sandpackTemplate={getCheckedTemplateParam(template)}
+						onClick={() => handleOnlick(template)}
+						isSelected={selectedTemplate === template}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

@@ -1,6 +1,7 @@
 import { SANDBOX_TEMPLATES } from '@codesandbox/sandpack-react';
 import { useState } from 'react';
 import { FaAngular, FaHtml5, FaReact, FaVuejs } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 import {
 	SiAstro,
 	SiJavascript,
@@ -20,9 +21,15 @@ interface TemplateLinkProps {
 	sandpackTemplate: SandpackTemplate | undefined;
 	className?: string;
 	onClick: (sandpackTemplate: SandpackTemplate | undefined) => Promise<void | Id> | void;
+	isSelected?: boolean;
 }
 
-export const ChooseTemplateLink = ({ sandpackTemplate, className, onClick }: TemplateLinkProps) => {
+export const ChooseTemplateLink = ({
+	sandpackTemplate,
+	className,
+	onClick,
+	isSelected
+}: TemplateLinkProps) => {
 	const renderContent = (template: string | undefined) => {
 		if (Object.keys(SANDBOX_TEMPLATES).find((key) => key === template) === 'static')
 			return {
@@ -161,16 +168,27 @@ export const ChooseTemplateLink = ({ sandpackTemplate, className, onClick }: Tem
 		<button
 			onClick={() => onClick(sandpackTemplate)}
 			className={twJoin(
-				'flex',
-				'space-x-2 p-5',
+				'flex items-center justify-between',
+				'p-5',
 				'rounded-lg border border-dark-700 text-lg',
 				'transition duration-150 ease-in-out',
 				'hover:bg-dark-800',
 				className
 			)}
 		>
-			{linkContent.icon}
-			<span>{linkContent.name}</span>
+			{isSelected !== undefined ? (
+				isSelected === true ? (
+					<IoClose className='h-6 w-6' />
+				) : (
+					<div className='h-6 w-6'></div>
+				)
+			) : null}
+
+			<span className='flex gap-x-2 w-full justify-center'>
+				{linkContent.icon}
+				{linkContent.name}
+			</span>
+			{isSelected !== undefined ? <div className='h-6 w-6'></div> : null}
 		</button>
 	);
 };
