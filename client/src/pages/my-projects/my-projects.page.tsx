@@ -15,12 +15,11 @@ interface MyProjectsPageProps {
 
 export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 	return (
-		<div className='flex items-start justify-center gap-y-5 gap-x-8 w-full relative overflow-hidden'>
-			<div className='pl-4 py-8 lg:pl-12 lg:py-12 w-1/3'>
+		<div className='flex items-start justify-center gap-y-5 gap-x-8 w-full h-fit overflow-hidden scrollbar-hidden'>
+			<div className='pl-4 py-8 lg:pl-12 lg:py-12 w-1/3 scrollbar-hidden overflow-y-scroll h-full'>
 				<FilterBar state={state} className='' />
 			</div>
 			<div className='w-2/3 h-full pr-4 py-8 lg:pr-12 lg:py-12 overflow-y-scroll'>
-				{/* <h3 className='mb-10'>My projects</h3> */}
 				<div className='flex flex-col gap-y-6 h-full'>
 					{state.filteredProjects !== null && state.filteredProjects.length !== 0 ? (
 						state.filteredProjects?.map((project) => {

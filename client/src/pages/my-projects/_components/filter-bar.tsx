@@ -27,15 +27,25 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 		setInputSearch(searchText);
 	};
 
-	useEffect(() => {
-		if (state.filteredProjects === null) return;
-		state.setFilteredProjects(searchProjects(state.filteredProjects, inputSearch));
-	}, [inputSearch, state]);
+	const { projects, setFilteredProjects } = state;
 
 	useEffect(() => {
-		if (state.projects === null) return;
-		state.setFilteredProjects(filterProjectsByTemplate(selectedTemplate, state.projects));
-	}, [selectedTemplate, state]);
+		// const visibleProjects = filteredProjects?.length === 0 ? projects : filteredProjects;
+		if (projects === null) return;
+
+		const projectsFileteredByTemplate = filterProjectsByTemplate(selectedTemplate, projects);
+
+		if (selectedTemplate !== null && projectsFileteredByTemplate !== null)
+			return setFilteredProjects(searchProjects(projectsFileteredByTemplate, inputSearch));
+
+		setFilteredProjects(searchProjects(projects, inputSearch));
+	}, [inputSearch, projects, selectedTemplate, setFilteredProjects]);
+
+	useEffect(() => {
+		if (projects === null || inputSearch !== '') return;
+		console.log('PXXXX');
+		setFilteredProjects(filterProjectsByTemplate(selectedTemplate, projects));
+	}, [inputSearch, projects, selectedTemplate, setFilteredProjects]);
 
 	return (
 		<div
@@ -49,7 +59,7 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 				{sandpackTemplates.map((template, i) => (
 					<TemplateButton
 						className={twMerge(
-							'w-fit grow flex justify-center py-2 h-fit border-dark-600 bg-dark-800 hover:bg-dark-900',
+							'text-sm w-fit grow flex justify-center py-2 h-fit border-dark-600 bg-dark-800 hover:bg-dark-900',
 							selectedTemplate === template ? 'bg-dark-900 border-primary' : ''
 						)}
 						key={i}

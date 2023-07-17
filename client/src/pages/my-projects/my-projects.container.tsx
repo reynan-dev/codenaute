@@ -15,7 +15,7 @@ export interface ProjectsPageState {
 
 export const MyProjectsContainer = () => {
 	const [projects, setProjects] = useState<ProjectState[] | null>(null);
-	const [filteredProjects, setFilteredProjects] = useState<ProjectState[] | null>(projects);
+	const [filteredProjects, setFilteredProjects] = useState<ProjectState[] | null>(null);
 
 	const state: ProjectsPageState = {
 		projects,
