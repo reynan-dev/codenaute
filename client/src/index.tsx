@@ -9,7 +9,7 @@ import { ProjectProvider } from 'context/project/project.context';
 import { AuthProvider } from 'context/auth/auth.context';
 
 const client = new ApolloClient({
-	uri: process.env.GRAPHQL_SCHEMA,
+	uri: process.env.SERVER_URL,
 	cache: new InMemoryCache()
 });
 

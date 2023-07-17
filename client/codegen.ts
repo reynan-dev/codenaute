@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: process.env.GRAPHQL_SCHEMA || 'http://localhost:5000/graphql',
+	schema: process.env.SERVER_URL,
 	documents: 'src/**/*.ts',
 	generates: {
 		'src/graphql/__generated__/': {
