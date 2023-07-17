@@ -1,5 +1,4 @@
 import { SANDBOX_TEMPLATES } from '@codesandbox/sandpack-react';
-import { useCreateProjectService } from 'pages/create-project/create-project.service';
 import { useState } from 'react';
 import { FaAngular, FaHtml5, FaReact, FaVuejs } from 'react-icons/fa';
 import {
@@ -13,14 +12,17 @@ import {
 	SiVite
 } from 'react-icons/si';
 import { TbBrandSolidjs } from 'react-icons/tb';
+import { Id } from 'react-toastify';
 import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
 
 interface TemplateLinkProps {
 	sandpackTemplate: SandpackTemplate | undefined;
+	className?: string;
+	onClick: (sandpackTemplate: SandpackTemplate | undefined) => Promise<void | Id> | void;
 }
 
-export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
+export const ChooseTemplateLink = ({ sandpackTemplate, className, onClick }: TemplateLinkProps) => {
 	const renderContent = (template: string | undefined) => {
 		if (Object.keys(SANDBOX_TEMPLATES).find((key) => key === template) === 'static')
 			return {
@@ -152,31 +154,19 @@ export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
 	};
 
 	const [linkContent] = useState(renderContent(sandpackTemplate));
-	const { createProject } = useCreateProjectService();
 
 	if (linkContent === undefined) return null;
 
-	const handleOnClick = async () => {
-		if (sandpackTemplate === undefined) return console.error('ERROR');
-
-		return await createProject({
-			name: 'untitled',
-			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
-			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
-			main: SANDBOX_TEMPLATES[sandpackTemplate].main,
-			sandpackTemplate
-		});
-	};
-
 	return (
 		<button
-			onClick={() => handleOnClick()}
+			onClick={() => onClick(sandpackTemplate)}
 			className={twJoin(
 				'flex',
 				'space-x-2 p-5',
 				'rounded-lg border border-dark-700 text-lg',
 				'transition duration-150 ease-in-out',
-				'hover:bg-dark-800'
+				'hover:bg-dark-800',
+				className
 			)}
 		>
 			{linkContent.icon}

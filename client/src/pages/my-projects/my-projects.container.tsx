@@ -4,12 +4,35 @@ import {
 	ProjectState,
 	useGetAllProjectsByOwnerService
 } from 'pages/my-projects/my-projects.service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { SandpackTemplate } from 'types/sandpack';
 
 export const MyProjectsContainer = () => {
 	const [projects, setProjects] = useState<ProjectState[] | null>(null);
+	const [filteredProjects, setFilteredProjects] = useState<ProjectState[] | null>(projects);
+
+	useEffect(() => {
+		setFilteredProjects(projects);
+	}, [projects]);
+
+	const filterProjectsByTemplate = (sandpackTemplate: SandpackTemplate | undefined) => {
+		if (sandpackTemplate === undefined || projects === null) return null;
+		return projects?.filter((project) => project.sandpackTemplate === sandpackTemplate);
+	};
 
 	const { loading } = useGetAllProjectsByOwnerService(setProjects);
 
-	return <>{loading ? <Loader /> : <MyProjectsPage projects={projects} />}</>;
+	const onFilterProjects = (sandpackTemplate: SandpackTemplate | undefined) => {
+		setFilteredProjects(filterProjectsByTemplate(sandpackTemplate));
+	};
+
+	return (
+		<>
+			{loading ? (
+				<Loader />
+			) : (
+				<MyProjectsPage filteredProjects={filteredProjects} onFilterProjects={onFilterProjects} />
+			)}
+		</>
+	);
 };
