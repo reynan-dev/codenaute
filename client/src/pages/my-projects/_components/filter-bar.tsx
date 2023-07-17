@@ -1,5 +1,4 @@
 import Input from 'components/input';
-import { stat } from 'fs';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
 import { ChooseTemplateLink } from 'pages/create-project/_components/choose-template-link';
 import { filterProjectsByTemplate } from 'pages/my-projects/helpers/filter-projects-by-template';
@@ -31,14 +30,14 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 	};
 
 	useEffect(() => {
-		if (state.projects === null) return;
-		state.setFilteredProjects(searchProjects(state.projects, inputSearch));
-	}, [inputSearch, state, state.projects]);
+		if (state.filteredProjects === null) return;
+		state.setFilteredProjects(searchProjects(state.filteredProjects, inputSearch));
+	}, [inputSearch, state]);
 
 	return (
 		<div
 			className={twMerge(
-				'h-fit border border-dark-700 rounded-lg bg-dark p-4 gap-y-8 flex flex-col',
+				'h-fit border border-dark-700 rounded-lg bg-dark-700 p-4 gap-y-8 flex flex-col',
 				className
 			)}
 		>
@@ -47,8 +46,8 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 				{sandpackTemplates.map((template, i) => (
 					<ChooseTemplateLink
 						className={twMerge(
-							'w-fit grow flex justify-center py-2 h-fit',
-							selectedTemplate === template ? 'bg-dark-800' : ''
+							'w-fit grow flex justify-center py-2 h-fit border-dark-600 bg-dark-800 hover:bg-dark-900',
+							selectedTemplate === template ? 'bg-dark-900' : ''
 						)}
 						key={i}
 						sandpackTemplate={getCheckedTemplateParam(template)}

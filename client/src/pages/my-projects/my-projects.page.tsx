@@ -3,7 +3,6 @@ import { getLanguageNameFromExtension } from 'helpers/get-language-name-from-ext
 import { getTechnologiesFromSandpackTemplate } from 'helpers/get-technologies-from-sandpack-template';
 import { FilterBar } from 'pages/my-projects/_components/filter-bar';
 import { ProjectsPageState } from 'pages/my-projects/my-projects.container';
-import { ProjectState } from 'pages/my-projects/my-projects.service';
 import { Link } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -11,11 +10,10 @@ import COLORS from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
 interface MyProjectsPageProps {
-	filteredProjects: ProjectState[] | null;
 	state: ProjectsPageState;
 }
 
-export const MyProjectsPage = ({ filteredProjects, state }: MyProjectsPageProps) => {
+export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 	return (
 		<div className='flex items-start justify-center gap-y-5 gap-x-8 w-full relative overflow-hidden'>
 			<div className='pl-4 py-8 lg:pl-12 lg:py-12 w-1/3'>
@@ -24,8 +22,8 @@ export const MyProjectsPage = ({ filteredProjects, state }: MyProjectsPageProps)
 			<div className='w-2/3 h-full pr-4 py-8 lg:pr-12 lg:py-12 overflow-y-scroll'>
 				{/* <h3 className='mb-10'>My projects</h3> */}
 				<div className='flex flex-col gap-y-6 h-full'>
-					{filteredProjects !== null && filteredProjects.length !== 0 ? (
-						filteredProjects?.map((project) => {
+					{state.filteredProjects !== null && state.filteredProjects.length !== 0 ? (
+						state.filteredProjects?.map((project) => {
 							const code =
 								project.files[project.main] !== undefined
 									? typeof project.files[project.main] === 'string'

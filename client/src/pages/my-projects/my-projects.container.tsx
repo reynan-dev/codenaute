@@ -30,9 +30,5 @@ export const MyProjectsContainer = () => {
 
 	const { loading } = useGetAllProjectsByOwnerService(setProjects);
 
-	return (
-		<>
-			{loading ? <Loader /> : <MyProjectsPage filteredProjects={filteredProjects} state={state} />}
-		</>
-	);
+	return <>{loading ? <Loader /> : <MyProjectsPage state={state} />}</>;
 };
