@@ -60,7 +60,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 				className={twMerge(
 					'flex items-center justify-center',
 					'h-16 w-full px-4 py-2',
-					'border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark',
+					'border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-black',
 					'md:h-full md:w-14 md:flex-col md:justify-start',
 					className
 				)}
@@ -90,7 +90,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 
 			{shouldShowMobileMenu() && (
 				<div
-					className={`fixed z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
+					className={`fixed z-40 h-fit w-full bg-black shadow-lg transition-all duration-200 ${
 						isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
 					}`}
 				>

@@ -1,6 +1,6 @@
 import Input from 'components/input';
+import { TemplateButton } from 'components/template-button/template-button';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
-import { ChooseTemplateLink } from 'pages/create-project/_components/choose-template-link';
 import { filterProjectsByTemplate } from 'pages/my-projects/helpers/filter-projects-by-template';
 import { searchProjects } from 'pages/my-projects/helpers/search-projects';
 import { ProjectsPageState } from 'pages/my-projects/my-projects.container';
@@ -19,8 +19,6 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 	const sandpackTemplates = Object.values(SandpackTemplatesEnum);
 
 	const handleOnlick = (template: SandpackTemplatesEnum) => {
-		if (state.projects === null) return;
-		state.setFilteredProjects(filterProjectsByTemplate(template, state.projects));
 		setSelectedTemplate(template);
 	};
 
@@ -34,17 +32,22 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 		state.setFilteredProjects(searchProjects(state.filteredProjects, inputSearch));
 	}, [inputSearch, state]);
 
+	useEffect(() => {
+		if (state.projects === null) return;
+		state.setFilteredProjects(filterProjectsByTemplate(selectedTemplate, state.projects));
+	}, [selectedTemplate, state]);
+
 	return (
 		<div
 			className={twMerge(
-				'h-fit border border-dark-700 rounded-lg bg-dark-700 p-4 gap-y-8 flex flex-col',
+				'h-fit border border-dark-700 rounded-lg bg-black p-4 gap-y-8 flex flex-col',
 				className
 			)}
 		>
 			<Input label='Search' onChange={(e) => handleOnChange(e.target.value)} />
 			<div className='flex flex-wrap gap-4 items-start justify-around'>
 				{sandpackTemplates.map((template, i) => (
-					<ChooseTemplateLink
+					<TemplateButton
 						className={twMerge(
 							'w-fit grow flex justify-center py-2 h-fit border-dark-600 bg-dark-800 hover:bg-dark-900',
 							selectedTemplate === template ? 'bg-dark-900 border-primary' : ''

@@ -17,7 +17,7 @@ import { Id } from 'react-toastify';
 import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
 
-interface TemplateLinkProps {
+interface TemplateButtonProps {
 	sandpackTemplate: SandpackTemplate | undefined;
 	className?: string;
 	onClick: (sandpackTemplate: SandpackTemplate | undefined) => Promise<void | Id> | void;
@@ -25,13 +25,13 @@ interface TemplateLinkProps {
 	setSelected?: React.Dispatch<React.SetStateAction<SandpackTemplate | null>>;
 }
 
-export const ChooseTemplateLink = ({
+export const TemplateButton = ({
 	sandpackTemplate,
 	className,
 	onClick,
 	isSelected,
 	setSelected
-}: TemplateLinkProps) => {
+}: TemplateButtonProps) => {
 	const renderContent = (template: string | undefined) => {
 		if (Object.keys(SANDBOX_TEMPLATES).find((key) => key === template) === 'static')
 			return {

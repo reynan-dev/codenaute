@@ -33,7 +33,7 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 							return (
 								<Link
 									className={twJoin(
-										'flex flex-col gap-y-2 rounded-lg bg-dark p-4',
+										'flex flex-col gap-y-2 rounded-lg bg-black p-4',
 										'transition duration-150 ease-in-out',
 										'lg:hover:translate-x-3.5',
 										'border border-dark-700'
