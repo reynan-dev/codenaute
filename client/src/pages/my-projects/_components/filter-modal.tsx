@@ -21,6 +21,7 @@ export const FilterModal = ({ className, state, isOpen, onClose }: FilterModalPr
 
 	const handleOnlick = (template: SandpackTemplatesEnum) => {
 		state.setSelectedTemplate(template);
+		onClose();
 	};
 
 	const { projects, setFilteredProjects } = state;
