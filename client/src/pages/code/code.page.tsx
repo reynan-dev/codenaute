@@ -55,8 +55,8 @@ export const CodePage = ({ state }: CodePageProps) => {
 							}}
 						>
 							<ProjectPanel className='w-full flex-1' state={state} />
-							<div className='flex h-full w-full'>
-								<div className='h-100 flex w-2/12 min-w-56 flex-col'>
+							<div className='flex flex-col lg:flex-row h-full w-full'>
+								<div className='h-100 flex w-full lg:w-2/12 min-w-56 flex-col'>
 									<FileExplorerPanel
 										files={state.currentProjectData.files}
 										className='h-100 w-100 flex flex-1 flex-col'
