@@ -50,7 +50,6 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 				'flex flex-col',
 				'h-fit p-4 gap-y-8',
 				'rounded-lg ',
-				// diff avec filter bar
 				'border border-dark-700 bg-black',
 				className
 			)}

@@ -1,4 +1,3 @@
-import Input from 'components/input';
 import Modal from 'components/modal';
 import { TemplateButton } from 'components/template-button/template-button';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
@@ -39,7 +38,6 @@ export const FilterModal = ({ className, state, isOpen, onClose }: FilterModalPr
 
 	useEffect(() => {
 		if (projects === null || state.inputSearch !== '') return;
-		console.log('PXXXX');
 		setFilteredProjects(filterProjectsByTemplate(state.selectedTemplate, projects));
 	}, [projects, setFilteredProjects, state.inputSearch, state.selectedTemplate]);
 
