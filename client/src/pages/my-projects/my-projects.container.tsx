@@ -5,23 +5,34 @@ import {
 	useGetAllProjectsByOwnerService
 } from 'pages/my-projects/my-projects.service';
 import { useEffect, useState } from 'react';
+import { SandpackTemplate } from 'types/sandpack';
 
 export interface ProjectsPageState {
 	projects: ProjectState[] | null;
 	setProjects: React.Dispatch<React.SetStateAction<ProjectState[] | null>>;
 	filteredProjects: ProjectState[] | null;
 	setFilteredProjects: React.Dispatch<React.SetStateAction<ProjectState[] | null>>;
+	selectedTemplate: SandpackTemplate | null;
+	setSelectedTemplate: React.Dispatch<React.SetStateAction<SandpackTemplate | null>>;
+	inputSearch: string;
+	setInputSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MyProjectsContainer = () => {
 	const [projects, setProjects] = useState<ProjectState[] | null>(null);
 	const [filteredProjects, setFilteredProjects] = useState<ProjectState[] | null>(null);
+	const [selectedTemplate, setSelectedTemplate] = useState<SandpackTemplate | null>(null);
+	const [inputSearch, setInputSearch] = useState<string>('');
 
 	const state: ProjectsPageState = {
 		projects,
 		setProjects,
 		filteredProjects,
-		setFilteredProjects
+		setFilteredProjects,
+		selectedTemplate,
+		setSelectedTemplate,
+		inputSearch,
+		setInputSearch
 	};
 
 	useEffect(() => {

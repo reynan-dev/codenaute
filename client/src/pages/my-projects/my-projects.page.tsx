@@ -15,11 +15,33 @@ interface MyProjectsPageProps {
 
 export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 	return (
-		<div className='flex items-start justify-center gap-y-5 gap-x-8 w-full h-fit overflow-hidden scrollbar-hidden'>
-			<div className='pl-4 py-8 lg:pl-12 lg:py-12 w-1/3 scrollbar-hidden overflow-y-scroll h-full'>
+		<div
+			className={twJoin(
+				'flex items-start justify-center',
+				'gap-y-5 gap-x-8 w-full h-full',
+				'lg:overflow-hidden lg:scrollbar-hidden lg:h-fit'
+			)}
+		>
+			<div
+				className={twJoin(
+					'hidden',
+					'w-1/3 h-full pl-4 py-8',
+					'scrollbar-hidden overflow-y-scroll',
+					'lg:block',
+					'lg:pl-12 lg:py-12'
+				)}
+			>
 				<FilterBar state={state} className='' />
 			</div>
-			<div className='w-2/3 h-full pr-4 py-8 lg:pr-12 lg:py-12 overflow-y-scroll'>
+			<div
+				className={twJoin(
+					'w-full h-full px-4 py-8',
+					'lg:overflow-y-scroll',
+					'lg:w-2/3',
+					'lg:pr-8 py-8',
+					'lg:pr-12 lg:py-12'
+				)}
+			>
 				<div className='flex flex-col gap-y-6 h-full'>
 					{state.filteredProjects !== null && state.filteredProjects.length !== 0 ? (
 						state.filteredProjects?.map((project) => {
@@ -44,7 +66,13 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 										{getTechnologiesFromSandpackTemplate(
 											project.sandpackTemplate as SandpackTemplate
 										)?.map((techno) => (
-											<p className='flex items-center text-sm font-semibold px-4 rounded-full gap-x-2 bg-dark-800 py-2'>
+											<p
+												className={twJoin(
+													'flex items-center',
+													'text-sm font-semibold rounded-full bg-dark-800',
+													'px-4 gap-x-2 py-2'
+												)}
+											>
 												<span>{techno.icon}</span>
 												<span>{techno.name}</span>
 											</p>
@@ -72,7 +100,13 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 											</SyntaxHighlighter>
 										</div>
 									) : (
-										<div className='rounded-lg border border-dark-800 flex justify-center items-center p-4 mt-2'>
+										<div
+											className={twJoin(
+												'flex justify-center items-center',
+												'p-4 mt-2',
+												'rounded-lg border border-dark-800'
+											)}
+										>
 											No file in this project yet.
 										</div>
 									)}
@@ -81,7 +115,6 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 						})
 					) : (
 						<h3 className='flex h-full w-full items-center justify-center'>
-							{/* <span className='mr-4 text-danger'><</span> */}
 							You have no project using this template
 						</h3>
 					)}
