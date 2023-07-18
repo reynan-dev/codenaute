@@ -30,6 +30,7 @@ export enum ErrorMessages {
 	// Validation Project
 	PROJECT_NOT_FOUND = 'Project not found',
 	MEMBER_NOT_FOUND = 'Member not found',
+	INVALID_PROJECT_NAME = 'The project name can only contain lower case letters, upper case letters, numbers, underscores and and upperscores.',
 
 	// Validation Language
 	LANGUAGE_NOT_FOUND = 'Language not found',

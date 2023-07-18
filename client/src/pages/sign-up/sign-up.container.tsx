@@ -1,12 +1,8 @@
-import { useSignUp } from 'api/sign-up/use-sign-up';
-import { SIGN_IN_PATH } from 'constants/paths';
 import { getFormErrors } from 'helpers/get-form-errors';
-import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
-import { SignUpForm } from 'pages/sign-up/components/sign-up-form';
+import { SignUpForm } from 'pages/sign-up/_components/sign-up-form';
 import { SignUpPage } from 'pages/sign-up/sign-up.page';
+import { useSignUp } from 'pages/sign-up/sign-up.service';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export interface ErrorMessages {
 	[key: string]: string;
@@ -33,19 +29,6 @@ export const SignUpContainer = () => {
 	};
 
 	const { signUp, loading } = useSignUp();
-	const navigate = useNavigate();
-
-	const submit = async () => {
-		try {
-			await signUp({
-				variables: { username, email, password, confirmedPassword }
-			});
-			toast.success(`Your account is successfully created. You can now sign in.`);
-			navigate(SIGN_IN_PATH);
-		} catch (error) {
-			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
-		}
-	};
 
 	const handleForm = async () => {
 		const fieldsValue = {
@@ -62,7 +45,12 @@ export const SignUpContainer = () => {
 			return;
 		}
 
-		await submit();
+		await signUp({
+			username: state.username,
+			email: state.email,
+			password: state.password,
+			confirmedPassword: state.confirmedPassword
+		});
 	};
 
 	return (

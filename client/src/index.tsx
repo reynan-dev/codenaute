@@ -5,8 +5,8 @@ import 'styles/tailwind.css';
 import App from 'app';
 import reportWebVitals from 'reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { AuthProvider } from 'context/auth.context';
-import { ProjectProvider } from 'context/project.context';
+import { ProjectProvider } from 'context/project/project.context';
+import { AuthProvider } from 'context/auth/auth.context';
 
 const client = new ApolloClient({
 	uri: '/',
