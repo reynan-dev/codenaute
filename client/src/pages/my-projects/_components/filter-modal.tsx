@@ -1,4 +1,5 @@
 import Input from 'components/input';
+import Modal from 'components/modal';
 import { TemplateButton } from 'components/template-button/template-button';
 import { getCheckedTemplateParam } from 'helpers/get-cheked-template-param';
 import { filterProjectsByTemplate } from 'pages/my-projects/helpers/filter-projects-by-template';
@@ -8,21 +9,18 @@ import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { SandpackTemplatesEnum } from 'types/sandpack';
 
-interface FilterBarProps {
+interface FilterModalProps {
 	className?: string;
 	state: ProjectsPageState;
+	isOpen: boolean;
+	onClose: () => void;
 }
 
-export const FilterBar = ({ className, state }: FilterBarProps) => {
+export const FilterModal = ({ className, state, isOpen, onClose }: FilterModalProps) => {
 	const sandpackTemplates = Object.values(SandpackTemplatesEnum);
 
 	const handleOnlick = (template: SandpackTemplatesEnum) => {
 		state.setSelectedTemplate(template);
-	};
-
-	const handleOnChange = (searchText: string) => {
-		console.log({ searchText });
-		state.setInputSearch(searchText);
 	};
 
 	const { projects, setFilteredProjects } = state;
@@ -45,35 +43,28 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 	}, [projects, setFilteredProjects, state.inputSearch, state.selectedTemplate]);
 
 	return (
-		<div
-			className={twMerge(
-				'flex flex-col',
-				'h-fit p-4 gap-y-8',
-				'rounded-lg ',
-				// diff avec filter bar
-				'border border-dark-700 bg-black',
-				className
-			)}
-		>
-			<Input label='Search' onChange={(e) => handleOnChange(e.target.value)} />
-			<div className='flex flex-wrap gap-4 items-start justify-around'>
-				{sandpackTemplates.map((template, i) => (
-					<TemplateButton
-						className={twMerge(
-							'flex justify-center',
-							'w-fit py-2 grow h-fit',
-							'text-sm border-dark-600 bg-dark-800',
-							'hover:bg-dark-900',
-							state.selectedTemplate === template ? 'bg-dark-900 border-primary' : ''
-						)}
-						key={i}
-						sandpackTemplate={getCheckedTemplateParam(template)}
-						onClick={() => handleOnlick(template)}
-						isSelected={state.selectedTemplate === template}
-						setSelected={state.setSelectedTemplate}
-					/>
-				))}
+		<Modal isOpen={isOpen} onClose={onClose} fullScreen className='bg-black'>
+			<div className={twMerge('flex flex-col', 'h-fit p-4 gap-y-8', 'rounded-lg', className)}>
+				<h4>Filter by technology</h4>
+				<div className='flex flex-wrap gap-4 items-start justify-around'>
+					{sandpackTemplates.map((template, i) => (
+						<TemplateButton
+							className={twMerge(
+								'flex justify-center',
+								'w-fit py-2 grow h-fit',
+								'text-sm border-dark-600 bg-dark-800',
+								'hover:bg-dark-900',
+								state.selectedTemplate === template ? 'bg-dark-900 border-primary' : ''
+							)}
+							key={i}
+							sandpackTemplate={getCheckedTemplateParam(template)}
+							onClick={() => handleOnlick(template)}
+							isSelected={state.selectedTemplate === template}
+							setSelected={state.setSelectedTemplate}
+						/>
+					))}
+				</div>
 			</div>
-		</div>
+		</Modal>
 	);
 };

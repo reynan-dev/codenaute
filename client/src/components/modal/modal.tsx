@@ -1,13 +1,16 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { twMerge } from 'tailwind-merge';
 
 interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	children: ReactNode;
+	fullScreen?: boolean;
+	className?: string;
 }
 
-export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+export const Modal = ({ isOpen, onClose, children, fullScreen = false, className }: ModalProps) => {
 	const handleOnClose = () => {
 		setOpacity(0);
 		setTimeout(() => {
@@ -37,7 +40,15 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 								className='absolute inset-0 bg-dark-500 transition-all duration-300 ease-in-out'
 							/>
 						</div>
-						<div className='z-50 w-80 rounded-lg bg-dark-900 p-6 shadow-lg'>{children}</div>
+						<div
+							className={twMerge(
+								'z-50 w-80 rounded-lg bg-dark-900 p-6 shadow-lg',
+								fullScreen ? 'w-full m-10' : '',
+								className
+							)}
+						>
+							{children}
+						</div>
 					</div>
 				</div>
 			)}

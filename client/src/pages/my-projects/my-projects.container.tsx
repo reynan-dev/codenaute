@@ -16,6 +16,8 @@ export interface ProjectsPageState {
 	setSelectedTemplate: React.Dispatch<React.SetStateAction<SandpackTemplate | null>>;
 	inputSearch: string;
 	setInputSearch: React.Dispatch<React.SetStateAction<string>>;
+	isModalOpen: boolean;
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MyProjectsContainer = () => {
@@ -23,6 +25,7 @@ export const MyProjectsContainer = () => {
 	const [filteredProjects, setFilteredProjects] = useState<ProjectState[] | null>(null);
 	const [selectedTemplate, setSelectedTemplate] = useState<SandpackTemplate | null>(null);
 	const [inputSearch, setInputSearch] = useState<string>('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const state: ProjectsPageState = {
 		projects,
@@ -32,7 +35,9 @@ export const MyProjectsContainer = () => {
 		selectedTemplate,
 		setSelectedTemplate,
 		inputSearch,
-		setInputSearch
+		setInputSearch,
+		isModalOpen,
+		setIsModalOpen
 	};
 
 	useEffect(() => {
