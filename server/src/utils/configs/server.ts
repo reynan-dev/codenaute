@@ -35,8 +35,8 @@ export abstract class Server {
 		});
 	}
 
-	private static _cors() {
-		this.app.use(cors());
+	private static async _expressMiddlewares() {
+		this.app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 	}
 
 	private static _context() {
@@ -65,7 +65,7 @@ export abstract class Server {
 
 		await server.start();
 
-		this._cors();
+		this._expressMiddlewares();
 
 		server.applyMiddleware({ path: '/graphql', app: this.app });
 	}
