@@ -1,6 +1,7 @@
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 import { v4 as uuid } from 'uuid';
 
 describe('Find All Projects By Editor Id', () => {
@@ -43,7 +44,10 @@ describe('Find All Projects By Editor Id', () => {
 
 			const projectData = {
 				name: 'project_test',
-				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password)
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
+				environment: 'create-react-app',
+				main: '/App.tsx',
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
 			const project = await ProjectService.create(projectData);
