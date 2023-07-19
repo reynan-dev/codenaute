@@ -552,6 +552,10 @@ video {
 	display: flex;
 }
 
+.font-bold {
+	font-weight: 700;
+}
+
 .text-yellow-500 {
 	color: #eab308;
 }
