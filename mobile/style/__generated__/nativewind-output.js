@@ -264,9 +264,6 @@ _NativeWindStyleSheet.create({
 		},
 		'text-yellow-500': {
 			color: '#eab308'
-		},
-		'text-red-500': {
-			color: '#ef4444'
 		}
 	},
 	atRules: {

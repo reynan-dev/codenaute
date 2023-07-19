@@ -1,2 +1,5 @@
 import 'expo-router/entry';
-import './nativewind-output';
+import './style/__generated__/nativewind-output';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();

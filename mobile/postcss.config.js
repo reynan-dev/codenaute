@@ -1,7 +1,7 @@
 module.exports = {
 	plugins: {
 		'nativewind/postcss': {
-			output: 'nativewind-output.js'
+			output: 'style/__generated__/nativewind-output.js'
 		}
 	}
 };
