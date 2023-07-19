@@ -38,8 +38,7 @@ export class Project extends BaseModel {
 
 	@Column({
 		type: 'enum',
-		enum: SandpackTemplates,
-		nullable: true
+		enum: SandpackTemplates
 	})
 	@Field()
 	sandpackTemplate: SandpackTemplates;
