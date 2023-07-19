@@ -1,8 +1,6 @@
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
-import { error } from 'console';
 import ProjectContext from 'context/project/project.context';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
-import { getGraphQLErrorMessage } from 'helpers/get-graphql-error-message';
 import { ContextMenu } from 'pages/code/_components/context-menu';
 import { isChildNode } from 'pages/code/_helpers/is-child-node';
 import { isDirectory } from 'pages/code/_helpers/is-directory';
