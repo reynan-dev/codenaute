@@ -57,7 +57,7 @@ jobs:
         DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
         DB_TEST_PASSWORD: ${{ secrets.DB_TEST_PASSWORD }}
       ports:
-        - 5050:5000
+        - 5000:5000
       volumes:
         - ${{ github.workspace }}:/app
 
