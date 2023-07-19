@@ -4,6 +4,7 @@ install: ## Installing monorepo dependencies
 
 	cd server && make install
 	cd client && make install
+	cd client && make install
 
 hard-install: ## Installing hard monorepo dependencies
 	rm -rf node_modules
@@ -12,9 +13,13 @@ hard-install: ## Installing hard monorepo dependencies
 
 	cd server && make hard-install
 	cd client && make hard-install
+	cd mobile && make hard-install
 
 start-client: ## Starting client in debug mode
 	cd client && make start-debug
+
+start-mobile: ## Starting server in debug mode
+	cd mobile && make start-debug
 
 start-server: ## Starting server in debug mode
 	cd server && make start-debug
