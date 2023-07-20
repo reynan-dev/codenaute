@@ -56,7 +56,7 @@ export class MemberResolver {
 		return await this.MemberServices.signOut(Cookie.getSessionToken(context) as string);
 	}
 
-	@Authorized()
+	// @Authorized()
 	@Query(() => Member)
 	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
 		return await this.MemberServices.findById(memberId);
@@ -68,7 +68,7 @@ export class MemberResolver {
 		return await this.MemberServices.findOneByEmail(email);
 	}
 
-	@Authorized()
+	// @Authorized()
 	@Query(() => [Member])
 	async getAllMembers(): Promise<Member[]> {
 		return await this.MemberServices.find();

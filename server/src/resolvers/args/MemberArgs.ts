@@ -41,7 +41,7 @@ export class SignInArgs {
 @ArgsType()
 export class FindMemberByIdArgs {
 	@Field()
-	memberId: UUID;
+	memberId: string;
 }
 
 @ArgsType()

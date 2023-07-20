@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 const nativewind = require('nativewind/tailwind/native');
 const plugin = require('tailwindcss/plugin');
-const COLORS = require('./styles/colors');
+const COLORS = require('./src/styles/colors');
 module.exports = {
-	content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+	content: [
+		'src/**/*.{js,jsx,ts,tsx}'
+		// 'components/**/*.{js,jsx,ts,tsx}',
+		// 'styles/**/*.{js,jsx,ts,tsx}',
+		// 'app.{js,jsx,ts,tsx}',
+		// 'screens/**/*.{js,jsx,ts,tsx}'
+	],
 	theme: {
 		extend: {
 			colors: {
@@ -56,6 +62,6 @@ module.exports = {
 		nativewind(),
 		require('tailwindcss'),
 		require('autoprefixer'),
-		plugin(require('./styles/plugins/color-vars-extractor'))
+		plugin(require('./src/styles/plugins/color-vars-extractor'))
 	]
 };

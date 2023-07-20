@@ -816,8 +816,16 @@ video {
 	}
 }
 
+.relative {
+	position: relative;
+}
+
 .flex {
 	display: flex;
+}
+
+.hidden {
+	display: none;
 }
 
 .bg-primary {
@@ -830,4 +838,8 @@ video {
 
 .text-yellow-500 {
 	color: #eab308;
+}
+
+.underline {
+	text-decoration-line: underline;
 }

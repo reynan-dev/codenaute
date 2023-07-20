@@ -2,29 +2,38 @@
 	"name": "mobile",
 	"version": "1.0.0",
 	"private": true,
-	"main": "node_modules/expo/AppEntry.js",
+	"main": "./src/index.ts",
 	"scripts": {
 		"android": "expo start --android",
+		"codegen": "graphql-codegen --config codegen.ts",
+		"generate:css": "tailwindcss -o src/styles/__generated__/tailwind.output.css --watch",
+		"generate:nw": "tailwindcss -i src/styles/__generated__/tailwind.output.css --postcss postcss.config.js",
 		"ios": "expo start --ios",
-		"start": "concurrently \"tailwindcss -o styles/__generated__/tailwind.output.css --watch\" \"tailwindcss -i styles/__generated__/tailwind.output.css --postcss postcss.config.js\" \"npx expo\"",
-		"start:clear": "concurrently \"tailwindcss -o styles/__generated__/tailwind.output.css --watch\" \"tailwindcss -i styles/__generated__/tailwind.output.css --postcss postcss.config.js\" \"npx expo -c\"",
+		"start": "concurrently \"npm run generate:css\" \"npm run generate:nw\" \"npx expo\"",
+		"start:clear": "concurrently \"npm run generate:css\" \"npm run generate:nw\" \"npx expo -c\"",
 		"web": "expo start --web"
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.14",
 		"concurrently": "^8.2.0",
+		"dotenv": "^16.3.1",
 		"expo": "~48.0.18",
+		"expo-constants": "~14.2.1",
 		"expo-status-bar": "~1.4.4",
-		"nativewind": "^2.0.0",
-		"postcss": "^8.4.23",
+		"nativewind": "2.0.0",
+		"postcss": "8.4.23",
 		"react": "18.2.0",
 		"react-native": "0.71.8",
+		"react-native-safe-area-context": "4.5.0",
 		"tailwind-merge": "^1.14.0"
 	},
 	"devDependencies": {
+		"@apollo/client": "^3.7.17",
 		"@babel/core": "^7.20.0",
+		"@graphql-codegen/cli": "^4.0.1",
+		"@graphql-codegen/client-preset": "^4.0.1",
 		"@types/react": "~18.0.14",
-		"tailwindcss": "^3.3.2",
+		"tailwindcss": "3.3.2",
 		"typescript": "^4.9.4"
 	}
 }
