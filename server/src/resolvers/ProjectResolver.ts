@@ -31,7 +31,7 @@ export class ProjectResolver {
 		return this.ProjectServices.findAllPublic();
 	}
 
-	// @Authorized()
+	@Authorized()
 	@Query(() => Project)
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
@@ -77,7 +77,7 @@ export class ProjectResolver {
 		return project;
 	}
 
-	// @Authorized()
+	@Authorized()
 	@Mutation(() => Project)
 	async createProject(
 		@Args() { name, isTemplate, isPublic, sandpackTemplate, files }: createProjectArgs,
