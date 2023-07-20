@@ -77,7 +77,7 @@ export class ProjectResolver {
 		return project;
 	}
 
-	@Authorized()
+	// @Authorized()
 	@Mutation(() => Project)
 	async createProject(
 		@Args() { name, isTemplate, isPublic, sandpackTemplate, files }: createProjectArgs,

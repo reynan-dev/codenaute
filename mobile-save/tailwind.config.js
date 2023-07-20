@@ -3,7 +3,7 @@ const nativewind = require('nativewind/tailwind/native');
 const plugin = require('tailwindcss/plugin');
 const COLORS = require('./styles/colors');
 module.exports = {
-	content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+	content: ['./App.{js,jsx,ts,tsx}', './**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		extend: {
 			colors: {
