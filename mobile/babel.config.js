@@ -14,7 +14,7 @@ module.exports = function (api) {
 						components: './src/components',
 						assets: './src/assets',
 						screens: './src/screens',
-						__graphql__: './src/__graphql__',
+						gql: './src/gql',
 						operations: './src/operations'
 					}
 				}

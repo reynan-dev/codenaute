@@ -3,9 +3,9 @@ import {
 	CreateProjectMutation,
 	CreateProjectMutationVariables,
 	GetAllMembersQuery
-} from '__graphql__/graphql';
-import { CREATE_PROJECT_MUTATION } from 'operations/create-project.graphql';
-import { GET_ALL_MEMBERS_QUERY } from 'operations/get-all-members';
+} from 'gql/__generated__/graphql';
+import { CREATE_PROJECT_MUTATION } from 'gql/operations/create-project.graphql';
+import { GET_ALL_MEMBERS_QUERY } from 'gql/operations/get-all-members.graphql';
 import { useEffect } from 'react';
 import { TextProps, Button, Text } from 'react-native';
 
