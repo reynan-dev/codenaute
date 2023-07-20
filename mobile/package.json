@@ -9,8 +9,8 @@
 		"generate:css": "tailwindcss -o src/styles/__generated__/tailwind.output.css --watch",
 		"generate:nw": "tailwindcss -i src/styles/__generated__/tailwind.output.css --postcss postcss.config.js",
 		"ios": "expo start --ios",
-		"start": "concurrently \"npm run generate:css\" \"npm run generate:nw\" \"npx expo\"",
-		"start:clear": "concurrently \"npm run generate:css\" \"npm run generate:nw\" \"npx expo -c\"",
+		"start": "npm run generate:css & npm run generate:nw > /dev/null 2>&1 & npx expo",
+		"start:clear": "npm run generate:css & npm run generate:nw > /dev/null 2>&1 '[:print:]' & npx expo -c",
 		"web": "expo start --web"
 	},
 	"dependencies": {

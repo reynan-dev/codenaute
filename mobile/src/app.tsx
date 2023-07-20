@@ -25,7 +25,7 @@ export default function App() {
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
 				<View style={styles.container}>
-					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-primary')}>
+					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
 						Open up App.tsx to start working on your app!
 					</Text>
 					<Text style={{ backgroundColor: COLORS.SECONDARY['DEFAULT'] }}>
