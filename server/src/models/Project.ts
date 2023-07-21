@@ -30,8 +30,7 @@ export class Project extends BaseModel {
 
 	@Column({
 		type: 'enum',
-		enum: SandpackTemplates,
-		nullable: true
+		enum: SandpackTemplates
 	})
 	@Field()
 	sandpackTemplate: SandpackTemplates;
@@ -40,6 +39,16 @@ export class Project extends BaseModel {
 	@Field()
 	@IsString()
 	files: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	environment: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	main: string;
 
 	@Column('boolean', { default: false })
 	@Field()
