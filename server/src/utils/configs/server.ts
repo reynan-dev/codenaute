@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
-import { ApolloServerPluginLandingPageLocalDefault, Context } from 'apollo-server-core';
-import { AuthChecker, buildSchema, NonEmptyArray } from 'type-graphql';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { buildSchema, NonEmptyArray } from 'type-graphql';
 import { GraphQLSchema } from 'graphql/type/schema';
 
 import { BaseResolver } from 'resolvers/base/BaseResolver';
