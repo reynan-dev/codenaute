@@ -10,7 +10,11 @@ import { AuthProvider } from 'context/auth/auth.context';
 
 const client = new ApolloClient({
 	uri: '/',
-	cache: new InMemoryCache()
+	cache: new InMemoryCache(),
+	credentials: 'include',
+	headers: {
+		authorization: localStorage.getItem('cookies') || ''
+	}
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
