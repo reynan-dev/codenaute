@@ -19,9 +19,9 @@ export const useSignIn = () => {
 	const signIn = async (email: string, password: string) => {
 		await signInMutation({
 			variables: { email, password },
-			onCompleted: () => {
+			onCompleted: (data) => {
 				toast.success(`You successfully signed in`);
-				localStorage.setItem('cookies', 'JSON.stringify(cookies)');
+				localStorage.setItem('cookies', data.signIn.cookies);
 				refetchProfile();
 				navigate(HOME_PATH);
 			},
