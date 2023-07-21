@@ -6,7 +6,7 @@ const target = process.env.REACT_APP_SERVER_URL || pkg.proxy;
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: target + '/graphql',
+	schema: target,
 	documents: 'src/**/*.ts',
 	generates: {
 		'src/graphql/__generated__/': {

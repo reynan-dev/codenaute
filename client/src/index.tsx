@@ -9,8 +9,9 @@ import { ProjectProvider } from 'context/project/project.context';
 import { AuthProvider } from 'context/auth/auth.context';
 
 const client = new ApolloClient({
-	uri: '/graphql',
-	cache: new InMemoryCache()
+	uri: process.env.REACT_APP_SERVER_URL || '/graphql',
+	cache: new InMemoryCache(),
+	credentials: 'include'
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
