@@ -60,9 +60,11 @@ export type Mutation = {
 };
 
 export type MutationCreateProjectArgs = {
+	environment: Scalars['String']['input'];
 	files: Scalars['String']['input'];
 	isPublic: Scalars['Boolean']['input'];
 	isTemplate: Scalars['Boolean']['input'];
+	main: Scalars['String']['input'];
 	memberId: Scalars['String']['input'];
 	name: Scalars['String']['input'];
 	sandpackTemplate: Scalars['String']['input'];
@@ -126,9 +128,11 @@ export type MutationUpdateMemberUsernameArgs = {
 };
 
 export type MutationUpdateProjectArgs = {
+	environment: Scalars['String']['input'];
 	files: Scalars['String']['input'];
 	isPublic: Scalars['Boolean']['input'];
 	isTemplate: Scalars['Boolean']['input'];
+	main: Scalars['String']['input'];
 	name: Scalars['String']['input'];
 	projectId: Scalars['String']['input'];
 	sandpackTemplate: Scalars['String']['input'];
@@ -156,11 +160,13 @@ export type MutationValidEmailArgs = {
 export type Project = {
 	__typename?: 'Project';
 	editors?: Maybe<Array<Member>>;
+	environment: Scalars['String']['output'];
 	favoritedBy?: Maybe<Array<Member>>;
 	files: Scalars['String']['output'];
 	id: Scalars['ID']['output'];
 	isPublic: Scalars['Boolean']['output'];
 	isTemplate: Scalars['Boolean']['output'];
+	main: Scalars['String']['output'];
 	name: Scalars['String']['output'];
 	owner: Member;
 	sandpackTemplate: Scalars['String']['output'];
@@ -171,7 +177,7 @@ export type Query = {
 	getAllFavoritedProjectsByMember: Project;
 	getAllMembers: Array<Member>;
 	getAllProjectsByEditor: Project;
-	getAllProjectsByOwner: Project;
+	getAllProjectsByOwner: Array<Project>;
 	getAllProjectsByTemplate: Project;
 	getAllProjectsPublicProjects: Project;
 	getMemberByEmail: Member;
@@ -212,6 +218,13 @@ export type Session = {
 	member: Member;
 };
 
+export type ProfileQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ProfileQuery = {
+	__typename?: 'Query';
+	profile: { __typename?: 'Member'; id: string; username: string; email: string };
+};
+
 export type CreateProjectMutationVariables = Exact<{
 	name: Scalars['String']['input'];
 	memberId: Scalars['String']['input'];
@@ -219,6 +232,8 @@ export type CreateProjectMutationVariables = Exact<{
 	isPublic: Scalars['Boolean']['input'];
 	sandpackTemplate: Scalars['String']['input'];
 	files: Scalars['String']['input'];
+	environment: Scalars['String']['input'];
+	main: Scalars['String']['input'];
 }>;
 
 export type CreateProjectMutation = {
@@ -242,6 +257,33 @@ export type GetAllMembersQuery = {
 	getAllMembers: Array<{ __typename?: 'Member'; email: string; username: string }>;
 };
 
+export const ProfileDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'Profile' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'profile' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
 export const CreateProjectDocument = {
 	kind: 'Document',
 	definitions: [
@@ -297,6 +339,22 @@ export const CreateProjectDocument = {
 						kind: 'NonNullType',
 						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
 					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'environment' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'main' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
 				}
 			],
 			selectionSet: {
@@ -335,6 +393,16 @@ export const CreateProjectDocument = {
 								kind: 'Argument',
 								name: { kind: 'Name', value: 'files' },
 								value: { kind: 'Variable', name: { kind: 'Name', value: 'files' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'environment' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'environment' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'main' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'main' } }
 							}
 						],
 						selectionSet: {
