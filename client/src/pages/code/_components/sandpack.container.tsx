@@ -11,6 +11,7 @@ interface SandpackContainerProps {
 
 export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	const { sandpack } = useSandpack();
+
 	const {
 		setCurrentProjectData,
 		currentProjectData,

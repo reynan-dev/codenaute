@@ -176,7 +176,7 @@ export const TemplateButton = ({
 			onClick={() => handleOnClick()}
 			className={twJoin(
 				'flex items-center justify-between',
-				'p-5 max-w-full',
+				'max-w-full p-5',
 				'rounded-lg border border-dark-700 text-lg',
 				'transition duration-150 ease-in-out',
 				'hover:bg-dark-800',
@@ -191,7 +191,7 @@ export const TemplateButton = ({
 				)
 			) : null}
 
-			<span className='flex gap-x-2 max-w-full items-center justify-center'>
+			<span className='flex max-w-full items-center justify-center gap-x-2'>
 				{linkContent.icon}
 				<span className='truncate'>{linkContent.name}</span>
 			</span>
