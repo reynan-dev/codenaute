@@ -1,6 +1,7 @@
 # Welcome to CODENAUTE 🧑🚀
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
+⚠️ WARNING: because of Expo bad support of monorepos, please use npm for the mobile app, or use the makefile commands.
 
 ## IDE configuration
 
