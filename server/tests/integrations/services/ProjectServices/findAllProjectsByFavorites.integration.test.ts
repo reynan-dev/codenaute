@@ -1,5 +1,6 @@
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 describe('Find All Projects By Favorite Id', () => {
 	const ProjectService = new ProjectServices();
@@ -37,13 +38,16 @@ describe('Find All Projects By Favorite Id', () => {
 				favoringData.password
 			);
 
-			const data = {
+			const projectData = {
 				name: 'project_test',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
-				favoritedBy: [favoringUser]
+				favoritedBy: [favoringUser],
+				environment: 'create-react-app',
+				main: '/App.tsx',
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
 			const projectsFound = await ProjectService.findAllByFavorites(favoringUser.id);
 

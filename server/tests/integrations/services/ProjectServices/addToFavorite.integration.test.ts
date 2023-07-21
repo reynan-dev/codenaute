@@ -1,6 +1,7 @@
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 import { v4 as uuid } from 'uuid';
 
 describe('Add to Favorite', () => {
@@ -41,13 +42,16 @@ describe('Add to Favorite', () => {
 				favoringData.password
 			);
 
-			const data = {
+			const projectData = {
 				name: 'data',
 				version: 'version',
-				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password)
+				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
+				environment: 'create-react-app',
+				main: '/App.tsx',
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
-			const project = await ProjectService.create(data);
+			const project = await ProjectService.create(projectData);
 
 			const favoritedProject = await ProjectService.addToFavorite(favoringUser, project.id);
 

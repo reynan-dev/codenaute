@@ -1,9 +1,9 @@
 import BurgerButton from 'components/burger-button';
 import NavBarLogoSvg from 'components/svgs/nav-bar-logo';
-import { ACCOUNT_PATH, CREATE_PROJECT_PATH, HOME_PATH } from 'constants/paths';
+import { ACCOUNT_PATH, CREATE_PROJECT_PATH, MY_PROJECTS_PATH } from 'constants/paths';
 import { useWindowSize } from 'hooks/use-window-size';
 import { useEffect, useState } from 'react';
-import { FiCode, FiSearch, FiUser } from 'react-icons/fi';
+import { FiCode, FiFolder, FiUser } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
 import { twJoin, twMerge } from 'tailwind-merge';
 interface NavBarProps {
@@ -60,7 +60,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 				className={twMerge(
 					'flex items-center justify-center',
 					'h-16 w-full px-4 py-2',
-					'border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-dark',
+					'border border-b-0 border-l-0 border-t-0 border-r-dark-700 bg-black',
 					'md:h-full md:w-14 md:flex-col md:justify-start',
 					className
 				)}
@@ -82,15 +82,15 @@ export const NavBar = ({ className }: NavBarProps) => {
 						<FiCode size={18} className={style.renderDesktopMenuIconStyle('/code-editor')} />
 					</Link>
 
-					<Link to={HOME_PATH}>
-						<FiSearch size={16} className={style.renderDesktopMenuIconStyle('/explore')} />
+					<Link to={MY_PROJECTS_PATH}>
+						<FiFolder size={16} className={style.renderDesktopMenuIconStyle('/explore')} />
 					</Link>
 				</div>
 			</div>
 
 			{shouldShowMobileMenu() && (
 				<div
-					className={`fixed z-40 h-fit w-full bg-dark shadow-lg transition-all duration-200 ${
+					className={`fixed z-40 h-fit w-full bg-black shadow-lg transition-all duration-200 ${
 						isHidden ? 'top-16 opacity-100' : '-top-[240px] opacity-0'
 					}`}
 				>
@@ -111,8 +111,12 @@ export const NavBar = ({ className }: NavBarProps) => {
 							<FiCode size={22} className={style.mobileMenuIcons} />
 							<li>New code</li>
 						</Link>
-						<Link to={HOME_PATH} className={style.mobileMenuItemLink} onClick={handleMenuItemClick}>
-							<FiSearch size={20} className={style.mobileMenuIcons} />
+						<Link
+							to={MY_PROJECTS_PATH}
+							className={style.mobileMenuItemLink}
+							onClick={handleMenuItemClick}
+						>
+							<FiFolder size={20} className={style.mobileMenuIcons} />
 							<li>Explore</li>
 						</Link>
 					</ul>

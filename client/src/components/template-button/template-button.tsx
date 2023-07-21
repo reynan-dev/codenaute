@@ -1,7 +1,7 @@
 import { SANDBOX_TEMPLATES } from '@codesandbox/sandpack-react';
-import { useCreateProjectService } from 'pages/create-project/create-project.service';
 import { useState } from 'react';
 import { FaAngular, FaHtml5, FaReact, FaVuejs } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 import {
 	SiAstro,
 	SiJavascript,
@@ -13,14 +13,25 @@ import {
 	SiVite
 } from 'react-icons/si';
 import { TbBrandSolidjs } from 'react-icons/tb';
+import { Id } from 'react-toastify';
 import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
 
-interface TemplateLinkProps {
+interface TemplateButtonProps {
 	sandpackTemplate: SandpackTemplate | undefined;
+	className?: string;
+	onClick: (sandpackTemplate: SandpackTemplate | undefined) => Promise<void | Id> | void;
+	isSelected?: boolean;
+	setSelected?: React.Dispatch<React.SetStateAction<SandpackTemplate | null>>;
 }
 
-export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
+export const TemplateButton = ({
+	sandpackTemplate,
+	className,
+	onClick,
+	isSelected,
+	setSelected
+}: TemplateButtonProps) => {
 	const renderContent = (template: string | undefined) => {
 		if (Object.keys(SANDBOX_TEMPLATES).find((key) => key === template) === 'static')
 			return {
@@ -151,34 +162,40 @@ export const ChooseTemplateLink = ({ sandpackTemplate }: TemplateLinkProps) => {
 		return undefined;
 	};
 
+	const handleOnClick = () => {
+		if (isSelected && setSelected !== undefined) return setSelected(null);
+		onClick(sandpackTemplate);
+	};
+
 	const [linkContent] = useState(renderContent(sandpackTemplate));
-	const { createProject } = useCreateProjectService();
 
 	if (linkContent === undefined) return null;
-
-	const handleOnClick = async () => {
-		if (sandpackTemplate === undefined) return console.error('ERROR');
-
-		return await createProject({
-			name: 'untitled',
-			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
-			sandpackTemplate
-		});
-	};
 
 	return (
 		<button
 			onClick={() => handleOnClick()}
 			className={twJoin(
-				'flex',
-				'space-x-2 p-5',
-				'rounded-lg border text-lg',
+				'flex items-center justify-between',
+				'max-w-full p-5',
+				'rounded-lg border border-dark-700 text-lg',
 				'transition duration-150 ease-in-out',
-				'hover:bg-dark-800'
+				'hover:bg-dark-800',
+				className
 			)}
 		>
-			{linkContent.icon}
-			<span>{linkContent.name}</span>
+			{isSelected !== undefined ? (
+				isSelected === true ? (
+					<IoClose className='h-6 w-6' />
+				) : (
+					<div className='h-6 w-6'></div>
+				)
+			) : null}
+
+			<span className='flex max-w-full items-center justify-center gap-x-2'>
+				{linkContent.icon}
+				<span className='truncate'>{linkContent.name}</span>
+			</span>
+			{isSelected !== undefined ? <div className='h-6 w-6'></div> : null}
 		</button>
 	);
 };
