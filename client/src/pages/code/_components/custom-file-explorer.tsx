@@ -3,7 +3,9 @@ import ProjectContext from 'context/project/project.context';
 import { TreeNode, buildProjectTree } from 'helpers/format-file-path';
 import { ContextMenu } from 'pages/code/_components/context-menu';
 import { isChildNode } from 'pages/code/_helpers/is-child-node';
+import { isDirectory } from 'pages/code/_helpers/is-directory';
 import { renameFile } from 'pages/code/_helpers/rename-file';
+import { renameFolder } from 'pages/code/_helpers/rename-folder';
 import { Position, useContextMenuEvents } from 'pages/code/_hooks/use-context-menu-events';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
@@ -21,9 +23,11 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
 	const [renamingNode, setRenamingNode] = useState<TreeNode | null>(null);
 	const [newFileName, setNewFileName] = useState<string | null>(null);
+	const [newFolderName, setNewFolderName] = useState<string | null>(null);
 	const { sandpack } = useSandpack();
 	const filesElementRef = useRef<HTMLDivElement | null>(null);
-	const { setActiveFile, setVisibleFiles, visibleFiles } = useContext(ProjectContext);
+	const { setActiveFile, setVisibleFiles, visibleFiles, setCurrentProjectData } =
+		useContext(ProjectContext);
 
 	useContextMenuEvents(filesElementRef, setContextMenuPosition);
 
@@ -46,8 +50,10 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 		const handleRenameSubmit = (event: React.FormEvent) => {
 			event.preventDefault();
 
-			if (newFileName !== null && selectedNode !== null) {
-				renameFile(newFileName, selectedNode, sandpack);
+			if (newFileName !== null && selectedNode !== null && files !== null) {
+				isDirectory(selectedNode)
+					? renameFolder(selectedNode, setFilesTree, files, setCurrentProjectData, newFolderName)
+					: renameFile(newFileName, selectedNode, sandpack);
 				setRenamingNode(null);
 			}
 		};
@@ -120,8 +126,12 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 							<input
 								type='text'
 								id='node-input'
-								value={newFileName ?? ''}
-								onChange={(event) => setNewFileName(event.target.value)}
+								value={(isDirectory(node) ? newFolderName : newFileName) ?? ''}
+								onChange={(event) => {
+									isDirectory(node)
+										? setNewFolderName(event.target.value)
+										: setNewFileName(event.target.value);
+								}}
 								onFocus={(event) => handleOnFocus(event)}
 								onBlur={handleRenameCancel}
 								autoFocus
