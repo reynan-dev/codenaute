@@ -5,6 +5,7 @@ export const SIGN_IN_MUTATION = gql`
 		signIn(email: $email, password: $password) {
 			id
 			email
+			cookies
 		}
 	}
 `;
