@@ -21,6 +21,7 @@ export const useSignIn = () => {
 			variables: { email, password },
 			onCompleted: () => {
 				toast.success(`You successfully signed in`);
+				localStorage.setItem('cookies', 'JSON.stringify(cookies)');
 				refetchProfile();
 				navigate(HOME_PATH);
 			},
