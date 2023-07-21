@@ -1,5 +1,6 @@
 import { MemberServices } from 'services/MemberServices';
 import { ProjectServices } from 'services/ProjectServices';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 describe('Find Projects By Owner', () => {
 	const ProjectService = new ProjectServices();
@@ -33,7 +34,10 @@ describe('Find Projects By Owner', () => {
 
 			const projectData = {
 				name: 'project_test',
-				owner: ownerMember
+				owner: ownerMember,
+				environment: 'create-react-app',
+				main: '/App.tsx',
+				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
 			const project = await ProjectService.create(projectData);
