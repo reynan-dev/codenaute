@@ -19,7 +19,7 @@ export const sandpackCustomTheme: SandpackTheme = {
 			color: COLORS.SUCCESS[100],
 			fontStyle: 'italic'
 		},
-		keyword: COLORS.WARNING.DEFAULT,
+		keyword: COLORS.PRIMARY.DEFAULT,
 		tag: '#d28cf6',
 		punctuation: COLORS.WHITE.DEFAULT,
 		definition: COLORS.PRIMARY[200],

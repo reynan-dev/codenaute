@@ -23,7 +23,7 @@ export class ProjectServices extends BaseServices {
 	async findAllByOwner(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy']
+			relations: ['owner']
 		});
 	}
 

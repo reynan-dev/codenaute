@@ -1,18 +1,33 @@
+import { SandpackFiles } from '@codesandbox/sandpack-react/index';
+
 export interface TreeNode {
 	name: string;
 	children?: TreeNode[];
 	path: string;
+	code: string;
 }
 
-export function buildProjectTree(filePaths: string[]): TreeNode {
+export const buildProjectTree = (files: SandpackFiles): TreeNode => {
+	const filePaths =
+		files !== null
+			? Object.entries(files).map(([path, file]) => {
+					if (typeof file === 'string') {
+						return { path, code: file };
+					} else {
+						return { path, code: file.code };
+					}
+			  })
+			: [];
+
 	const root: TreeNode = {
 		name: '',
 		path: '',
+		code: '',
 		children: []
 	};
 
 	filePaths.forEach((filePath) => {
-		const segments = filePath.split('/').filter((segment) => segment !== '');
+		const segments = filePath.path.split('/').filter((segment) => segment !== '');
 		let currentNode = root;
 		let currentPath = '';
 
@@ -25,9 +40,14 @@ export function buildProjectTree(filePaths: string[]): TreeNode {
 				childNode = {
 					name: segment,
 					path: currentPath,
+					code: '',
 					children: []
 				};
 				currentNode.children?.push(childNode);
+			}
+
+			if (currentPath === filePath.path) {
+				childNode.code = filePath.code;
 			}
 
 			currentNode = childNode;
@@ -35,4 +55,4 @@ export function buildProjectTree(filePaths: string[]): TreeNode {
 	});
 
 	return root;
-}
+};
