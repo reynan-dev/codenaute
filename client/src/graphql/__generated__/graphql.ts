@@ -16,6 +16,12 @@ export type Scalars = {
 	DateTime: any;
 };
 
+export type AuthInterface = {
+	__typename?: 'AuthInterface';
+	cookies: Scalars['String'];
+	user: Member;
+};
+
 export type Member = {
 	__typename?: 'Member';
 	email: Scalars['String'];
@@ -40,7 +46,7 @@ export type Mutation = {
 	forgotPassword: RoutingToken;
 	resetPassword: Member;
 	shareProject: Project;
-	signIn: Member;
+	signIn: AuthInterface;
 	signOut: Scalars['Boolean'];
 	signUp: Member;
 	updateMemberEmail: Member;
@@ -213,15 +219,6 @@ export type ProfileQuery = {
 	profile: { __typename?: 'Member'; id: string; username: string; email: string };
 };
 
-export type DeleteAccountMutationVariables = Exact<{
-	password: Scalars['String'];
-}>;
-
-export type DeleteAccountMutation = {
-	__typename?: 'Mutation';
-	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
-};
-
 export type CreateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
 	memberId: Scalars['String'];
@@ -328,6 +325,15 @@ export type UpdateUsernameMutation = {
 	updateMemberUsername: { __typename?: 'Member'; username: string; id: string };
 };
 
+export type DeleteAccountMutationVariables = Exact<{
+	password: Scalars['String'];
+}>;
+
+export type DeleteAccountMutation = {
+	__typename?: 'Mutation';
+	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
+};
+
 export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
@@ -339,7 +345,11 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = {
 	__typename?: 'Mutation';
-	signIn: { __typename?: 'Member'; id: string; email: string };
+	signIn: {
+		__typename?: 'AuthInterface';
+		cookies: string;
+		user: { __typename?: 'Member'; id: string; email: string };
+	};
 };
 
 export type SignUpMutationVariables = Exact<{
@@ -381,50 +391,6 @@ export const ProfileDocument = {
 		}
 	]
 } as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
-export const DeleteAccountDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'DeleteAccount' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'deleteMemberAccount' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'password' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
 export const CreateProjectDocument = {
 	kind: 'Document',
 	definitions: [
@@ -917,6 +883,50 @@ export const UpdateUsernameDocument = {
 		}
 	]
 } as unknown as DocumentNode<UpdateUsernameMutation, UpdateUsernameMutationVariables>;
+export const DeleteAccountDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'DeleteAccount' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'password' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'deleteMemberAccount' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'password' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<DeleteAccountMutation, DeleteAccountMutationVariables>;
 export const SignOutDocument = {
 	kind: 'Document',
 	definitions: [
@@ -977,8 +987,18 @@ export const SignInDocument = {
 						selectionSet: {
 							kind: 'SelectionSet',
 							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'user' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'cookies' } }
 							]
 						}
 					}
