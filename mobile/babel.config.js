@@ -15,7 +15,9 @@ module.exports = function (api) {
 						assets: './src/assets',
 						screens: './src/screens',
 						gql: './src/gql',
-						operations: './src/operations'
+						operations: './src/operations',
+						context: './src/context',
+						constants: './src/constants'
 					}
 				}
 			]

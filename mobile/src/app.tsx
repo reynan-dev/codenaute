@@ -17,6 +17,7 @@ import COLORS from 'styles/colors';
 import cookie from 'cookie';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setContext } from '@apollo/client/link/context';
+import { SignIn } from 'screens/sign-in';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -60,7 +61,7 @@ export default function App() {
 	return (
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
-				<View style={styles.container}>
+				{/* <View style={styles.container}>
 					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
 						Open up App.tsx to start working on your app!
 					</Text>
@@ -69,7 +70,8 @@ export default function App() {
 					</Text>
 					<Members />
 					<StatusBar style='auto' />
-				</View>
+				</View> */}
+				<SignIn />
 			</ApolloProvider>
 		</SafeAreaProvider>
 	);

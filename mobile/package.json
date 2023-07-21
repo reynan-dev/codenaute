@@ -11,9 +11,10 @@
 		"ios": "expo start --ios",
 		"start": "npm run generate:css & npm run generate:nw > /dev/null 2>&1 & npx expo",
 		"start:clear": "npm run generate:css & npm run generate:nw > /dev/null 2>&1 '[:print:]' & npx expo -c",
-		"web": "expo start --web"
+		"web": "npm run generate:css & npm run generate:nw > /dev/null 2>&1 & npx expo start --web"
 	},
 	"dependencies": {
+		"@expo/webpack-config": "^18.0.1",
 		"@react-native-async-storage/async-storage": "^1.19.1",
 		"autoprefixer": "^10.4.14",
 		"cookie": "^0.5.0",
@@ -24,8 +25,10 @@
 		"nativewind": "2.0.0",
 		"postcss": "8.4.23",
 		"react": "18.2.0",
+		"react-dom": "18.2.0",
 		"react-native": "0.71.8",
 		"react-native-safe-area-context": "4.5.0",
+		"react-native-web": "~0.18.10",
 		"tailwind-merge": "^1.14.0"
 	},
 	"devDependencies": {
