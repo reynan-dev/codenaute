@@ -22,15 +22,12 @@ import { Cookie } from 'utils/methods/Cookie';
 export class MemberResolver {
 	MemberServices: MemberServices = new MemberServices();
 	@Mutation(() => Member)
-	async signIn(
-		@Args() { email, password }: SignInArgs,
-		@Ctx() context: GlobalContext
-	): Promise<Member> {
+	async signIn(@Args() { email, password }: SignInArgs, @Ctx() context: GlobalContext) {
 		const { user, session } = await this.MemberServices.signIn(email, password);
 
-		Cookie.setSessionToken(context, session.token);
+		const cookies = Cookie.setSessionToken(session);
 
-		return user;
+		return { user, cookies };
 	}
 
 	@Mutation(() => Member)
