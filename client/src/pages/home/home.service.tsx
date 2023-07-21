@@ -17,6 +17,7 @@ const useOnSignOutSuccess = () => {
 		try {
 			await refetchProfile();
 		} finally {
+			localStorage.removeItem('cookies');
 			navigate(SIGN_IN_PATH);
 			toast.success(`You successfully signed out`);
 		}
