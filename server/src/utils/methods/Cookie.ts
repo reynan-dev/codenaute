@@ -11,8 +11,6 @@ export abstract class Cookie {
 	}
 
 	private static _rawCookieValidation(rawCookies: string) {
-		if (!rawCookies) return undefined;
-
 		const cookies = JSON.parse(rawCookies);
 
 		return cookies.validation < Date.now() ? undefined : cookies;
@@ -20,6 +18,8 @@ export abstract class Cookie {
 
 	public static getSessionToken(ctx: ExpressContext): string | undefined {
 		const rawCookies = ctx.req.headers.authorization;
+
+		if (!rawCookies) return undefined;
 
 		const cookies = this._rawCookieValidation(rawCookies as string);
 
