@@ -269,7 +269,7 @@ _NativeWindStyleSheet.create({
 			display: 'none'
 		},
 		'bg-primary': {
-			backgroundColor: '#44A5FE'
+			backgroundColor: '#44a5fe'
 		},
 		'font-bold': {
 			fontWeight: '700'
