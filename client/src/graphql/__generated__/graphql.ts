@@ -171,7 +171,7 @@ export type Query = {
 	getAllFavoritedProjectsByMember: Project;
 	getAllMembers: Array<Member>;
 	getAllProjectsByEditor: Project;
-	getAllProjectsByOwner: Project;
+	getAllProjectsByOwner: Array<Project>;
 	getAllProjectsByTemplate: Project;
 	getAllProjectsPublicProjects: Project;
 	getMemberByEmail: Member;
@@ -347,6 +347,21 @@ export type CreateProjectMutation = {
 export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
+
+export type GetAllProjectsByOwnerQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllProjectsByOwnerQuery = {
+	__typename?: 'Query';
+	getAllProjectsByOwner: Array<{
+		__typename?: 'Project';
+		files: string;
+		main: string;
+		sandpackTemplate: string;
+		name: string;
+		id: string;
+		owner: { __typename?: 'Member'; email: string; id: string; username: string };
+	}>;
+};
 
 export type SignInMutationVariables = Exact<{
 	email: Scalars['String'];
@@ -1005,6 +1020,47 @@ export const SignOutDocument = {
 		}
 	]
 } as unknown as DocumentNode<SignOutMutation, SignOutMutationVariables>;
+export const GetAllProjectsByOwnerDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'GetAllProjectsByOwner' },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'getAllProjectsByOwner' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'owner' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'main' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<GetAllProjectsByOwnerQuery, GetAllProjectsByOwnerQueryVariables>;
 export const SignInDocument = {
 	kind: 'Document',
 	definitions: [

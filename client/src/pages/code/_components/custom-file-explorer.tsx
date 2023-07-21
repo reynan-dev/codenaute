@@ -9,6 +9,7 @@ import { renameFolder } from 'pages/code/_helpers/rename-folder';
 import { Position, useContextMenuEvents } from 'pages/code/_hooks/use-context-menu-events';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFile } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 interface CustomFileExplorerProps {
@@ -26,8 +27,13 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 	const [newFolderName, setNewFolderName] = useState<string | null>(null);
 	const { sandpack } = useSandpack();
 	const filesElementRef = useRef<HTMLDivElement | null>(null);
-	const { setActiveFile, setVisibleFiles, visibleFiles, setCurrentProjectData } =
-		useContext(ProjectContext);
+	const {
+		setActiveFile,
+		setVisibleFiles,
+		visibleFiles,
+		setCurrentProjectData,
+		currentProjectData
+	} = useContext(ProjectContext);
 
 	useContextMenuEvents(filesElementRef, setContextMenuPosition);
 
@@ -63,6 +69,10 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 				handleRenameStart(selectedNode, event);
 			}
 			if (action === 'delete' && selectedNode !== null) {
+				if (selectedNode.path === currentProjectData?.main)
+					return toast.error('You cannot delete the main file of your project', {
+						autoClose: 10000
+					});
 				sandpack.deleteFile(selectedNode.path);
 			}
 		};
