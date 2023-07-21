@@ -35,10 +35,6 @@ export abstract class Server {
 		});
 	}
 
-	private static async _expressMiddlewares() {
-		this.app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
-	}
-
 	private static _context() {
 		return async (context: GlobalContext): Promise<GlobalContext> => {
 			const token = Cookie.getSessionToken(context);
@@ -65,9 +61,11 @@ export abstract class Server {
 
 		await server.start();
 
-		this._expressMiddlewares();
-
-		server.applyMiddleware({ path: '/graphql', app: this.app });
+		server.applyMiddleware({
+			path: '/graphql',
+			app: this.app,
+			cors: { origin: process.env.FRONTEND_URL, credentials: true }
+		});
 	}
 
 	static async start() {
