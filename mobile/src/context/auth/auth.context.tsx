@@ -30,6 +30,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const { loading, refetch, data, error } = useProfile(setIsAuthenticated);
 
 	useEffect(() => {
+		console.log({ isAuthenticated });
+	}, [isAuthenticated]);
+
+	useEffect(() => {
 		if (error || !data) {
 			setProfile(null);
 			console.log({ error });

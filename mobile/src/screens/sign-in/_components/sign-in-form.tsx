@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export interface SignInFormProps {
 	isLoading: boolean;
@@ -37,7 +37,14 @@ export const SignInForm = ({ isLoading, signIn, state }: SignInFormProps) => {
 				/>
 			</View>
 
-			<TouchableOpacity className='bg-primary rounded-full h-16 w-5/6 mx-auto flex justify-center items-center'>
+			<TouchableOpacity
+				className='bg-primary rounded-full h-16 w-5/6 mx-auto flex justify-center items-center'
+				onPress={async (event) => {
+					event.preventDefault();
+					signIn(state.email, state.password);
+				}}
+				disabled={isLoading}
+			>
 				<Text className='text-black text-xl font-bold'>Sign In</Text>
 			</TouchableOpacity>
 		</SafeAreaView>

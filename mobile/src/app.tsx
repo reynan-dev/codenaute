@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { LogBox, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { twMerge } from 'tailwind-merge';
@@ -18,6 +18,7 @@ import cookie from 'cookie';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setContext } from '@apollo/client/link/context';
 import { SignIn } from 'screens/sign-in';
+import AuthContext, { AuthProvider } from 'context/auth/auth.context';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -58,10 +59,13 @@ export default function App() {
 		cache: new InMemoryCache()
 	});
 
+	const { isAuthenticated, profile } = useContext(AuthContext);
+
 	return (
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
-				{/* <View style={styles.container}>
+				<AuthProvider>
+					{/* <View style={styles.container}>
 					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
 						Open up App.tsx to start working on your app!
 					</Text>
@@ -71,7 +75,9 @@ export default function App() {
 					<Members />
 					<StatusBar style='auto' />
 				</View> */}
-				<SignIn />
+
+					{!isAuthenticated ? <SignIn /> : profile?.profile.username}
+				</AuthProvider>
 			</ApolloProvider>
 		</SafeAreaProvider>
 	);

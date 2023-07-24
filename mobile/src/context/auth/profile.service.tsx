@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { PROFILE_QUERY } from 'context/auth/profile.graphql';
-import { ProfileQuery } from 'graphql/__generated__/graphql';
+import { ProfileQuery } from 'gql/__generated__/graphql';
 
 export type ProfileData = ProfileQuery['profile'] | null;
 
@@ -12,6 +12,7 @@ export const useProfile = (setIsAuthenticated: React.Dispatch<React.SetStateActi
 			}
 		},
 		onError: () => {
+			console.log({ error });
 			setIsAuthenticated(false);
 		}
 	});
