@@ -13,6 +13,7 @@ export const useSignIn = () => {
 	const { refetch: refetchProfile } = useContext(AuthContext);
 
 	const signIn = async (email: string, password: string) => {
+		console.log('prout');
 		await signInMutation({
 			variables: { email, password },
 			onCompleted: (data) => {
@@ -22,6 +23,7 @@ export const useSignIn = () => {
 				console.log({ data });
 			},
 			onError: (error) => {
+				console.error({ error });
 				// toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 			}
 		});

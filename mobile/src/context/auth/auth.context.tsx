@@ -32,8 +32,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		if (error || !data) {
 			setProfile(null);
+			console.log({ error });
 		} else if (data) {
 			setProfile(data);
+			console.log({ data });
 		}
 	}, [data, error]);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SignInForm } from 'screens/sign-in/_components/sign-in-form';
 import { SignInScreen } from 'screens/sign-in/sign-in.screen';
 import { useSignIn } from 'screens/sign-in/sign-in.service';
@@ -22,6 +22,10 @@ export const SignInContainer = () => {
 	};
 
 	const { signIn, loading } = useSignIn();
+
+	useEffect(() => {
+		console.log(email);
+	}, [email]);
 
 	return (
 		<SignInScreen signInForm={<SignInForm isLoading={loading} signIn={signIn} state={state} />} />

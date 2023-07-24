@@ -1,4 +1,4 @@
-import { Button, SafeAreaView, TextInput, View } from 'react-native';
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export interface SignInFormProps {
 	isLoading: boolean;
@@ -12,18 +12,20 @@ export interface SignInFormProps {
 }
 
 const style = {
-	input: 'flex-1 border border-dark-600 h-10 rounded-lg w-5/6 px-4 py-6 text-white'
+	input: 'border border-dark-600 rounded-lg w-5/6 px-4 py-6 text-white'
 };
 
 export const SignInForm = ({ isLoading, signIn, state }: SignInFormProps) => {
 	return (
-		<SafeAreaView className='w-full bg-dark'>
+		<SafeAreaView className='w-full bg-dark h-full flex-col justify-center space-y-12'>
 			<View className='flex flex-col items-center justify-center space-y-8'>
 				<TextInput
 					className={style.input}
 					placeholder='Email'
-					value={state.email}
+					value={state.email.toLowerCase()}
 					onChangeText={state.setEmail}
+					keyboardType='email-address'
+					editable
 				/>
 
 				<TextInput
@@ -31,19 +33,13 @@ export const SignInForm = ({ isLoading, signIn, state }: SignInFormProps) => {
 					placeholder='Password'
 					secureTextEntry
 					value={state.password}
-					onChangeText={state.setPassword}
+					onChangeText={(text) => state.setPassword(text)}
 				/>
 			</View>
 
-			<Button
-				onPress={async (event) => {
-					event.preventDefault();
-					signIn(state.email, state.password);
-				}}
-				disabled={isLoading}
-				// className='my-8'
-				title='Sign in'
-			/>
+			<TouchableOpacity className='bg-primary rounded-full h-16 w-5/6 mx-auto flex justify-center items-center'>
+				<Text className='text-black text-xl font-bold'>Sign In</Text>
+			</TouchableOpacity>
 		</SafeAreaView>
 	);
 };
