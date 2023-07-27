@@ -30,6 +30,8 @@ export class MemberResolver {
 
 		Cookie.setSessionToken(context, session.token);
 
+		console.log({ session });
+
 		return user;
 	}
 

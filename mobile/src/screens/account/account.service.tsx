@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
 import AuthContext from 'context/auth/auth.context';
 import { SignInMutation, SignInMutationVariables } from 'gql/__generated__/graphql';
 import { useContext } from 'react';
@@ -13,8 +12,6 @@ export const useSignIn = () => {
 	// const navigate = useNavigate();
 	const { refetch: refetchProfile, setIsAuthenticated } = useContext(AuthContext);
 
-	// const navigation = useNavigation();
-
 	const signIn = async (email: string, password: string) => {
 		console.log('prout');
 		await signInMutation({
@@ -22,9 +19,8 @@ export const useSignIn = () => {
 			onCompleted: (data) => {
 				// toast.success(`You successfully signed in`);
 				setIsAuthenticated(true);
-				// refetchProfile();
+				refetchProfile();
 				// navigate(HOME_PATH);
-				// navigation.navigate('Root');
 				console.log({ data });
 			},
 			onError: (error) => {

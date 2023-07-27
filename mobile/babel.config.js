@@ -17,7 +17,8 @@ module.exports = function (api) {
 						gql: './src/gql',
 						operations: './src/operations',
 						context: './src/context',
-						constants: './src/constants'
+						constants: './src/constants',
+						navigation: './src/navigation'
 					}
 				}
 			]

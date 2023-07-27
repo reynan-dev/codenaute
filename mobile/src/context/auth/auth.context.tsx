@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const { loading, refetch, data, error } = useProfile(setIsAuthenticated);
 
 	useEffect(() => {
+		console.log('PROUUUUUUUUUUT');
 		console.log({ isAuthenticated });
 	}, [isAuthenticated]);
 
@@ -39,7 +40,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			console.log({ error });
 		} else if (data) {
 			setProfile(data);
-			console.log({ data });
+			console.log('TOTOOOOOOO');
+
+			console.log({ profileData: data });
 		}
 	}, [data, error]);
 

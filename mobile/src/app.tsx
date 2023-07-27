@@ -5,20 +5,17 @@ import {
 	InMemoryCache,
 	createHttpLink
 } from '@apollo/client';
-import Constants from 'expo-constants';
-import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
-import { LogBox, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { twMerge } from 'tailwind-merge';
-import './styles/__generated__/nativewind-output';
-import { Members } from 'components/members';
-import COLORS from 'styles/colors';
-import cookie from 'cookie';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setContext } from '@apollo/client/link/context';
-import { SignIn } from 'screens/sign-in';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext, { AuthProvider } from 'context/auth/auth.context';
+import cookie from 'cookie';
+import Constants from 'expo-constants';
+import Navigation from 'navigation';
+import React, { useContext } from 'react';
+import { LogBox, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SignIn } from 'screens/sign-in';
+import './styles/__generated__/nativewind-output';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -31,6 +28,7 @@ export default function App() {
 			const cookies = context.response.headers.get('Set-Cookie');
 			if (cookies) {
 				const sessionId = cookie.parse(cookies);
+				console.log({ sessionId });
 				const setCookie = cookie.serialize('sessionId', sessionId.sessionId);
 				console.info(setCookie, 'set-cookie');
 				AsyncStorage.setItem('Cookie', setCookie);
@@ -59,24 +57,11 @@ export default function App() {
 		cache: new InMemoryCache()
 	});
 
-	const { isAuthenticated, profile } = useContext(AuthContext);
-
 	return (
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
 				<AuthProvider>
-					{/* <View style={styles.container}>
-					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Text style={{ backgroundColor: COLORS.SECONDARY['DEFAULT'] }}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Members />
-					<StatusBar style='auto' />
-				</View> */}
-
-					{!isAuthenticated ? <SignIn /> : profile?.profile.username}
+					<Navigation />
 				</AuthProvider>
 			</ApolloProvider>
 		</SafeAreaProvider>
