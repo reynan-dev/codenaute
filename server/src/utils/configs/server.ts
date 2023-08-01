@@ -8,8 +8,6 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { Cookie } from 'utils/methods/Cookie';
 import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
-
-import cors from 'cors';
 import express from 'express';
 
 export abstract class Server {

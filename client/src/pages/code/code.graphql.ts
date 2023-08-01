@@ -8,6 +8,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
 		$isPublic: Boolean!
 		$sandpackTemplate: String!
 		$files: String!
+		$environment: String!
+		$main: String!
 	) {
 		updateProject(
 			name: $name
@@ -16,6 +18,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
 			isPublic: $isPublic
 			sandpackTemplate: $sandpackTemplate
 			files: $files
+			environment: $environment
+			main: $main
 		) {
 			owner {
 				username
@@ -27,6 +31,8 @@ export const UPDATE_PROJECT_MUTATION = gql`
 			id
 			files
 			sandpackTemplate
+			environment
+			main
 		}
 	}
 `;
@@ -52,6 +58,8 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 			isPublic
 			files
 			sandpackTemplate
+			environment
+			main
 		}
 	}
 `;

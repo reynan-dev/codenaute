@@ -1,4 +1,4 @@
-import { SandpackFiles } from '@codesandbox/sandpack-react/types';
+import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import { ProjectContextData, SetProjectContextData } from 'types/project';
 
@@ -9,10 +9,12 @@ export interface ProjectContextProps {
 	setCurrentProjectData: SetProjectContextData;
 	isProjectSaved: boolean;
 	setIsProjectSaved: React.Dispatch<React.SetStateAction<boolean>>;
-	files: SandpackFiles | null;
-	setFiles: React.Dispatch<React.SetStateAction<SandpackFiles | null>>;
+	activeFile: string | null;
+	setActiveFile: React.Dispatch<React.SetStateAction<string | null>>;
 	projectName: string;
 	setProjectName: React.Dispatch<React.SetStateAction<string>>;
+	visibleFiles: string[];
+	setVisibleFiles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const ProjectContext = createContext<ProjectContextProps>({
@@ -22,38 +24,42 @@ export const ProjectContext = createContext<ProjectContextProps>({
 	setCurrentProjectData: () => null,
 	isProjectSaved: false,
 	setIsProjectSaved: () => null,
-	files: null,
-	setFiles: () => null,
 	projectName: 'untitled',
-	setProjectName: () => 'untitled'
+	setProjectName: () => 'untitled',
+	activeFile: null,
+	setActiveFile: () => null,
+	visibleFiles: [],
+	setVisibleFiles: () => []
 });
 
 export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	const [lastSavedProjectData, setLastSavedProjectData] = useState<ProjectContextData | null>(null);
 	const [currentProjectData, setCurrentProjectData] = useState<ProjectContextData | null>(null);
-	const [isProjectSaved, setIsProjectSaved] = useState(false);
-	const [files, setFiles] = useState<SandpackFiles | null>(null);
+	const [isProjectSaved, setIsProjectSaved] = useState(true);
+	const [activeFile, setActiveFile] = useState<string | null>(null);
+	const [visibleFiles, setVisibleFiles] = useState<string[]>([]);
 	const [projectName, setProjectName] = useState('untitled');
 
 	useEffect(() => {
-		const hasFilesChanged =
-			JSON.stringify(currentProjectData?.files) !== JSON.stringify(lastSavedProjectData?.files);
-		const hasProjectNameChanged = currentProjectData?.name !== lastSavedProjectData?.name;
+		if (lastSavedProjectData?.files !== undefined && currentProjectData?.files !== undefined) {
+			const hasProjectNameChanged = currentProjectData?.name !== lastSavedProjectData?.name;
 
-		setIsProjectSaved(!hasFilesChanged && !hasProjectNameChanged);
+			setIsProjectSaved(
+				!hasSandpackFilesChanged(lastSavedProjectData?.files, currentProjectData?.files) &&
+					!hasProjectNameChanged
+			);
+		}
 	}, [currentProjectData, lastSavedProjectData]);
 
 	useEffect(() => {
-		if (files) {
-			const project = {
-				id: lastSavedProjectData?.id,
-				sandpackTemplate: lastSavedProjectData?.sandpackTemplate,
-				name: projectName,
-				files
-			};
-			setCurrentProjectData(project);
-		}
-	}, [files, projectName, lastSavedProjectData]);
+		setCurrentProjectData(
+			(previousState) =>
+				({
+					...previousState,
+					name: projectName
+				} as ProjectContextData)
+		);
+	}, [projectName]);
 
 	return (
 		<ProjectContext.Provider
@@ -64,10 +70,12 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 				setCurrentProjectData,
 				isProjectSaved,
 				setIsProjectSaved,
-				files,
-				setFiles,
 				projectName,
-				setProjectName
+				setProjectName,
+				activeFile,
+				setActiveFile,
+				visibleFiles,
+				setVisibleFiles
 			}}
 		>
 			{children}
