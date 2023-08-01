@@ -379,7 +379,7 @@ export type SignInMutation = {
 	signIn: {
 		__typename?: 'AuthInterface';
 		cookies: string;
-		user: { __typename?: 'Member'; id: string; email: string };
+		user: { __typename?: 'Member'; id: string; username: string; email: string };
 	};
 };
 
@@ -1124,6 +1124,7 @@ export const SignInDocument = {
 										kind: 'SelectionSet',
 										selections: [
 											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
 											{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
 										]
 									}

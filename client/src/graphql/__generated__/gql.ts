@@ -32,7 +32,7 @@ const documents = {
 	'\n\tmutation SignOut {\n\t\tsignOut\n\t}\n': types.SignOutDocument,
 	'\n\tquery GetAllProjectsByOwner {\n\t\tgetAllProjectsByOwner {\n\t\t\towner {\n\t\t\t\temail\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t}\n\t\t\tfiles\n\t\t\tmain\n\t\t\tsandpackTemplate\n\t\t\tname\n\t\t\tid\n\t\t}\n\t}\n':
 		types.GetAllProjectsByOwnerDocument,
-	'\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n':
+	'\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n':
 		types.SignInDocument,
 	'\n\tmutation SignUp(\n\t\t$username: String!\n\t\t$email: String!\n\t\t$password: String!\n\t\t$confirmedPassword: String!\n\t) {\n\t\tsignUp(\n\t\t\tusername: $username\n\t\t\temail: $email\n\t\t\tpassword: $password\n\t\t\tconfirmedPassword: $confirmedPassword\n\t\t) {\n\t\t\tid\n\t\t\temail\n\t\t}\n\t}\n':
 		types.SignUpDocument
@@ -116,8 +116,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-	source: '\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n'];
+	source: '\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tmutation SignIn($email: String!, $password: String!) {\n\t\tsignIn(email: $email, password: $password) {\n\t\t\tuser {\n\t\t\t\tid\n\t\t\t\tusername\n\t\t\t\temail\n\t\t\t}\n\t\t\tcookies\n\t\t}\n\t}\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
