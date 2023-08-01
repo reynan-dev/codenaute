@@ -9,6 +9,7 @@ import { Cookie } from 'utils/methods/Cookie';
 import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
 import express from 'express';
+import cors from 'cors';
 
 export abstract class Server {
 	private static readonly app: express.Application = express();
@@ -59,10 +60,17 @@ export abstract class Server {
 
 		await server.start();
 
+		this.app.use(
+			cors({
+				origin: process.env.FRONTEND_URL,
+				credentials: true
+			})
+		);
+
 		server.applyMiddleware({
 			path: '/graphql',
 			app: this.app,
-			cors: { origin: '*', credentials: true }
+			cors: false
 		});
 	}
 
