@@ -23,7 +23,10 @@ const client = new ApolloClient({
 	link: authLink.concat(
 		createHttpLink({
 			uri: process.env.REACT_APP_SERVER_URL || '/graphql',
-			credentials: 'include'
+			credentials: 'include',
+			fetchOptions: {
+				mode: 'no-cors'
+			}
 		})
 	)
 });
