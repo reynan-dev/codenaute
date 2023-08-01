@@ -62,7 +62,7 @@ export abstract class Server {
 		server.applyMiddleware({
 			path: '/graphql',
 			app: this.app,
-			cors: { origin: ['*'], credentials: true }
+			cors: { origin: '*', credentials: true }
 		});
 	}
 
