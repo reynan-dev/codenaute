@@ -27,7 +27,7 @@ start-debug: ## Run client (by default in watch mode)
 start-quiet: ## Start client in mode quiet
 	@echo "Starting client in quiet mode - Docker compose v1"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build client || true
-    @echo "Starting client in quiet mode - Docker compose v2"
+	@echo "Starting client in quiet mode - Docker compose v2"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build client
 
 .PHONY: exec
