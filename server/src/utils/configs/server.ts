@@ -9,7 +9,6 @@ import { Cookie } from 'utils/methods/Cookie';
 import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
 import express from 'express';
-import cors from 'cors';
 
 export abstract class Server {
 	private static readonly app: express.Application = express();
