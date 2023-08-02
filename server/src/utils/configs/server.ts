@@ -60,18 +60,18 @@ export abstract class Server {
 
 		await server.start();
 
+		server.applyMiddleware({
+			path: '/graphql',
+			app: this.app,
+			cors: false
+		});
+
 		this.app.use(
 			cors({
 				origin: process.env.FRONTEND_URL,
 				credentials: true
 			})
 		);
-
-		server.applyMiddleware({
-			path: '/graphql',
-			app: this.app,
-			cors: false
-		});
 	}
 
 	static async start() {
