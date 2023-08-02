@@ -49,7 +49,7 @@ export abstract class Server {
 			schema: await this._schema(),
 			introspection: true,
 			context: this._context(),
-			// csrfPrevention: this.csrfPrevention,
+			csrfPrevention: this.csrfPrevention,
 			cache: this.cache,
 			plugins: this.plugins
 		});
@@ -62,12 +62,10 @@ export abstract class Server {
 
 		server.applyMiddleware({
 			path: '/graphql',
-			app: this.app,
-			cors: {
-				origin: process.env.FRONTEND_URL,
-				credentials: true
-			}
+			app: this.app
 		});
+
+		this.app.use(cors());
 	}
 
 	static async start() {
