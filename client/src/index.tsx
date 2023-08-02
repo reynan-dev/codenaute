@@ -18,17 +18,14 @@ const authLink = setContext((_, { headers }) => {
 	};
 });
 
+const httpLink = createHttpLink({
+	uri: process.env.REACT_APP_SERVER_URL || '/graphql',
+	credentials: 'include'
+});
+
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: authLink.concat(
-		createHttpLink({
-			uri: process.env.REACT_APP_SERVER_URL || '/graphql',
-			credentials: 'include',
-			fetchOptions: {
-				mode: 'no-cors'
-			}
-		})
-	)
+	link: authLink.concat(httpLink)
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
