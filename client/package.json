@@ -70,5 +70,5 @@
 		"tailwindcss": "^3.2.7",
 		"typescript": "~5.0"
 	},
-	"proxy": "https://localhost:5000/"
+	"proxy": "http://localhost:5000/graphql"
 }

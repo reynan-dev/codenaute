@@ -62,15 +62,12 @@ export abstract class Server {
 
 		server.applyMiddleware({
 			path: '/graphql',
-			app: this.app
-		});
-
-		this.app.use(
-			cors({
+			app: this.app,
+			cors: {
 				credentials: true,
 				origin: [process.env.FRONTEND_URL as string, 'http://localhost:3000/']
-			})
-		);
+			}
+		});
 	}
 
 	static async start() {
@@ -83,6 +80,7 @@ export abstract class Server {
 
 		this.app.listen(process.env.PORT);
 
-		if (process.env.NODE_ENV != Environment.IS_PRODUCTION) console.info(`🚀 Server ready`);
+		if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
+			console.info(`🚀 Server ready and running at port ${process.env.PORT}`);
 	}
 }
