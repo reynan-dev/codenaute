@@ -65,7 +65,12 @@ export abstract class Server {
 			app: this.app
 		});
 
-		this.app.use(cors());
+		this.app.use(
+			cors({
+				credentials: true,
+				origin: [process.env.FRONTEND_URL as string, 'http://localhost:3000/']
+			})
+		);
 	}
 
 	static async start() {
