@@ -49,7 +49,7 @@ export abstract class Server {
 			schema: await this._schema(),
 			introspection: true,
 			context: this._context(),
-			csrfPrevention: this.csrfPrevention,
+			// csrfPrevention: this.csrfPrevention,
 			cache: this.cache,
 			plugins: this.plugins
 		});
