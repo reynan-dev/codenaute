@@ -62,11 +62,7 @@ export abstract class Server {
 
 		server.applyMiddleware({
 			path: '/graphql',
-			app: this.app,
-			cors: {
-				credentials: true,
-				origin: [process.env.FRONTEND_URL as string, 'http://localhost:3000/']
-			}
+			app: this.app
 		});
 	}
 

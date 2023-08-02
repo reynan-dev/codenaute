@@ -13,13 +13,6 @@ const authLink = setContext((_, { headers }) => {
 	return {
 		headers: {
 			...headers,
-			'Access-Control-Allow-Origin': process.env.REACT_APP_SERVER_URL,
-			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-			'Access-Control-Allow-Headers':
-				'Content-Type, Authorization, Content-Length, X-Requested-With',
-			'Access-Control-Allow-Credentials': 'true',
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
 			authorization: localStorage.getItem('cookies') || ''
 		}
 	};
@@ -27,10 +20,7 @@ const authLink = setContext((_, { headers }) => {
 
 const httpLink = createHttpLink({
 	uri: process.env.REACT_APP_SERVER_URL || '/',
-	credentials: 'include',
-	fetchOptions: {
-		mode: 'no-cors'
-	}
+	credentials: 'include'
 });
 
 const client = new ApolloClient({
