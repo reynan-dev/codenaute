@@ -19,8 +19,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = new HttpLink({
-	uri: process.env.REACT_APP_SERVER_URL || '/graphql',
-	credentials: 'include'
+	uri: process.env.REACT_APP_SERVER_URL || '/graphql'
 });
 
 const client = new ApolloClient({
