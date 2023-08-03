@@ -10,6 +10,7 @@ import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
 import express from 'express';
 import cors from 'cors';
+import { catchError } from 'utils/methods/catchErrors';
 
 export abstract class Server {
 	private static readonly app: express.Application = express();
@@ -55,11 +56,18 @@ export abstract class Server {
 		});
 	}
 
-	private static async _apolloStart() {
-		const server = await this._build();
+	private static async _healthCheck() {
+		this.app.get('/healthz', (req, res) => {
+			try {
+				console.info('👍 Health check passed');
+				res.status(204).send();
+			} catch (error) {
+				catchError(error, res);
+			}
+		});
+	}
 
-		await server.start();
-
+	private static _middlewares() {
 		this.app.use(cors({ credentials: true, origin: true, optionsSuccessStatus: 200 }));
 
 		this.app.use((req, res, next) => {
@@ -72,6 +80,14 @@ export abstract class Server {
 			);
 			next();
 		});
+	}
+
+	private static async _apolloStart() {
+		const server = await this._build();
+
+		await server.start();
+
+		this._middlewares();
 
 		server.applyMiddleware({
 			path: '/graphql',
@@ -86,6 +102,8 @@ export abstract class Server {
 		await Database.start();
 
 		await this._apolloStart();
+
+		this._healthCheck();
 
 		this.app.listen(process.env.PORT);
 
