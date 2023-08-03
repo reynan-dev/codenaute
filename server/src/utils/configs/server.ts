@@ -65,7 +65,7 @@ export abstract class Server {
 		);
 
 		this.app.use((_req, res, next) => {
-			res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+			res.header('Access-Control-Allow-Origin', 'https://codenaute-docker-client.onrender.com');
 			res.header('Access-Control-Allow-Credentials', 'true');
 			res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 			res.header(
