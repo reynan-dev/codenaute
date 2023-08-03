@@ -2,8 +2,7 @@ name: TAG - Push new tag and a relase
 
 on:
   pull_request:
-    # types: [closed]
-    types: [ready_for_review, opened, reopened, synchronize]
+    types: [closed]
     branches:
       - production
 
