@@ -6,7 +6,6 @@ FROM base AS dependencies
 
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-COPY .env ./
 RUN pnpm install
 
 FROM dependencies AS build
