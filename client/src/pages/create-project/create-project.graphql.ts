@@ -8,6 +8,8 @@ export const CREATE_PROJECT_MUTATION = gql`
 		$isPublic: Boolean!
 		$sandpackTemplate: String!
 		$files: String!
+		$environment: String!
+		$main: String!
 	) {
 		createProject(
 			name: $name
@@ -16,6 +18,8 @@ export const CREATE_PROJECT_MUTATION = gql`
 			isPublic: $isPublic
 			sandpackTemplate: $sandpackTemplate
 			files: $files
+			environment: $environment
+			main: $main
 		) {
 			id
 			name
@@ -23,6 +27,8 @@ export const CREATE_PROJECT_MUTATION = gql`
 				id
 			}
 			files
+			environment
+			main
 			isTemplate
 			isPublic
 			sandpackTemplate

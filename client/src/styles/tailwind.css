@@ -75,4 +75,25 @@
 	.full-center-col {
 		@apply flex flex-col items-center justify-center;
 	}
+
+	/* For Webkit-based browsers (Chrome, Safari and Opera) */
+	.scrollbar-hidden::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* For IE, Edge and Firefox */
+	.scrollbar-hidden {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	.vertical-scroll {
+		overflow-x: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	.vertical-scroll::-webkit-scrollbar {
+		display: none;
+	}
 }

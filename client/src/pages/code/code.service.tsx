@@ -40,6 +40,8 @@ interface ProjectDataResponse {
 		}> | null;
 	};
 	sandpackTemplate: string;
+	environment: string;
+	main: string;
 }
 
 interface onSuccessCallbacks {
@@ -54,13 +56,17 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		id: project.id,
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
-		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files
+		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
+		environment: project.environment,
+		main: project.main
 	});
 	setCurrentProjectData({
 		id: project.id,
 		name: project.name,
 		sandpackTemplate: project.sandpackTemplate,
-		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files
+		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
+		environment: project.environment,
+		main: project.main
 	});
 };
 
@@ -69,12 +75,15 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		id: data.id,
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
-		files: JSON.parse(data.files) as SandpackFiles
+		files: JSON.parse(data.files) as SandpackFiles,
+		environment: data.environment,
+		main: data.main
 	};
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData } = useContext(ProjectContext);
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile, setVisibleFiles } =
+		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
 		GetProjectByIdQuery,
@@ -86,6 +95,8 @@ export const useGetProjectService = (projectId: string) => {
 				{ setLastSavedProjectData, setCurrentProjectData },
 				mapProjectDataResponse(data.getProjectById)
 			);
+			setActiveFile(data.getProjectById.main);
+			setVisibleFiles([data.getProjectById.main]);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
@@ -102,7 +113,14 @@ export const useUpdateProjectService = () => {
 	>(UPDATE_PROJECT_MUTATION);
 
 	const { profile } = useContext(AuthContext);
-	const { setLastSavedProjectData, setCurrentProjectData } = useContext(ProjectContext);
+	const {
+		setLastSavedProjectData,
+		setCurrentProjectData,
+		visibleFiles,
+		setVisibleFiles,
+		setActiveFile,
+		activeFile
+	} = useContext(ProjectContext);
 
 	const updateProject = useCallback(
 		async (project: ProjectContextData | null) => {
@@ -125,20 +143,33 @@ export const useUpdateProjectService = () => {
 					isTemplate: false,
 					isPublic: false,
 					sandpackTemplate: project.sandpackTemplate ?? '',
-					files: JSON.stringify(project.files)
+					files: JSON.stringify(project.files),
+					environment: project.environment,
+					main: project.main
 				},
 				onCompleted(data) {
 					onSuccess(
 						{ setLastSavedProjectData, setCurrentProjectData },
 						mapProjectDataResponse(data.updateProject)
 					);
+					setVisibleFiles(visibleFiles);
+					setActiveFile(activeFile);
 				},
 				onError(error) {
 					toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
 				}
 			});
 		},
-		[UpdateProjectMutation, profile, setCurrentProjectData, setLastSavedProjectData]
+		[
+			UpdateProjectMutation,
+			activeFile,
+			profile,
+			setActiveFile,
+			setCurrentProjectData,
+			setLastSavedProjectData,
+			setVisibleFiles,
+			visibleFiles
+		]
 	);
 
 	return { data, loading, updateProject };
@@ -154,7 +185,9 @@ export const useAutoSaveProject = () => {
 	const { updateProject, loading: autoSaveLoading } = useUpdateProjectService();
 
 	useEffect(() => {
-		if (!isProjectSaved && debouncedProject) updateProject(debouncedProject);
+		if (!isProjectSaved && debouncedProject !== null) {
+			updateProject(debouncedProject);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedProject, updateProject]);
 

@@ -1,7 +1,7 @@
 start-quiet: ## Starting database (detached)
-	@echo "Initializating database - Docker compose v1"
+	@echo "Initializating database in quiet mode - Docker compose v1"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose-up -d --build database-dev adminer redis database-test || true
-	@echo "Initializating database - Docker compose v2"
+	@echo "Initializating database in quiet mode - Docker compose v2"
 	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build database-dev adminer redis database-test
 
 start-debug: ## Starting database in debug mode

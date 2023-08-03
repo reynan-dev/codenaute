@@ -4,13 +4,28 @@ import { BrowserRouter } from 'react-router-dom';
 import 'styles/tailwind.css';
 import App from 'app';
 import reportWebVitals from 'reportWebVitals';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { ProjectProvider } from 'context/project/project.context';
 import { AuthProvider } from 'context/auth/auth.context';
 
+const authLink = setContext((_, { headers }) => {
+	return {
+		headers: {
+			...headers,
+			authorization: localStorage.getItem('cookies') || ''
+		}
+	};
+});
+
 const client = new ApolloClient({
-	uri: '/',
-	cache: new InMemoryCache()
+	cache: new InMemoryCache(),
+	link: authLink.concat(
+		createHttpLink({
+			uri: '/',
+			credentials: 'include'
+		})
+	)
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

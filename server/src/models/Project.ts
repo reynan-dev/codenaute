@@ -15,22 +15,29 @@ export class Project extends BaseModel {
 	name: string;
 
 	@Field(() => Member)
-	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true })
+	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true, onDelete: 'CASCADE' })
 	@JoinColumn()
 	owner: Member;
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true, nullable: true })
+	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, {
+		eager: true,
+		nullable: true,
+		onDelete: 'CASCADE'
+	})
 	editors: Member[];
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true, nullable: true })
+	@ManyToMany(() => Member, (member) => member.favoritedProjects, {
+		eager: true,
+		nullable: true,
+		onDelete: 'CASCADE'
+	})
 	favoritedBy: Member[];
 
 	@Column({
 		type: 'enum',
-		enum: SandpackTemplates,
-		nullable: true
+		enum: SandpackTemplates
 	})
 	@Field()
 	@IsEnum(SandpackTemplates)
@@ -40,6 +47,16 @@ export class Project extends BaseModel {
 	@Field()
 	@IsString()
 	files: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	environment: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	main: string;
 
 	@Column('boolean', { default: false })
 	@Field()

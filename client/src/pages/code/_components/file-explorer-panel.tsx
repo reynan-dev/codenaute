@@ -35,7 +35,6 @@ export const FileExplorerPanel = ({ className, files }: FileExplorerPanelProps) 
 						'border-r-dark-700 border-t-dark-700'
 					)}
 				>
-					{' '}
 					<h3 className='text-sm font-normal text-dark-300'>Files</h3>
 					<div className='flex items-center justify-end space-x-2'>
 						<button onClick={() => setIsNewFileModalOpen(true)}>
