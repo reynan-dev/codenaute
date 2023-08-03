@@ -60,12 +60,13 @@ export abstract class Server {
 
 		await server.start();
 
-		this.app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
+		this.app.use(
+			cors({ credentials: true, origin: process.env.FRONTEND_URL, optionsSuccessStatus: 200 })
+		);
 
 		server.applyMiddleware({
 			path: '/graphql',
-			app: this.app,
-			cors: { origin: process.env.FRONTEND_URL, credentials: true }
+			app: this.app
 		});
 	}
 
