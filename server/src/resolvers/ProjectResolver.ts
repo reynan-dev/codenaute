@@ -6,11 +6,8 @@ import {
 	favoriteProjectArgs,
 	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
-	GetProjectByIdArgs,
 	shareProjectArgs,
 	updateProjectArgs,
-	updateProjectIsPublic,
-	updateProjectIsTemplateArgs,
 	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
 import { MemberServices } from 'services/MemberServices';
@@ -166,7 +163,8 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async updateProjectIsTemplate(
-		@Args() { projectId, isTemplate }: updateProjectIsTemplateArgs
+		@Arg('projectId') projectId: string,
+		@Arg('isTemplate') isTemplate: boolean
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -178,7 +176,8 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async updateProjectIsPublic(
-		@Args() { projectId, isPublic }: updateProjectIsPublic
+		@Arg('projectId') projectId: string,
+		@Arg('isPublic') isPublic: boolean
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
