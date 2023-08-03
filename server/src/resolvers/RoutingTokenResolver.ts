@@ -1,13 +1,9 @@
 import { Args, Mutation, Resolver } from 'type-graphql';
-
 import { Member } from 'models/Member';
 import { RoutingToken } from 'models/RoutingToken';
-
 import { MemberServices } from 'services/MemberServices';
 import { RoutingTokenServices } from 'services/RoutingTokenServices';
-
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-
 import {
 	ForgotPasswordArgs,
 	ResetPasswordArgs,
@@ -47,11 +43,11 @@ export class RoutingTokenResolver {
 	}
 
 	@Mutation(() => RoutingToken)
-	async validEmail(@Args() { id, token }: ValidEmailArgs): Promise<Member> {
+	async validEmail(@Args() { token }: ValidEmailArgs): Promise<Member> {
 		const routingToken = (await this.RoutingTokenServices.findByToken(token)) as RoutingToken;
 
 		if (!routingToken) throw Error(ErrorMessages.INVALID_TOKEN_ERROR_MESSAGE);
 
-		return await this.MemberServices.validEmail(id);
+		return await this.MemberServices.validEmail(routingToken.email);
 	}
 }

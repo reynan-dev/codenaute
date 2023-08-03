@@ -1,21 +1,11 @@
-import { Field, ObjectType } from 'type-graphql';
-import {
-	Column,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	OneToOne
-} from 'typeorm';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
+import { Field, ObjectType } from 'type-graphql';
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
-import { BaseModel } from 'models/base/BaseModel';
-import { ProgrammingLanguage } from 'models/ProgrammingLanguage';
-import { FileProject } from 'models/FileProject';
-import { SandpackTemplate } from 'models/SandpackTemplate';
 import { Member } from 'models/Member';
+import { BaseModel } from 'models/base/BaseModel';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+import { isEnumType } from 'graphql';
 
 @Entity()
 @ObjectType()
@@ -25,42 +15,48 @@ export class Project extends BaseModel {
 	@IsString()
 	name: string;
 
-	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true })
-	@JoinColumn()
 	@Field(() => Member)
+	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true, onDelete: 'CASCADE' })
+	@JoinColumn()
 	owner: Member;
 
-	@Field(() => [Member])
-	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, { eager: true })
-	editors: Member[];
-
-	@Field(() => [FileProject], { nullable: true, defaultValue: [] })
-	@OneToMany(() => FileProject, (file) => file.project, {
+	@Field(() => [Member], { nullable: true, defaultValue: [] })
+	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, {
 		eager: true,
 		nullable: true,
-		cascade: true
+		onDelete: 'CASCADE'
 	})
-	files: FileProject[];
-
-	@Column('varchar')
-	@Field(() => ProgrammingLanguage)
-	@ManyToOne(() => ProgrammingLanguage, (language) => language.id, { eager: true })
-	programmingLanguage: ProgrammingLanguage;
-
-	@Column('varchar', { nullable: true })
-	@Field(() => SandpackTemplate, { nullable: true })
-	@ManyToOne(() => SandpackTemplate, (template) => template.id, { eager: true })
-	template: SandpackTemplate;
-
-	@Column('varchar', { nullable: true })
-	@Field(() => FileProject, { nullable: true })
-	@OneToOne(() => FileProject, (file) => file.id, { eager: true })
-	@JoinColumn()
-	activeFile: FileProject;
+	editors: Member[];
 
 	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritedProjects, { eager: true })
+	@ManyToMany(() => Member, (member) => member.favoritedProjects, {
+		eager: true,
+		nullable: true,
+		onDelete: 'CASCADE'
+	})
 	favoritedBy: Member[];
+
+	@Column({
+		type: 'enum',
+		enum: SandpackTemplates
+	})
+	@Field()
+	sandpackTemplate: SandpackTemplates;
+
+	@Column({ nullable: true })
+	@Field()
+	@IsString()
+	files: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	environment: string;
+
+	@Column()
+	@Field()
+	@IsString()
+	main: string;
 
 	@Column('boolean', { default: false })
 	@Field()

@@ -10,7 +10,9 @@ module.exports = {
 			colors: {
 				primary: {
 					DEFAULT: COLORS.PRIMARY.DEFAULT,
-					100: COLORS.PRIMARY[100]
+					100: COLORS.PRIMARY[100],
+					200: COLORS.PRIMARY[200],
+					300: COLORS.PRIMARY[300]
 				},
 				secondary: {
 					DEFAULT: COLORS.SECONDARY.DEFAULT
@@ -54,6 +56,6 @@ module.exports = {
 	plugins: [
 		require('tailwindcss'),
 		require('autoprefixer'),
-		plugin(require('./src/styles/plugins/colorVarsExtractor'))
+		plugin(require('./src/styles/plugins/color-vars-extractor'))
 	]
 };

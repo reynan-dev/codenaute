@@ -1,7 +1,10 @@
 import { ObjectLiteral } from 'typeorm';
-import { Database } from 'db';
+import { Database } from 'utils/configs/database';
 
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
+import { GlobalContext } from 'utils/types/GlobalContext';
+import { UUID } from 'utils/types/Uuid';
+
 export abstract class BaseServices {
 	repository: any;
 
@@ -26,7 +29,7 @@ export abstract class BaseServices {
 	}
 
 	async findById(id: string) {
-		return await this.repository.findOneBy({ id: id });
+		return this.repository.findOneBy({ id: id });
 	}
 
 	async create(data: ObjectLiteral) {
@@ -35,7 +38,7 @@ export abstract class BaseServices {
 		return await this.repository.save(created);
 	}
 
-	async update(id: string, data: ObjectLiteral) {
+	async update(id: UUID, data: ObjectLiteral) {
 		let obj = (await this.findById(id)) as ObjectLiteral;
 
 		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);
@@ -47,7 +50,7 @@ export abstract class BaseServices {
 		return await this.repository.save(updated);
 	}
 
-	async delete(id: string) {
+	async delete(id: UUID) {
 		let obj = await this.findById(id);
 
 		if (!obj) throw Error(ErrorMessages.NOT_FOUND_ERROR_MESSAGE);

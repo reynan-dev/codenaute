@@ -36,8 +36,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./server/Dockerfile
+          context: ./${{ env.SERVICE_NAME }}
+          file: ./${{ env.SERVICE_NAME }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/codenaute:server
 
@@ -51,8 +51,8 @@ jobs:
       image: 'reynandev/codenaute:server'
       env:
         NODE_ENV: test
-        DB_TEST_PORT: 5432
-        DB_TEST_HOST: postgres-test
+        DB_TEST_HOST: ${{ secrets.DB_TEST_HOST }}
+        DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
         DB_TEST_DATABASE: ${{ secrets.DB_TEST_DATABASE }}
         DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
         DB_TEST_PASSWORD: ${{ secrets.DB_TEST_PASSWORD }}
@@ -62,8 +62,8 @@ jobs:
         - ${{ github.workspace }}:/app
 
     services:
-      postgres-test:
-        image: 'postgres:15.1-alpine'
+      database-test:
+        image: 'postgres:14.6-alpine'
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -91,8 +91,4 @@ jobs:
 
       - name: Run Tests
         run: pnpm test:ci
-        working-directory: ./${{env.SERVICE_NAME}}
-
-      - name: Run Prettier Formatting
-        run: npx prettier --write .
         working-directory: ./${{env.SERVICE_NAME}}

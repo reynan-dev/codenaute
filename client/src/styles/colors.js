@@ -1,7 +1,9 @@
 const COLORS = {
 	PRIMARY: {
 		DEFAULT: '#44A5FE',
-		100: '#7ec0fc'
+		100: '#7ec0fc',
+		200: '#ADBFF2',
+		300: '#2c99ff'
 	},
 	SECONDARY: {
 		DEFAULT: '#8B77E2'

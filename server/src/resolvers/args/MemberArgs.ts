@@ -1,4 +1,5 @@
 import { Matches } from 'class-validator';
+import { UUID } from 'utils/types/Uuid';
 import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
@@ -40,13 +41,19 @@ export class SignInArgs {
 @ArgsType()
 export class FindMemberByIdArgs {
 	@Field()
-	memberId: string;
+	memberId: UUID;
+}
+
+@ArgsType()
+export class FindMemberByEmailArgs {
+	@Field()
+	email: string;
 }
 
 @ArgsType()
 export class FollowMemberArgs {
 	@Field()
-	memberId: string;
+	memberId: UUID;
 }
 
 @ArgsType()

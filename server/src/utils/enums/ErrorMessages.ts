@@ -30,6 +30,7 @@ export enum ErrorMessages {
 	// Validation Project
 	PROJECT_NOT_FOUND = 'Project not found',
 	MEMBER_NOT_FOUND = 'Member not found',
+	INVALID_PROJECT_NAME = 'The project name can only contain lower case letters, upper case letters, numbers, underscores and and upperscores.',
 
 	// Validation Language
 	LANGUAGE_NOT_FOUND = 'Language not found',
@@ -44,5 +45,6 @@ export enum ErrorMessages {
 
 	// Validation Social
 	ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE = 'Already following member',
-	CANNOT_FOLLOW_SELF_ERROR_MESSAGE = 'Cannot follow self'
+	CANNOT_FOLLOW_SELF_ERROR_MESSAGE = 'You can not follow yourself',
+	MEMBER_ALREADY_ADDED = 'Project is already shared with this member'
 }

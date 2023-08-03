@@ -1,10 +1,10 @@
+import { UUID } from 'utils/types/Uuid';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
-
 import { Project } from 'models/Project';
 import { Member } from 'models/Member';
-
 import { BaseServices } from 'services/base/BaseServices';
 import { MemberServices } from 'services/MemberServices';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 export class ProjectServices extends BaseServices {
 	MemberServices: MemberServices = new MemberServices();
@@ -16,63 +16,56 @@ export class ProjectServices extends BaseServices {
 	async findAllPublic(): Promise<Project[]> {
 		return this.repository.find({
 			where: { isPublic: true },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
+			relations: ['owner', 'editors', 'favoritedBy']
 		});
 	}
 
-	async findByOwner(memberId: string): Promise<Project[]> {
+	async findAllByOwner(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { owner: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
+			relations: ['owner']
 		});
 	}
 
-	async findByEditorId(memberId: string): Promise<Project[]> {
+	async findAllByEditorId(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { editors: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
+			relations: ['owner', 'editors', 'favoritedBy']
 		});
 	}
 
-	async findByFavorites(memberId: string): Promise<Project[]> {
+	async findAllByFavorites(memberId: UUID): Promise<Project[]> {
 		return this.repository.find({
 			where: { favoritedBy: { id: memberId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
+			relations: ['owner', 'editors', 'favoritedBy']
 		});
 	}
 
-	async findByTemplate(templateId: string): Promise<Project[]> {
+	async findAllByTemplate(template: SandpackTemplates): Promise<Project[]> {
 		return this.repository.find({
-			where: { template: { id: templateId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
+			where: { sandpackTemplate: template },
+			relations: ['owner', 'editors', 'favoritedBy']
 		});
 	}
 
-	async findByLanguage(languageId: string): Promise<Project[]> {
-		return this.repository.find({
-			where: { programmingLanguage: { id: languageId } },
-			relations: ['owner', 'editors', 'favoritedBy', 'files']
-		});
-	}
-
-	async addToFavorite(memberId: string, projectId: string): Promise<Project> {
+	async addToFavorite(member: Member, projectId: UUID): Promise<Project> {
 		const project = await this.findById(projectId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		const member = await this.MemberServices.findById(memberId);
+		if (project.favoritedBy.includes(member)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
 
-		project.favoritedBy = [...project.members, ...member];
+		project.favoritedBy.push(member);
 
 		return this.repository.save(project);
 	}
 
-	async share(id: string, members: Member[]): Promise<Project> {
-		const project = await this.findById(id);
+	async share(memberId: UUID, members: Member[]): Promise<Project> {
+		const project = await this.findById(memberId);
 
 		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
 
-		project.members = [...project.members, ...members];
+		project.editors = [...members];
 
 		return this.repository.save(project);
 	}

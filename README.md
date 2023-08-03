@@ -11,7 +11,7 @@ It is highly recommended to be working with VSCode, an IDE that does not need to
 To use this repository, you need to have the following tools installed:
 
 - [Node.js](https://nodejs.org/en/) (v16.17.1)
-- [pnpm](https://pnpm.io/installation) (v7.16.0)
+- [pnpm](https://pnpm.io/installation) (v8.3.1)
 - [Makefile](https://perso.univ-lyon1.fr/jean-claude.iehl/Public/educ/Makefile.html)
 - [Docker](https://docs.docker.com/get-docker/) (v20.10.8)
 - [Docker Compose](https://docs.docker.com/compose/install/) (v1.29.2)
@@ -50,7 +50,7 @@ Now you are ready !
 
 As a developer, to work on the project on everyday, you will certainly want to start the applications seperately in **debug mode** :
 
-Run `make start-client` and `make start-server` in two differents terminals.
+Run `make start-client`, `make start-moobile` and `make start-server` in differents terminals.
 
 You can also see logs of database by running `make start-database`.
 

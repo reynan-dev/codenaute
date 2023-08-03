@@ -1,4 +1,4 @@
-CONTAINER_NAME = client-codenaute
+CONTAINER_NAME = client-dev-codenaute
 
 # If the first argument is "run"...
 ifeq (exec,$(firstword $(MAKECMDGOALS)))
@@ -19,12 +19,16 @@ hard-install: ## Install hard client dependencies
 	make install
 
 start-debug: ## Run client (by default in watch mode)
-	@echo "Starting client"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build client
+	@echo "Starting client in debug mode - Docker compose v1"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build client || true
+	@echo "Starting client in debug mode - Docker compose v2"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up --build client
 
-start-quiet: ## Start cliennt in mode quiet
-	@echo "Starting client in mode quiet"
-	COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build client
+start-quiet: ## Start client in mode quiet
+	@echo "Starting client in quiet mode - Docker compose v1"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build client || true
+	@echo "Starting client in quiet mode - Docker compose v2"
+	NODE_ENV=development COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose up -d --build client
 
 .PHONY: exec
 exec : ## Running server container

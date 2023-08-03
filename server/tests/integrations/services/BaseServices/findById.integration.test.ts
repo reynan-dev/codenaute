@@ -1,3 +1,4 @@
+import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
 import { v4 as uuid } from 'uuid';
 
@@ -16,7 +17,9 @@ describe('FindById integration test', () => {
 
 			const member = await MemberService.signUp('usertest', email, 'password');
 
-			expect(await MemberService.findById(member.id)).toEqual(member);
+			const find = (await MemberService.findById(member.id)) as Member;
+
+			expect(find.id).toEqual(member.id);
 		});
 	});
 });

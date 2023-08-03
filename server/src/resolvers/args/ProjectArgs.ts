@@ -1,78 +1,114 @@
-import { Matches } from 'class-validator';
-import { ArgsType, Field } from 'type-graphql';
+import { IsUUID, Matches } from 'class-validator';
+import { UUID } from 'utils/types/Uuid';
+import { ArgsType, Field, ID, Int } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
+import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
+import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
+import { SandpackFiles } from 'utils/types/Sandpack';
 
-const nameRegExp = new RegExp(Validations.USERNAME_REGEX);
+const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
 
 @ArgsType()
-export class getProjectByIdArgs {
+export class GetProjectByIdArgs {
+	@Field(() => ID)
+	@IsUUID()
+	projectId: UUID;
+}
+
+@ArgsType()
+export class getProjectsByNameArgs {
 	@Field()
-	projectId: string;
+	projectName: string;
 }
 
 @ArgsType()
 export class getAllProjectsByMemberArgs {
 	@Field()
-	memberId: string;
+	memberId: UUID;
 }
 
 @ArgsType()
 export class getAllProjectsByTemplateArgs {
 	@Field()
-	templateId: string;
-}
-
-@ArgsType()
-export class getAllProjectsByProgrammingLanguageArgs {
-	@Field()
-	languageId: string;
+	template: SandpackTemplates;
 }
 
 @ArgsType()
 export class createProjectArgs {
 	@Field()
-	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	@Matches(nameRegExp, { message: ErrorMessages.INVALID_PROJECT_NAME })
 	name: string;
 
 	@Field()
-	memberId: string;
-
-	@Field()
-	languageId: string;
-
-	@Field({ nullable: true })
-	templateId: string;
-
-	@Field({ nullable: true })
-	activeFileId: string;
+	memberId: UUID;
 
 	@Field()
 	isTemplate: boolean;
 
 	@Field()
 	isPublic: boolean;
+
+	@Field()
+	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
+
+	@Field()
+	environment: string;
+
+	@Field()
+	main: string;
+}
+
+@ArgsType()
+export class updateProjectArgs {
+	@Field()
+	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
+	name: string;
+
+	@Field()
+	projectId: UUID;
+
+	@Field()
+	isTemplate: boolean;
+
+	@Field()
+	isPublic: boolean;
+
+	@Field()
+	sandpackTemplate: SandpackTemplates;
+
+	@Field()
+	files: string;
+
+	@Field()
+	environment: string;
+
+	@Field()
+	main: string;
 }
 
 @ArgsType()
 export class favoriteProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 }
 
 @ArgsType()
 export class shareProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field(() => [String])
-	membersId: string[];
+	membersId: UUID[];
 }
 
 @ArgsType()
 export class updateProjectNameArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
@@ -82,16 +118,16 @@ export class updateProjectNameArgs {
 @ArgsType()
 export class updateProjectActiveFileArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
-	activeFile: string;
+	activeFileId: UUID;
 }
 
 @ArgsType()
 export class updateProjectIsTemplateArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	isTemplate: boolean;
@@ -100,7 +136,7 @@ export class updateProjectIsTemplateArgs {
 @ArgsType()
 export class updateProjectIsPublic {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 
 	@Field()
 	isPublic: boolean;
@@ -109,5 +145,5 @@ export class updateProjectIsPublic {
 @ArgsType()
 export class deleteProjectArgs {
 	@Field()
-	projectId: string;
+	projectId: UUID;
 }

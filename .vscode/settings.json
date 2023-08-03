@@ -22,5 +22,7 @@
 	"tailwindCSS.experimental.classRegex": [
 		["twJoin\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
 		["twMerge\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-	]
+	],
+	"prettier.ignorePath": ".prettierignore",
+	"prettier.configPath": ".prettierrc.json"
 }
