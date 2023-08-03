@@ -1,4 +1,7 @@
 {
+	"name": "codenaute",
+	"version": "1.0.0",
+	"description": "A new way to code in your web browser.",
 	"scripts": {
 		"prepare": "husky install"
 	},

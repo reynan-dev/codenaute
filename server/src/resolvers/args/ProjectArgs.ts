@@ -1,20 +1,11 @@
-import { IsUUID, Matches } from 'class-validator';
+import { Matches } from 'class-validator';
 import { UUID } from 'utils/types/Uuid';
-import { ArgsType, Field, ID, Int } from 'type-graphql';
+import { ArgsType, Field } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
-import { ProgrammingLanguages } from 'utils/enums/ProgrammingLanguages';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
-import { SandpackFiles } from 'utils/types/Sandpack';
 
 const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
-
-@ArgsType()
-export class GetProjectByIdArgs {
-	@Field(() => ID)
-	@IsUUID()
-	projectId: UUID;
-}
 
 @ArgsType()
 export class getProjectsByNameArgs {
@@ -122,24 +113,6 @@ export class updateProjectActiveFileArgs {
 
 	@Field()
 	activeFileId: UUID;
-}
-
-@ArgsType()
-export class updateProjectIsTemplateArgs {
-	@Field()
-	projectId: UUID;
-
-	@Field()
-	isTemplate: boolean;
-}
-
-@ArgsType()
-export class updateProjectIsPublic {
-	@Field()
-	projectId: UUID;
-
-	@Field()
-	isPublic: boolean;
 }
 
 @ArgsType()

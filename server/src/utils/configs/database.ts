@@ -58,11 +58,13 @@ export abstract class Database {
 	}
 
 	private static readonly type = 'postgres';
-	private static readonly host = this._DB_HOST();
-	private static readonly port = this._DB_PORT();
-	private static readonly username = this._DB_USER();
-	private static readonly password = this._DB_PASSWORD();
-	private static readonly database = this._DB_NAME();
+
+	private static readonly url =
+		process.env.DATABASE_URL ||
+		`${
+			this.type
+		}://${this._DB_USER()}:${this._DB_PASSWORD()}@${this._DB_HOST()}:${this._DB_PORT()}/${this._DB_NAME()}`;
+
 	private static readonly models = [
 		`${__dirname}/../../**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
@@ -77,11 +79,7 @@ export abstract class Database {
 
 	private static _dataSource: DataSource = new DataSource({
 		type: this.type,
-		host: this.host,
-		port: this.port,
-		username: this.username,
-		password: this.password,
-		database: this.database,
+		url: this.url,
 		entities: this.models,
 		migrations: this.migrations,
 		logging: this.logging,

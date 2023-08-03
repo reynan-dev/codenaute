@@ -6,11 +6,8 @@ import {
 	favoriteProjectArgs,
 	getAllProjectsByMemberArgs,
 	getAllProjectsByTemplateArgs,
-	GetProjectByIdArgs,
 	shareProjectArgs,
 	updateProjectArgs,
-	updateProjectIsPublic,
-	updateProjectIsTemplateArgs,
 	updateProjectNameArgs
 } from 'resolvers/args/ProjectArgs';
 import { MemberServices } from 'services/MemberServices';
@@ -24,8 +21,8 @@ import { UUID } from 'utils/types/Uuid';
 export class ProjectResolver {
 	ProjectServices: ProjectServices = new ProjectServices();
 	MemberServices: MemberServices = new MemberServices();
-	@Authorized()
-	@Query(() => Project)
+
+	@Query(() => [Project])
 	async getAllProjectsPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
@@ -35,20 +32,18 @@ export class ProjectResolver {
 	@Query(() => [Project])
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
-
-		const projects = await this.ProjectServices.findAllByOwner(context.user?.id as UUID);
-		return projects;
+		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllProjectsByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findAllByEditorId(context.user?.id as UUID);
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllFavoritedProjectsByMember(
 		@Args() { memberId }: getAllProjectsByMemberArgs
 	): Promise<Project[]> {
@@ -57,7 +52,7 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllProjectsByTemplate(
 		@Args() { template }: getAllProjectsByTemplateArgs
 	): Promise<Project[]> {
@@ -166,7 +161,8 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async updateProjectIsTemplate(
-		@Args() { projectId, isTemplate }: updateProjectIsTemplateArgs
+		@Arg('projectId') projectId: string,
+		@Arg('isTemplate') isTemplate: boolean
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
@@ -178,7 +174,8 @@ export class ProjectResolver {
 	@Authorized()
 	@Mutation(() => Project)
 	async updateProjectIsPublic(
-		@Args() { projectId, isPublic }: updateProjectIsPublic
+		@Arg('projectId') projectId: string,
+		@Arg('isPublic') isPublic: boolean
 	): Promise<Project> {
 		const project = await this.ProjectServices.findById(projectId);
 
