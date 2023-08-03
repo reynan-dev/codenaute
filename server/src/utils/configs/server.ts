@@ -60,12 +60,10 @@ export abstract class Server {
 
 		await server.start();
 
-		this.app.use(
-			cors({ credentials: true, origin: process.env.FRONTEND_URL, optionsSuccessStatus: 200 })
-		);
+		this.app.use(cors({ credentials: true, origin: true, optionsSuccessStatus: 200 }));
 
-		this.app.use((_req, res, next) => {
-			res.header('Access-Control-Allow-Origin', 'https://codenaute-docker-client.onrender.com');
+		this.app.use((req, res, next) => {
+			res.header('Access-Control-Allow-Origin', req.headers.origin);
 			res.header('Access-Control-Allow-Credentials', 'true');
 			res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 			res.header(
