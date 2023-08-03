@@ -70,13 +70,9 @@ prettier-fix: ## Fixing with prettier
 	@echo "Fixing with prettier"
 	npx prettier --write .
 
-migration-run: ## Runing migrations
-	@echo "Executing migrations in mysql-coder database"
-	docker exec $(CONTAINER_NAME) pnpm migration:run
-
 migration-generate: ## Generating migrations
 	@echo "Generate a new migration"
-	docker exec $(CONTAINER_NAME) pnpm migration:generate
+	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm migration:generate
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
