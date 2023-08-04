@@ -21,7 +21,6 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 	};
 
 	const handleOnChange = (searchText: string) => {
-		console.log({ searchText });
 		state.setInputSearch(searchText);
 	};
 
@@ -40,7 +39,6 @@ export const FilterBar = ({ className, state }: FilterBarProps) => {
 
 	useEffect(() => {
 		if (projects === null || state.inputSearch !== '') return;
-		console.log('PXXXX');
 		setFilteredProjects(filterProjectsByTemplate(state.selectedTemplate, projects));
 	}, [projects, setFilteredProjects, state.inputSearch, state.selectedTemplate]);
 
