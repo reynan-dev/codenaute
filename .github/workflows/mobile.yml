@@ -19,10 +19,16 @@ jobs:
   workflow:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
-
+    env:
+      NODE_ENV: test
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v3
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies globaly
         run: pnpm install --fix-lockfile
