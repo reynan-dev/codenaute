@@ -4,7 +4,7 @@ install: ## Installing monorepo dependencies
 
 	cd server && make install
 	cd client && make install
-	cd client && make install
+	cd mobile && make install
 
 hard-install: ## Installing hard monorepo dependencies
 	rm -rf node_modules
