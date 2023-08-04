@@ -16,6 +16,12 @@ export type Scalars = {
 	DateTime: any;
 };
 
+export type AuthInterface = {
+	__typename?: 'AuthInterface';
+	cookies: Scalars['String'];
+	user: Member;
+};
+
 export type Member = {
 	__typename?: 'Member';
 	email: Scalars['String'];
@@ -40,7 +46,7 @@ export type Mutation = {
 	forgotPassword: RoutingToken;
 	resetPassword: Member;
 	shareProject: Project;
-	signIn: Member;
+	signIn: AuthInterface;
 	signOut: Scalars['Boolean'];
 	signUp: Member;
 	updateMemberEmail: Member;
@@ -370,7 +376,11 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = {
 	__typename?: 'Mutation';
-	signIn: { __typename?: 'Member'; id: string; email: string };
+	signIn: {
+		__typename?: 'AuthInterface';
+		cookies: string;
+		user: { __typename?: 'Member'; id: string; username: string; email: string };
+	};
 };
 
 export type SignUpMutationVariables = Exact<{
@@ -1107,8 +1117,19 @@ export const SignInDocument = {
 						selectionSet: {
 							kind: 'SelectionSet',
 							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'user' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'username' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'email' } }
+										]
+									}
+								},
+								{ kind: 'Field', name: { kind: 'Name', value: 'cookies' } }
 							]
 						}
 					}

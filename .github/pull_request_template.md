@@ -1,14 +1,4 @@
-## Ticket
+Please go the the `Preview` tab and select the appropriate sub-template:
 
-**Title:**
-**Notion Link:**
-
-## Description
-
-## Guidelines
-
-🔗 Link your PRs to their related Notion tickets
-✍️ Use the commit convention to your pull request title
-📃 If your code affects the build, update `README.md`
-🚫 Do not merge a PR until all comments are resolved
-🗑 Remove your branch after merging
+- [Development Pull Request Template](?expand=1&template=pr_template.md)
+- [Release Pull Request Template](?expand=1&template=release_template.md)

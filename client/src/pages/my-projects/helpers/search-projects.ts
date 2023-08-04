@@ -11,7 +11,6 @@ const getProjectWithKeywordIncluded = (project: ProjectState, keywords: string[]
 
 export const searchProjects = (projects: ProjectState[], searchText: string): ProjectState[] => {
 	if (searchText === '') return projects;
-	console.log('search');
 
 	const keywords = searchText.toLowerCase().trim().split(' ');
 

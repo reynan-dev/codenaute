@@ -17,20 +17,21 @@ import {
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Cookie } from 'utils/methods/Cookie';
+import { AuthInterface } from 'utils/interfaces/AuthInterface';
 
 @Resolver(Member)
 export class MemberResolver {
 	MemberServices: MemberServices = new MemberServices();
-	@Mutation(() => Member)
+	@Mutation(() => AuthInterface)
 	async signIn(
 		@Args() { email, password }: SignInArgs,
 		@Ctx() context: GlobalContext
-	): Promise<Member> {
+	): Promise<AuthInterface> {
 		const { user, session } = await this.MemberServices.signIn(email, password);
 
-		Cookie.setSessionToken(context, session.token);
+		const cookies = Cookie.setSessionToken(session);
 
-		return user;
+		return { user, cookies };
 	}
 
 	@Mutation(() => Member)
@@ -132,7 +133,7 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
+	@Mutation(() => Boolean)
 	async deleteMemberAccount(
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext

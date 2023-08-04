@@ -2,10 +2,9 @@ import { IsBoolean, IsDate, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
-import { Member } from 'models/Member';
-import { BaseModel } from 'models/base/BaseModel';
-import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
-import { isEnumType } from 'graphql';
+import { Member } from './Member';
+import { BaseModel } from './base/BaseModel';
+import { SandpackTemplates } from '../utils/enums/SandpackTemplates';
 
 @Entity()
 @ObjectType()

@@ -24,12 +24,6 @@ services:
       - database-test:/var/lib/postgresql/data
     command: -p 2345
 
-  redis:
-    container_name: redis-dev--codenaute
-    image: redis:alpine
-    expose:
-      - 6379
-
   adminer:
     container_name: adminer-dev--codenaute
     image: adminer
@@ -54,7 +48,6 @@ services:
       - 5000:5000
     depends_on:
       - database-dev
-      - redis
       - adminer
     volumes:
       - ./server:/app
@@ -66,8 +59,6 @@ services:
       context: ./client
       dockerfile: Dockerfile
       target: ${NODE_ENV}
-    env_file:
-      - ./client/.env.client
     restart: always
     ports:
       - 3000:3000

@@ -1,0 +1,64 @@
+name: TAG - Push new tag and a relase
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - production
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.labels != null }}
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions-ecosystem/action-release-label@v1
+        id: release-label
+        if: ${{ github.event.pull_request.merged == true }}
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
+
+      - uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-semver
+        if: ${{ steps.release-label.outputs.level != null }}
+        with:
+          current_version: ${{ steps.get-latest-tag.outputs.tag }}
+          level: ${{ steps.release-label.outputs.level }}
+
+      - uses: actions-ecosystem/action-push-tag@v1
+        if: ${{ steps.release-label.outputs.level != null }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.TAG_PAT }}
+        with:
+          tag: ${{ steps.bump-semver.outputs.new_version }}
+          message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+
+  release:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    needs: [tag]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions-ecosystem/action-release-label@v1
+        id: release-label
+        if: ${{ github.event.pull_request.merged == true }}
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
+
+      - uses: actions/create-release@v1
+        id: create-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TAG_PAT }}
+        with:
+          tag_name: ${{ steps.get-latest-tag.outputs.tag }}
+          release_name: ${{ steps.get-latest-tag.outputs.tag }}
+          body: ${{ github.event.pull_request.body }}
+          draft: false
+          prerelease: false
