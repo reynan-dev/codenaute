@@ -26,7 +26,7 @@ describe('Find All Projects By Template', () => {
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				sandpackTemplate: SandpackTemplates.REACT_TS,
 				environment: 'create-react-app',
-				main: '/App.tsx'
+				mainFile: '/App.tsx'
 			};
 
 			const project = await ProjectService.create(projectData);

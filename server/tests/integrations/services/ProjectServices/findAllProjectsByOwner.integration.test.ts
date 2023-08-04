@@ -36,7 +36,7 @@ describe('Find Projects By Owner', () => {
 				name: 'project_test',
 				owner: ownerMember,
 				environment: 'create-react-app',
-				main: '/App.tsx',
+				mainFile: '/App.tsx',
 				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 

@@ -44,7 +44,7 @@ describe('Find All Projects By Editor Id', () => {
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				editors: [editorMember],
 				environment: 'create-react-app',
-				main: '/App.tsx',
+				mainFile: '/App.tsx',
 				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 
