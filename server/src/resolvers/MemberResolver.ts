@@ -133,7 +133,7 @@ export class MemberResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Member)
+	@Mutation(() => Boolean)
 	async deleteMemberAccount(
 		@Args() { password }: DeleteMemberAccountArgs,
 		@Ctx() context: GlobalContext
