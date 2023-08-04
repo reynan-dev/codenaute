@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies globaly
         run: pnpm install --fix-lockfile
 
-      - name: Install dependencies on client
+      - name: Install dependencies on mobile
         run: pnpm install --fix-lockfile
         working-directory: ./${{ env.SERVICE_NAME }}
 
