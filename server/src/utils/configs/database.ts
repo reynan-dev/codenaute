@@ -71,7 +71,7 @@ export abstract class Database {
 	private static readonly migrations = [
 		`${__dirname}/../**/migrations/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
-	private static readonly migrationsRun = true;
+	private static readonly migrationsRun = false;
 	private static readonly logging: LoggerOptions | undefined =
 		process.env.NODE_ENV === Environment.IS_PRODUCTION ? ['error'] : ['query', 'error'];
 	private static readonly synchronize: boolean = false;
