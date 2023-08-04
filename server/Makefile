@@ -76,7 +76,7 @@ migration-generate: ## Generating migrations
 
 migration-run: ## Generating migrations
 	@echo "Runing a new migration"
-	docker exec -e NODE_ENV=test $(CONTAINER_NAME) pnpm migration:run
+	docker exec -e NODE_ENV=development $(CONTAINER_NAME) pnpm migration:run
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
