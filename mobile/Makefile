@@ -2,14 +2,6 @@
 # Because of incompatibilities between expo and
 # monorepos (like with pnpm), this app uses npm
 
-# If the first argument is "run"...
-ifeq (exec,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  # ...and turn them into do-nothing targets
-  $(eval $(RUN_ARGS):;@:)
-endif
-
 install: ## Install client dependencies
 	@echo "Installing dependencies mobile"
 	npm install
