@@ -24,12 +24,6 @@ services:
       - database-test:/var/lib/postgresql/data
     command: -p 2345
 
-  redis:
-    container_name: redis-dev--codenaute
-    image: redis:alpine
-    expose:
-      - 6379
-
   adminer:
     container_name: adminer-dev--codenaute
     image: adminer
