@@ -1,5 +1,3 @@
-CONTAINER_NAME = mobile-dev-codenaute
-
 # IMPORTANT :
 # Because of incompatibilities between expo and
 # monorepos (like with pnpm), this app uses npm
