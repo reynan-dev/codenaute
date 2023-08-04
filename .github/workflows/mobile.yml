@@ -1,0 +1,42 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: MOBILE - Test & checks application.
+
+on:
+  pull_request:
+    types: [ready_for_review, opened, reopened, synchronize]
+    paths:
+      - '.github/workflows/mobile.yml'
+      - 'mobile/**'
+
+env:
+  SERVICE_NAME: 'mobile'
+  NODEJS_VERSION: '16.17.1'
+  PNPM_VERSION: '8.3.1'
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v3
+
+      - name: Install dependencies globaly
+        run: pnpm install --fix-lockfile
+
+      - name: Install dependencies on client
+        run: pnpm install --fix-lockfile
+        working-directory: ./${{ env.SERVICE_NAME }}
+
+      - name: Restore Github Cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.OS }}-platform-mobile-${{ hashFiles('pnpm-lock.yaml', '**/pnpm-lock.yaml') }}
+
+      - name: Run Tests
+        run: pnpm test:ci
+        working-directory: ./${{ env.SERVICE_NAME }}
