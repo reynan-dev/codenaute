@@ -8,6 +8,7 @@
 		"ci": "pnpm build && pnpm test",
 		"codenaute": "node ./dist/utils/commands/codenaute-cli.js",
 		"migration:generate": "npm run typeorm -- migration:generate ./src/utils/migrations/codenaute",
+		"migration:run": "npm run typeorm -- migration:run",
 		"start": "node dist/index.js",
 		"start:watch": "tsc -w & nodemon -L dist/index.js",
 		"test": "jest --runInBand --verbose --coverage",
