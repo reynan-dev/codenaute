@@ -5,7 +5,6 @@ import { createProjectArgs } from 'resolvers/args/ProjectArgs';
 import { memberFixtures } from 'utils/seeds/member.seeds';
 import { DataSource, InsertResult } from 'typeorm';
 import { Database } from 'utils/configs/database';
-import { Environment } from 'utils/enums/Environment';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 export const fileFixtures = JSON.stringify({
@@ -22,7 +21,7 @@ export const generateProjectFixture: (member: Member) => createProjectArgs = (me
 		sandpackTemplate: SandpackTemplates.VANILLA_TS,
 		files: fileFixtures,
 		environment: 'create-react-app-typescript',
-		main: '/App.tsx'
+		mainFile: '/App.tsx'
 	};
 };
 
