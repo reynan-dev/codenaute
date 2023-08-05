@@ -9,4 +9,5 @@ export const renameFile = (newName: string, oldNode: TreeNode, sandpack: Sandpac
 
 	sandpack.addFile(`${parentPath}/${newName}`, oldNode.code);
 	sandpack.openFile(`${parentPath}/${newName}`);
+	sandpack.setActiveFile(`${parentPath}/${newName}`);
 };
