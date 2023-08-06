@@ -17,7 +17,7 @@ export const CreateProjectPage = () => {
 			name: 'untitled',
 			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
 			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
-			mainFile: SANDBOX_TEMPLATES[sandpackTemplate].mainFile,
+			mainFile: SANDBOX_TEMPLATES[sandpackTemplate].main,
 			sandpackTemplate
 		});
 	};
