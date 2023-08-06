@@ -6,7 +6,7 @@ export interface ProjectContextData {
 	sandpackTemplate?: string;
 	files: SandpackFiles;
 	environment: string;
-	main: string;
+	mainFile: string;
 }
 
 export type SetProjectContextData = React.Dispatch<React.SetStateAction<ProjectContextData | null>>;

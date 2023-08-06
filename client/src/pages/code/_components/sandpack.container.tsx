@@ -59,7 +59,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				(previousState) =>
 					({
 						...previousState,
-						main: newFilePath,
+						mainFile: newFilePath,
 						files: sandpack.files
 					} as ProjectContextData)
 			);
