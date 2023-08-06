@@ -25,7 +25,6 @@ export const CodePage = ({ state }: CodePageProps) => {
 	const environment = checkSandboxEnvironment(state.currentProjectData?.environment);
 	const template = getCheckedTemplateParam(state.currentProjectData?.sandpackTemplate ?? '');
 	const { dependencies, devDependencies } = parseDependencies(state.currentProjectData?.files);
-
 	return (
 		<>
 			{state.currentProjectData?.files !== undefined &&
@@ -73,6 +72,9 @@ export const CodePage = ({ state }: CodePageProps) => {
 								>
 									<SandpackCodeEditor
 										closableTabs={true}
+										showTabs={true}
+										showLineNumbers={true}
+										showInlineErrors={true}
 										style={{
 											width: '100%',
 											height: '100%'
