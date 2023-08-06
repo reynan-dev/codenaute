@@ -39,7 +39,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
-		main: data.main,
+		mainFile: data.mainFile,
 		ownerUsername: data.owner.username
 	};
 };

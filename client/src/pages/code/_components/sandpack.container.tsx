@@ -44,7 +44,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 			previousFilesRef.current = sandpack.files;
 			if (
 				currentProjectData?.files !== undefined &&
-				Object.keys(sandpack.files).includes(currentProjectData?.main)
+				Object.keys(sandpack.files).includes(currentProjectData?.mainFile)
 			) {
 				return setCurrentProjectData(
 					(previousState) =>
@@ -66,7 +66,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 		}
 	}, [
 		currentProjectData?.files,
-		currentProjectData?.main,
+		currentProjectData?.mainFile,
 		sandpack,
 		sandpack.files,
 		setCurrentProjectData

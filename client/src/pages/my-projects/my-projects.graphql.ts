@@ -9,7 +9,7 @@ export const GET_ALL_PROJECTS_BY_OWNER = gql`
 				username
 			}
 			files
-			main
+			mainFile
 			sandpackTemplate
 			name
 			id

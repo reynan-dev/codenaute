@@ -9,7 +9,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 		$sandpackTemplate: String!
 		$files: String!
 		$environment: String!
-		$main: String!
+		$mainFile: String!
 	) {
 		createProject(
 			name: $name
@@ -19,7 +19,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 			sandpackTemplate: $sandpackTemplate
 			files: $files
 			environment: $environment
-			main: $main
+			mainFile: $mainFile
 		) {
 			id
 			name
@@ -28,7 +28,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 			}
 			files
 			environment
-			main
+			mainFile
 			isTemplate
 			isPublic
 			sandpackTemplate
