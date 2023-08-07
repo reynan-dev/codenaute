@@ -35,3 +35,12 @@ export const CREATE_PROJECT_MUTATION = gql`
 		}
 	}
 `;
+
+export const UPDATE_PROJECT_IS_PUBLIC = gql`
+	mutation UpdateProjectIsPublic($isPublic: Boolean!, $projectId: String!) {
+		updateProjectIsPublic(isPublic: $isPublic, projectId: $projectId) {
+			id
+			isPublic
+		}
+	}
+`;
