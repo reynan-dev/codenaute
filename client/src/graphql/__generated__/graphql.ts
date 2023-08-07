@@ -39,7 +39,7 @@ export type Member = {
 export type Mutation = {
 	__typename?: 'Mutation';
 	createProject: Project;
-	deleteMemberAccount: Member;
+	deleteMemberAccount: Scalars['Boolean'];
 	deleteProject: Project;
 	favoriteProject: Project;
 	followMember: Member;
@@ -174,12 +174,12 @@ export type Project = {
 
 export type Query = {
 	__typename?: 'Query';
-	getAllFavoritedProjectsByMember: Project;
+	getAllFavoritedProjectsByMember: Array<Project>;
 	getAllMembers: Array<Member>;
-	getAllProjectsByEditor: Project;
+	getAllProjectsByEditor: Array<Project>;
 	getAllProjectsByOwner: Array<Project>;
-	getAllProjectsByTemplate: Project;
-	getAllProjectsPublicProjects: Project;
+	getAllProjectsByTemplate: Array<Project>;
+	getAllProjectsPublicProjects: Array<Project>;
 	getMemberByEmail: Member;
 	getMemberById: Member;
 	getProjectById: Project;
@@ -258,10 +258,7 @@ export type DeleteAccountMutationVariables = Exact<{
 	password: Scalars['String'];
 }>;
 
-export type DeleteAccountMutation = {
-	__typename?: 'Mutation';
-	deleteMemberAccount: { __typename?: 'Member'; id: string; email: string; username: string };
-};
+export type DeleteAccountMutation = { __typename?: 'Mutation'; deleteMemberAccount: boolean };
 
 export type UpdateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
@@ -306,20 +303,7 @@ export type GetProjectByIdQuery = {
 		sandpackTemplate: string;
 		environment: string;
 		main: string;
-		owner: {
-			__typename?: 'Member';
-			id: string;
-			sessions?: Array<{
-				__typename?: 'Session';
-				member: {
-					__typename?: 'Member';
-					sessions?: Array<{
-						__typename?: 'Session';
-						member: { __typename?: 'Member'; id: string };
-					}> | null;
-				};
-			}> | null;
-		};
+		owner: { __typename?: 'Member'; id: string };
 	};
 };
 
@@ -606,15 +590,7 @@ export const DeleteAccountDocument = {
 								name: { kind: 'Name', value: 'password' },
 								value: { kind: 'Variable', name: { kind: 'Name', value: 'password' } }
 							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'email' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'username' } }
-							]
-						}
+						]
 					}
 				]
 			}
@@ -810,46 +786,7 @@ export const GetProjectByIdDocument = {
 									name: { kind: 'Name', value: 'owner' },
 									selectionSet: {
 										kind: 'SelectionSet',
-										selections: [
-											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'sessions' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'member' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'sessions' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'member' },
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{ kind: 'Field', name: { kind: 'Name', value: 'id' } }
-																						]
-																					}
-																				}
-																			]
-																		}
-																	}
-																]
-															}
-														}
-													]
-												}
-											}
-										]
+										selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }]
 									}
 								},
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },

@@ -1,7 +1,7 @@
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import ProjectContext from 'context/project/project.context';
 import { getAddedFilePath } from 'helpers/get-added-file-path';
-import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
+import { hasMainFileChanged, hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
 import { useContext, useEffect, useRef } from 'react';
 import { ProjectContextData } from 'types/project';
 
@@ -24,6 +24,10 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 		currentProjectData !== null ? currentProjectData.files : null
 	);
 
+	const previousMainFileRef = useRef<string | null>(
+		currentProjectData !== null ? currentProjectData.main : null
+	);
+
 	useEffect(() => {
 		setActiveFile(sandpack.activeFile);
 	}, [sandpack.activeFile, setActiveFile]);
@@ -36,6 +40,23 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 
 	useEffect(() => {
 		const newFilePath = getAddedFilePath(previousFilesRef.current, sandpack.files);
+
+		if (
+			previousMainFileRef.current !== null &&
+			hasMainFileChanged(previousMainFileRef.current, sandpack.activeFile)
+		) {
+			previousFilesRef.current = sandpack.files;
+			previousMainFileRef.current = sandpack.activeFile;
+
+			return setCurrentProjectData(
+				(previousState) =>
+					({
+						...previousState,
+						main: sandpack.activeFile,
+						files: sandpack.files
+					} as ProjectContextData)
+			);
+		}
 
 		if (
 			previousFilesRef.current !== null &&

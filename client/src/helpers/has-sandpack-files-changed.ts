@@ -20,6 +20,10 @@ export const hasSandpackFilesChanged = (obj1: SandpackFiles, obj2: SandpackFiles
 	return false;
 };
 
+export const hasMainFileChanged = (previous: string, current: string): boolean => {
+	return previous !== current;
+};
+
 const isSandpackFileEqual = (
 	file1: string | SandpackFile,
 	file2: string | SandpackFile
