@@ -25,7 +25,7 @@ export default function App() {
 	return (
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
-				<View style={styles.container}>
+				<View className='flex-1 bg-dark-900 text-white font-archivo'>
 					<LastProjects />
 					<StatusBar style='auto' />
 				</View>
@@ -34,11 +34,11 @@ export default function App() {
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		flex: 1,
+// 		backgroundColor: '#fff',
+// 		alignItems: 'center',
+// 		justifyContent: 'center'
+// 	}
+// });

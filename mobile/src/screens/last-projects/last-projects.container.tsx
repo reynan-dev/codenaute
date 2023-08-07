@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { LastProjectsPage } from 'screens/last-projects/last-projects.screen';
-import { useGetAllPublicProjects } from 'screens/last-projects/last-projects.service';
+import { ProjectState, useGetAllPublicProjects } from 'screens/last-projects/last-projects.service';
 
 export interface LastProjectsPageState {}
 
 export const LastProjectsContainer = () => {
-	const { loading } = useGetAllPublicProjects();
+	const [projects, setProjects] = useState<ProjectState[] | null>(null);
 
-	return <>{loading ? <Text>Loading...</Text> : <LastProjectsPage />}</>;
+	const { loading } = useGetAllPublicProjects(setProjects);
+
+	return <>{loading ? <Text>Loading...</Text> : <LastProjectsPage projects={projects} />}</>;
 };
