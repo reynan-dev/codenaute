@@ -43,10 +43,12 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		if (lastSavedProjectData?.files !== undefined && currentProjectData?.files !== undefined) {
 			const hasProjectNameChanged = currentProjectData?.name !== lastSavedProjectData?.name;
+			const hasMainFileChanged = currentProjectData?.main !== lastSavedProjectData?.main;
 
 			setIsProjectSaved(
 				!hasSandpackFilesChanged(lastSavedProjectData?.files, currentProjectData?.files) &&
-					!hasProjectNameChanged
+					!hasProjectNameChanged &&
+					!hasMainFileChanged
 			);
 		}
 	}, [currentProjectData, lastSavedProjectData]);
