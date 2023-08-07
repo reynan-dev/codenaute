@@ -41,6 +41,14 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ position, onClose, onA
 				<li>
 					<button
 						className='flex w-full items-start px-3 py-1 hover:bg-dark-700'
+						onClick={(event) => handleAction('set-main', node, event)}
+					>
+						Set as main file
+					</button>
+				</li>
+				<li>
+					<button
+						className='flex w-full items-start px-3 py-1 hover:bg-dark-700'
 						onClick={(event) => handleAction('delete', node, event)}
 					>
 						Delete
