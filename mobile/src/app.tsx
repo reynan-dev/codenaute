@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import './styles/__generated__/nativewind-output';
 import { Members } from 'components/members';
 import COLORS from 'styles/colors';
+import { LastProjects } from 'screens/last-projects';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -25,13 +26,7 @@ export default function App() {
 		<SafeAreaProvider>
 			<ApolloProvider client={client}>
 				<View style={styles.container}>
-					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Text style={{ backgroundColor: COLORS.SECONDARY['DEFAULT'] }}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Members />
+					<LastProjects />
 					<StatusBar style='auto' />
 				</View>
 			</ApolloProvider>
