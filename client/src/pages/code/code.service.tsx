@@ -25,19 +25,6 @@ interface ProjectDataResponse {
 	owner: {
 		__typename?: 'Member';
 		id: string;
-		sessions?: Array<{
-			__typename?: 'Session';
-			member: {
-				__typename?: 'Member';
-				sessions?: Array<{
-					__typename?: 'Session';
-					member: {
-						__typename?: 'Member';
-						id: string;
-					};
-				}> | null;
-			};
-		}> | null;
 	};
 	sandpackTemplate: string;
 	environment: string;
@@ -82,7 +69,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile, setVisibleFiles } =
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile } =
 		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
@@ -96,7 +83,6 @@ export const useGetProjectService = (projectId: string) => {
 				mapProjectDataResponse(data.getProjectById)
 			);
 			setActiveFile(data.getProjectById.main);
-			setVisibleFiles([data.getProjectById.main]);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });

@@ -42,15 +42,6 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 		getProjectById(projectId: $projectId) {
 			owner {
 				id
-				sessions {
-					member {
-						sessions {
-							member {
-								id
-							}
-						}
-					}
-				}
 			}
 			name
 			isTemplate

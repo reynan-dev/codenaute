@@ -2,9 +2,9 @@ import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
 import { Column, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
-import { BaseModel } from 'models/base/BaseModel';
-import { Project } from 'models/Project';
-import { Session } from 'models/Session';
+import { BaseModel } from './base/BaseModel';
+import { Project } from './Project';
+import { Session } from './Session';
 
 @Entity()
 @ObjectType()
