@@ -74,6 +74,7 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 			if (action === 'set-main' && selectedNode !== null) {
 				if (selectedNode.path !== currentProjectData?.main && currentProjectData !== null) {
 					currentProjectData.main = selectedNode.path;
+					sandpack.setActiveFile(currentProjectData.main);
 
 					toast.success('Main file successfully set.');
 				}
