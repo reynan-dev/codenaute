@@ -14,6 +14,7 @@ type ProjectDataResponse = {
 	isTemplate: boolean;
 	main: string;
 	name: string;
+	createdAt: any;
 	environment: string;
 	sandpackTemplate: string;
 	owner: { __typename?: 'Member'; username: string };
@@ -26,6 +27,7 @@ export type ProjectState = {
 	files: SandpackFiles;
 	main: string;
 	ownerUsername: string;
+	createdAt: string;
 };
 
 export const mapProjectDataResponse = (data: ProjectDataResponse) => {
@@ -35,8 +37,24 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
 		main: data.main,
-		ownerUsername: data.owner.username
+		ownerUsername: data.owner.username,
+		createdAt: data.createdAt
 	};
+};
+
+const sortByCreatedAtDesc = (projects: ProjectState[]): ProjectState[] => {
+	return projects.slice().sort((a, b) => {
+		const dateA = new Date(a.createdAt);
+		const dateB = new Date(b.createdAt);
+
+		if (dateA > dateB) {
+			return -1;
+		} else if (dateA < dateB) {
+			return 1;
+		}
+
+		return 0;
+	});
 };
 
 export const useGetAllPublicProjects = (setProjects: SetState<ProjectState[] | null>) => {
@@ -50,7 +68,7 @@ export const useGetAllPublicProjects = (setProjects: SetState<ProjectState[] | n
 				mapProjectDataResponse(project)
 			);
 
-			setProjects(mappedProjects);
+			setProjects(sortByCreatedAtDesc(mappedProjects));
 		},
 		onError: (error) => {
 			console.log({ error });

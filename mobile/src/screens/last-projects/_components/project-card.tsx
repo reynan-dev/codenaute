@@ -36,6 +36,9 @@ export const ProjectCard = ({ project, containerStyle }: ProjectCardProps) => {
 			)}
 		>
 			<H4 childrenStyle='text-primary'>{project.name}</H4>
+			<P childrenStyle='italic text-xs mb-2 text-dark-300'>{`Publié le ${new Date(
+				project.createdAt
+			).toLocaleDateString()}`}</P>
 			<View className='flex flex-row flex-1 justify-start gap-x-3'>
 				{getTechnologiesFromSandpackTemplate(project.sandpackTemplate as SandpackTemplate)?.map(
 					(techno) => (

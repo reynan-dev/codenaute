@@ -8,6 +8,7 @@ export const GET_ALL_PUBLIC_PROJECTS = gql`
 			isTemplate
 			main
 			name
+			createdAt
 			owner {
 				username
 			}
