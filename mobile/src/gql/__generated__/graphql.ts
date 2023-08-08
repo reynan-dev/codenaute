@@ -30,6 +30,7 @@ export type AuthInterface = {
 
 export type Member = {
 	__typename?: 'Member';
+	createdAt: Scalars['DateTime']['output'];
 	email: Scalars['String']['output'];
 	favoritedProjects?: Maybe<Array<Project>>;
 	followers?: Maybe<Array<Member>>;
@@ -39,6 +40,7 @@ export type Member = {
 	ownedProjects?: Maybe<Array<Project>>;
 	projectsInvitedOn?: Maybe<Array<Project>>;
 	sessions?: Maybe<Array<Session>>;
+	updateAt: Scalars['DateTime']['output'];
 	username: Scalars['String']['output'];
 };
 
@@ -165,6 +167,7 @@ export type MutationValidEmailArgs = {
 
 export type Project = {
 	__typename?: 'Project';
+	createdAt: Scalars['DateTime']['output'];
 	editors?: Maybe<Array<Member>>;
 	environment: Scalars['String']['output'];
 	favoritedBy?: Maybe<Array<Member>>;
@@ -176,6 +179,7 @@ export type Project = {
 	name: Scalars['String']['output'];
 	owner: Member;
 	sandpackTemplate: Scalars['String']['output'];
+	updateAt: Scalars['DateTime']['output'];
 };
 
 export type Query = {
@@ -235,6 +239,7 @@ export type GetAllPublicProjectsQuery = {
 		isTemplate: boolean;
 		main: string;
 		name: string;
+		createdAt: any;
 		environment: string;
 		sandpackTemplate: string;
 		owner: { __typename?: 'Member'; username: string };
@@ -262,6 +267,7 @@ export const GetAllPublicProjectsDocument = {
 								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'main' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 								{
 									kind: 'Field',
 									name: { kind: 'Name', value: 'owner' },
