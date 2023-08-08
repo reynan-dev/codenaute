@@ -17,6 +17,7 @@
 		"@types/react-native-vector-icons": "^6.4.13",
 		"@types/react-syntax-highlighter": "^15.5.7",
 		"autoprefixer": "^10.4.14",
+		"css-tree": "^2.3.1",
 		"dotenv": "^16.3.1",
 		"expo": "~48.0.18",
 		"expo-constants": "~14.2.1",
@@ -27,6 +28,7 @@
 		"react-icons": "^4.10.1",
 		"react-native": "0.71.8",
 		"react-native-safe-area-context": "4.5.0",
+		"react-native-svg": "^13.11.0",
 		"react-native-vector-icons": "^10.0.0",
 		"react-syntax-highlighter": "^15.5.0",
 		"tailwind-merge": "^1.14.0"

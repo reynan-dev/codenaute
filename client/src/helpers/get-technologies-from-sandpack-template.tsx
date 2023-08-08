@@ -78,7 +78,7 @@ export const getTechnologiesFromSandpackTemplate = (
 
 		nextjs: {
 			name: 'Next.JS',
-			icon: <SiNextdotjs size={16} className='' />
+			icon: <SiNextdotjs size={16} />
 		},
 
 		vite: {
@@ -88,7 +88,7 @@ export const getTechnologiesFromSandpackTemplate = (
 
 		astro: {
 			name: 'Astro',
-			icon: <SiAstro size={16} className='' />
+			icon: <SiAstro size={16} />
 		}
 	};
 
