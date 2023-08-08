@@ -8,12 +8,12 @@ import { Svg } from 'react-native-svg';
 
 interface SvgIconProps {
 	name: string;
-	className?: string;
+	tailwind?: string;
 	size?: number;
 	color?: string;
 }
 
-export const SvgIcon = ({ name, className, size = 16, color }: SvgIconProps) => {
+export const SvgIcon = ({ name, tailwind, size = 16, color }: SvgIconProps) => {
 	const renderPath = () => {
 		if (name === 'astro') return <AstroIcon />;
 		if (name === 'jest') return <JestIcon />;
@@ -31,7 +31,7 @@ export const SvgIcon = ({ name, className, size = 16, color }: SvgIconProps) => 
 			fill={color !== undefined ? color : 'currentColor'}
 			stroke={color !== undefined ? color : 'currentColor'}
 			strokeWidth={0}
-			className={className}
+			className={tailwind}
 			viewBox='0 0 24 24'
 			// {...props}
 		>

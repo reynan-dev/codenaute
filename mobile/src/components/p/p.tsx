@@ -1,11 +1,16 @@
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 interface PProps {
 	children?: string | JSX.Element | never[] | JSX.Element[];
-	className?: string;
+	childrenStyle?: string;
+	containerStyle?: string;
 }
 
-export const P = ({ children, className }: PProps) => {
-	return <Text className={twMerge('p', className)}>{children}</Text>;
+export const P = ({ children, childrenStyle, containerStyle }: PProps) => {
+	return (
+		<View className={containerStyle}>
+			<Text className={twMerge('text-base text-white', childrenStyle)}>{children}</Text>
+		</View>
+	);
 };

@@ -1,9 +1,4 @@
-// import IconFA from 'react-native-vector-icons/FontAwesome';
-// import IconFA6Brands from 'react-native-vector-icons/FontAwesome6';
-// import {Icon as Icon2} from 'react-native-vector-icons/FontAwesome6Brands';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// import Ionicons from '@expo/vector-icons/Ionicons';import { Ionicons } from '@expo/vector-icons';
-
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import COLORS from 'styles/colors';

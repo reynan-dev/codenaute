@@ -40,24 +40,29 @@
 	.h1 {
 		@apply text-5xl;
 		@apply font-black;
+		@apply text-white;
 	}
 
 	.h2 {
 		@apply text-4xl;
 		@apply font-bold;
+		@apply text-white;
 	}
 
 	.h3 {
 		@apply text-2xl;
 		@apply font-semibold;
+		@apply text-white;
 	}
 
 	.h4 {
 		@apply text-xl;
 		@apply font-medium;
+		@apply text-white;
 	}
 
 	.p {
 		@apply text-base;
+		@apply text-white;
 	}
 }
