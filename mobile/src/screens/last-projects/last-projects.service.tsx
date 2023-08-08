@@ -19,21 +19,6 @@ type ProjectDataResponse = {
 	owner: { __typename?: 'Member'; username: string };
 };
 
-// export type GetAllPublicProjectsQuery = {
-// 	__typename?: 'Query';
-// 	getAllPublicProjects: Array<{
-// 		__typename?: 'Project';
-// 		id: string;
-// 		files: string;
-// 		isTemplate: boolean;
-// 		main: string;
-// 		name: string;
-// 		environment: string;
-// 		sandpackTemplate: string;
-// 		owner: { __typename?: 'Member'; username: string };
-// 	}>;
-// };
-
 export type ProjectState = {
 	id: string;
 	name: string;

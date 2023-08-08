@@ -1,4 +1,4 @@
-import { ProjectState } from 'pages/my-projects/my-projects.service';
+import { ProjectState } from 'screens/last-projects/last-projects.service';
 import { SandpackTemplate } from 'types/sandpack';
 
 export const filterProjectsByTemplate = (

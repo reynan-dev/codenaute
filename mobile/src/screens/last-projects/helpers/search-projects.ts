@@ -1,4 +1,4 @@
-import { ProjectState } from 'pages/my-projects/my-projects.service';
+import { ProjectState } from 'screens/last-projects/last-projects.service';
 
 const getProjectWithKeywordIncluded = (project: ProjectState, keywords: string[]) => {
 	const searchable = [project.name]
