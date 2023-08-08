@@ -14,10 +14,10 @@ import { SandpackTemplate } from 'types/sandpack';
 
 interface ProjectCardProps {
 	project: ProjectState;
-	customStyle?: string;
+	containerStyle?: string;
 }
 
-export const ProjectCard = ({ project, customStyle }: ProjectCardProps) => {
+export const ProjectCard = ({ project, containerStyle }: ProjectCardProps) => {
 	const code =
 		project.files[project.main] !== undefined
 			? typeof project.files[project.main] === 'string'
@@ -32,7 +32,7 @@ export const ProjectCard = ({ project, customStyle }: ProjectCardProps) => {
 				'transition duration-150 ease-in-out',
 				'lg:hover:translate-x-3.5',
 				'border border-dark-700',
-				customStyle
+				containerStyle
 			)}
 		>
 			<H4 childrenStyle='text-primary'>{project.name}</H4>
@@ -64,7 +64,6 @@ export const ProjectCard = ({ project, customStyle }: ProjectCardProps) => {
 								padding: 8,
 								width: '100%'
 							}}
-							language='typescript'
 						>
 							{code}
 						</CodeHighlighter>

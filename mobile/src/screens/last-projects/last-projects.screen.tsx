@@ -14,7 +14,7 @@ export const LastProjectsPage = ({ projects }: LastProjectsPageProps) => {
 				<ScrollView className='flex flex-col px-2'>
 					{projects !== null
 						? projects.map((project, index) => (
-								<ProjectCard key={index} project={project} customStyle='my-1' />
+								<ProjectCard key={index} project={project} containerStyle='my-1' />
 						  ))
 						: null}
 				</ScrollView>
