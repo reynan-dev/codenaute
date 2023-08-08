@@ -1,9 +1,12 @@
 import H4 from 'components/h4';
 import P from 'components/p';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import CodeHighlighter from 'react-native-code-highlighter';
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { getTechnologiesFromSandpackTemplate } from 'screens/last-projects/helpers/get-technologies-from-sandpack-template';
 import { ProjectState } from 'screens/last-projects/last-projects.service';
+import COLORS from 'styles/colors';
 import { STYLES } from 'styles/styles';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { SandpackFile } from 'types/project';
@@ -52,32 +55,20 @@ export const ProjectCard = ({ project, customStyle }: ProjectCardProps) => {
 			</View>
 			<View className='pt-2'>
 				{code !== null ? (
-					// <View className='text-sm md:text-base'>
-					// 	{/* <SyntaxHighlighter
-					// 		style={atomDark}
-					// 		customStyle={{
-					// 			borderRadius: '0.5rem',
-					// 			backgroundColor: COLORS.DARK[800],
-					// 			border: 'none',
-					// 			boxShadow: 'none',
-					// 			marginBottom: 0
-					// 		}}
-					// 		theme=''
-					// 		language={
-					// 			getLanguageNameFromExtension(
-					// 				project.files[project.main].toString()
-					// 			)?.toLocaleLowerCase() ?? 'javascript'
-					// 		}
-					// 	>
-					// 		{code}
-					// 	</SyntaxHighlighter> */}
-					// </View>
-					<P
-						containerStyle='rounded-lg border border-dark-800'
-						childrenStyle={twJoin('flex justify-center items-center', 'p-4 mt-2')}
-					>
-						No file in this project yet.
-					</P>
+					<View className='text-sm md:text-base rounded-lg overflow-hidden'>
+						<CodeHighlighter
+							hljsStyle={atomOneDark}
+							containerStyle={{
+								backgroundColor: COLORS.DARK[800],
+								marginBottom: 0,
+								padding: 8,
+								width: '100%'
+							}}
+							language='typescript'
+						>
+							{code}
+						</CodeHighlighter>
+					</View>
 				) : (
 					<P
 						containerStyle='rounded-lg border border-dark-800'
