@@ -34,18 +34,19 @@ export const useCreateProjectService = () => {
 			variables: {
 				name: project.name,
 				memberId: profile.profile.id,
-				isTemplate: false,
-				isPublic: false,
+				isTemplate: project.isTemplate,
+				isPublic: project.isPublic,
 				sandpackTemplate: project.sandpackTemplate ?? '',
 				files: JSON.stringify(project.files),
 				environment: project.environment,
-				main: project.main
+				mainFile: project.mainFile
 			},
 			onCompleted(data) {
 				onSuccess(
 					{ setLastSavedProjectData, setCurrentProjectData },
 					data ? mapProjectDataResponse(data.createProject) : project
 				);
+
 				navigate(`/code/${data.createProject.id}`);
 			},
 			onError(error) {

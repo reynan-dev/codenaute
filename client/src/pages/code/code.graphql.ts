@@ -9,7 +9,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
 		$sandpackTemplate: String!
 		$files: String!
 		$environment: String!
-		$main: String!
+		$mainFile: String!
 	) {
 		updateProject(
 			name: $name
@@ -19,7 +19,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
 			sandpackTemplate: $sandpackTemplate
 			files: $files
 			environment: $environment
-			main: $main
+			mainFile: $mainFile
 		) {
 			owner {
 				username
@@ -32,7 +32,7 @@ export const UPDATE_PROJECT_MUTATION = gql`
 			files
 			sandpackTemplate
 			environment
-			main
+			mainFile
 		}
 	}
 `;
@@ -42,15 +42,6 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 		getProjectById(projectId: $projectId) {
 			owner {
 				id
-				sessions {
-					member {
-						sessions {
-							member {
-								id
-							}
-						}
-					}
-				}
 			}
 			name
 			isTemplate
@@ -59,7 +50,7 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 			files
 			sandpackTemplate
 			environment
-			main
+			mainFile
 		}
 	}
 `;

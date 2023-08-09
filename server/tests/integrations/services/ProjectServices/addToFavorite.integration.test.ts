@@ -30,7 +30,7 @@ describe('Add to Favorite', () => {
 				version: 'version',
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				environment: 'create-react-app',
-				main: '/App.tsx',
+				mainFile: '/App.tsx',
 				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 

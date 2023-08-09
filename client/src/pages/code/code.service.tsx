@@ -25,23 +25,10 @@ interface ProjectDataResponse {
 	owner: {
 		__typename?: 'Member';
 		id: string;
-		sessions?: Array<{
-			__typename?: 'Session';
-			member: {
-				__typename?: 'Member';
-				sessions?: Array<{
-					__typename?: 'Session';
-					member: {
-						__typename?: 'Member';
-						id: string;
-					};
-				}> | null;
-			};
-		}> | null;
 	};
 	sandpackTemplate: string;
 	environment: string;
-	main: string;
+	mainFile: string;
 }
 
 interface onSuccessCallbacks {
@@ -58,7 +45,9 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
-		main: project.main
+		mainFile: project.mainFile,
+		isPublic: project.isPublic,
+		isTemplate: project.isTemplate
 	});
 	setCurrentProjectData({
 		id: project.id,
@@ -66,7 +55,9 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
-		main: project.main
+		mainFile: project.mainFile,
+		isPublic: project.isPublic,
+		isTemplate: project.isTemplate
 	});
 };
 
@@ -77,12 +68,14 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
 		environment: data.environment,
-		main: data.main
+		mainFile: data.mainFile,
+		isPublic: data.isPublic,
+		isTemplate: data.isTemplate
 	};
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile, setVisibleFiles } =
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile } =
 		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
@@ -95,8 +88,7 @@ export const useGetProjectService = (projectId: string) => {
 				{ setLastSavedProjectData, setCurrentProjectData },
 				mapProjectDataResponse(data.getProjectById)
 			);
-			setActiveFile(data.getProjectById.main);
-			setVisibleFiles([data.getProjectById.main]);
+			setActiveFile(data.getProjectById.mainFile);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });
@@ -140,12 +132,12 @@ export const useUpdateProjectService = () => {
 				variables: {
 					name: project.name,
 					projectId: project.id,
-					isTemplate: false,
-					isPublic: false,
+					isTemplate: project.isTemplate,
+					isPublic: project.isPublic,
 					sandpackTemplate: project.sandpackTemplate ?? '',
 					files: JSON.stringify(project.files),
 					environment: project.environment,
-					main: project.main
+					mainFile: project.mainFile
 				},
 				onCompleted(data) {
 					onSuccess(

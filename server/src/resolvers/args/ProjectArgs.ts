@@ -1,6 +1,6 @@
 import { IsUUID, Matches } from 'class-validator';
 import { UUID } from 'utils/types/Uuid';
-import { ArgsType, Field, ID, Int } from 'type-graphql';
+import { ArgsType, Field, ID } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
@@ -32,7 +32,7 @@ export class createProjectArgs {
 	environment: string;
 
 	@Field()
-	main: string;
+	mainFile: string;
 }
 
 @ArgsType()
@@ -64,6 +64,12 @@ export class getProjectByIdArgs {
 	@Field(() => ID)
 	@IsUUID()
 	projectId: UUID;
+}
+
+@ArgsType()
+export class getProjectsByNameArgs {
+	@Field()
+	projectName: string;
 }
 
 @ArgsType()
@@ -100,5 +106,5 @@ export class updateProjectArgs {
 	environment: string;
 
 	@Field()
-	main: string;
+	mainFile: string;
 }

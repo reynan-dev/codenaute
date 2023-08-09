@@ -3,7 +3,7 @@ import { randomBytes } from 'crypto';
 import { Field, ObjectType } from 'type-graphql';
 import { BeforeInsert, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
-import { Member } from 'models/Member';
+import { Member } from './Member';
 
 @Entity()
 @ObjectType()

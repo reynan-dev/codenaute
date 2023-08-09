@@ -1,7 +1,7 @@
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react';
 import ProjectContext from 'context/project/project.context';
 import { getAddedFilePath } from 'helpers/get-added-file-path';
-import { hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
+import { hasMainFileChanged, hasSandpackFilesChanged } from 'helpers/has-sandpack-files-changed';
 import { useContext, useEffect, useRef } from 'react';
 import { ProjectContextData } from 'types/project';
 
@@ -24,6 +24,10 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 		currentProjectData !== null ? currentProjectData.files : null
 	);
 
+	const previousMainFileRef = useRef<string | null>(
+		currentProjectData !== null ? currentProjectData.mainFile : null
+	);
+
 	useEffect(() => {
 		setActiveFile(sandpack.activeFile);
 	}, [sandpack.activeFile, setActiveFile]);
@@ -38,13 +42,30 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 		const newFilePath = getAddedFilePath(previousFilesRef.current, sandpack.files);
 
 		if (
+			previousMainFileRef.current !== null &&
+			hasMainFileChanged(previousMainFileRef.current, sandpack.activeFile)
+		) {
+			previousFilesRef.current = sandpack.files;
+			previousMainFileRef.current = sandpack.activeFile;
+
+			return setCurrentProjectData(
+				(previousState) =>
+					({
+						...previousState,
+						mainFile: sandpack.activeFile,
+						files: sandpack.files
+					} as ProjectContextData)
+			);
+		}
+
+		if (
 			previousFilesRef.current !== null &&
 			hasSandpackFilesChanged(previousFilesRef.current, sandpack.files)
 		) {
 			previousFilesRef.current = sandpack.files;
 			if (
 				currentProjectData?.files !== undefined &&
-				Object.keys(sandpack.files).includes(currentProjectData?.main)
+				Object.keys(sandpack.files).includes(currentProjectData?.mainFile)
 			) {
 				return setCurrentProjectData(
 					(previousState) =>
@@ -59,14 +80,14 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				(previousState) =>
 					({
 						...previousState,
-						main: newFilePath,
+						mainFile: newFilePath,
 						files: sandpack.files
 					} as ProjectContextData)
 			);
 		}
 	}, [
 		currentProjectData?.files,
-		currentProjectData?.main,
+		currentProjectData?.mainFile,
 		sandpack,
 		sandpack.files,
 		setCurrentProjectData

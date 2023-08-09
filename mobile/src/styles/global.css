@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL STYLE */
+
+@layer base {
+	/* Custom style for inputs browser autofill */
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		-webkit-text-fill-color: var(--color-white);
+		-webkit-box-shadow: inset 0 0 0px 1000px var(--color-dark-800);
+	}
+
+	/* just to trigger label animation when browser autofill is active */
+	.detect-autofill:-webkit-autofill ~ label {
+	}
+
+	.detect-autofill:not(:-webkit-autofill) ~ label {
+	}
+}
+
+/* CUSTOM CLASSES */
+
+@layer components {
+	.full-center {
+		@apply flex items-center justify-center;
+	}
+
+	.full-center-col {
+		@apply flex flex-col items-center justify-center;
+	}
+
+	.h1 {
+		@apply text-5xl;
+		@apply font-black;
+		@apply text-white;
+	}
+
+	.h2 {
+		@apply text-4xl;
+		@apply font-bold;
+		@apply text-white;
+	}
+
+	.h3 {
+		@apply text-2xl;
+		@apply font-semibold;
+		@apply text-white;
+	}
+
+	.h4 {
+		@apply text-xl;
+		@apply font-medium;
+		@apply text-white;
+	}
+
+	.p {
+		@apply text-base;
+		@apply text-white;
+	}
+}

@@ -21,7 +21,7 @@ export const filesFixtures: SandpackFiles = {
 			"typescript": "^4.0.0",
 			"jest": "^27.0.0"
 			},
-			"main": "src/index.tsx"
+			"mainFile": "src/index.tsx"
 			}`
 	},
 	'/src/index.tsx': {

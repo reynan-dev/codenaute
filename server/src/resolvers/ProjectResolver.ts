@@ -26,7 +26,15 @@ export class ProjectResolver {
 	@Mutation(() => Project)
 	async createProject(
 		@Args()
-		{ name, isTemplate, isPublic, sandpackTemplate, files, environment, main }: createProjectArgs,
+		{
+			name,
+			isTemplate,
+			isPublic,
+			sandpackTemplate,
+			files,
+			environment,
+			mainFile
+		}: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
@@ -38,7 +46,7 @@ export class ProjectResolver {
 			isPublic: isPublic,
 			sandpackTemplate: sandpackTemplate,
 			environment: environment,
-			main: main,
+			mainFile: mainFile,
 			files: files
 		});
 	}
@@ -155,8 +163,9 @@ export class ProjectResolver {
 			files,
 			projectId,
 			environment,
-			main
-		}: updateProjectArgs
+			mainFile
+		}: updateProjectArgs,
+		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		return this.ProjectServices.update(projectId, {
 			name: name,
@@ -164,7 +173,7 @@ export class ProjectResolver {
 			isPublic: isPublic,
 			sandpackTemplate: sandpackTemplate,
 			files: files,
-			main: main,
+			mainFile: mainFile,
 			environment: environment
 		});
 	}

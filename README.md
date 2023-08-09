@@ -1,6 +1,7 @@
 # Welcome to CODENAUTE 🧑🚀
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
+⚠️ WARNING: because of Expo bad support of monorepos, please use npm for the mobile app, or use the makefile commands.
 
 ## IDE configuration
 
@@ -50,7 +51,7 @@ Now you are ready !
 
 As a developer, to work on the project on everyday, you will certainly want to start the applications seperately in **debug mode** :
 
-Run `make start-client`, `make start-moobile` and `make start-server` in differents terminals.
+Run `make start-client`, `make start-mobile`, and `make start-server` in differents terminals (in debug mode).
 
 You can also see logs of database by running `make start-database`.
 
@@ -133,3 +134,15 @@ To maintain some minimal standards within our codebase, we rely on [prettier](ht
 ### Node version
 
 We did set up a `.nvmrc` file to allow developers to quickly change and use the right node version. See [nvm](https://github.com/nvm-sh/nvm) package and [deeper shell integration](https://github.com/nvm-sh/nvm#deeper-shell-integration).
+
+## How to deploy
+
+To deploy the application, we need to create a new PR comparing `main` to base `production`.It's mandatory write the `description` with `release template` and put a label, to undestand the labels we can base on this table:
+
+| Label name      | Description                                                                                                |
+| --------------- | ---------------------------------------------------------------------------------------------------------- |
+| `release/major` | ✨ Modify the first number of version, used to delivery big features. Example: v**X**.0.0                  |
+| `release/minor` | 📚 Modify the second number of version, used to delivery smalls features or refactors. Example: v1.**X**.0 |
+| `release/patch` | 🐛 Modify the third number of version, used to fix some bugs. Example: v1.0.**X**                          |
+
+After merged this pull request, will be launch workflows to create tags and release notes and the workflow to deploy into production.
