@@ -23,7 +23,7 @@ export const CreateProjectPage = () => {
 			name: DEFAULT_PROJECT_VALUES.name,
 			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
 			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
-			main: SANDBOX_TEMPLATES[sandpackTemplate].main,
+			mainFile: SANDBOX_TEMPLATES[sandpackTemplate].main,
 			sandpackTemplate,
 			isPublic: DEFAULT_PROJECT_VALUES.isPublic,
 			isTemplate: DEFAULT_PROJECT_VALUES.isPublic

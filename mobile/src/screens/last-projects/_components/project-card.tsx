@@ -19,10 +19,10 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project, containerStyle }: ProjectCardProps) => {
 	const code =
-		project.files[project.main] !== undefined
-			? typeof project.files[project.main] === 'string'
-				? (project.files[project.main] as string)
-				: (project.files[project.main] as SandpackFile).code
+		project.files[project.mainFile] !== undefined
+			? typeof project.files[project.mainFile] === 'string'
+				? (project.files[project.mainFile] as string)
+				: (project.files[project.mainFile] as SandpackFile).code
 			: null;
 
 	return (

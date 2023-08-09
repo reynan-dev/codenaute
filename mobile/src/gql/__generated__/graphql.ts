@@ -72,7 +72,7 @@ export type MutationCreateProjectArgs = {
 	files: Scalars['String']['input'];
 	isPublic: Scalars['Boolean']['input'];
 	isTemplate: Scalars['Boolean']['input'];
-	main: Scalars['String']['input'];
+	mainFile: Scalars['String']['input'];
 	memberId: Scalars['String']['input'];
 	name: Scalars['String']['input'];
 	sandpackTemplate: Scalars['String']['input'];
@@ -140,7 +140,7 @@ export type MutationUpdateProjectArgs = {
 	files: Scalars['String']['input'];
 	isPublic: Scalars['Boolean']['input'];
 	isTemplate: Scalars['Boolean']['input'];
-	main: Scalars['String']['input'];
+	mainFile: Scalars['String']['input'];
 	name: Scalars['String']['input'];
 	projectId: Scalars['String']['input'];
 	sandpackTemplate: Scalars['String']['input'];
@@ -175,7 +175,7 @@ export type Project = {
 	id: Scalars['ID']['output'];
 	isPublic: Scalars['Boolean']['output'];
 	isTemplate: Scalars['Boolean']['output'];
-	main: Scalars['String']['output'];
+	mainFile: Scalars['String']['output'];
 	name: Scalars['String']['output'];
 	owner: Member;
 	sandpackTemplate: Scalars['String']['output'];
@@ -237,7 +237,7 @@ export type GetAllPublicProjectsQuery = {
 		id: string;
 		files: string;
 		isTemplate: boolean;
-		main: string;
+		mainFile: string;
 		name: string;
 		createdAt: any;
 		environment: string;
@@ -265,7 +265,7 @@ export const GetAllPublicProjectsDocument = {
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'main' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'mainFile' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
 								{

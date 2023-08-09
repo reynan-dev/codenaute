@@ -26,7 +26,7 @@ describe('Find All Public Projects', () => {
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				isPublic: true,
 				environment: 'create-react-app',
-				main: '/App.tsx',
+				mainFile: '/App.tsx',
 				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 

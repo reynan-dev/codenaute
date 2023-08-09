@@ -72,19 +72,19 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 				handleRenameStart(selectedNode, event);
 			}
 			if (action === 'set-main' && selectedNode !== null) {
-				if (selectedNode.path !== currentProjectData?.main && currentProjectData !== null) {
-					currentProjectData.main = selectedNode.path;
-					sandpack.setActiveFile(currentProjectData.main);
+				if (selectedNode.path !== currentProjectData?.mainFile && currentProjectData !== null) {
+					currentProjectData.mainFile = selectedNode.path;
+					sandpack.setActiveFile(currentProjectData.mainFile);
 
 					toast.success('Main file successfully set.');
 				}
 			}
 			if (action === 'delete' && selectedNode !== null) {
-				if (selectedNode.path === currentProjectData?.main) {
+				if (selectedNode.path === currentProjectData?.mainFile) {
 					const arrayOfMainFile = Object.keys(currentProjectData?.files).filter(
 						(file) => file !== selectedNode.path
 					);
-					currentProjectData.main = arrayOfMainFile[0];
+					currentProjectData.mainFile = arrayOfMainFile[0];
 				}
 				sandpack.deleteFile(selectedNode.path);
 

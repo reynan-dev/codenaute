@@ -66,10 +66,10 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 						{state.filteredProjects !== null && state.filteredProjects.length !== 0 ? (
 							state.filteredProjects?.map((project) => {
 								const code =
-									project.files[project.main] !== undefined
-										? typeof project.files[project.main] === 'string'
-											? (project.files[project.main] as string)
-											: (project.files[project.main] as SandpackFile).code
+									project.files[project.mainFile] !== undefined
+										? typeof project.files[project.mainFile] === 'string'
+											? (project.files[project.mainFile] as string)
+											: (project.files[project.mainFile] as SandpackFile).code
 										: null;
 								return (
 									<Link
@@ -112,7 +112,7 @@ export const MyProjectsPage = ({ state }: MyProjectsPageProps) => {
 													theme=''
 													language={
 														getLanguageNameFromExtension(
-															project.files[project.main].toString()
+															project.files[project.mainFile].toString()
 														)?.toLocaleLowerCase() ?? 'javascript'
 													}
 												>

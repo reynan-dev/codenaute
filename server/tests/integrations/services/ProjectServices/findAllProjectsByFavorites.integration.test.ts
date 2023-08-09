@@ -43,7 +43,7 @@ describe('Find All Projects By Favorite Id', () => {
 				owner: await MemberService.signUp(ownerData.username, ownerData.email, ownerData.password),
 				favoritedBy: [favoringUser],
 				environment: 'create-react-app',
-				main: '/App.tsx',
+				mainFile: '/App.tsx',
 				sandpackTemplate: SandpackTemplates.REACT_TS
 			};
 

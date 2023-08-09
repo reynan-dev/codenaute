@@ -63,7 +63,7 @@ export class Project extends BaseModel {
 	@Column()
 	@Field()
 	@IsString()
-	main: string;
+	mainFile: string;
 
 	@Column('boolean', { default: false })
 	@Field()

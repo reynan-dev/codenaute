@@ -25,7 +25,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	);
 
 	const previousMainFileRef = useRef<string | null>(
-		currentProjectData !== null ? currentProjectData.main : null
+		currentProjectData !== null ? currentProjectData.mainFile : null
 	);
 
 	useEffect(() => {
@@ -52,7 +52,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				(previousState) =>
 					({
 						...previousState,
-						main: sandpack.activeFile,
+						mainFile: sandpack.activeFile,
 						files: sandpack.files
 					} as ProjectContextData)
 			);
@@ -65,7 +65,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 			previousFilesRef.current = sandpack.files;
 			if (
 				currentProjectData?.files !== undefined &&
-				Object.keys(sandpack.files).includes(currentProjectData?.main)
+				Object.keys(sandpack.files).includes(currentProjectData?.mainFile)
 			) {
 				return setCurrentProjectData(
 					(previousState) =>
@@ -80,14 +80,14 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				(previousState) =>
 					({
 						...previousState,
-						main: newFilePath,
+						mainFile: newFilePath,
 						files: sandpack.files
 					} as ProjectContextData)
 			);
 		}
 	}, [
 		currentProjectData?.files,
-		currentProjectData?.main,
+		currentProjectData?.mainFile,
 		sandpack,
 		sandpack.files,
 		setCurrentProjectData

@@ -14,14 +14,14 @@ export type ProjectState = {
 	name: string;
 	sandpackTemplate: string;
 	files: SandpackFiles;
-	main: string;
+	mainFile: string;
 	ownerUsername: string;
 };
 
 type ProjectDataResponse = {
 	__typename?: 'Project';
 	files: string;
-	main: string;
+	mainFile: string;
 	sandpackTemplate: string;
 	name: string;
 	id: string;
@@ -39,7 +39,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
-		main: data.main,
+		mainFile: data.mainFile,
 		ownerUsername: data.owner.username
 	};
 };
