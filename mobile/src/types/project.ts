@@ -4,7 +4,7 @@ export interface ProjectContextData {
 	sandpackTemplate?: string;
 	files: SandpackFiles;
 	environment: string;
-	main: string;
+	mainFile: string;
 	isPublic: boolean;
 	isTemplate: boolean;
 }

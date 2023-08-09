@@ -12,7 +12,7 @@ type ProjectDataResponse = {
 	id: string;
 	files: string;
 	isTemplate: boolean;
-	main: string;
+	mainFile: string;
 	name: string;
 	createdAt: any;
 	environment: string;
@@ -25,7 +25,7 @@ export type ProjectState = {
 	name: string;
 	sandpackTemplate: string;
 	files: SandpackFiles;
-	main: string;
+	mainFile: string;
 	ownerUsername: string;
 	createdAt: string;
 };
@@ -36,7 +36,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		name: data.name,
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
-		main: data.main,
+		mainFile: data.mainFile,
 		ownerUsername: data.owner.username,
 		createdAt: data.createdAt
 	};

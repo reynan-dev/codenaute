@@ -6,7 +6,7 @@ export const GET_ALL_PUBLIC_PROJECTS = gql`
 			id
 			files
 			isTemplate
-			main
+			mainFile
 			name
 			createdAt
 			owner {
