@@ -2,9 +2,6 @@ import { ExpoConfig } from 'expo/config';
 import COLORS from './src/styles/colors';
 import 'dotenv/config';
 
-// In SDK 46 and lower, use the following import instead:
-// import { ExpoConfig } from '@expo/config-types';
-
 const config: ExpoConfig = {
 	extra: {
 		GRAPHQL_API_URL: process.env.SERVER_URL || '/graphql'
