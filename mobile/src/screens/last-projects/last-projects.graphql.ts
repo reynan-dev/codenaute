@@ -5,7 +5,6 @@ export const GET_ALL_PUBLIC_PROJECTS = gql`
 		getAllPublicProjects {
 			id
 			files
-			isTemplate
 			mainFile
 			name
 			createdAt
