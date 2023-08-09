@@ -5,9 +5,7 @@ beforeAll(async () => {
 	jest.spyOn(console, 'log').mockImplementation(() => {});
 	await Database.start();
 
-	setTimeout(() => {
-		console.trace('Database connection established ✅');
-	}, 3000);
+	setTimeout(() => {}, 3000);
 });
 
 afterAll(async () => {
