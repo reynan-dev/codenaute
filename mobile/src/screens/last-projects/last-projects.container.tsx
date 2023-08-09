@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { LastProjectsPage } from 'screens/last-projects/last-projects.screen';
 import { ProjectState, useGetAllPublicProjects } from 'screens/last-projects/last-projects.service';
 
@@ -10,5 +10,15 @@ export const LastProjectsContainer = () => {
 
 	const { loading } = useGetAllPublicProjects(setProjects);
 
-	return <>{loading ? <Text>Loading...</Text> : <LastProjectsPage projects={projects} />}</>;
+	return (
+		<>
+			{loading ? (
+				<SafeAreaView>
+					<Text>Loading....</Text>
+				</SafeAreaView>
+			) : (
+				<LastProjectsPage projects={projects} />
+			)}
+		</>
+	);
 };

@@ -1,14 +1,14 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
+import useCachedResources from 'hooks/useCachedRessources';
 import React from 'react';
-import { LogBox, StyleSheet, Text, View } from 'react-native';
+import { LogBox, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { twMerge } from 'tailwind-merge';
-import './styles/__generated__/nativewind-output';
-import { Members } from 'components/members';
-import COLORS from 'styles/colors';
 import { LastProjects } from 'screens/last-projects';
+import './styles/__generated__/nativewind-output';
+import { Text } from 'react-native-svg';
+import P from 'components/p';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -22,16 +22,22 @@ export default function App() {
 		cache: new InMemoryCache()
 	});
 
-	return (
-		<SafeAreaProvider>
-			<ApolloProvider client={client}>
-				<View className='flex-1 bg-dark-900 text-white font-archivo'>
-					<LastProjects />
-					<StatusBar style='auto' />
-				</View>
-			</ApolloProvider>
-		</SafeAreaProvider>
-	);
+	const isLoadingComplete = useCachedResources();
+
+	if (!isLoadingComplete) {
+		return <P>PROUT</P>;
+	} else {
+		return (
+			<SafeAreaProvider>
+				<ApolloProvider client={client}>
+					<View className='flex-1 bg-dark-900 text-white font-archivo'>
+						<LastProjects />
+						<StatusBar style='auto' />
+					</View>
+				</ApolloProvider>
+			</SafeAreaProvider>
+		);
+	}
 }
 
 // const styles = StyleSheet.create({
