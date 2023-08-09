@@ -67,10 +67,4 @@ export class MemberServices extends BaseServices {
 	async updateUsername(memberId: UUID, username: string) {
 		return await this.update(memberId, { username });
 	}
-
-	async validEmail(email: string) {
-		const member = await this.findOneBy({ email });
-
-		return await this.update(member.id, { isValidEmail: true });
-	}
 }
