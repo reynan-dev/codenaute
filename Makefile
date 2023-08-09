@@ -5,6 +5,7 @@ install: ## Installing monorepo dependencies
 	cd server && make install
 	@echo "Initializating client"
 	cd client && make install
+	cd mobile && make install
 
 hard-install: ## Installing hard monorepo dependencies
 	@echo "Initializating monorepo setup with hard install"
@@ -15,10 +16,14 @@ hard-install: ## Installing hard monorepo dependencies
 	cd server && make hard-install
 	@echo "Initializating client with hard install"
 	cd client && make hard-install
+	cd mobile && make hard-install
 
 start-client: ## Starting client in debug mode
 	@echo "Starting client in debug mode"
 	cd client && make start-debug
+
+start-mobile: ## Starting server in debug mode
+	cd mobile && make start-debug
 
 start-server: ## Starting server in debug mode
 	@echo "Starting server in debug mode"

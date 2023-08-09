@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL STYLE */
+
+@layer base {
+	html {
+		@apply h-full;
+		@apply bg-dark-900;
+	}
+
+	body {
+		@apply text-white;
+		@apply font-archivo;
+		@apply md:h-full;
+	}
+
+	#root {
+		@apply md:h-full;
+	}
+
+	h1 {
+		@apply text-5xl;
+		@apply font-black;
+	}
+
+	h2 {
+		@apply text-4xl;
+		@apply font-bold;
+	}
+
+	h3 {
+		@apply text-2xl;
+		@apply font-semibold;
+	}
+
+	h4 {
+		@apply text-xl;
+		@apply font-medium;
+	}
+
+	p {
+		@apply text-base;
+	}
+
+	/* Custom style for inputs browser autofill */
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		-webkit-text-fill-color: var(--color-white);
+		-webkit-box-shadow: inset 0 0 0px 1000px var(--color-dark-800);
+	}
+
+	/* just to trigger label animation when browser autofill is active */
+	.detect-autofill:-webkit-autofill ~ label {
+	}
+
+	.detect-autofill:not(:-webkit-autofill) ~ label {
+	}
+}
+
+/* CUSTOM CLASSES */
+
+@layer components {
+	.full-center {
+		@apply flex items-center justify-center;
+	}
+
+	.full-center-col {
+		@apply flex flex-col items-center justify-center;
+	}
+}

@@ -65,8 +65,19 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 		};
 
 		const onContextMenuAction = (action: string, node: TreeNode, event: React.MouseEvent) => {
+			if (action === 'open' && selectedNode !== null) {
+				sandpack.openFile(selectedNode.path);
+			}
 			if (action === 'rename' && selectedNode !== null) {
 				handleRenameStart(selectedNode, event);
+			}
+			if (action === 'set-main' && selectedNode !== null) {
+				if (selectedNode.path !== currentProjectData?.main && currentProjectData !== null) {
+					currentProjectData.main = selectedNode.path;
+					sandpack.setActiveFile(currentProjectData.main);
+
+					toast.success('Main file successfully set.');
+				}
 			}
 			if (action === 'delete' && selectedNode !== null) {
 				if (selectedNode.path === currentProjectData?.mainFile) {
@@ -76,6 +87,8 @@ export const CustomFileExplorer = ({ className, files }: CustomFileExplorerProps
 					currentProjectData.mainFile = arrayOfMainFile[0];
 				}
 				sandpack.deleteFile(selectedNode.path);
+
+				toast.success('File successfully deleted.');
 			}
 		};
 
