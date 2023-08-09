@@ -1,14 +1,6 @@
 import { IsBoolean, IsDate, IsString, IsEnum } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import {
-	Column,
-	CreateDateColumn,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToMany,
-	ManyToOne
-} from 'typeorm';
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Member } from './Member';
 import { BaseModel } from './base/BaseModel';
@@ -26,22 +18,6 @@ export class Project extends BaseModel {
 	@ManyToOne(() => Member, (member) => member.ownedProjects, { eager: true, onDelete: 'CASCADE' })
 	@JoinColumn()
 	owner: Member;
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, {
-		eager: true,
-		nullable: true,
-		onDelete: 'CASCADE'
-	})
-	editors: Member[];
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritedProjects, {
-		eager: true,
-		nullable: true,
-		onDelete: 'CASCADE'
-	})
-	favoritedBy: Member[];
 
 	@Column({
 		type: 'enum',
