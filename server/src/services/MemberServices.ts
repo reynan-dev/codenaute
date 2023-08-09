@@ -18,40 +18,6 @@ export class MemberServices extends BaseServices {
 		return true;
 	}
 
-	async findOneByEmail(email: string): Promise<Member | null> {
-		const member = await this.repository.findOne({
-			where: { email: email },
-			relations: [
-				'ownedProjects',
-				'projectsInvitedOn',
-				'favoritedProjects',
-				'followers',
-				'following'
-			]
-		});
-
-		if (!member) return null;
-
-		return member;
-	}
-
-	async findOneById(memberId: UUID): Promise<Member | null> {
-		const member = await this.repository.findOne({
-			where: { id: memberId },
-			relations: [
-				'ownedProjects',
-				'projectsInvitedOn',
-				'favoritedProjects',
-				'followers',
-				'following'
-			]
-		});
-
-		if (!member) return null;
-
-		return member;
-	}
-
 	async findOneBySessionToken(token: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { sessions: { token } },
@@ -67,12 +33,6 @@ export class MemberServices extends BaseServices {
 		if (!member) return null;
 
 		return member;
-	}
-
-	async followMember(member: Member, memberToFollow: Member) {
-		member.following.push(memberToFollow);
-
-		return this.repository.save(member);
 	}
 
 	async signIn(email: string, password: string) {
