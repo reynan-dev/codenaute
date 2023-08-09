@@ -47,7 +47,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
 			setIsProjectSaved(
 				!hasSandpackFilesChanged(lastSavedProjectData?.files, currentProjectData?.files) &&
 					!hasProjectNameChanged &&
-					!hasMainFileChanged(lastSavedProjectData?.main, currentProjectData?.main)
+					!hasMainFileChanged(lastSavedProjectData?.mainFile, currentProjectData?.mainFile)
 			);
 		}
 	}, [currentProjectData, lastSavedProjectData]);

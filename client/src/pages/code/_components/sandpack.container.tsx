@@ -25,7 +25,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 	);
 
 	const previousMainFileRef = useRef<string | null>(
-		currentProjectData !== null ? currentProjectData.main : null
+		currentProjectData !== null ? currentProjectData.mainFile : null
 	);
 
 	useEffect(() => {
@@ -52,7 +52,7 @@ export const SandpackContainer = ({ children }: SandpackContainerProps) => {
 				(previousState) =>
 					({
 						...previousState,
-						main: sandpack.activeFile,
+						mainFile: sandpack.activeFile,
 						files: sandpack.files
 					} as ProjectContextData)
 			);
