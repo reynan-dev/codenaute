@@ -334,6 +334,16 @@ export type CreateProjectMutation = {
 	};
 };
 
+export type UpdateProjectIsPublicMutationVariables = Exact<{
+	isPublic: Scalars['Boolean'];
+	projectId: Scalars['String'];
+}>;
+
+export type UpdateProjectIsPublicMutation = {
+	__typename?: 'Mutation';
+	updateProjectIsPublic: { __typename?: 'Project'; id: string; isPublic: boolean };
+};
+
 export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type SignOutMutation = { __typename?: 'Mutation'; signOut: boolean };
@@ -953,6 +963,62 @@ export const CreateProjectDocument = {
 		}
 	]
 } as unknown as DocumentNode<CreateProjectMutation, CreateProjectMutationVariables>;
+export const UpdateProjectIsPublicDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'UpdateProjectIsPublic' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updateProjectIsPublic' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'isPublic' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'projectId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<UpdateProjectIsPublicMutation, UpdateProjectIsPublicMutationVariables>;
 export const SignOutDocument = {
 	kind: 'Document',
 	definitions: [

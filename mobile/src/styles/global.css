@@ -5,45 +5,6 @@
 /* GLOBAL STYLE */
 
 @layer base {
-	html {
-		@apply h-full;
-		@apply bg-dark-900;
-	}
-
-	body {
-		@apply text-white;
-		@apply font-archivo;
-		@apply md:h-full;
-	}
-
-	#root {
-		@apply md:h-full;
-	}
-
-	h1 {
-		@apply text-5xl;
-		@apply font-black;
-	}
-
-	h2 {
-		@apply text-4xl;
-		@apply font-bold;
-	}
-
-	h3 {
-		@apply text-2xl;
-		@apply font-semibold;
-	}
-
-	h4 {
-		@apply text-xl;
-		@apply font-medium;
-	}
-
-	p {
-		@apply text-base;
-	}
-
 	/* Custom style for inputs browser autofill */
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
@@ -74,5 +35,34 @@
 
 	.full-center-col {
 		@apply flex flex-col items-center justify-center;
+	}
+
+	.h1 {
+		@apply text-5xl;
+		@apply font-black;
+		@apply text-white;
+	}
+
+	.h2 {
+		@apply text-4xl;
+		@apply font-bold;
+		@apply text-white;
+	}
+
+	.h3 {
+		@apply text-2xl;
+		@apply font-semibold;
+		@apply text-white;
+	}
+
+	.h4 {
+		@apply text-xl;
+		@apply font-medium;
+		@apply text-white;
+	}
+
+	.p {
+		@apply text-base;
+		@apply text-white;
 	}
 }

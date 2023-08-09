@@ -1,7 +1,3 @@
 require('dotenv').config();
-
-export default {
-	extra: {
-		GRAPHQL_API_URL: process.env.SERVER_URL || '/graphql'
-	}
-};
+require('ts-node/register');
+module.exports = require('./app.config.ts');

@@ -7,7 +7,7 @@ import {
 import { CREATE_PROJECT_MUTATION } from 'gql/operations/create-project.graphql';
 import { GET_ALL_MEMBERS_QUERY } from 'gql/operations/get-all-members.graphql';
 import { useEffect } from 'react';
-import { TextProps, Button, Text } from 'react-native';
+import { Button, Text, TextProps } from 'react-native';
 
 export function Members(props: TextProps) {
 	const [createProjectMutation, { data, loading }] = useMutation<

@@ -18,10 +18,12 @@ export class BaseModel extends BaseEntity {
 	id: UUID;
 
 	@CreateDateColumn()
+	@Field()
 	@IsDate()
-	createAt: Date;
+	createdAt: Date;
 
 	@UpdateDateColumn()
+	@Field()
 	@IsDate()
 	updateAt: Date;
 }
