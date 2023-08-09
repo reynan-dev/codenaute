@@ -24,6 +24,7 @@ export type AuthInterface = {
 
 export type Member = {
 	__typename?: 'Member';
+	createdAt: Scalars['DateTime'];
 	email: Scalars['String'];
 	favoritedProjects?: Maybe<Array<Project>>;
 	followers?: Maybe<Array<Member>>;
@@ -33,6 +34,7 @@ export type Member = {
 	ownedProjects?: Maybe<Array<Project>>;
 	projectsInvitedOn?: Maybe<Array<Project>>;
 	sessions?: Maybe<Array<Session>>;
+	updateAt: Scalars['DateTime'];
 	username: Scalars['String'];
 };
 
@@ -159,6 +161,7 @@ export type MutationValidEmailArgs = {
 
 export type Project = {
 	__typename?: 'Project';
+	createdAt: Scalars['DateTime'];
 	editors?: Maybe<Array<Member>>;
 	environment: Scalars['String'];
 	favoritedBy?: Maybe<Array<Member>>;
@@ -170,6 +173,7 @@ export type Project = {
 	name: Scalars['String'];
 	owner: Member;
 	sandpackTemplate: Scalars['String'];
+	updateAt: Scalars['DateTime'];
 };
 
 export type Query = {
@@ -179,7 +183,7 @@ export type Query = {
 	getAllProjectsByEditor: Array<Project>;
 	getAllProjectsByOwner: Array<Project>;
 	getAllProjectsByTemplate: Array<Project>;
-	getAllProjectsPublicProjects: Array<Project>;
+	getAllPublicProjects: Array<Project>;
 	getMemberByEmail: Member;
 	getMemberById: Member;
 	getProjectById: Project;
