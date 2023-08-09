@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { ActivityIndicator, SafeAreaView } from 'react-native';
 import { LastProjectsPage } from 'screens/last-projects/last-projects.screen';
 import { ProjectState, useGetAllPublicProjects } from 'screens/last-projects/last-projects.service';
 
@@ -13,8 +13,8 @@ export const LastProjectsContainer = () => {
 	return (
 		<>
 			{loading ? (
-				<SafeAreaView>
-					<Text>Loading....</Text>
+				<SafeAreaView className='flex-1'>
+					<ActivityIndicator className='flex-1 justify-center items-center' />
 				</SafeAreaView>
 			) : (
 				<LastProjectsPage projects={projects} />
