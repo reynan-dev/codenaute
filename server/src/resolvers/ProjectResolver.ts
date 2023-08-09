@@ -2,12 +2,7 @@ import { Member } from 'models/Member';
 import { Project } from 'models/Project';
 import {
 	createProjectArgs,
-	deleteProjectArgs,
-	favoriteProjectArgs,
-	getAllProjectsByMemberArgs,
-	getAllProjectsByTemplateArgs,
 	getProjectByIdArgs,
-	shareProjectArgs,
 	updateProjectArgs
 } from 'resolvers/args/ProjectArgs';
 import { MemberServices } from 'services/MemberServices';
@@ -52,64 +47,12 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Project)
-	async deleteProject(@Args() { projectId }: deleteProjectArgs): Promise<Project> {
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (!project) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		return this.ProjectServices.delete(projectId);
-	}
-
-	@Authorized()
-	@Mutation(() => Project)
-	async favoriteProject(
-		@Args() { projectId }: favoriteProjectArgs,
-		@Ctx() context: GlobalContext
-	): Promise<Project> {
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		if (project.favoritedBy.includes(context.user))
-			throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
-
-		return this.ProjectServices.addToFavorite([context.user as Member], project);
-	}
-
-	@Authorized()
-	@Query(() => Project)
-	async getAllFavoritedProjectsByMember(
-		@Args() { memberId }: getAllProjectsByMemberArgs
-	): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByFavorites(memberId);
-	}
-
-	@Authorized()
-	@Query(() => Project)
-	async getAllProjectsByEditor(@Ctx() context: GlobalContext): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByEditorId(context.user?.id as UUID);
-	}
-
-	@Authorized()
 	@Query(() => Project)
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
-	@Authorized()
-	@Query(() => Project)
-	async getAllProjectsByTemplate(
-		@Args() { template }: getAllProjectsByTemplateArgs
-	): Promise<Project[]> {
-		// TODO: Need to add pagination here
-		return this.ProjectServices.findAllByTemplate(template);
-	}
-
-	@Authorized()
 	@Query(() => Project)
 	async getAllPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
@@ -127,28 +70,6 @@ export class ProjectResolver {
 		if (project.owner.id !== context.user?.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
 
 		return project;
-	}
-
-	@Authorized()
-	@Mutation(() => Project)
-	async shareProject(@Args() { projectId, membersId }: shareProjectArgs): Promise<Project> {
-		const members = new Array();
-
-		membersId.map(async (id) => {
-			const member = (await this.MemberServices.findById(id)) as Member;
-			if (!member) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
-
-			const project = await this.ProjectServices.findById(projectId);
-			if (project.editors.includes(...members)) throw new Error(ErrorMessages.MEMBER_ALREADY_ADDED);
-
-			members.push(member);
-		});
-
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (!project) throw new Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		return this.ProjectServices.share(project, members);
 	}
 
 	@Authorized()
@@ -175,6 +96,21 @@ export class ProjectResolver {
 			files: files,
 			mainFile: mainFile,
 			environment: environment
+		});
+	}
+
+	@Authorized()
+	@Mutation(() => Boolean)
+	async updateProjectIsPublic(
+		@Args() { projectId, isPublic }: updateProjectArgs,
+		@Ctx() context: GlobalContext
+	): Promise<Boolean> {
+		const project = await this.ProjectServices.findById(projectId);
+
+		if (project.owner.id !== context.user?.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
+
+		return this.ProjectServices.update(projectId, {
+			isPublic: isPublic
 		});
 	}
 }

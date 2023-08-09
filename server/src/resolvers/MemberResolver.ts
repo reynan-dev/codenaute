@@ -1,18 +1,15 @@
 import { compareSync } from 'bcryptjs';
 import { UUID } from 'utils/types/Uuid';
-import { Args, Mutation, Ctx, Query, Resolver, Authorized } from 'type-graphql';
+import { Args, Mutation, Ctx, Query, Resolver, Authorized, Arg } from 'type-graphql';
 import { Member } from 'models/Member';
 import { MemberServices } from 'services/MemberServices';
 import {
 	DeleteMemberAccountArgs,
 	SignInArgs,
 	SignUpArgs,
-	FindMemberByIdArgs,
 	UpdateMemberEmailArgs,
 	UpdateMemberPasswordArgs,
-	UpdateMemberUsernameArgs,
-	FollowMemberArgs,
-	FindMemberByEmailArgs
+	UpdateMemberUsernameArgs
 } from 'resolvers/args/MemberArgs';
 import { GlobalContext } from 'utils/types/GlobalContext';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
@@ -37,38 +34,8 @@ export class MemberResolver {
 
 	@Authorized()
 	@Mutation(() => Member)
-	async followMember(
-		@Args() { memberId }: FollowMemberArgs,
-		@Ctx() context: GlobalContext
-	): Promise<Member> {
-		if (context.user?.id === memberId) throw Error(ErrorMessages.CANNOT_FOLLOW_SELF_ERROR_MESSAGE);
-
-		const memberToFollow = (await this.MemberServices.findOneById(memberId)) as Member;
-
-		if (!context.user || !memberToFollow) throw Error(ErrorMessages.MEMBER_NOT_FOUND);
-
-		if (context.user.following.includes(memberToFollow))
-			throw Error(ErrorMessages.ALREADY_FOLLOWING_MEMBER_ERROR_MESSAGE);
-
-		return await this.MemberServices.followMember(context.user as Member, memberToFollow);
-	}
-
-	@Authorized()
-	@Query(() => [Member])
-	async getAllMembers(): Promise<Member[]> {
-		return await this.MemberServices.find();
-	}
-
-	@Authorized()
-	@Query(() => Member)
-	async getMemberByEmail(@Args() { email }: FindMemberByEmailArgs): Promise<Member | null> {
-		return await this.MemberServices.findOneByEmail(email);
-	}
-
-	@Authorized()
-	@Query(() => Member)
-	async getMemberById(@Args() { memberId }: FindMemberByIdArgs): Promise<Member | null> {
-		return await this.MemberServices.findOneById(memberId);
+	async getMemberByEmail(@Arg('email') email: string): Promise<Member | null> {
+		return await this.MemberServices.findOneBy({ email });
 	}
 
 	@Authorized()
@@ -78,10 +45,7 @@ export class MemberResolver {
 	}
 
 	@Mutation(() => AuthInterface)
-	async signIn(
-		@Args() { email, password }: SignInArgs,
-		@Ctx() context: GlobalContext
-	): Promise<AuthInterface> {
+	async signIn(@Args() { email, password }: SignInArgs): Promise<AuthInterface> {
 		const { user, session } = await this.MemberServices.signIn(email, password);
 
 		const cookies = Cookie.setSessionToken(session);

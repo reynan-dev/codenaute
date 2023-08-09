@@ -36,49 +36,10 @@ export class createProjectArgs {
 }
 
 @ArgsType()
-export class deleteProjectArgs {
-	@Field()
-	projectId: UUID;
-}
-
-@ArgsType()
-export class favoriteProjectArgs {
-	@Field()
-	projectId: UUID;
-}
-
-@ArgsType()
-export class getAllProjectsByMemberArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
-export class getAllProjectsByTemplateArgs {
-	@Field()
-	template: SandpackTemplates;
-}
-
-@ArgsType()
 export class getProjectByIdArgs {
 	@Field(() => ID)
 	@IsUUID()
 	projectId: UUID;
-}
-
-@ArgsType()
-export class getProjectsByNameArgs {
-	@Field()
-	projectName: string;
-}
-
-@ArgsType()
-export class shareProjectArgs {
-	@Field()
-	projectId: UUID;
-
-	@Field(() => [String])
-	membersId: UUID[];
 }
 
 @ArgsType()

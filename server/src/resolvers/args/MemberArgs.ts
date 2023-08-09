@@ -16,24 +16,6 @@ export class DeleteMemberAccountArgs {
 }
 
 @ArgsType()
-export class FindMemberByEmailArgs {
-	@Field()
-	email: string;
-}
-
-@ArgsType()
-export class FindMemberByIdArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
-export class FollowMemberArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
 export class SignInArgs {
 	@Field()
 	@Matches(emailRegExp, { message: ErrorMessages.INVALID_EMAIL_ERROR_MESSAGE })
