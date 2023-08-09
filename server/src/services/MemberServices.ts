@@ -21,13 +21,7 @@ export class MemberServices extends BaseServices {
 	async findOneBySessionToken(token: string): Promise<Member | null> {
 		const member = await this.repository.findOne({
 			where: { sessions: { token } },
-			relations: [
-				'ownedProjects',
-				'projectsInvitedOn',
-				'favoritedProjects',
-				'followers',
-				'following'
-			]
+			relations: ['ownedProjects']
 		});
 
 		if (!member) return null;

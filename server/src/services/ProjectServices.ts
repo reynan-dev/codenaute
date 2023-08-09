@@ -20,7 +20,7 @@ export class ProjectServices extends BaseServices {
 	async findAllPublic(): Promise<Project[]> {
 		return this.repository.find({
 			where: { isPublic: true },
-			relations: ['owner', 'editors', 'favoritedBy']
+			relations: ['owner']
 		});
 	}
 }
