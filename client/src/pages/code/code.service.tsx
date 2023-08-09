@@ -132,7 +132,6 @@ export const useUpdateProjectService = () => {
 				variables: {
 					name: project.name,
 					projectId: project.id,
-					isTemplate: project.isTemplate,
 					isPublic: project.isPublic,
 					sandpackTemplate: project.sandpackTemplate ?? '',
 					files: JSON.stringify(project.files),
