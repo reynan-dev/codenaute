@@ -10,15 +10,23 @@ export const CreateProjectPage = () => {
 
 	const { createProject } = useCreateProjectService();
 
+	const DEFAULT_PROJECT_VALUES = {
+		isPublic: true,
+		isTemplate: false,
+		name: 'untitled'
+	};
+
 	const handleOnClick = async (sandpackTemplate: SandpackTemplate | undefined) => {
 		if (sandpackTemplate === undefined) return console.error('ERROR');
 
 		return await createProject({
-			name: 'untitled',
+			name: DEFAULT_PROJECT_VALUES.name,
 			files: SANDBOX_TEMPLATES[sandpackTemplate].files,
 			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
 			mainFile: SANDBOX_TEMPLATES[sandpackTemplate].main,
-			sandpackTemplate
+			sandpackTemplate,
+			isPublic: DEFAULT_PROJECT_VALUES.isPublic,
+			isTemplate: DEFAULT_PROJECT_VALUES.isPublic
 		});
 	};
 

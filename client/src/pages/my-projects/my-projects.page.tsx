@@ -12,6 +12,7 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import COLORS from 'styles/colors';
 import { twJoin } from 'tailwind-merge';
 import { SandpackTemplate } from 'types/sandpack';
+
 interface MyProjectsPageProps {
 	state: ProjectsPageState;
 }

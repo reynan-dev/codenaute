@@ -23,7 +23,7 @@ export class ProjectResolver {
 	MemberServices: MemberServices = new MemberServices();
 
 	@Query(() => [Project])
-	async getAllProjectsPublicProjects(): Promise<Project[]> {
+	async getAllPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
 	}

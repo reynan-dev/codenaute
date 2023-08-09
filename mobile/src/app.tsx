@@ -1,13 +1,14 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
+import useCachedResources from 'hooks/useCachedRessources';
 import React from 'react';
-import { LogBox, StyleSheet, Text, View } from 'react-native';
+import { LogBox, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { twMerge } from 'tailwind-merge';
+import { LastProjects } from 'screens/last-projects';
 import './styles/__generated__/nativewind-output';
-import { Members } from 'components/members';
-import COLORS from 'styles/colors';
+import { Text } from 'react-native-svg';
+import P from 'components/p';
 
 export default function App() {
 	LogBox.ignoreAllLogs();
@@ -21,29 +22,20 @@ export default function App() {
 		cache: new InMemoryCache()
 	});
 
-	return (
-		<SafeAreaProvider>
-			<ApolloProvider client={client}>
-				<View style={styles.container}>
-					<Text className={twMerge('text-yellow-500', 'font-bold', 'bg-black')}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Text style={{ backgroundColor: COLORS.SECONDARY['DEFAULT'] }}>
-						Open up App.tsx to start working on your app!
-					</Text>
-					<Members />
-					<StatusBar style='auto' />
-				</View>
-			</ApolloProvider>
-		</SafeAreaProvider>
-	);
-}
+	const isLoadingComplete = useCachedResources();
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center'
+	if (!isLoadingComplete) {
+		return <P>PROUT</P>;
+	} else {
+		return (
+			<SafeAreaProvider>
+				<ApolloProvider client={client}>
+					<View className='flex-1 bg-dark-900 text-white font-archivo'>
+						<LastProjects />
+						<StatusBar style='auto' />
+					</View>
+				</ApolloProvider>
+			</SafeAreaProvider>
+		);
 	}
-});
+}
