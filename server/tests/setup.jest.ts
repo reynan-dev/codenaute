@@ -6,7 +6,7 @@ beforeAll(async () => {
 	await Database.start();
 
 	setTimeout(() => {
-		console.info('Database connection established ✅');
+		console.trace('Database connection established ✅');
 	}, 3000);
 });
 
