@@ -45,7 +45,9 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
-		main: project.main
+		main: project.main,
+		isPublic: project.isPublic,
+		isTemplate: project.isTemplate
 	});
 	setCurrentProjectData({
 		id: project.id,
@@ -53,7 +55,9 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		sandpackTemplate: project.sandpackTemplate,
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
-		main: project.main
+		main: project.main,
+		isPublic: project.isPublic,
+		isTemplate: project.isTemplate
 	});
 };
 
@@ -64,7 +68,9 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		sandpackTemplate: data.sandpackTemplate,
 		files: JSON.parse(data.files) as SandpackFiles,
 		environment: data.environment,
-		main: data.main
+		main: data.main,
+		isPublic: data.isPublic,
+		isTemplate: data.isTemplate
 	};
 };
 
@@ -126,8 +132,8 @@ export const useUpdateProjectService = () => {
 				variables: {
 					name: project.name,
 					projectId: project.id,
-					isTemplate: false,
-					isPublic: false,
+					isTemplate: project.isTemplate,
+					isPublic: project.isPublic,
 					sandpackTemplate: project.sandpackTemplate ?? '',
 					files: JSON.stringify(project.files),
 					environment: project.environment,
