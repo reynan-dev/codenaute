@@ -1,6 +1,6 @@
 import { IsBoolean, IsDate, IsEmail, IsString } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import { Column, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index, OneToMany } from 'typeorm';
 
 import { BaseModel } from './base/BaseModel';
 import { Project } from './Project';
@@ -20,11 +20,6 @@ export class Member extends BaseModel {
 	@Index({ unique: true })
 	email: string;
 
-	@Column('boolean', { default: false })
-	@Field()
-	@IsBoolean()
-	isValidEmail: boolean;
-
 	@Column()
 	@IsString()
 	hashedPassword: string;
@@ -36,25 +31,6 @@ export class Member extends BaseModel {
 	@Field(() => [Project], { nullable: true, defaultValue: [] })
 	@OneToMany(() => Project, (project) => project.owner, { nullable: true, cascade: true })
 	ownedProjects: Project[];
-
-	@Field(() => [Project], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Project, (project) => project.editors, { nullable: true, cascade: true })
-	@JoinTable()
-	projectsInvitedOn: Project[];
-
-	@Field(() => [Project], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Project, (project) => project.favoritedBy, { nullable: true, cascade: true })
-	@JoinTable()
-	favoritedProjects: Project[];
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.following, { nullable: true })
-	@JoinTable()
-	followers: Member[];
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.followers, { nullable: true, cascade: true })
-	following: Member[];
 
 	@DeleteDateColumn()
 	@IsDate()

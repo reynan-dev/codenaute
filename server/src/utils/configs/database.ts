@@ -85,7 +85,7 @@ export abstract class Database {
 		synchronize: this.synchronize
 	});
 
-	static entities() {
+	public static entities() {
 		return this._dataSource.entityMetadatas;
 	}
 
@@ -108,7 +108,7 @@ export abstract class Database {
 		}
 	}
 
-	static async stop() {
+	public static async stop() {
 		try {
 			await this.destroy();
 			if (process.env.NODE_ENV != Environment.IS_PRODUCTION)
@@ -119,11 +119,11 @@ export abstract class Database {
 		}
 	}
 
-	static repository(entity: string) {
+	public static repository(entity: string) {
 		return this._dataSource.getRepository(entity);
 	}
 
-	static async seed(seeds: (dataSource: DataSource) => Promise<void>) {
+	public static async seed(seeds: (dataSource: DataSource) => Promise<void>) {
 		try {
 			await this._dataSource.initialize();
 			await seeds(this._dataSource);

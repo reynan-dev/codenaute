@@ -1,29 +1,11 @@
-import { Matches } from 'class-validator';
+import { IsUUID, Matches } from 'class-validator';
 import { UUID } from 'utils/types/Uuid';
-import { ArgsType, Field } from 'type-graphql';
+import { ArgsType, Field, ID } from 'type-graphql';
 import { ErrorMessages } from 'utils/enums/ErrorMessages';
 import { Validations } from 'utils/enums/Validations';
 import { SandpackTemplates } from 'utils/enums/SandpackTemplates';
 
 const nameRegExp = new RegExp(Validations.PROJECT_NAME_REGEX);
-
-@ArgsType()
-export class getProjectsByNameArgs {
-	@Field()
-	projectName: string;
-}
-
-@ArgsType()
-export class getAllProjectsByMemberArgs {
-	@Field()
-	memberId: UUID;
-}
-
-@ArgsType()
-export class getAllProjectsByTemplateArgs {
-	@Field()
-	template: SandpackTemplates;
-}
 
 @ArgsType()
 export class createProjectArgs {
@@ -54,6 +36,13 @@ export class createProjectArgs {
 }
 
 @ArgsType()
+export class getProjectByIdArgs {
+	@Field(() => ID)
+	@IsUUID()
+	projectId: UUID;
+}
+
+@ArgsType()
 export class updateProjectArgs {
 	@Field()
 	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
@@ -79,44 +68,4 @@ export class updateProjectArgs {
 
 	@Field()
 	mainFile: string;
-}
-
-@ArgsType()
-export class favoriteProjectArgs {
-	@Field()
-	projectId: UUID;
-}
-
-@ArgsType()
-export class shareProjectArgs {
-	@Field()
-	projectId: UUID;
-
-	@Field(() => [String])
-	membersId: UUID[];
-}
-
-@ArgsType()
-export class updateProjectNameArgs {
-	@Field()
-	projectId: UUID;
-
-	@Field()
-	@Matches(nameRegExp, { message: ErrorMessages.USERNAME_MUST_BE_LONG_ERROR_MESSAGE })
-	name: string;
-}
-
-@ArgsType()
-export class updateProjectActiveFileArgs {
-	@Field()
-	projectId: UUID;
-
-	@Field()
-	activeFileId: UUID;
-}
-
-@ArgsType()
-export class deleteProjectArgs {
-	@Field()
-	projectId: UUID;
 }

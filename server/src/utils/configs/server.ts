@@ -8,9 +8,9 @@ import { GlobalContext } from 'utils/types/GlobalContext';
 import { Cookie } from 'utils/methods/Cookie';
 import { Database } from 'utils/configs/database';
 import { Environment } from 'utils/enums/Environment';
+import { catchError } from 'utils/methods/catchErrors';
 import express from 'express';
 import cors from 'cors';
-import { catchError } from 'utils/methods/catchErrors';
 
 export abstract class Server {
 	private static readonly app: express.Application = express();
@@ -20,7 +20,7 @@ export abstract class Server {
 	private static readonly cache: 'bounded' | undefined = 'bounded';
 	private static readonly plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
 
-	static resolvers: NonEmptyArray<Function> | NonEmptyArray<string> = [BaseResolver];
+	private static resolvers: NonEmptyArray<Function> | NonEmptyArray<string> = [BaseResolver];
 
 	public static includeResolvers(resolvers: NonEmptyArray<Function> | NonEmptyArray<string>) {
 		this.resolvers = [...resolvers];

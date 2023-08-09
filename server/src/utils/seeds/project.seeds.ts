@@ -28,7 +28,7 @@ export const generateProjectFixture: (member: Member) => createProjectArgs = (me
 export const createProjects = async () => {
 	const seeds = async (dataSource: DataSource) => {
 		const _MemberResolver = new MemberResolver();
-		const member = await _MemberResolver.getMemberByEmail({ email: memberFixtures[0].email });
+		const member = await _MemberResolver.getMemberByEmail(memberFixtures[0].email);
 
 		if (!member) return console.error('Provided fixture member does not exist');
 

@@ -1,14 +1,6 @@
-import { IsBoolean, IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsString, IsEnum } from 'class-validator';
 import { Field, ObjectType } from 'type-graphql';
-import {
-	Column,
-	CreateDateColumn,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	ManyToMany,
-	ManyToOne
-} from 'typeorm';
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Member } from './Member';
 import { BaseModel } from './base/BaseModel';
@@ -27,27 +19,12 @@ export class Project extends BaseModel {
 	@JoinColumn()
 	owner: Member;
 
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.projectsInvitedOn, {
-		eager: true,
-		nullable: true,
-		onDelete: 'CASCADE'
-	})
-	editors: Member[];
-
-	@Field(() => [Member], { nullable: true, defaultValue: [] })
-	@ManyToMany(() => Member, (member) => member.favoritedProjects, {
-		eager: true,
-		nullable: true,
-		onDelete: 'CASCADE'
-	})
-	favoritedBy: Member[];
-
 	@Column({
 		type: 'enum',
 		enum: SandpackTemplates
 	})
 	@Field()
+	@IsEnum(SandpackTemplates)
 	sandpackTemplate: SandpackTemplates;
 
 	@Column({ nullable: true })
@@ -64,11 +41,6 @@ export class Project extends BaseModel {
 	@Field()
 	@IsString()
 	mainFile: string;
-
-	@Column('boolean', { default: false })
-	@Field()
-	@IsBoolean()
-	isTemplate: boolean;
 
 	@Column('boolean', { default: false })
 	@Field()
