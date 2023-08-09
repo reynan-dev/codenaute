@@ -1,6 +1,7 @@
 # Welcome to CODENAUTE 🧑🚀
 
 We use [pnpm](https://pnpm.io/workspaces) built-in support to manage our monorepository.
+⚠️ WARNING: because of Expo bad support of monorepos, please use npm for the mobile app, or use the makefile commands.
 
 ## IDE configuration
 
@@ -50,7 +51,7 @@ Now you are ready !
 
 As a developer, to work on the project on everyday, you will certainly want to start the applications seperately in **debug mode** :
 
-Run `make start-client`, `make start-moobile` and `make start-server` in differents terminals.
+Run `make start-client`, `make start-mobile`, and `make start-server` in differents terminals (in debug mode).
 
 You can also see logs of database by running `make start-database`.
 

@@ -69,7 +69,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 };
 
 export const useGetProjectService = (projectId: string) => {
-	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile, setVisibleFiles } =
+	const { setCurrentProjectData, setLastSavedProjectData, setActiveFile } =
 		useContext(ProjectContext);
 
 	const { loading, data, error, refetch } = useQuery<
