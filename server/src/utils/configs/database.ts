@@ -68,20 +68,19 @@ export abstract class Database {
 	private static readonly models = [
 		`${__dirname}/../../**/models/*.${process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'}`
 	];
-	private static readonly migrations = [
-		`${__dirname}/../../**/migrations/*.${
-			process.env.NODE_ENV === Environment.IS_TEST ? 'ts' : 'js'
-		}`
-	];
+	private static readonly migrations = [`${__dirname}/../**/migrations/*.ts`];
+	private static readonly migrationsRun =
+		process.env.NODE_ENV === Environment.IS_DEVELOPMENT ? false : true;
 	private static readonly logging: LoggerOptions | undefined =
 		process.env.NODE_ENV === Environment.IS_PRODUCTION ? ['error'] : ['query', 'error'];
-	private static readonly synchronize: boolean = true;
+	private static readonly synchronize: boolean = false;
 
 	private static _dataSource: DataSource = new DataSource({
 		type: this.type,
 		url: this.url,
 		entities: this.models,
 		migrations: this.migrations,
+		migrationsRun: this.migrationsRun,
 		logging: this.logging,
 		synchronize: this.synchronize
 	});
@@ -134,4 +133,10 @@ export abstract class Database {
 			await this._dataSource.destroy();
 		}
 	}
+
+	static async dataSource() {
+		return this._dataSource;
+	}
 }
+
+export default Database.dataSource();

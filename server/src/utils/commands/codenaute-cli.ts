@@ -1,7 +1,7 @@
 import { Command } from 'commander';
-import { seedAllData } from 'seeds';
-import { createMultipleMembers } from 'seeds/member.seeds';
-import { createProjects } from 'seeds/project.seeds';
+import { seedAllData } from 'utils/seeds';
+import { createMultipleMembers } from 'utils/seeds/member.seeds';
+import { createProjects } from 'utils/seeds/project.seeds';
 
 const program = new Command();
 

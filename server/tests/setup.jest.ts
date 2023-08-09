@@ -4,6 +4,10 @@ beforeAll(async () => {
 	jest.spyOn(console, 'info').mockImplementation(() => {});
 	jest.spyOn(console, 'log').mockImplementation(() => {});
 	await Database.start();
+
+	setTimeout(() => {
+		console.info('Database connection established ✅');
+	}, 3000);
 });
 
 afterAll(async () => {
