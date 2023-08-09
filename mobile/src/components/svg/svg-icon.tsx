@@ -25,7 +25,6 @@ export const SvgIcon = ({ name, tailwind, size = 16, color }: SvgIconProps) => {
 
 	return (
 		<Svg
-			// xmlns="http://www.w3.org/2000/svg"
 			width={size}
 			height={size}
 			fill={color !== undefined ? color : 'currentColor'}
@@ -33,7 +32,6 @@ export const SvgIcon = ({ name, tailwind, size = 16, color }: SvgIconProps) => {
 			strokeWidth={0}
 			className={tailwind}
 			viewBox='0 0 24 24'
-			// {...props}
 		>
 			{renderPath()}
 		</Svg>
