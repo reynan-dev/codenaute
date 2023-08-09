@@ -8,7 +8,7 @@ export class codenaute1691581386772 implements MigrationInterface {
 			`CREATE TYPE "public"."project_sandpacktemplate_enum" AS ENUM('static', 'angular', 'react', 'react-ts', 'solid', 'svelte', 'test-ts', 'vanilla-ts', 'vanilla', 'vue', 'vue-ts', 'node', 'nextjs', 'vite', 'vite-react', 'vite-react-ts', 'vite-vue', 'vite-vue-ts', 'vite-svelte', 'vite-svelte-ts', 'astro')`
 		);
 		await queryRunner.query(
-			`CREATE TABLE "project" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updateAt" TIMESTAMP NOT NULL DEFAULT now(), "name" character varying NOT NULL, "sandpackTemplate" "public"."project_sandpacktemplate_enum" NOT NULL, "files" character varying, "environment" character varying NOT NULL, "main" character varying NOT NULL, "isTemplate" boolean NOT NULL DEFAULT false, "isPublic" boolean NOT NULL DEFAULT false, "deletedAt" TIMESTAMP, "ownerId" uuid, CONSTRAINT "PK_4d68b1358bb5b766d3e78f32f57" PRIMARY KEY ("id"))`
+			`CREATE TABLE "project" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updateAt" TIMESTAMP NOT NULL DEFAULT now(), "name" character varying NOT NULL, "sandpackTemplate" "public"."project_sandpacktemplate_enum" NOT NULL, "files" character varying, "environment" character varying NOT NULL, "mainFile" character varying NOT NULL, "isTemplate" boolean NOT NULL DEFAULT false, "isPublic" boolean NOT NULL DEFAULT false, "deletedAt" TIMESTAMP, "ownerId" uuid, CONSTRAINT "PK_4d68b1358bb5b766d3e78f32f57" PRIMARY KEY ("id"))`
 		);
 		await queryRunner.query(
 			`CREATE TABLE "session" ("token" character varying(32) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "memberId" uuid, CONSTRAINT "PK_232f8e85d7633bd6ddfad421696" PRIMARY KEY ("token"))`
