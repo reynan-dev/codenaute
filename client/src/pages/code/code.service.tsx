@@ -18,7 +18,6 @@ import { ProjectContextData, SetProjectContextData } from 'types/project';
 interface ProjectDataResponse {
 	__typename?: 'Project';
 	name: string;
-	isTemplate: boolean;
 	id: string;
 	isPublic: boolean;
 	files: string;
@@ -46,8 +45,7 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
 		mainFile: project.mainFile,
-		isPublic: project.isPublic,
-		isTemplate: project.isTemplate
+		isPublic: project.isPublic
 	});
 	setCurrentProjectData({
 		id: project.id,
@@ -56,8 +54,7 @@ export const onSuccess = (callbacks: onSuccessCallbacks, project: ProjectContext
 		files: typeof project.files === 'string' ? JSON.parse(project.files) : project.files,
 		environment: project.environment,
 		mainFile: project.mainFile,
-		isPublic: project.isPublic,
-		isTemplate: project.isTemplate
+		isPublic: project.isPublic
 	});
 };
 
@@ -69,8 +66,7 @@ export const mapProjectDataResponse = (data: ProjectDataResponse) => {
 		files: JSON.parse(data.files) as SandpackFiles,
 		environment: data.environment,
 		mainFile: data.mainFile,
-		isPublic: data.isPublic,
-		isTemplate: data.isTemplate
+		isPublic: data.isPublic
 	};
 };
 

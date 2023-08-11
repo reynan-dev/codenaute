@@ -25,8 +25,7 @@ export const CreateProjectPage = () => {
 			environment: SANDBOX_TEMPLATES[sandpackTemplate].environment,
 			mainFile: SANDBOX_TEMPLATES[sandpackTemplate].main,
 			sandpackTemplate,
-			isPublic: DEFAULT_PROJECT_VALUES.isPublic,
-			isTemplate: DEFAULT_PROJECT_VALUES.isPublic
+			isPublic: DEFAULT_PROJECT_VALUES.isPublic
 		});
 	};
 
