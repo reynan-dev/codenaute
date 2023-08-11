@@ -38,6 +38,5 @@ export const UPDATE_USERNAME_MUTATION = gql`
 export const DELETE_ACCOUNT_MUTATION = gql`
 	mutation DeleteAccount($password: String!) {
 		deleteMemberAccount(password: $password)
-		{}
 	}
 `;
