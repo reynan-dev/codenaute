@@ -26,15 +26,10 @@ export type Member = {
 	__typename?: 'Member';
 	createdAt: Scalars['DateTime'];
 	email: Scalars['String'];
-	favoritedProjects?: Maybe<Array<Project>>;
-	followers?: Maybe<Array<Member>>;
-	following?: Maybe<Array<Member>>;
 	id: Scalars['ID'];
-	isValidEmail: Scalars['Boolean'];
 	ownedProjects?: Maybe<Array<Project>>;
-	projectsInvitedOn?: Maybe<Array<Project>>;
 	sessions?: Maybe<Array<Session>>;
-	updateAt: Scalars['DateTime'];
+	updatedAt: Scalars['DateTime'];
 	username: Scalars['String'];
 };
 
@@ -42,12 +37,7 @@ export type Mutation = {
 	__typename?: 'Mutation';
 	createProject: Project;
 	deleteMemberAccount: Scalars['Boolean'];
-	deleteProject: Project;
-	favoriteProject: Project;
-	followMember: Member;
-	forgotPassword: RoutingToken;
-	resetPassword: Member;
-	shareProject: Project;
+	getMemberByEmail: Member;
 	signIn: AuthInterface;
 	signOut: Scalars['Boolean'];
 	signUp: Member;
@@ -55,17 +45,12 @@ export type Mutation = {
 	updateMemberPassword: Member;
 	updateMemberUsername: Member;
 	updateProject: Project;
-	updateProjectIsPublic: Project;
-	updateProjectIsTemplate: Project;
-	updateProjectName: Project;
-	validEmail: RoutingToken;
 };
 
 export type MutationCreateProjectArgs = {
 	environment: Scalars['String'];
 	files: Scalars['String'];
 	isPublic: Scalars['Boolean'];
-	isTemplate: Scalars['Boolean'];
 	mainFile: Scalars['String'];
 	memberId: Scalars['String'];
 	name: Scalars['String'];
@@ -76,31 +61,8 @@ export type MutationDeleteMemberAccountArgs = {
 	password: Scalars['String'];
 };
 
-export type MutationDeleteProjectArgs = {
-	projectId: Scalars['String'];
-};
-
-export type MutationFavoriteProjectArgs = {
-	projectId: Scalars['String'];
-};
-
-export type MutationFollowMemberArgs = {
-	memberId: Scalars['String'];
-};
-
-export type MutationForgotPasswordArgs = {
+export type MutationGetMemberByEmailArgs = {
 	email: Scalars['String'];
-};
-
-export type MutationResetPasswordArgs = {
-	confirmPassword: Scalars['String'];
-	newPassword: Scalars['String'];
-	token: Scalars['String'];
-};
-
-export type MutationShareProjectArgs = {
-	membersId: Array<Scalars['String']>;
-	projectId: Scalars['String'];
 };
 
 export type MutationSignInArgs = {
@@ -133,87 +95,36 @@ export type MutationUpdateProjectArgs = {
 	environment: Scalars['String'];
 	files: Scalars['String'];
 	isPublic: Scalars['Boolean'];
-	isTemplate: Scalars['Boolean'];
 	mainFile: Scalars['String'];
 	name: Scalars['String'];
 	projectId: Scalars['String'];
 	sandpackTemplate: Scalars['String'];
-};
-
-export type MutationUpdateProjectIsPublicArgs = {
-	isPublic: Scalars['Boolean'];
-	projectId: Scalars['String'];
-};
-
-export type MutationUpdateProjectIsTemplateArgs = {
-	isTemplate: Scalars['Boolean'];
-	projectId: Scalars['String'];
-};
-
-export type MutationUpdateProjectNameArgs = {
-	name: Scalars['String'];
-	projectId: Scalars['String'];
-};
-
-export type MutationValidEmailArgs = {
-	token: Scalars['String'];
 };
 
 export type Project = {
 	__typename?: 'Project';
 	createdAt: Scalars['DateTime'];
-	editors?: Maybe<Array<Member>>;
 	environment: Scalars['String'];
-	favoritedBy?: Maybe<Array<Member>>;
 	files: Scalars['String'];
 	id: Scalars['ID'];
 	isPublic: Scalars['Boolean'];
-	isTemplate: Scalars['Boolean'];
 	mainFile: Scalars['String'];
 	name: Scalars['String'];
 	owner: Member;
 	sandpackTemplate: Scalars['String'];
-	updateAt: Scalars['DateTime'];
+	updatedAt: Scalars['DateTime'];
 };
 
 export type Query = {
 	__typename?: 'Query';
-	getAllFavoritedProjectsByMember: Array<Project>;
-	getAllMembers: Array<Member>;
-	getAllProjectsByEditor: Array<Project>;
 	getAllProjectsByOwner: Array<Project>;
-	getAllProjectsByTemplate: Array<Project>;
 	getAllPublicProjects: Array<Project>;
-	getMemberByEmail: Member;
-	getMemberById: Member;
 	getProjectById: Project;
 	profile: Member;
 };
 
-export type QueryGetAllFavoritedProjectsByMemberArgs = {
-	memberId: Scalars['String'];
-};
-
-export type QueryGetAllProjectsByTemplateArgs = {
-	template: Scalars['String'];
-};
-
-export type QueryGetMemberByEmailArgs = {
-	email: Scalars['String'];
-};
-
-export type QueryGetMemberByIdArgs = {
-	memberId: Scalars['String'];
-};
-
 export type QueryGetProjectByIdArgs = {
 	projectId: Scalars['String'];
-};
-
-export type RoutingToken = {
-	__typename?: 'RoutingToken';
-	createdAt: Scalars['DateTime'];
-	email: Scalars['String'];
 };
 
 export type Session = {
@@ -267,7 +178,6 @@ export type DeleteAccountMutation = { __typename?: 'Mutation'; deleteMemberAccou
 export type UpdateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
 	projectId: Scalars['String'];
-	isTemplate: Scalars['Boolean'];
 	isPublic: Scalars['Boolean'];
 	sandpackTemplate: Scalars['String'];
 	files: Scalars['String'];
@@ -280,7 +190,6 @@ export type UpdateProjectMutation = {
 	updateProject: {
 		__typename?: 'Project';
 		name: string;
-		isTemplate: boolean;
 		isPublic: boolean;
 		id: string;
 		files: string;
@@ -300,7 +209,6 @@ export type GetProjectByIdQuery = {
 	getProjectById: {
 		__typename?: 'Project';
 		name: string;
-		isTemplate: boolean;
 		id: string;
 		isPublic: boolean;
 		files: string;
@@ -314,7 +222,6 @@ export type GetProjectByIdQuery = {
 export type CreateProjectMutationVariables = Exact<{
 	name: Scalars['String'];
 	memberId: Scalars['String'];
-	isTemplate: Scalars['Boolean'];
 	isPublic: Scalars['Boolean'];
 	sandpackTemplate: Scalars['String'];
 	files: Scalars['String'];
@@ -331,21 +238,10 @@ export type CreateProjectMutation = {
 		files: string;
 		environment: string;
 		mainFile: string;
-		isTemplate: boolean;
 		isPublic: boolean;
 		sandpackTemplate: string;
 		owner: { __typename?: 'Member'; id: string };
 	};
-};
-
-export type UpdateProjectIsPublicMutationVariables = Exact<{
-	isPublic: Scalars['Boolean'];
-	projectId: Scalars['String'];
-}>;
-
-export type UpdateProjectIsPublicMutation = {
-	__typename?: 'Mutation';
-	updateProjectIsPublic: { __typename?: 'Project'; id: string; isPublic: boolean };
 };
 
 export type SignOutMutationVariables = Exact<{ [key: string]: never }>;
@@ -637,14 +533,6 @@ export const UpdateProjectDocument = {
 				},
 				{
 					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
 					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
 					type: {
 						kind: 'NonNullType',
@@ -703,11 +591,6 @@ export const UpdateProjectDocument = {
 							},
 							{
 								kind: 'Argument',
-								name: { kind: 'Name', value: 'isTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
-							},
-							{
-								kind: 'Argument',
 								name: { kind: 'Name', value: 'isPublic' },
 								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
 							},
@@ -747,7 +630,6 @@ export const UpdateProjectDocument = {
 									}
 								},
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
@@ -804,7 +686,6 @@ export const GetProjectByIdDocument = {
 									}
 								},
 								{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
@@ -841,14 +722,6 @@ export const CreateProjectDocument = {
 					type: {
 						kind: 'NonNullType',
 						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
 					}
 				},
 				{
@@ -911,11 +784,6 @@ export const CreateProjectDocument = {
 							},
 							{
 								kind: 'Argument',
-								name: { kind: 'Name', value: 'isTemplate' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isTemplate' } }
-							},
-							{
-								kind: 'Argument',
 								name: { kind: 'Name', value: 'isPublic' },
 								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
 							},
@@ -956,7 +824,6 @@ export const CreateProjectDocument = {
 								{ kind: 'Field', name: { kind: 'Name', value: 'files' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'environment' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'mainFile' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'sandpackTemplate' } }
 							]
@@ -967,62 +834,6 @@ export const CreateProjectDocument = {
 		}
 	]
 } as unknown as DocumentNode<CreateProjectMutation, CreateProjectMutationVariables>;
-export const UpdateProjectIsPublicDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'mutation',
-			name: { kind: 'Name', value: 'UpdateProjectIsPublic' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } }
-					}
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } },
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } }
-					}
-				}
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'updateProjectIsPublic' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'isPublic' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'isPublic' } }
-							},
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'projectId' },
-								value: { kind: 'Variable', name: { kind: 'Name', value: 'projectId' } }
-							}
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'isPublic' } }
-							]
-						}
-					}
-				]
-			}
-		}
-	]
-} as unknown as DocumentNode<UpdateProjectIsPublicMutation, UpdateProjectIsPublicMutationVariables>;
 export const SignOutDocument = {
 	kind: 'Document',
 	definitions: [

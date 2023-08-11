@@ -4,7 +4,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
 	mutation UpdateProject(
 		$name: String!
 		$projectId: String!
-		$isTemplate: Boolean!
 		$isPublic: Boolean!
 		$sandpackTemplate: String!
 		$files: String!
@@ -14,7 +13,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
 		updateProject(
 			name: $name
 			projectId: $projectId
-			isTemplate: $isTemplate
 			isPublic: $isPublic
 			sandpackTemplate: $sandpackTemplate
 			files: $files
@@ -26,7 +24,6 @@ export const UPDATE_PROJECT_MUTATION = gql`
 				id
 			}
 			name
-			isTemplate
 			isPublic
 			id
 			files
@@ -44,7 +41,6 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 				id
 			}
 			name
-			isTemplate
 			id
 			isPublic
 			files

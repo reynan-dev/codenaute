@@ -34,7 +34,6 @@ export const useCreateProjectService = () => {
 			variables: {
 				name: project.name,
 				memberId: profile.profile.id,
-				isTemplate: project.isTemplate,
 				isPublic: project.isPublic,
 				sandpackTemplate: project.sandpackTemplate ?? '',
 				files: JSON.stringify(project.files),

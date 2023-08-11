@@ -1,4 +1,3 @@
-import { Member } from 'models/Member';
 import { Project } from 'models/Project';
 import {
 	createProjectArgs,
@@ -21,15 +20,7 @@ export class ProjectResolver {
 	@Mutation(() => Project)
 	async createProject(
 		@Args()
-		{
-			name,
-			isTemplate,
-			isPublic,
-			sandpackTemplate,
-			files,
-			environment,
-			mainFile
-		}: createProjectArgs,
+		{ name, isPublic, sandpackTemplate, files, environment, mainFile }: createProjectArgs,
 		@Ctx() context: GlobalContext
 	): Promise<Project> {
 		const member = await this.MemberServices.findById(context.user?.id as UUID);
@@ -37,7 +28,6 @@ export class ProjectResolver {
 		return this.ProjectServices.create({
 			name: name,
 			owner: member,
-			isTemplate: isTemplate,
 			isPublic: isPublic,
 			sandpackTemplate: sandpackTemplate,
 			environment: environment,
@@ -47,13 +37,13 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
@@ -78,7 +68,6 @@ export class ProjectResolver {
 		@Args()
 		{
 			name,
-			isTemplate,
 			isPublic,
 			sandpackTemplate,
 			files,
@@ -90,27 +79,11 @@ export class ProjectResolver {
 	): Promise<Project> {
 		return this.ProjectServices.update(projectId, {
 			name: name,
-			isTemplate: isTemplate,
 			isPublic: isPublic,
 			sandpackTemplate: sandpackTemplate,
 			files: files,
 			mainFile: mainFile,
 			environment: environment
-		});
-	}
-
-	@Authorized()
-	@Mutation(() => Boolean)
-	async updateProjectIsPublic(
-		@Args() { projectId, isPublic }: updateProjectArgs,
-		@Ctx() context: GlobalContext
-	): Promise<Boolean> {
-		const project = await this.ProjectServices.findById(projectId);
-
-		if (project.owner.id !== context.user?.id) throw Error(ErrorMessages.PROJECT_NOT_FOUND);
-
-		return this.ProjectServices.update(projectId, {
-			isPublic: isPublic
 		});
 	}
 }
