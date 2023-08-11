@@ -37,13 +37,13 @@ export class ProjectResolver {
 	}
 
 	@Authorized()
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllProjectsByOwner(@Ctx() context: GlobalContext): Promise<Project[]> {
 		// TODO: Need to add pagination here
 		return this.ProjectServices.findAllByOwner(context.user?.id as UUID);
 	}
 
-	@Query(() => Project)
+	@Query(() => [Project])
 	async getAllPublicProjects(): Promise<Project[]> {
 		// TODO: Need include pagination here
 		return this.ProjectServices.findAllPublic();
