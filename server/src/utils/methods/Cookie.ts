@@ -23,6 +23,8 @@ export abstract class Cookie {
 
 		const cookies = this._rawCookieValidation(rawCookies as string);
 
+		if (!cookies) return undefined;
+
 		return cookies.token;
 	}
 
