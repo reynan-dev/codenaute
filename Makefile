@@ -5,6 +5,7 @@ install: ## Installing monorepo dependencies
 	cd server && make install
 	@echo "Initializating client"
 	cd client && make install
+	@echo "Initializating mobile"
 	cd mobile && make install
 
 hard-install: ## Installing hard monorepo dependencies
@@ -16,6 +17,7 @@ hard-install: ## Installing hard monorepo dependencies
 	cd server && make hard-install
 	@echo "Initializating client with hard install"
 	cd client && make hard-install
+	@echo "Initializating mobile with hard install"
 	cd mobile && make hard-install
 
 start-client: ## Starting client in debug mode
@@ -60,13 +62,6 @@ prettier-fix: ## Fixing with prettier
 prettier-check: ## Fixing with prettier
 	@echo "Check code with prettier"
 	npx prettier --ignore-path .prettierignore --config .prettierrc.json --check .
-
-ci:
-	@echo "------- SERVER : CI CHECK"
-	cd server && pnpm ci
-
-	@echo "------- CLIENT : CI CHECK"
-	cd client && pnpm ci
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
