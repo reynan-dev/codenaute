@@ -17,16 +17,5 @@
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"dotenv.enableAutocloaking": false,
-	// makes Tailwind Intellisense plugin working outside of className prop
-	"tailwindCSS.experimental.classRegex": [
-		["twJoin\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-		["twMerge\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-		// in plain JavaScript object
-		[":\\s*?[\"'`]([^\"'`]*).*?,"]
-	],
-	"tailwindCSS.classAttributes": ["className", "childrenStyle", "containerStyle", "customStyle"],
-	"prettier.ignorePath": ".prettierignore",
-	"prettier.configPath": ".prettierrc.json"
+	"typescript.preferences.importModuleSpecifier": "non-relative"
 }

@@ -12,7 +12,6 @@ export const CreateProjectPage = () => {
 
 	const DEFAULT_PROJECT_VALUES = {
 		isPublic: true,
-		isTemplate: false,
 		name: 'untitled'
 	};
 
