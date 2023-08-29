@@ -31,7 +31,7 @@ export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 				className={twMerge(
 					'flex items-center',
 					'h-16 w-full',
-					'space-x-3.5 px-3.5 py-4',
+					' space-x-2 md:space-x-3.5 px-3.5 py-4',
 					'bg-dark-900',
 					className
 				)}
@@ -62,7 +62,7 @@ export const ProjectPanel = ({ className, state }: ProjectPanelProps) => {
 						}}
 						className='flex h-full items-center justify-center space-x-2 rounded-md bg-dark-700 px-3.5 text-sm text-white'
 					>
-						<span className=''>Save project</span>
+						<span className='whitespace-nowrap'>Save project</span>
 						<FaSave size={16} className='mb-0.5' />
 					</button>
 				)}
