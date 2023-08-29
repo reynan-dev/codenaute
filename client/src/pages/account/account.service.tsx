@@ -26,19 +26,17 @@ import { toast } from 'react-toastify';
 
 export const useDeleteAccountService = (password: string) => {
 	const navigate = useNavigate();
-	const { refetch: refetchProfile } = useContext(AuthContext);
+	const { setIsAuthenticated, setProfile } = useContext(AuthContext);
 
 	const [deleteAccount, { loading }] = useMutation<
 		DeleteAccountMutation,
 		DeleteAccountMutationVariables
 	>(DELETE_ACCOUNT_MUTATION, {
 		onCompleted: async () => {
-			try {
-				await refetchProfile();
-			} finally {
-				navigate(SIGN_UP_PATH);
-				toast.success(`Account successfully deleted`);
-			}
+			setProfile(null);
+			setIsAuthenticated(false);
+			navigate(SIGN_UP_PATH);
+			toast.success(`Account successfully deleted`);
 		},
 		onError: (error) => {
 			toast.error(getGraphQLErrorMessage(error), { autoClose: 10000 });

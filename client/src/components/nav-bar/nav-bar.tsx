@@ -109,7 +109,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 							onClick={handleMenuItemClick}
 						>
 							<FiCode size={22} className={style.mobileMenuIcons} />
-							<li>New code</li>
+							<li>Create project</li>
 						</Link>
 						<Link
 							to={MY_PROJECTS_PATH}
@@ -117,7 +117,7 @@ export const NavBar = ({ className }: NavBarProps) => {
 							onClick={handleMenuItemClick}
 						>
 							<FiFolder size={20} className={style.mobileMenuIcons} />
-							<li>Explore</li>
+							<li>My projects</li>
 						</Link>
 					</ul>
 				</div>

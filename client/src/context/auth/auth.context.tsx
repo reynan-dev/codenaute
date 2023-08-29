@@ -12,6 +12,7 @@ export interface AuthContextProps {
 		| (() => void);
 	isAuthenticated: boolean;
 	setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+	setProfile: React.Dispatch<React.SetStateAction<ProfileQuery | null>>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -19,7 +20,8 @@ export const AuthContext = createContext<AuthContextProps>({
 	isLoading: true,
 	refetch: () => {},
 	isAuthenticated: false,
-	setIsAuthenticated: () => {}
+	setIsAuthenticated: () => {},
+	setProfile: () => null
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -38,7 +40,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ profile, isLoading: loading, refetch, isAuthenticated, setIsAuthenticated }}
+			value={{
+				profile,
+				isLoading: loading,
+				refetch,
+				isAuthenticated,
+				setIsAuthenticated,
+				setProfile
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

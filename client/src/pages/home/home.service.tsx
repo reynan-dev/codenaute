@@ -11,16 +11,14 @@ import { toast } from 'react-toastify';
 const useOnSignOutSuccess = () => {
 	const navigate = useNavigate();
 
-	const { refetch: refetchProfile } = useContext(AuthContext);
+	const { setIsAuthenticated, setProfile } = useContext(AuthContext);
 
 	const onSignOutSuccess = async () => {
-		try {
-			await refetchProfile();
-		} finally {
-			localStorage.removeItem('cookies');
-			navigate(SIGN_IN_PATH);
-			toast.success(`You successfully signed out`);
-		}
+		setProfile(null);
+		setIsAuthenticated(false);
+		localStorage.removeItem('cookies');
+		navigate(SIGN_IN_PATH);
+		toast.success(`You successfully signed out`);
 	};
 
 	return { onSignOutSuccess };
