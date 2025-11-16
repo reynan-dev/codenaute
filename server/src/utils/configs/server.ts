@@ -1,5 +1,6 @@
-import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { expressMiddleware } from '@as-integrations/express4';
 import { buildSchema, NonEmptyArray } from 'type-graphql';
 import { GraphQLSchema } from 'graphql/type/schema';
 import { BaseResolver } from 'resolvers/base/BaseResolver';
@@ -11,6 +12,7 @@ import { Environment } from 'utils/enums/Environment';
 import { catchError } from 'utils/methods/catchErrors';
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 export abstract class Server {
 	private static readonly app: express.Application = express();
@@ -35,23 +37,25 @@ export abstract class Server {
 		});
 	}
 
-	private static _context() {
-		return async (context: GlobalContext): Promise<GlobalContext> => {
-			const token = Cookie.getSessionToken(context);
+	private static async _context({
+		req,
+		res
+	}: {
+		req: express.Request;
+		res: express.Response;
+	}): Promise<GlobalContext> {
+		const token = Cookie.getSessionToken({ req, res });
 
-			const user = !token ? null : await this.MemberService.findOneBySessionToken(token);
+		const user = !token ? null : await this.MemberService.findOneBySessionToken(token);
 
-			return { res: context.res, req: context.req, user };
-		};
+		return { res, req, user };
 	}
 
-	private static async _build(): Promise<ApolloServer> {
-		return new ApolloServer({
+	private static async _build(): Promise<ApolloServer<GlobalContext>> {
+		return new ApolloServer<GlobalContext>({
 			schema: await this._schema(),
 			introspection: true,
-			context: this._context(),
 			csrfPrevention: this.csrfPrevention,
-			cache: this.cache,
 			plugins: this.plugins
 		});
 	}
@@ -89,10 +93,14 @@ export abstract class Server {
 
 		this._middlewares();
 
-		server.applyMiddleware({
-			path: '/graphql',
-			app: this.app
-		});
+		this.app.use(
+			'/graphql',
+			cors<cors.CorsRequest>({ credentials: true, origin: true }),
+			bodyParser.json(),
+			expressMiddleware(server, {
+				context: this._context
+			})
+		);
 	}
 
 	static async start() {

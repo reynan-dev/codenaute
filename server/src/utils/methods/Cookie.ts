@@ -1,4 +1,4 @@
-import { ExpressContext } from 'apollo-server-express';
+import { Request, Response } from 'express';
 import { Session } from 'models/Session';
 import { Validations } from 'utils/enums/Validations';
 
@@ -16,7 +16,7 @@ export abstract class Cookie {
 		return cookies.validation < Date.now() ? undefined : cookies;
 	}
 
-	public static getSessionToken(ctx: ExpressContext): string | undefined {
+	public static getSessionToken(ctx: { req: Request; res: Response }): string | undefined {
 		const rawCookies = ctx.req.headers.authorization;
 
 		if (!rawCookies) return undefined;
